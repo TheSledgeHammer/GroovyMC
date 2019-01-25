@@ -1,0 +1,59 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+apply from: rootProject.file('git-maven.gradle')
+
+sourceCompatibility = 1.8
+targetCompatibility= 1.8
+
+repositories {
+	maven {
+		name = "Apache Groovy"
+		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+	}
+	maven {
+		name = "JAXB"
+		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
+	}
+}
+
+minecraft {
+	version = mcversion + "-" + forgeversion
+	runDir = "run"
+	mappings = mcp_mappings
+}
+
+group= 'com.thesledgehammer.groovymc'
+archivesBaseName = "GroovyMC_" + mcversion
+
+dependencies {
+	//compile "org.codehaus.groovy:groovy-all:+"
+	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
+	//compile "javax.xml.bind:jaxb-api:+"
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+		// replace version and mcversion
+		expand 'version':project.version, 'mcversion':project.minecraft.version
+	}
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
+	}
+}
