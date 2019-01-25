@@ -9,13 +9,14 @@ The library is useful for any mod developer wishing to utilize features within A
 
 Please initialize the "GroovyLoader" in your main class or common proxy class.
 
-The class is not required, but provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
+I.E.
 
-Example:
 GroovyLoader groovyLoader = new GroovyLoader(String modPath, String modResourcePath, String jvm, String url, String modID);
 
-or look at GroovyMC.groovy for a completed example.
-Note: the source for this class is under utils
+
+The class is not required, but provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
+
+For a complete example look at the GroovyMC class.
 
 ### GNU Lesser General Public License v3.0
 
