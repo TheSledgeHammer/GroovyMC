@@ -11,7 +11,8 @@ Permissions of this copyleft license are conditioned on making available complet
 
 Please Read the License file for more information
 
-##Getting Started
+## Getting Started
+
 Please initialize the "GroovyLoader" in your main class or common proxy class.
 The class is not required, but provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
 Example:
