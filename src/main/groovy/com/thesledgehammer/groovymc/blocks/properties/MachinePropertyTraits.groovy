@@ -116,7 +116,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IStringSeriali
 
     @Nullable
     RayTraceResult collisionRayTrace(World world, BlockPos pos, Vec3d startVec, Vec3d endVec) {
-        return rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
+        return rayTrace(pos, start, end, blockState.getBoundingBox(world, pos));
     }
 
     @Nullable

@@ -8,7 +8,6 @@
 
 package com.thesledgehammer.groovymc.gui
 
-import com.sun.jna.platform.win32.WinUser
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.ClickType
@@ -50,7 +49,7 @@ abstract class ContainerGroovy extends Container {
 			ItemStack stack1 = slot.getStack();
 			itemstack = stack1.copy();
 			
-			if(index < WinUser.SIZE) {
+			if(index < sizeOfInventory) {
 				if(!this.mergeItemStack(stack1, sizeOfInventory, this.inventorySlots.size(), true)) {
 					return null;
 				}
