@@ -23,7 +23,7 @@ class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
 	static final String MOD_NAME = "GroovyMC";
-	static final String VERSION = "1.0.0";
+	static final String VERSION = "1.0.1";
 	static final String MCVERSION = "1.12.2";
 
 	@SidedProxy(clientSide = "com.thesledgehammer.groovymc.proxy.ClientProxy", serverSide = "com.thesledgehammer.groovymc.proxy.CommonProxy")
@@ -32,7 +32,8 @@ class GroovyMC {
 	@Mod.Instance("groovymc")
 	static GroovyMC instance;
 
-	private static final GroovyLoader GroovyLoader = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
+	//GroovyLoader Example:
+	//private static final GroovyLoader groovyLoader = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
 	static Logger logger;
 
 	@Mod.EventHandler
