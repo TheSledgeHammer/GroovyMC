@@ -120,6 +120,8 @@ class GroovyLoader {
     void setCustomDirectories(String modPath, String modResourcePath, String jvm, String url, String modID) {
         setModPath(modPath);
         setModResourcePath(modResourcePath);
+        setJVMLanguage(jvm);
+        setPackageURL(url);
         setModID(modID);
         this.modDirectory = new File(modPath + "/" + jvm + "/" + url + "/" + modID + "/").absolutePath;
         //this.modResourceDirectory = new File(modPath + "/" + modResourcePath + "/" + modID + "/").absolutePath;
