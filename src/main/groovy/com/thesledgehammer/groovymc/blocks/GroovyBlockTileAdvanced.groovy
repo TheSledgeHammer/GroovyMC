@@ -84,7 +84,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     @Override
     BlockStateContainer getBlockState() {
-        return definition.getBlock().getBlockState();
+        return this.blockState;
     }
 
     @Override

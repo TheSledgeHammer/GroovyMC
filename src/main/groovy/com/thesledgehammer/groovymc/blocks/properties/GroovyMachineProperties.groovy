@@ -49,6 +49,15 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
         setIsFullCube(isFullCube);
     }
 
+    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, RayTraceResult rayTrace, String particleTextureLocation) {
+        setTeClass(teClass);
+        setName(name);
+        setAxisAlignedBB(boundingBox);
+        setRayTraceResult(rayTrace);
+        setParticleTextureLocation(particleTextureLocation);
+        setIsFullCube(true);
+    }
+
     GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, RayTraceResult rayTrace, String particleTextureLocation, boolean isFullCube) {
         setTeClass(teClass);
         setName(name);

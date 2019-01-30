@@ -26,8 +26,6 @@ class GroovyBlock extends Block implements BlockTraits {
         setHardness(1.5F);
     }
 
-
-
     @SideOnly(Side.CLIENT)
     void initModel() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));

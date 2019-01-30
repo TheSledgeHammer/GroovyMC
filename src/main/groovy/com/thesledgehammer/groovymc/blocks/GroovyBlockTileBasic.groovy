@@ -9,12 +9,13 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
+import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.EnumFacing
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTraits {
+abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityProvider, BlockTileTraits {
 
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);

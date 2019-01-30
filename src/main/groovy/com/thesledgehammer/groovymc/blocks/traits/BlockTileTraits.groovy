@@ -32,7 +32,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
 
-trait BlockTileTraits implements ITileEntityProvider, IBlockRotation {
+trait BlockTileTraits implements IBlockRotation {
 
     static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
 
@@ -92,11 +92,11 @@ trait BlockTileTraits implements ITileEntityProvider, IBlockRotation {
         super.getDrops(result, world, pos, metadata, fortune);
     }
 
-    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String modId, String location) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(modId, location));
+    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String modId, String tileName) {
+        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(modId, tileName));
     }
 
-    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String location) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(GroovyLoader.Instance().getModID(), location));
+    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String tileName) {
+        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
     }
 }
