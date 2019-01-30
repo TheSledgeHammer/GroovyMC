@@ -148,12 +148,11 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IStringSeriali
         }
     }
 
-    //@Deprecated: tileName? registerTileEntity() uses name
-    private static void registerTile(Class<? extends TileEntity> tileClass) {
-        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(GroovyLoader.Instance().getModID(), MachinePropertyTraits.name));
+    private void registerTile(Class<? extends TileEntity> tileClass, String tileName) {
+        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
     }
 
-    private static void registerTile(Class<? extends TileEntity> tileClass, String modID) {
-        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(modID, MachinePropertyTraits.name));
+    private void registerTile(Class<? extends TileEntity> tileClass, String modID, String tileName) {
+        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(modID, tileName));
     }
 }

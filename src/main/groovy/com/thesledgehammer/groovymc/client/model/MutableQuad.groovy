@@ -16,11 +16,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.math.Vec3i
 
-import javax.vecmath.Matrix4f
-import javax.vecmath.Point2f
-import javax.vecmath.Tuple2f
-import javax.vecmath.Tuple4f
-import javax.vecmath.Vector3f
+import javax.vecmath.*
 
 /** Holds all of the information necessary to make a {@link BakedQuad}. This provides a variety of methods to quickly
  * set or get different elements. This currently holds 4 {@link MutableVertex}. */

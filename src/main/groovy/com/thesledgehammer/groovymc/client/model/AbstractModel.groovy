@@ -8,18 +8,18 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.model.json.JsonTexture
-import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.Log
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-import static com.thesledgehammer.groovymc.client.model.ModelUtil.*
+import static com.thesledgehammer.groovymc.client.model.ModelUtil.TexturedFace
 
 //AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class AbstractModel extends GroovysonObject {

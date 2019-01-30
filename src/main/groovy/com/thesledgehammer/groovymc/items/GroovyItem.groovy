@@ -10,8 +10,6 @@ package com.thesledgehammer.groovymc.items
 
 import com.thesledgehammer.groovymc.items.traits.ItemTraits
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraftforge.oredict.OreDictionary
 
 class GroovyItem extends Item implements ItemTraits {
 

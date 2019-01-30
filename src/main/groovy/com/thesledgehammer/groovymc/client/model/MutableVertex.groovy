@@ -5,23 +5,23 @@
  * Modified by TheSledgeHammer 2018: Converted to .groovy
  */
 
-package com.thesledgehammer.groovymc.client.model;
+package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.api.ISprite;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import com.thesledgehammer.groovymc.api.ISprite
+import net.minecraft.client.renderer.BufferBuilder
+import net.minecraft.client.renderer.block.model.BakedQuad
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats
+import net.minecraft.client.renderer.vertex.VertexFormat
+import net.minecraft.client.renderer.vertex.VertexFormatElement
+import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage
+import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.Vec3i
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-import javax.vecmath.*;
+import javax.vecmath.*
 
 /**
  * Holds all of the information necessary to make one of the verticies in a {@link BakedQuad}. This provides a variety

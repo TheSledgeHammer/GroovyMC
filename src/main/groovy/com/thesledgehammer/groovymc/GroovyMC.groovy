@@ -9,7 +9,6 @@
 package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.proxy.CommonProxy
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy

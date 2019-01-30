@@ -18,7 +18,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TextComponentString
-import net.minecraftforge.common.util.INBTSerializable
 
 class InventoryAdaptor implements IInventoryAdaptor {
 
