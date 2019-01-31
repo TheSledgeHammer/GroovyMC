@@ -8,7 +8,6 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraftforge.client.model.animation.FastTESR
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly

@@ -33,7 +33,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
-//To Fix: Changes in Machine Properties may cause new errors
+//To Improve: registerTileEntity
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
     private final boolean hasTESR;

@@ -10,14 +10,11 @@ package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.RayTraceResult
 
 class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePropertyTraits<T> {
 
     GroovyMachineProperties(Class<T> teClass, String name) {
-        setTeClass(teClass);
-        setName(name);
-        setAxisAlignedBB(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+        this(teClass, name, new AxisAlignedBB(0, 0, 0, 1, 1, 1))
     }
 
     GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox) {
@@ -25,53 +22,50 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
         setName(name);
         setAxisAlignedBB(boundingBox);
     }
-/*
-    GroovyMachineProperties(Class<T> teClass, String name, String particleTextureLocation) {
-        setTeClass(teClass);
-        setName(name);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(true);
+
+    static class WithTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTESR<T> {
+
+        WithTESR(Class<T> teClass, String name, String particleTextureLocation) {
+            this(teClass, name, particleTextureLocation, true);
+        }
+
+        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
+            this(teClass, name, boundingBox, particleTextureLocation, true);
+        }
+
+        WithTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
+
+        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name, boundingBox);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
     }
 
-    GroovyMachineProperties(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
-        setTeClass(teClass);
-        setName(name);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(isFullCube);
-    }
+    static class WithFastTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsFastTESR<T> {
 
-    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
-        setTeClass(teClass);
-        setName(name);
-        setAxisAlignedBB(boundingBox);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(true);
-    }
+        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation) {
+            this(teClass, name, particleTextureLocation, true);
+        }
 
-    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
-        setTeClass(teClass);
-        setName(name);
-        setAxisAlignedBB(boundingBox);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(isFullCube);
-    }
+        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
+            this(teClass, name, boundingBox, particleTextureLocation, true);
+        }
 
-    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, RayTraceResult rayTrace, String particleTextureLocation) {
-        setTeClass(teClass);
-        setName(name);
-        setAxisAlignedBB(boundingBox);
-        setRayTraceResult(rayTrace);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(true);
-    }
+        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
 
-    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox, RayTraceResult rayTrace, String particleTextureLocation, boolean isFullCube) {
-        setTeClass(teClass);
-        setName(name);
-        setAxisAlignedBB(boundingBox);
-        setRayTraceResult(rayTrace);
-        setParticleTextureLocation(particleTextureLocation);
-        setIsFullCube(isFullCube);
+        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name, boundingBox);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
     }
-    */
 }

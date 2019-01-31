@@ -17,7 +17,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-//Copied from Forestry IBlockRotation
 interface IBlockRotation {
 
     void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side);
