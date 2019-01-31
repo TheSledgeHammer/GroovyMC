@@ -8,7 +8,6 @@
 
 package com.thesledgehammer.groovymc.blocks.traits
 
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
@@ -17,16 +16,6 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 
 trait BlockTraits {
-
-    private Block block;
-
-    void setBlock(Block block) {
-        this.block = block;
-    }
-
-    Block getBlockFromTrait() {
-        return block;
-    }
 
     void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
         if (world.isRemote) {

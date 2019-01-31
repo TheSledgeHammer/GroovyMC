@@ -51,6 +51,7 @@ trait BlockTileTraits implements IBlockRotation {
         super.breakBlock(world, pos, state);
     }
 
+    @Override
     void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
         IBlockState state = world.getBlockState(pos);
         EnumFacing facing = getPlacementRotation(player, world, pos, side);

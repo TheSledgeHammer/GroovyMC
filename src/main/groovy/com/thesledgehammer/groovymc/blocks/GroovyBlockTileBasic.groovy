@@ -15,7 +15,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.EnumFacing
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityProvider, BlockTileTraits {
+abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);

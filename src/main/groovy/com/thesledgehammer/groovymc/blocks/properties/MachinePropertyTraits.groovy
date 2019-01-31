@@ -20,6 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.client.model.animation.FastTESR
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -28,7 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 
-trait MachinePropertyTraits<T extends GroovyTileBasic> implements IStringSerializable {
+trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProperties<T> {
 
     @Nullable
     private Block block;
@@ -37,86 +38,72 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IStringSeriali
     private AxisAlignedBB boundingBox;
     private RayTraceResult rayTraceResult;
     private boolean isFullCube;
-    private String particleTextureLocation;
 
-    @Nullable
-    @SideOnly(Side.CLIENT)
-    private FastTESR<? super T> rendererFast;
-
-    @Nullable
-    @SideOnly(Side.CLIENT)
-    private TileEntitySpecialRenderer<? super T> renderer;
-
+    @Override
     void setBlock(Block block) {
         this.block = block;
     }
 
+    @Override
     void setName(String name) {
         this.name = name;
     }
 
+    @Override
     void setTeClass(Class<T> teClass) {
         this.teClass = teClass;
     }
 
-    void setParticleTextureLocation(String particleTextureLocation) {
-        this.particleTextureLocation = particleTextureLocation;
-    }
-
+    @Override
     void setIsFullCube(boolean isFullCube) {
         this.isFullCube = isFullCube;
     }
 
+    @Override
     void setAxisAlignedBB(AxisAlignedBB boundingBox) {
         this.boundingBox = boundingBox;
     }
 
+    @Override
     void setRayTraceResult(RayTraceResult rayTraceResult) {
         this.rayTraceResult = rayTraceResult;
     }
 
-    @SideOnly(Side.CLIENT)
-    void setRenderer(FastTESR<? super T> rendererFast) {
-        this.rendererFast = rendererFast;
-    }
-
-    @SideOnly(Side.CLIENT)
-    void setRenderer(TileEntitySpecialRenderer<? super T> renderer) {
-        this.renderer = renderer;
-    }
-
-    @Nullable
-    Block getBlock() {
-        return block;
-    }
-
-    String getName() {
-        return name;
-    }
-
+    @Override
     Class<T> getTeClass() {
         return teClass;
     }
 
-    String getParticleTextureLocation() {
-        return particleTextureLocation;
+    @Nullable
+    @Override
+    Block getBlock() {
+        return block;
     }
 
+    @Override
+    String getName() {
+        return name;
+    }
+
+    @Override
     boolean getIsFullCube() {
         return isFullCube;
     }
 
+    @Override
     boolean isFullCube(IBlockState state) {
         return true;
     }
 
-    AxisAlignedBB getBoundingBox(BlockPos pos, IBlockState state) {
+    @Override
+    AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state) {
         return boundingBox;
     }
 
+    @Override
     @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, Vec3d startVec, Vec3d endVec) {
-        return rayTrace(pos, start, end, blockState.getBoundingBox(world, pos));
+    RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec) {
+        return rayTrace(pos, startVec, endVec, state.getBoundingBox(world, pos));
     }
 
     @Nullable
@@ -124,23 +111,28 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IStringSeriali
         Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
         Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
         RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
+        //rayTraceResult = boundingBox.calculateIntercept(vec3d, vec3d1);
         return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
     }
 
+    @Override
     @SideOnly(Side.CLIENT)
     void initModel() {
 
     }
 
+    @Override
     void registerTileEntity() {
         registerTile(teClass, name);
     }
 
+    @Override
     void registerTileEntity(String modID) {
         registerTile(teClass, modID, name);
     }
 
-    TileEntity createTileEntity() {
+    @Override
+    TileEntity CreateTileEntity() {
         try {
             return teClass.getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {

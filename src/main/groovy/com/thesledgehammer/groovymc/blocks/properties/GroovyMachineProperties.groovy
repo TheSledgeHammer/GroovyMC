@@ -17,8 +17,15 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
     GroovyMachineProperties(Class<T> teClass, String name) {
         setTeClass(teClass);
         setName(name);
+        setAxisAlignedBB(new AxisAlignedBB(0, 0, 0, 1, 1, 1));
     }
 
+    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox) {
+        setTeClass(teClass);
+        setName(name);
+        setAxisAlignedBB(boundingBox);
+    }
+/*
     GroovyMachineProperties(Class<T> teClass, String name, String particleTextureLocation) {
         setTeClass(teClass);
         setName(name);
@@ -66,4 +73,5 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
         setParticleTextureLocation(particleTextureLocation);
         setIsFullCube(isFullCube);
     }
+    */
 }

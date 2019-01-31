@@ -12,13 +12,17 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-//Copied from Forestry IBlockRotation
-interface IBlockRotation {
+interface IMachinePropertiesTESR<T extends GroovyTileBasic> extends IMachineProperties<T> {
 
-    void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side);
+    void setParticleTextureLocation(String particleTextureLocation);
+
+    String getParticleTextureLocation();
+
+    @SideOnly(Side.CLIENT)
+    void setRenderer(TileEntitySpecialRenderer<? super T> renderer);
 }
