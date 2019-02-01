@@ -10,7 +10,6 @@ package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.proxy.CommonProxy
-import com.thesledgehammer.groovymc.utils.GroovyLoader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent

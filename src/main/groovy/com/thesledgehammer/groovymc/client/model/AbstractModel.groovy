@@ -26,6 +26,7 @@ class AbstractModel extends GroovysonObject {
 
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
+    private List<String> rawModelPartTexturesList = new ArrayList<>();
     private String resourceObject;
 
     public final Map<String, TextureAtlasSprite> customSprites = new HashMap<>();
@@ -108,6 +109,7 @@ class AbstractModel extends GroovysonObject {
     }
 
     //Copied from BC ModelHolderVariable, Doesn't work correctly
+    //Use at own Risk!!
     TexturedFace lookupTexture(String textureName) {
         int attempts = 0;
         JsonTexture texture = new JsonTexture(textureName);
@@ -137,17 +139,35 @@ class AbstractModel extends GroovysonObject {
         face.faceData = texture.faceData;
         return face;
     }
-}
-/*
-    //TODO: JsonTextures Per FaceUV: can use RawModelTextures to match names to texture location
+
+    //TODO: JsonTexture
+
+    //Returns a Texture from x element and face
+    String getRawModelPartTexture(int index, EnumFacing face) {
+        return getRawModelParts().get(index).TextureFace(face);
+    }
+
+    //Returns all element textures per face from a list
+    List<String> getRawModelPartTextures() {
+        return rawModelPartTexturesList;
+    }
+
+    //Adds all element textures per face to a List
     void setRawModelPartTextures() {
-        for(int i = 0; i < groovysonObjectParts.size(); i++) {
-            for(int j = 0; j < EnumFacing.VALUES.size(); j++) {
-                rawModelPartTextures.add(groovysonObjectParts.get(i).TextureFace(EnumFacing.VALUES[j]));
+        ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
+        if(getRawModelParts().size() == 0 || getRawModelParts().isEmpty() || getRawModelParts() == null) {
+            println("No Raw Model Elements have been set");
+            //Log.logWarn("No Raw Model Elements have been set");
+        }
+        for(int i = 0; i < getRawModelParts().size(); i++) {
+            modelPartTexture.add(getRawModelParts().get(i));
+        }
+        for(int j = 0; j < modelPartTexture.size(); j++) {
+            for (EnumFacing faces : EnumFacing.VALUES) {
+                if (modelPartTexture.get(j).Facing(faces) != null) {
+                    rawModelPartTexturesList.add(modelPartTexture.get(j).TextureFace(faces));
+                }
             }
         }
     }
-
-    ArrayList<String> getRawModelPartTextures() {
-        return rawModelPartTextures;
-    }*/
+}

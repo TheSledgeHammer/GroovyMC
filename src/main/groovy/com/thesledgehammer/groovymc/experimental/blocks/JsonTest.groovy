@@ -8,7 +8,6 @@
 
 package com.thesledgehammer.groovymc.experimental.blocks
 
-
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.utils.GroovyLoader
@@ -26,10 +25,15 @@ class JsonTest {
 
 		//Models();
         GBlockBakedModel GBBM = new GBlockBakedModel("block", "engine_base");
-		for(EnumFacing face : EnumFacing.VALUES) {
-			GBBM.buildTextureMapping("#chamber", "engine_base", "#chamber");
-		};
-		//print GBBM.groovyModelBuilder.s
+		GBBM.setModelParts("base");
+		GBBM.setModelParts("base_moving");
+		GBBM.setModelParts("trunk");
+		GBBM.setModelParts("chamber");
+
+
+		GBBM.getAbstractModel().setRawModelPartTextures();
+		println GBBM.getAbstractModel().getRawModelTextures()
+		//print GBBM.getAbstractModel().getRawModelPart(0);
 
 		//TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks();
 		//map.setTextureEntry(GBBM.getGroovyBuilder().getTextureAtlasSprite());

@@ -15,6 +15,7 @@ import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 class ClientProxy extends CommonProxy {
@@ -35,7 +36,17 @@ class ClientProxy extends CommonProxy {
 	}
 
 
-	void postInit(FMLInitializationEvent event) {
-		//super.postInit(event);
+	void postInit(FMLPostInitializationEvent event) {
+		super.postInit(event);
+	}
+
+	@Override
+	void registerItem(Item item) {
+		ObjectManager.registerItemClient(item);
+	}
+
+	@Override
+	void registerBlock(Block block) {
+		ObjectManager.registerBlockClient(block);
 	}
 }

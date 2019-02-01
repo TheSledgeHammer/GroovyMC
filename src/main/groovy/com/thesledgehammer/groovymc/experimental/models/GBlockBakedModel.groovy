@@ -31,6 +31,10 @@ class GBlockBakedModel  {
     GBlockBakedModel(String type, String fileName) {
         this.Baked_Model = new AbstractModel(type, fileName);
     }
+
+    void setModelParts(String name) {
+        Baked_Model.setRawModelParts(name);
+    }
 //ModelTools
     void buildTextureMap(String resourceLoc, String modelLoc, String sprite) {
         this.groovyResourcesBuilder = new GroovyResourcesBuilder.Builder()

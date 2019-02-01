@@ -8,7 +8,6 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.util.EnumFacing
 

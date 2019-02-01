@@ -9,9 +9,11 @@
 package com.thesledgehammer.groovymc.proxy
 
 import com.thesledgehammer.groovymc.GroovyMC
-
 import com.thesledgehammer.groovymc.config.GroovyConfig
+import com.thesledgehammer.groovymc.experimental.blocks.ModBlocks
 import com.thesledgehammer.groovymc.network.PacketHandler
+import net.minecraft.block.Block
+import net.minecraft.item.Item
 import net.minecraftforge.common.config.Configuration
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -38,4 +40,12 @@ class CommonProxy {
 			 config.save();
 		 }
 	 }
+
+	void registerItem(Item item) {
+
+	}
+
+	void registerBlock(Block block) {
+
+	}
 }
