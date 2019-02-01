@@ -10,6 +10,7 @@ package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.proxy.CommonProxy
+import com.thesledgehammer.groovymc.utils.GroovyLoader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -22,7 +23,7 @@ class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
 	static final String MOD_NAME = "GroovyMC";
-	static final String VERSION = "1.0.1";
+	static final String VERSION = "1.0.2";
 	static final String MCVERSION = "1.12.2";
 
 	@SidedProxy(clientSide = "com.thesledgehammer.groovymc.proxy.ClientProxy", serverSide = "com.thesledgehammer.groovymc.proxy.CommonProxy")
