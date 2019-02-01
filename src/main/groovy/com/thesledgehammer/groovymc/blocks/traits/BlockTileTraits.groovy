@@ -90,12 +90,4 @@ trait BlockTileTraits implements IBlockRotation {
         }
         super.getDrops(result, world, pos, metadata, fortune);
     }
-
-    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String modId, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(modId, tileName));
-    }
-
-    void registerBasicTileEntity(Class<? extends TileEntity> tileEntity, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
-    }
 }
