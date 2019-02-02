@@ -12,12 +12,14 @@ import com.thesledgehammer.groovymc.client.model.AbstractModel
 import com.thesledgehammer.groovymc.client.model.MutableGroovyModel
 import com.thesledgehammer.groovymc.client.model.json.GroovyModelBuilder
 import com.thesledgehammer.groovymc.client.model.json.GroovyResourcesBuilder
+import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 
 /**
- * TODO: Model Registry.
- * - AbstractModels creation of BakedModels or IBakedModels: Partially Complete: ModelTools creates a List of BakedQuads
+ * TODO: Models & Rendering
+ * - AbstractModels creation of BakedModels and use of IBakedModels: Partially Complete: ModelTools creates a List of BakedQuads
  * - Rendering of AbstractModels: Mostly Complete within AbstractModels
  * - Registering AbstractModels
+ * - Converting information from an AbstractModel to something Minecraft can understand and Interpret
  **/
 
 //May work having said class implementing an IBakedModel that references to a static final AbstractModel
@@ -35,6 +37,22 @@ class GBlockBakedModel  {
     void setModelParts(String name) {
         Baked_Model.setRawModelParts(name);
     }
+
+    private List<String> textureNames = new ArrayList<>();
+    void setModelTextures(String textureName) {
+        Baked_Model.setRawModelTextures(textureName);
+        Baked_Model.JsonTextureMapping();
+        textureNames.add(textureName);
+    }
+
+    List<String> getModelTexturesNames() {
+        return textureNames;
+    }
+
+    HashMap<String, String> getModelTextures() {
+        return Baked_Model.getRawModelTextures();
+    }
+
 //ModelTools
     void buildTextureMap(String resourceLoc, String modelLoc, String sprite) {
         this.groovyResourcesBuilder = new GroovyResourcesBuilder.Builder()

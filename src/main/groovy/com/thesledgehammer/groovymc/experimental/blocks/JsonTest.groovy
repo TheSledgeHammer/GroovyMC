@@ -11,11 +11,10 @@ package com.thesledgehammer.groovymc.experimental.blocks
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import net.minecraft.util.EnumFacing
+
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
 - BlankBlockModel: Uses ModelTools.addBakedQuadsToBlock
--
 */
 class JsonTest {
 
@@ -23,21 +22,34 @@ class JsonTest {
 
 	static void main(String[] args) {
 
-		//Models();
         GBlockBakedModel GBBM = new GBlockBakedModel("block", "engine_base");
+
+		//Model Elements
 		GBBM.setModelParts("base");
 		GBBM.setModelParts("base_moving");
 		GBBM.setModelParts("trunk");
-		GBBM.setModelParts("chamber");
+		//GBBM.setModelParts("chamber");
+		//Model Textures
+		GBBM.setModelTextures("#trunk_blue");
+		GBBM.setModelTextures("#trunk_green");
+		GBBM.setModelTextures("#trunk_yellow");
+		GBBM.setModelTextures("#trunk_red");
+		GBBM.setModelTextures("#trunk_overheat");
+		GBBM.setModelTextures("#trunk_black");
+		GBBM.setModelTextures("#chamber");
+		GBBM.setModelTextures("#back");
+		GBBM.setModelTextures("#side");
 
+		//String lookup = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0);
+		//JsonTexture tex = new JsonTexture(lookup);
+		//TextureAtlasSprite sprite;
+//		lookup = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).location
+		//sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+		//ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
+		//face.sprite = sprite;
+		//face.faceData = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).faceData;
 
-		GBBM.getAbstractModel().setRawModelPartTextures();
-		println GBBM.getAbstractModel().getRawModelTextures()
-		//print GBBM.getAbstractModel().getRawModelPart(0);
-
-		//TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks();
-		//map.setTextureEntry(GBBM.getGroovyBuilder().getTextureAtlasSprite());
-		//map.registerSprite(GBBM.groovyBuilder.getResourceLocation());
+		println  GBBM.getAbstractModel().getJsonTextureMappings()
 	}
 
 	static void Old() {
