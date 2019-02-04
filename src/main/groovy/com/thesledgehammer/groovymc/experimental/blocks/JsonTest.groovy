@@ -11,6 +11,7 @@ package com.thesledgehammer.groovymc.experimental.blocks
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import net.minecraft.util.EnumFacing
 
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
@@ -48,8 +49,9 @@ class JsonTest {
 		//ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
 		//face.sprite = sprite;
 		//face.faceData = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).faceData;
-
-		println  GBBM.getAbstractModel().getJsonTextureMappings()
+		//for(int i = 0)
+		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.DOWN, 0).location
+		//print GBBM.getAbstractModel().getRawModelPartTexture(0, EnumFacing.EAST)
 	}
 
 	static void Old() {

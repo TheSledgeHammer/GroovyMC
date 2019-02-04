@@ -20,11 +20,10 @@ import net.minecraft.util.EnumFacing
 
 //AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class AbstractModel extends GroovysonObject {
-
+    private String resourceObject;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
-    //private List<String> rawModelPartTexturesList = new ArrayList<>();
-    private String resourceObject;
+    private HashBasedTable<EnumFacing, Integer, JsonTexture> jsonTexTable = HashBasedTable.create();
 
     /**
      * @param resourceObject: Item or Block
@@ -129,57 +128,49 @@ class AbstractModel extends GroovysonObject {
     }
 
     //JSON TEXTURES
-    //TODO: JsonTexture:
+    //TODO:
     // Current Method is Based on BC8's JsonVariableModel lookupTexture()
-    //Need to Map Texture in jTexTable to Texture's Location
     //To Apply that to a ModelUtil.TexturedFace
-    //Solution #1: Check texture name matches JsonTexture name.
-    private HashBasedTable<EnumFacing, Integer, JsonTexture> jTexTable = HashBasedTable.create();
-    void JsonTextureMapping() {
-        for (EnumFacing face : EnumFacing.VALUES) {
-            for(int i = 0; i < getRawModelParts().size(); i++) {
-                JsonTexture texture = new JsonTexture(getRawModelPart(i), face);
-                jTexTable.put(face, i, texture);
-            }
-        }
-    }
 
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
-        return jTexTable;
+        return jsonTexTable;
     }
 
     JsonTexture getJsonTexture(EnumFacing face, int index) {
-        return jTexTable.get(face, index);
-    }
-}
-
-/*
- //Most Likely Un-needed
-    //Returns all element textures per face from a list
-    List<String> getRawModelPartTextures() {
-        return rawModelPartTexturesList;
+        return jsonTexTable.get(face, index);
     }
 
-
-    //Adds all element textures per face to a List
-    private void ModelPartTextures() {
+    void JsonTextureMapping() {
         ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
-        if(getRawModelParts().size() == 0 || getRawModelParts().isEmpty() || getRawModelParts() == null) {
-            println("No Raw Model Elements have been set");
-            //Log.logWarn("No Raw Model Elements have been set");
-        }
+        ArrayList<String> textureName = getRawModelTextures().keySet().toArray() as ArrayList<String>;
+        String textureLocation = "";
+        String texturePartName = "";
+
+        //Model Elements (Model Parts)
         for(int i = 0; i < getRawModelParts().size(); i++) {
             modelPartTexture.add(getRawModelParts().get(i));
         }
-        for(int j = 0; j < modelPartTexture.size(); j++) {
-            for (EnumFacing faces : EnumFacing.VALUES) {
-                if (modelPartTexture.get(j).Facing(faces) != null) {
-                    rawModelPartTexturesList.add(modelPartTexture.get(j).TextureFace(faces));
+
+        //JsonTexTable: Defines JsonTextures by face and model part
+        for (EnumFacing face : EnumFacing.VALUES) {
+            for(int j = 0; j < modelPartTexture.size(); j++) {
+                if(modelPartTexture.get(j).Facing(face) != null) {
+                    texturePartName = modelPartTexture.get(j).TextureFace(face);
+                    for(int k = 0; k < textureName.size(); k++) {
+                        //TODO: Variable Textures
+                        //Implements Non-Variable Texture Location: Doesn't account for json rules or variables
+                        if(texturePartName.contains(textureName.get(k))) {
+                            textureLocation = getRawModelTextures().get(textureName.get(k));
+                            //Variables & Rules go here if don't match
+                        }
+                    }
+                    JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
+                    jsonTexTable.put(face, j, texture);
                 }
             }
         }
     }
-    */
+}
 
 /*
     //Copied from BC ModelHolderVariable, Doesn't work correctly

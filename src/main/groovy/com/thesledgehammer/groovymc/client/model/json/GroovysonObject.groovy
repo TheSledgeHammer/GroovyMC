@@ -97,23 +97,23 @@ class GroovysonObject {
         return obj.variables;
     }
 
-    def getVariableByName(def variableName) {
-        return getVariables().get(variableName);
+    def getVariableByName(String variableName) {
+        return getVariables()[variableName];
     }
 
     def getRules() {
         return obj.rules;
     }
 
-    def getRulesByIndex(int ruleIndex) {
-        return getRules().get(ruleIndex);
+    def getRulesByName(String ruleName) {
+        return getRules()[ruleName];
     }
 
     def getValues() {
         return obj.values;
     }
 
-    def getValuesByName(def valueName) {
+    def getValueByName(def valueName) {
         return obj.values.get(valueName);
     }
 

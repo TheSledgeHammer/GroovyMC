@@ -12,7 +12,6 @@ import com.thesledgehammer.groovymc.client.model.AbstractModel
 import com.thesledgehammer.groovymc.client.model.MutableGroovyModel
 import com.thesledgehammer.groovymc.client.model.json.GroovyModelBuilder
 import com.thesledgehammer.groovymc.client.model.json.GroovyResourcesBuilder
-import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 
 /**
  * TODO: Models & Rendering
@@ -38,15 +37,11 @@ class GBlockBakedModel  {
         Baked_Model.setRawModelParts(name);
     }
 
-    private List<String> textureNames = new ArrayList<>();
+    //private List<String> textureNames = new ArrayList<>();
     void setModelTextures(String textureName) {
         Baked_Model.setRawModelTextures(textureName);
         Baked_Model.JsonTextureMapping();
-        textureNames.add(textureName);
-    }
-
-    List<String> getModelTexturesNames() {
-        return textureNames;
+        //textureNames.add(textureName);
     }
 
     HashMap<String, String> getModelTextures() {
