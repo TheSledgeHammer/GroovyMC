@@ -9,12 +9,8 @@
 package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.models.BakeTools
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
-import com.thesledgehammer.groovymc.experimental.models.JsonModelRule
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.util.EnumFacing
 
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
@@ -44,25 +40,15 @@ class JsonTest {
 		GBBM.setModelTextures("#back");
 		GBBM.setModelTextures("#side");
 
-		//String lookup = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0);
-		//JsonTexture tex = new JsonTexture(lookup);
-		//TextureAtlasSprite sprite;
-//		lookup = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).location
-		//sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
-		//ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
-		//face.sprite = sprite;
-		//face.faceData = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).faceData;
-		//for(int i = 0)
+		print GBBM.getAbstractModel()
 
-		//ArrayList<Float> arr = GBBM.getAbstractModel().getRawModelPart(3).To();
-		//ArrayList<String> arr2 = StringTools.FloatListToStringList(arr);
 
-		//int val = StringTools.getIntegerFromString(arr2.get(1));
-		//int newVal = val + 5
-		print GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST, 3).location
+		//Element Render Type
+		int idx = 2
+		if(GBBM.getAbstractModel().getRawModelPart(idx).getPartRenderType() != null) {
+			//print GBBM.getAbstractModel().getRawModelPart(idx).getPartRenderType()
+		}
 	}
-
-
 
 	static void Old() {
 		/*

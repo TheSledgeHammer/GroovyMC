@@ -8,18 +8,19 @@
 
 package com.thesledgehammer.groovymc.client.model
 
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-//Temporary Placeholder
+//Temporary Placeholder for Working Model Tools
 class ModelTools {
     /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
 - BlankBlockModel: Uses ModelTools.addBakedQuadsToBlock
--
  */
-
     static List<BakedQuad> addBakedQuadsToBlock(AbstractModel abstractModel, EnumFacing face, TextureAtlasSprite sprite) {
         int size = abstractModel.getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
@@ -45,5 +46,23 @@ class ModelTools {
             mutableQuads[i] = abstractModel.QuadAFace(face, i).toQuad(sprite);
         }
         return mutableQuads;
+    }
+
+    static JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
+        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
+        ArrayList<Float> from = objectPart.From();
+        ArrayList<Float> to = objectPart.To();
+        boolean shade = groovysonObject.Shade(false);
+        List<JsonQuads> quads = new ArrayList<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            JsonQuads q = new JsonQuads(objectPart, from, to, face);
+            //q.shade = shade;
+            quads.add(q);
+        }
+        if(quads.size() == 0) {
+            //Add a Log Error or JsonSyntaxException
+            println "Expected between 1 and 6 faces, got an empty object"
+        }
+        return quads.toArray(new JsonQuads[quads.size()]);
     }
 }

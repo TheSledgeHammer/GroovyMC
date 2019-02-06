@@ -16,6 +16,7 @@ import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.Log
 import com.thesledgehammer.groovymc.utils.StringTools
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 //AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
@@ -108,29 +109,9 @@ class AbstractModel extends GroovysonObject {
         return Quads(face)[rawModelTexture];
     }
 
-    //Based on BC8's JsonModel readCuboid
-    JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
-        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
-        ArrayList<Float> from = objectPart.From();
-        ArrayList<Float> to = objectPart.To();
-        boolean shade = groovysonObject.Shade(false);
-        List<JsonQuads> quads = new ArrayList<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            JsonQuads q = new JsonQuads(objectPart, from, to, face);
-            //q.shade = shade;
-            quads.add(q);
-        }
-        if(quads.size() == 0) {
-            //Add a Log Error or JsonSyntaxException
-            println "Expected between 1 and 6 faces, got an empty object"
-        }
-        return quads.toArray(new JsonQuads[quads.size()]);
-    }
-
     //JSON TEXTURES
     //TODO:
-    // Current Method is Based on BC8's JsonVariableModel lookupTexture()
-    //To Apply that to a ModelUtil.TexturedFace
+    //Finish lookupTexture TextureAtlasSprite
 
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
         return jsonTexTable;
@@ -170,39 +151,16 @@ class AbstractModel extends GroovysonObject {
             }
         }
     }
-}
 
-/*
-    //Copied from BC ModelHolderVariable, Doesn't work correctly
-    //Own implementation currently in the works
-    //Use at own Risk!!
-    TexturedFace lookupTexture(String textureName) {
-        int attempts = 0;
-        JsonTexture texture = new JsonTexture(textureName);
+    //TexturedFace as Defined by a JsonTexture
+    //Todo: TextureAtlasSprite sprite
+    ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
         TextureAtlasSprite sprite;
-        while (texture.location.startsWith("#") && attempts < 10) {
-            JsonTexture tex = rawModelTexturesMap.get(texture);
-            if(tex == null) {
-                break;
-            } else {
-                texture = texture.inParent(tex);
-            }
-            attempts++;
-        }
-
-        textureName = texture.location;
-        if (textureName.startsWith("~")) {
-            sprite = customSprites.get(textureName.substring(1));
-            if (sprite == null) {
-                sprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
-            }
-        } else {
-            sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(textureName);
-        }
-
-        TexturedFace face = new TexturedFace();
-        face.sprite = sprite;
-        face.faceData = texture.faceData;
+        String lookup = getJsonTexture(facing, index).location;
+        //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
+        //face.sprite = sprite;
+        face.faceData = getJsonTexture(facing, index).faceData;
         return face;
     }
- */
+}

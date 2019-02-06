@@ -61,6 +61,11 @@ class GroovysonObjectPart {
         return part.name;
     }
 
+    //Refers to whether it should be cutout, translucent etc...
+    String getPartRenderType() {
+        return part.render;
+    }
+
     ArrayList<Float> From() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.from.size; i++) {
@@ -94,7 +99,7 @@ class GroovysonObjectPart {
     def Facing(EnumFacing face) {
         String faces = face.getName().toLowerCase();
         if(part.faces.get(faces) == null) {
-            Log.logError("Current Face does not exist...!");
+//            Log.logError("Current Face does not exist...!");
             return null;
         }
         return part.faces.get(faces);
