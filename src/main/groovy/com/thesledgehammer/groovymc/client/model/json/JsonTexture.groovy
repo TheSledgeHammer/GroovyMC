@@ -7,8 +7,10 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
+import com.google.gson.JsonElement
 import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 
 class JsonTexture {
@@ -37,10 +39,12 @@ class JsonTexture {
         for(int i = 0; i < 4; i++) {
             def elem = uvs.get(i);
             if(MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
-                arr[i] = (double) elem;
+                arr[i] = elem as double;
+            } else if(MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
+                //TODO: if its a String, refer to MathTools/ StringTools for method implementation
             }
-            //TODO: if its a String, refer to MathTools/ StringTools for method implementation
         }
+
         faceData = new ModelUtil.UvFaceData();
         faceData.minU = (float) MathTools.clamp(arr[0] / 16.0, 0, 1.0);
         faceData.minV = (float) MathTools.clamp(arr[1] / 16.0, 0, 1.0);
@@ -54,9 +58,10 @@ class JsonTexture {
         for(int i = 0; i < 4; i++) {
             def elem = uvs.get(i);
             if(MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
-                arr[i] = (double) elem;
+                arr[i] = elem as double;
+            } else if(MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
+                //TODO: if its a String, refer to MathTools/ StringTools for method implementation
             }
-            //TODO: if its a String, refer to MathTools/ StringTools for method implementation
         }
         faceData = new ModelUtil.UvFaceData();
         faceData.minU = (float) MathTools.clamp(arr[0] / 16.0, 0, 1.0);

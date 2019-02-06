@@ -9,8 +9,11 @@
 package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.models.BakeTools
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
+import com.thesledgehammer.groovymc.experimental.models.JsonModelRule
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 
 /*TODO: Create Following:
@@ -29,7 +32,7 @@ class JsonTest {
 		GBBM.setModelParts("base");
 		GBBM.setModelParts("base_moving");
 		GBBM.setModelParts("trunk");
-		//GBBM.setModelParts("chamber");
+		GBBM.setModelParts("chamber");
 		//Model Textures
 		GBBM.setModelTextures("#trunk_blue");
 		GBBM.setModelTextures("#trunk_green");
@@ -50,9 +53,16 @@ class JsonTest {
 		//face.sprite = sprite;
 		//face.faceData = GBBM.getAbstractModel().jTexTable.get(EnumFacing.EAST, 0).faceData;
 		//for(int i = 0)
-		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.DOWN, 0).location
-		//print GBBM.getAbstractModel().getRawModelPartTexture(0, EnumFacing.EAST)
+
+		//ArrayList<Float> arr = GBBM.getAbstractModel().getRawModelPart(3).To();
+		//ArrayList<String> arr2 = StringTools.FloatListToStringList(arr);
+
+		//int val = StringTools.getIntegerFromString(arr2.get(1));
+		//int newVal = val + 5
+		print GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST, 3).location
 	}
+
+
 
 	static void Old() {
 		/*
