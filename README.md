@@ -11,7 +11,9 @@ Please initialize the "GroovyLoader" in your main class or common proxy class.
 
 GroovyLoader groovyLoader = new GroovyLoader(String modPath, String modResourcePath, String jvm, String url, String modID);
 
-The class is not required, but provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
+The class is required for using GroovyMC's Models & Rendering. Otherwise it is optional.
+
+Provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
 
 For a complete example look at the GroovyMC class.
 
