@@ -10,7 +10,11 @@ package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
+import com.thesledgehammer.groovymc.experimental.render.GroovyTextureAtasSpriteBuilder
+import com.thesledgehammer.groovymc.experimental.render.GroovyTextureMap
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+
+import net.minecraft.util.EnumFacing
 
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
@@ -26,9 +30,9 @@ class JsonTest {
 
 		//Model Elements
 		GBBM.setModelParts("base");
-		GBBM.setModelParts("base_moving");
+		//GBBM.setModelParts("base_moving");
 		GBBM.setModelParts("trunk");
-		GBBM.setModelParts("chamber");
+		//GBBM.setModelParts("chamber");
 		//Model Textures
 		GBBM.setModelTextures("#trunk_blue");
 		GBBM.setModelTextures("#trunk_green");
@@ -40,14 +44,22 @@ class JsonTest {
 		GBBM.setModelTextures("#back");
 		GBBM.setModelTextures("#side");
 
-		print GBBM.getAbstractModel()
-
-
-		//Element Render Type
-		int idx = 2
-		if(GBBM.getAbstractModel().getRawModelPart(idx).getPartRenderType() != null) {
-			//print GBBM.getAbstractModel().getRawModelPart(idx).getPartRenderType()
+		for(EnumFacing face : EnumFacing.VALUES) {
+			GBBM.getAbstractModel().setQuads(GBBM.getAbstractModel().Quads(face));
 		}
+
+		//TextureAtlasSprite & TextureMap with GroovyTextureAtasSpriteBuilder
+		GroovyTextureMap textureMap = new GroovyTextureMap(Constants.TEXTURE_PATH_BLOCKS);
+
+		GroovyTextureAtasSpriteBuilder GTASB = new GroovyTextureAtasSpriteBuilder.Builder()
+				.setSprite("chamber")
+				.build();
+		textureMap.setTextureEntry(GTASB.getTextureBuilder());
+		print textureMap.getTextureExtry(GTASB.getTextureAtlasSpriteName());
+
+		//println GBBM.getGroovyResourcesBuilder().getTextureMap()
+		//println ModelTools.readCuboid(GBBM.getAbstractModel(), 0).length;
+		//println BakeTools.bakePart(GBBM.getAbstractModel().getRawModelParts() as GroovysonObjectPart[]);
 	}
 
 	static void Old() {

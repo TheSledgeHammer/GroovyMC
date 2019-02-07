@@ -12,6 +12,7 @@ import com.thesledgehammer.groovymc.client.model.AbstractModel
 import com.thesledgehammer.groovymc.client.model.MutableGroovyModel
 import com.thesledgehammer.groovymc.client.model.json.GroovyModelBuilder
 import com.thesledgehammer.groovymc.client.model.json.GroovyResourcesBuilder
+import net.minecraft.client.Minecraft
 
 /**
  * TODO: Models & Rendering
@@ -48,12 +49,11 @@ class GBlockBakedModel  {
         return Baked_Model.getRawModelTextures();
     }
 
-//ModelTools
-    void buildTextureMap(String resourceLoc, String modelLoc, String sprite) {
+    //ModelTools
+    void buildTextureMap(String resourceLoc, String modelLoc) {
         this.groovyResourcesBuilder = new GroovyResourcesBuilder.Builder()
                 .setResourceLocation(resourceLoc)
                 .setModelResourceLocation(modelLoc)
-                .setTextureAtlasSprite(sprite)
                 .build();
     }
 

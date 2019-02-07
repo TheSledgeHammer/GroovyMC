@@ -50,8 +50,8 @@ class ModelTools {
 
     static JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
         GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
-        ArrayList<Float> from = objectPart.From();
-        ArrayList<Float> to = objectPart.To();
+        float[] from = objectPart.from()
+        float[] to = objectPart.to();
         boolean shade = groovysonObject.Shade(false);
         List<JsonQuads> quads = new ArrayList<>();
         for(EnumFacing face : EnumFacing.VALUES) {

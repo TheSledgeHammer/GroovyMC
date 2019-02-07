@@ -147,6 +147,8 @@ class AbstractModel extends GroovysonObject {
                     }
                     JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
                     jsonTexTable.put(face, j, texture);
+                    //Could add TexturedFaceLookup Here...
+                    TexturedFaceLookup(face, j);
                 }
             }
         }
@@ -157,10 +159,19 @@ class AbstractModel extends GroovysonObject {
     ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
         TextureAtlasSprite sprite;
         String lookup = getJsonTexture(facing, index).location;
-        //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+//        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
         ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
-        //face.sprite = sprite;
+  //      face.sprite = sprite;
         face.faceData = getJsonTexture(facing, index).faceData;
         return face;
+    }
+
+    private JsonQuads[] quads;
+    void setQuads(JsonQuads[] quads) {
+        this.quads = quads;
+    }
+
+    JsonQuads[] getQuads() {
+        return quads;
     }
 }
