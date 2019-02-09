@@ -8,13 +8,16 @@
 
 package com.thesledgehammer.groovymc.experimental.blocks
 
+import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.models.BakeTools
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.experimental.render.GroovyTextureAtasSpriteBuilder
 import com.thesledgehammer.groovymc.experimental.render.GroovyTextureMap
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-
+import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.ResourceLocation
 
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
@@ -44,22 +47,25 @@ class JsonTest {
 		GBBM.setModelTextures("#back");
 		GBBM.setModelTextures("#side");
 
-		for(EnumFacing face : EnumFacing.VALUES) {
-			GBBM.getAbstractModel().setQuads(GBBM.getAbstractModel().Quads(face));
-		}
-
 		//TextureAtlasSprite & TextureMap with GroovyTextureAtasSpriteBuilder
-		GroovyTextureMap textureMap = new GroovyTextureMap(Constants.TEXTURE_PATH_BLOCKS);
+		GroovyTextureMap textureMap = new GroovyTextureMap("textures", null, true);
 
 		GroovyTextureAtasSpriteBuilder GTASB = new GroovyTextureAtasSpriteBuilder.Builder()
-				.setSprite("chamber")
+				.setGroovyTextureMap(textureMap)
+				.setTextureAtlasSprite("'#back'")
 				.build();
-		textureMap.setTextureEntry(GTASB.getTextureBuilder());
-		print textureMap.getTextureExtry(GTASB.getTextureAtlasSpriteName());
 
-		//println GBBM.getGroovyResourcesBuilder().getTextureMap()
-		//println ModelTools.readCuboid(GBBM.getAbstractModel(), 0).length;
-		//println BakeTools.bakePart(GBBM.getAbstractModel().getRawModelParts() as GroovysonObjectPart[]);
+		for(EnumFacing face : EnumFacing.VALUES) {
+			//GTASB.getTextureAtlasSpriteProvider().setSprite(face, 0, textureMap);
+			//println GBBM.getAbstractModel().getTexturesByName("#back")
+			//println GBBM.getAbstractModel().getRawModelPart(0).Facing(EnumFacing.EAST)
+		}
+
+		//println BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.UP, 0, GTASB.getGroovyTextureMap()).sprite;
+		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.UP, 0).location
+		//println GBBM.getAbstractModel().getTexturesByName();
+		//println GBBM.getAbstractModel().getRawModelPart(0).Facing(EnumFacing.EAST)[texture];
+		//println GBBM.getAbstractModel().TexturedFaceLookup(EnumFacing.UP, 0, textureMap).sprite
 	}
 
 	static void Old() {

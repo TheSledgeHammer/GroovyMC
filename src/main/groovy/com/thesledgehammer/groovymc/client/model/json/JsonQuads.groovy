@@ -16,16 +16,16 @@ import javax.vecmath.Vector3f
 
 class JsonQuads {
 
-	public final boolean shade = false;
-	public int tint = -1;
-	public EnumFacing face;
-	public String texture;
-	public final JsonVertex[] vertices = new JsonVertex[4];
+	final boolean shade = false;
+	int tint = -1;
+	EnumFacing face;
+	String texture;
+	final JsonVertex[] vertices = new JsonVertex[4];
 
 	JsonQuads(GroovysonObjectPart groovysonObjectPart, float[] from, float[] to, EnumFacing face) {
 		this.face = face;
-		tint = groovysonObjectPart.Tint(face, -1);
-		texture = groovysonObjectPart.TextureFace(face);
+		this.tint = groovysonObjectPart.Tint(face, -1);
+		this.texture = groovysonObjectPart.TextureFace(face);
 		int rotation = groovysonObjectPart.Rotation(face, 0);
 		float[] uv = groovysonObjectPart.FacingUv(face);
 
@@ -40,18 +40,18 @@ class JsonQuads {
 		center.add(radius);
 		MutableQuad quad = ModelUtil.createFace(face, center, radius, uvs);
 		quad.rotateTextureUp(rotation);
-		vertices[0] = new JsonVertex(quad.vertex_0);
-		vertices[1] = new JsonVertex(quad.vertex_1);
-		vertices[2] = new JsonVertex(quad.vertex_2);
-		vertices[3] = new JsonVertex(quad.vertex_3);
+		this.vertices[0] = new JsonVertex(quad.vertex_0);
+		this.vertices[1] = new JsonVertex(quad.vertex_1);
+		this.vertices[2] = new JsonVertex(quad.vertex_2);
+		this.vertices[3] = new JsonVertex(quad.vertex_3);
 	}
 
 	MutableQuad toQuad(TextureAtlasSprite sprite) {
-		MutableQuad quad = new MutableQuad(tint, face, shade);
-		vertices[0].loadInto(quad.vertex_0);
-		vertices[1].loadInto(quad.vertex_1);
-		vertices[2].loadInto(quad.vertex_2);
-		vertices[3].loadInto(quad.vertex_3);
+		MutableQuad quad = new MutableQuad(this.tint, this.face, this.shade);
+		this.vertices[0].loadInto(quad.vertex_0);
+		this.vertices[1].loadInto(quad.vertex_1);
+		this.vertices[2].loadInto(quad.vertex_2);
+		this.vertices[3].loadInto(quad.vertex_3);
 		if(sprite != null) {
 			quad.texFromSprite(sprite);
 			quad.setSprite(sprite);

@@ -66,6 +66,16 @@ class GroovysonObjectPart {
         return part.render;
     }
 
+    String getPartRenderTypeByName(String renderType) {
+        if(renderType == part.render) {
+            return renderType.toUpperCase();
+        } else {
+            //Log.logError("The element does not contain a render of: " + renderType);
+            println("The element does not contain a render of: " + renderType)
+            return null;
+        }
+    }
+
     ArrayList<Float> From() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.from.size; i++) {

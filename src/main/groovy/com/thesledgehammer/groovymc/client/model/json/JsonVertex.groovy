@@ -20,9 +20,9 @@ class JsonVertex {
 	Point2f uv;
 	
 	JsonVertex(MutableVertex vertex) {
-		pos = vertex.positionvf();
-		normal = vertex.normal();
-		uv = vertex.tex();
+		this.pos = vertex.positionvf();
+		this.normal = vertex.normal();
+		this.uv = vertex.tex();
 	}
 	
 	void loadInto(MutableVertex vertex) {

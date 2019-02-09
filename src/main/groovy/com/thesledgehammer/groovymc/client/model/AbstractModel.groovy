@@ -16,7 +16,6 @@ import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.Log
 import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 //AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
@@ -148,7 +147,8 @@ class AbstractModel extends GroovysonObject {
                     JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
                     jsonTexTable.put(face, j, texture);
                     //Could add TexturedFaceLookup Here...
-                    TexturedFaceLookup(face, j);
+                    //TexturedFaceLookup(face, j);
+
                 }
             }
         }
@@ -157,11 +157,12 @@ class AbstractModel extends GroovysonObject {
     //TexturedFace as Defined by a JsonTexture
     //Todo: TextureAtlasSprite sprite
     ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
-        TextureAtlasSprite sprite;
+        //TextureAtlasSprite sprite;
+        String name = getRawModelPart(index).TextureFace(facing);
         String lookup = getJsonTexture(facing, index).location;
-//        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
         ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
-  //      face.sprite = sprite;
+        //face.sprite = sprite;
         face.faceData = getJsonTexture(facing, index).faceData;
         return face;
     }

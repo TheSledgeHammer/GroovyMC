@@ -100,6 +100,13 @@ class StringTools {
         return name;
     }
 
+    //Character Brackets:''
+    static String removeCharacterBrackets(String name) {
+        int first = 1;
+        int last = name.length() - 1;
+        return name.substring(first, last);
+    }
+
     static ArrayList<String> StringToList(String name) {
         return StringToList(name, ', ');
     }
