@@ -139,10 +139,11 @@ class AbstractModel extends GroovysonObject {
                     for(int k = 0; k < textureName.size(); k++) {
                         //TODO: Variable Textures
                         //Implements Non-Variable Texture Location: Doesn't account for json rules or variables
-                        if(texturePartName.contains(textureName.get(k))) {
+                        //if(texturePartName.contains(textureName.get(k))) {
                             textureLocation = getRawModelTextures().get(textureName.get(k));
+                            //textureLocation = getRawModelTexturesLocation(textureName.get(k));
                             //Variables & Rules go here if don't match
-                        }
+                       // }
                     }
                     JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
                     jsonTexTable.put(face, j, texture);

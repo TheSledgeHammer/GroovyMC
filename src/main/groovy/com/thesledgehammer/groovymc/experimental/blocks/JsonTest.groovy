@@ -9,12 +9,15 @@
 package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.BakeTools
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.experimental.render.GroovyTextureAtasSpriteBuilder
 import com.thesledgehammer.groovymc.experimental.render.GroovyTextureMap
+import com.thesledgehammer.groovymc.experimental.render.TextureAtlas
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import net.minecraft.client.resources.IResourceManager
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
@@ -51,7 +54,7 @@ class JsonTest {
 		GroovyTextureMap textureMap = new GroovyTextureMap("textures", null, true);
 
 		GroovyTextureAtasSpriteBuilder GTASB = new GroovyTextureAtasSpriteBuilder.Builder()
-				.setGroovyTextureMap(textureMap)
+				.setGroovyTextureMap("textures")
 				.setTextureAtlasSprite("'#back'")
 				.build();
 
@@ -61,10 +64,21 @@ class JsonTest {
 			//println GBBM.getAbstractModel().getRawModelPart(0).Facing(EnumFacing.EAST)
 		}
 
-		//println BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.UP, 0, GTASB.getGroovyTextureMap()).sprite;
-		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.UP, 0).location
-		//println GBBM.getAbstractModel().getTexturesByName();
-		//println GBBM.getAbstractModel().getRawModelPart(0).Facing(EnumFacing.EAST)[texture];
+		//GTASB.getGroovyTextureMap().setTextureEntry(GTASB.getTextureAtlasSpriteProvider());
+		//textureMap.setTextureEntry(GTASB.getTextureAtlasSpriteProvider())
+
+		//println
+		TextureAtlas atlas = new TextureAtlas(GBBM.getAbstractModel(), EnumFacing.EAST, 0);
+		//this.minV = (float)originInY / (float)inY;
+		//this.maxV = (float)(originInY + this.height) / (float)inY;
+
+		float heightMax = 1.0;
+		float heightMin = 0.0;
+		float maxV = 0.25;
+		//originMax =
+		//originInY =
+
+		println BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap).sprite;
 		//println GBBM.getAbstractModel().TexturedFaceLookup(EnumFacing.UP, 0, textureMap).sprite
 	}
 
