@@ -42,6 +42,15 @@ trait ForgeEnergyTraits implements IEnergyStorage {
         return maxExtract;
     }
 
+    void modifyEnergyStored(int energy) {
+        this.energy = energy;
+        if(this.energy > capacity) {
+            this.energy = capacity;
+        } else if(this.energy < 0) {
+            this.energy = 0;
+        }
+    }
+
     @Override
     int receiveEnergy(int maxReceive, boolean simulate) {
         if (!canReceive())

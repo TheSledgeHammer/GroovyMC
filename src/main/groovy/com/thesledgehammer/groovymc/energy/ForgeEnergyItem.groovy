@@ -48,7 +48,7 @@ class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityP
     int extractEnergy(int maxExtract, boolean simulate) {
         if(container instanceof IEnergyStorage) {
             IEnergyStorage feItem = container as IEnergyStorage;
-            return feItem.extractEnergy(maxReceive, simulate);
+            return feItem.extractEnergy(maxExtract, simulate);
         }
         return 0
     }
