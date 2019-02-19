@@ -12,4 +12,6 @@ package com.thesledgehammer.groovymc.api
 interface IInitModel {
 
 	void initModel();
+
+	//void initModel(int meta);
 }

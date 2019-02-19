@@ -117,6 +117,12 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return getDefinition().CreateTileEntity();
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    void initModel() {
+        blockType.getGroovyMachineProperties().initModel();
+    }
+
     void registerAdvancedTileEntity() {
         blockType.getGroovyMachineProperties().registerTileEntity();
         registerStateMapper();

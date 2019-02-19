@@ -8,7 +8,15 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.block.Block
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
+import net.minecraft.init.Items
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.client.model.animation.FastTESR
+import net.minecraftforge.fml.client.registry.ClientRegistry
+import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -36,5 +44,35 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     @Override
     String getParticleTextureLocation() {
         return particleTextureLocation;
+    }
+
+    @Override
+    void registerTileEntity() {
+        super.registerTileEntity();
+        Block block = getBlock();
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
+            Item item = Item.getItemFromBlock(block);
+            if (item != Items.AIR) {
+                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
+                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+            }
+        }
+    }
+
+    @Override
+    void registerTileEntity(String modID) {
+        super.registerTileEntity(modID);
+        Block block = getBlock();
+        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
+            Item item = Item.getItemFromBlock(block);
+            if (item != Items.AIR) {
+                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
+                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+            }
+        }
     }
 }

@@ -10,7 +10,6 @@ package com.thesledgehammer.groovymc.energy;
 
 import net.minecraftforge.energy.IEnergyStorage
 
-//May be Converted to a BigInteger or BigDecimal
 trait ForgeEnergyTraits implements IEnergyStorage {
 
     int energy;
@@ -44,8 +43,8 @@ trait ForgeEnergyTraits implements IEnergyStorage {
 
     void modifyEnergyStored(int energy) {
         this.energy = energy;
-        if(this.energy > capacity) {
-            this.energy = capacity;
+        if(energy > this.capacity) {
+            this.energy = this.capacity;
         } else if(this.energy < 0) {
             this.energy = 0;
         }
