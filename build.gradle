@@ -25,6 +25,10 @@ sourceCompatibility = 1.8
 targetCompatibility= 1.8
 
 repositories {
+	 maven {
+	 	name = "GroovyMC"
+        	url  "https://dl.bintray.com/thesledgehammer/GroovyMC"
+	}
 	maven {
 		name = "Apache Groovy"
 		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
