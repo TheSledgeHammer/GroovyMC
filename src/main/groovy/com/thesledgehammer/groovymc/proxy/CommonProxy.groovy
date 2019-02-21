@@ -28,7 +28,7 @@ class CommonProxy {
 		config = new Configuration(new File(directory.getPath(), GroovyMC.MOD_ID + ".cfg"));
 		GroovyConfig.readConfig();
 		PacketHandler.registerMessages("groovymc");
-		// Initialization of blocks and items typically goes here:
+		//Initialization of blocks and items typically goes here:
 	}
 	
 	 void init(FMLInitializationEvent event) {

@@ -8,6 +8,7 @@
 
 package com.thesledgehammer.groovymc.proxy
 
+import com.thesledgehammer.groovymc.experimental.models.ModelEntryRegister
 import com.thesledgehammer.groovymc.input.InputHandler
 import com.thesledgehammer.groovymc.input.KeyBindings
 import com.thesledgehammer.groovymc.utils.ObjectManager
@@ -23,8 +24,8 @@ class ClientProxy extends CommonProxy {
 	@Override
 	void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		//Object.preInit(event);
-		// Typically initialization of models and such goes here:
+		//Typically initialization of models and such goes here:
+		ModelEntryRegister.preInit();
 	}
 	
 	@Override
@@ -32,9 +33,8 @@ class ClientProxy extends CommonProxy {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new InputHandler());
 		KeyBindings.init();
-        ObjectManager.ColorRegister();
+        ObjectManager.RegisterColors();
 	}
-
 
 	void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);

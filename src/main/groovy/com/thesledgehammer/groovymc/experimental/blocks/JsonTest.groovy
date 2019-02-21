@@ -8,17 +8,16 @@
 
 package com.thesledgehammer.groovymc.experimental.blocks
 
-import com.thesledgehammer.groovymc.GroovyMC
-import com.thesledgehammer.groovymc.client.model.ModelUtil
+
+import com.thesledgehammer.groovymc.client.model.BlankGroovyModel
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.models.BakeTools
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
-import com.thesledgehammer.groovymc.experimental.render.GroovyTextureAtasSpriteBuilder
-import com.thesledgehammer.groovymc.experimental.render.GroovyTextureMap
-import com.thesledgehammer.groovymc.experimental.render.TextureAtlas
+import com.thesledgehammer.groovymc.experimental.models.ModelEntryStatic
+import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureAtasSpriteBuilder
+import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureMap
+import com.thesledgehammer.groovymc.experimental.textures.TextureAtlas
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import net.minecraft.client.resources.IResourceManager
-import net.minecraft.util.BlockRenderLayer
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
@@ -33,6 +32,7 @@ class JsonTest {
 	static void main(String[] args) {
 
         GBlockBakedModel GBBM = new GBlockBakedModel("block", "engine_base");
+		ModelEntryStatic entry = new ModelEntryStatic(GBBM.abstractModel, new BlankGroovyModel());
 
 		//Model Elements
 		GBBM.setModelParts("base");
@@ -68,17 +68,12 @@ class JsonTest {
 		//textureMap.setTextureEntry(GTASB.getTextureAtlasSpriteProvider())
 
 		//println
-		TextureAtlas atlas = new TextureAtlas(GBBM.getAbstractModel(), EnumFacing.EAST, 0);
+		TextureAtlasSprite sprite = TextureAtlas.createForConfig(new ResourceLocation("back"));
+		TextureAtlas atlas = new TextureAtlas(GBBM.getAbstractModel(), EnumFacing.DOWN, 0);
 		//this.minV = (float)originInY / (float)inY;
 		//this.maxV = (float)(originInY + this.height) / (float)inY;
 
-		float heightMax = 1.0;
-		float heightMin = 0.0;
-		float maxV = 0.25;
-		//originMax =
-		//originInY =
-
-		println BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap).sprite;
+		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST,0).location//BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap);
 		//println GBBM.getAbstractModel().TexturedFaceLookup(EnumFacing.UP, 0, textureMap).sprite
 	}
 

@@ -25,4 +25,10 @@ interface IMachinePropertiesTESR<T extends GroovyTileBasic> extends IMachineProp
 
     @SideOnly(Side.CLIENT)
     void setRenderer(TileEntitySpecialRenderer<? super T> renderer);
+
+    @Override
+    void registerTileEntity();
+
+    @Override
+    void registerTileEntity(String modID);
 }

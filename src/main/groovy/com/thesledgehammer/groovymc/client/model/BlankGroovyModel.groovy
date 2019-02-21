@@ -19,8 +19,6 @@ import net.minecraft.util.EnumFacing
 
 import javax.annotation.Nullable
 
-
-
 class BlankGroovyModel implements IBakedModel {
 	
 	private final List<BakedQuad> quads;

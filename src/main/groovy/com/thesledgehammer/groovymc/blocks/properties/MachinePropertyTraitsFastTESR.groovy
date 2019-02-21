@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.client.model.animation.FastTESR
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.FMLCommonHandler
@@ -49,7 +48,7 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     @Override
     void registerTileEntity() {
         super.registerTileEntity();
-        Block block = getBlock();
+        Block block = this.getBlock();
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.getItemFromBlock(block);
@@ -64,7 +63,7 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     @Override
     void registerTileEntity(String modID) {
         super.registerTileEntity(modID);
-        Block block = getBlock();
+        Block block = this.getBlock();
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.getItemFromBlock(block);

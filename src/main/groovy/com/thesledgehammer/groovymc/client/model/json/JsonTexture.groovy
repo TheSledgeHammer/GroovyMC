@@ -76,4 +76,9 @@ class JsonTexture {
     JsonTexture inParent(JsonTexture parent) {
         return parent.andSub(this);
     }
+
+    @Override
+    String toString() {
+        return "location = " + location + ", uvs = " + faceData;
+    }
 }

@@ -6,41 +6,37 @@
  * http://www.gnu.org/licenses/lgpl-3.0.txt                                                       *
  **************************************************************************************************/
 
-package com.thesledgehammer.groovymc.experimental.models
+package com.thesledgehammer.groovymc.experimental.bakedmodels
 
-import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.math.BlockPos
-import net.minecraftforge.common.model.IModelState
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 
 @SideOnly(Side.CLIENT)
-interface IAbstractModelBaker {
+interface IAbstractModelBakerModel extends IBakedModel {
 
-    void setColorIndex(int color);
+    void setGui3d(boolean gui3d);
 
-    void addBlockModel(@Nullable BlockPos pos, TextureAtlasSprite[] sprites, int colorIndex);
-
-    void addBlockModel(@Nullable BlockPos pos, TextureAtlasSprite sprites, int colorIndex);
-
-    void addModel(TextureAtlasSprite[] textures, int colorIndex);
-
-    void addModel(TextureAtlasSprite texture, int colorIndex);
-
-    void addBakedModel(@Nullable IBlockState state, IBakedModel model);
-
-    void addBakedModelPost(@Nullable IBlockState state, IBakedModel model);
-
-    void addFace(EnumFacing facing, TextureAtlasSprite sprite);
-
-    void setModelState(@Nullable IModelState modelState);
+    void setAmbientOcclusion(boolean ambientOcclusion);
 
     void setParticleSprite(TextureAtlasSprite particleSprite);
 
-    IAbstractModelBakerModel bakeModel(boolean flip);
+    void addQuad(@Nullable EnumFacing facing, BakedQuad quad);
+
+    void setRotation(float[] rotation);
+
+    void setTranslation(float[] translation);
+
+    void setScale(float[] scale);
+
+    float[] getRotation();
+
+    float[] getTranslation();
+
+    float[] getScale();
 }

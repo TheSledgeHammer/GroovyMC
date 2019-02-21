@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side
@@ -49,7 +48,7 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     @Override
     void registerTileEntity() {
         super.registerTileEntity();
-        Block block = getBlock();
+        Block block = this.getBlock();
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
             Item item = Item.getItemFromBlock(block);
@@ -64,7 +63,7 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     @Override
     void registerTileEntity(String modID) {
         super.registerTileEntity(modID);
-        Block block = getBlock();
+        Block block = this.getBlock();
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
             Item item = Item.getItemFromBlock(block);

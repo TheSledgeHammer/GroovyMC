@@ -31,7 +31,7 @@ class ObjectManager {
 	private final static Set<IBlockColor> blockColorList = new HashSet<>();
 	private final static Set<IStateMapper> stateMapperList = new HashSet<>();
 	
-	static void ColorRegister() {
+	static void RegisterColors() {
 		registerItemColor();
 		registerBlockColor();
 	}

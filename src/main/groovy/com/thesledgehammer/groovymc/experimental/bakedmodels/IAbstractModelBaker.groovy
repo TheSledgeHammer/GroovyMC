@@ -6,8 +6,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.txt                                                       *
  **************************************************************************************************/
 
-package com.thesledgehammer.groovymc.experimental.models
-
+package com.thesledgehammer.groovymc.experimental.bakedmodels
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.IBakedModel
@@ -18,62 +17,30 @@ import net.minecraftforge.common.model.IModelState
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+import javax.annotation.Nullable
+
 @SideOnly(Side.CLIENT)
-class AbstractModelBaker implements IAbstractModelBaker {
+interface IAbstractModelBaker {
 
+    void setColorIndex(int color);
 
-    @Override
-    void setColorIndex(int color) {
+    void addBlockModel(@Nullable BlockPos pos, TextureAtlasSprite[] sprites, int colorIndex);
 
-    }
+    void addBlockModel(@Nullable BlockPos pos, TextureAtlasSprite sprites, int colorIndex);
 
-    @Override
-    void addBlockModel(BlockPos pos, TextureAtlasSprite[] sprites, int colorIndex) {
+    void addModel(TextureAtlasSprite[] textures, int colorIndex);
 
-    }
+    void addModel(TextureAtlasSprite texture, int colorIndex);
 
-    @Override
-    void addBlockModel(BlockPos pos, TextureAtlasSprite sprites, int colorIndex) {
+    void addBakedModel(@Nullable IBlockState state, IBakedModel model);
 
-    }
+    void addBakedModelPost(@Nullable IBlockState state, IBakedModel model);
 
-    @Override
-    void addModel(TextureAtlasSprite[] textures, int colorIndex) {
+    void addFace(EnumFacing facing, TextureAtlasSprite sprite);
 
-    }
+    void setModelState(@Nullable IModelState modelState);
 
-    @Override
-    void addModel(TextureAtlasSprite texture, int colorIndex) {
+    void setParticleSprite(TextureAtlasSprite particleSprite);
 
-    }
-
-    @Override
-    void addBakedModel(IBlockState state, IBakedModel model) {
-
-    }
-
-    @Override
-    void addBakedModelPost(IBlockState state, IBakedModel model) {
-
-    }
-
-    @Override
-    void addFace(EnumFacing facing, TextureAtlasSprite sprite) {
-
-    }
-
-    @Override
-    void setModelState(IModelState modelState) {
-
-    }
-
-    @Override
-    void setParticleSprite(TextureAtlasSprite particleSprite) {
-
-    }
-
-    @Override
-    IAbstractModelBakerModel bakeModel(boolean flip) {
-        return null
-    }
+    IAbstractModelBakerModel bakeModel(boolean flip);
 }

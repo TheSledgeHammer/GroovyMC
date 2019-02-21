@@ -6,7 +6,7 @@
  * http://www.gnu.org/licenses/lgpl-3.0.txt                                                       *
  **************************************************************************************************/
 
-package com.thesledgehammer.groovymc.experimental.models
+package com.thesledgehammer.groovymc.experimental.bakedmodels
 
 import com.thesledgehammer.groovymc.client.model.AbstractModel
 import net.minecraft.block.state.IBlockState
