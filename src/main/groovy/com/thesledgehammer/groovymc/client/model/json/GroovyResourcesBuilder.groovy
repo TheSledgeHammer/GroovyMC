@@ -80,7 +80,12 @@ class GroovyResourcesBuilder {
         }
 
         Builder setResourceLocation(String resource) {
-            this.resourceLocation = new ResourceLocation(resource, "inventory");
+            this.resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), resource);
+            return this;
+        }
+
+        Builder setResourceLocation(String modID, String resource) {
+            this.resourceLocation = new ResourceLocation(modID, resource);
             return this;
         }
 
@@ -107,7 +112,24 @@ class GroovyResourcesBuilder {
                     resource = resourceDirectory.substring(idx);
                 }
             }
-            this.resourceLocation = new ResourceLocation(resource, "inventory");
+            this.resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), resource);
+            return this;
+        }
+
+        Builder setCustomResourceLocation(String modID, String type, String fileName) {
+            setResourceDirectory(type, fileName);
+            String resource = "";
+            for (int i = 0; i < resourceDirectory.length(); i++) {
+                if (resourceDirectory.contains(type)) {
+                    int idx = resourceDirectory.indexOf(type);
+                    resource = resourceDirectory.substring(idx);
+                }
+                if (type.isEmpty() || type == "") {
+                    int idx = resourceDirectory.indexOf(fileName);
+                    resource = resourceDirectory.substring(idx);
+                }
+            }
+            this.resourceLocation = new ResourceLocation(modID, resource);
             return this;
         }
 

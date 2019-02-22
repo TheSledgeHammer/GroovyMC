@@ -27,6 +27,7 @@ class Constants {
 
     static final String TEXTURE_PATH_BLOCKS = "textures/blocks";
     static final String TEXTURE_PATH_ITEMS = "textures/items";
+    static final String TEXTURE_PATH_FLUIDS = "textures/fluids"
     static final String TEXTURE_PATH_GUI = "textures/gui";
 
     static final String MODEL_PATH_BLOCKS = "models/block";

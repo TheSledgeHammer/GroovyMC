@@ -10,11 +10,13 @@ package com.thesledgehammer.groovymc.experimental.blocks
 
 
 import com.thesledgehammer.groovymc.client.model.BlankGroovyModel
+import com.thesledgehammer.groovymc.client.model.json.GroovyResourcesBuilder
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
 import com.thesledgehammer.groovymc.experimental.models.ModelEntryStatic
 import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureAtasSpriteBuilder
 import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureMap
+import com.thesledgehammer.groovymc.experimental.textures.SpriteEntry
 import com.thesledgehammer.groovymc.experimental.textures.TextureAtlas
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -57,23 +59,21 @@ class JsonTest {
 				.setGroovyTextureMap("textures")
 				.setTextureAtlasSprite("'#back'")
 				.build();
+		GroovyResourcesBuilder GRB = new GroovyResourcesBuilder.Builder()
+				.setTextureAtlasSprite("back").setResourceLocation("groovy", "side")
+				.build();
 
-		for(EnumFacing face : EnumFacing.VALUES) {
-			//GTASB.getTextureAtlasSpriteProvider().setSprite(face, 0, textureMap);
-			//println GBBM.getAbstractModel().getTexturesByName("#back")
-			//println GBBM.getAbstractModel().getRawModelPart(0).Facing(EnumFacing.EAST)
-		}
-
+		println GRB.getResourceLocation()
+		SpriteEntry SE = new SpriteEntry(new ResourceLocation(GL.getModID(), "test"));
+		SE.onTextureStitchPre(textureMap);
+		println SE.spriteLocation
+		//println TextureAtlas.createForConfig(GL.getModID(), "back");
 		//GTASB.getGroovyTextureMap().setTextureEntry(GTASB.getTextureAtlasSpriteProvider());
 		//textureMap.setTextureEntry(GTASB.getTextureAtlasSpriteProvider())
 
-		//println
-		TextureAtlasSprite sprite = TextureAtlas.createForConfig(new ResourceLocation("back"));
-		TextureAtlas atlas = new TextureAtlas(GBBM.getAbstractModel(), EnumFacing.DOWN, 0);
-		//this.minV = (float)originInY / (float)inY;
-		//this.maxV = (float)(originInY + this.height) / (float)inY;
+//		println GTASB.getGroovyTextureMap().setTextureEntry()etAtlasSprite("back")
 
-		println GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST,0).location//BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap);
+		//println GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST,0).location//BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap);
 		//println GBBM.getAbstractModel().TexturedFaceLookup(EnumFacing.UP, 0, textureMap).sprite
 	}
 

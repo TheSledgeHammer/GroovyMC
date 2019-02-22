@@ -11,6 +11,7 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -61,6 +62,7 @@ class ModelTools {
         }
         if(quads.size() == 0) {
             //Add a Log Error or JsonSyntaxException
+            //Log.logError("Expected between 1 and 6 faces, got an empty object");
             println "Expected between 1 and 6 faces, got an empty object"
         }
         return quads.toArray(new JsonQuads[quads.size()]);
