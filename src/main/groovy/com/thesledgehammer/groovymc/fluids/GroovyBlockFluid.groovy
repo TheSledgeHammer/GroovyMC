@@ -52,9 +52,9 @@ class GroovyBlockFluid extends BlockFluidClassic implements IInitModel {
         if(modID == null) {
             modID = GroovyLoader.Instance().getModID();
         }
-        GroovyStateMapperBase gapper = new GroovyStateMapperBase(modID,"fluids", name);
+        GroovyStateMapperBase mapper = new GroovyStateMapperBase(modID,"fluids", name);
         ModelLoader.registerItemVariants(item);
-        ModelLoader.setCustomMeshDefinition(item, gapper);
-        ModelLoader.setCustomStateMapper(this, gapper);
+        ModelLoader.setCustomMeshDefinition(item, mapper);
+        ModelLoader.setCustomStateMapper(this, mapper);
     }
 }

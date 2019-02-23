@@ -37,6 +37,11 @@ class GroovyModelBuilder {
             this.bakedModel = bakedModel;
         }
 
+        Builder setIBakedModel(IBakedModel bakedModel) {
+            this.bakedModel = bakedModel;
+            return this;
+        }
+
         /*Testing: IBakedModel implementation using a MutableGroovyModel*/
         Builder setIBakedModel(MutableGroovyModel mutableGroovyModel) {
             this.bakedModel = new IBakedModel() {

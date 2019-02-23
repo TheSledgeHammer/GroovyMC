@@ -55,6 +55,10 @@ class GroovysonObject {
     }
 
     def getParent() {
+        if(obj.parent == null) {
+            //Log.logError(obj.parent + " Isn't defined in " + getName());
+            return null;
+        }
         return obj.parent;
     }
 

@@ -35,8 +35,8 @@ class GroovyFluidBase extends Fluid {
     }
 
     private static ResourceLocation FluidFlowing(String modID, String texturePath, String fluidName) {
-        ResourceLocation still = new ResourceLocation(modID, texturePath + fluidName + "_flow");
-        return still;
+        ResourceLocation flow = new ResourceLocation(modID, texturePath + fluidName + "_flow");
+        return flow;
     }
 
     private static ResourceLocation FluidStill(String texturePath, String fluidName) {
@@ -45,8 +45,8 @@ class GroovyFluidBase extends Fluid {
     }
 
     private static ResourceLocation FluidFlowing(String texturePath, String fluidName) {
-        ResourceLocation still = new ResourceLocation(GroovyLoader.Instance().getModID(), texturePath + fluidName + "_flow");
-        return still;
+        ResourceLocation flow = new ResourceLocation(GroovyLoader.Instance().getModID(), texturePath + fluidName + "_flow");
+        return flow;
     }
 
     private static ResourceLocation FluidStill(String fluidName) {
@@ -55,7 +55,7 @@ class GroovyFluidBase extends Fluid {
     }
 
     private static ResourceLocation FluidFlowing(String fluidName) {
-        ResourceLocation still = new ResourceLocation(GroovyLoader.Instance().getModID(), Constants.TEXTURE_PATH_FLUIDS + fluidName + "_flow");
-        return still;
+        ResourceLocation flow = new ResourceLocation(GroovyLoader.Instance().getModID(), Constants.TEXTURE_PATH_FLUIDS + fluidName + "_flow");
+        return flow;
     }
 }

@@ -8,7 +8,8 @@
 
 package com.thesledgehammer.groovymc.proxy
 
-import com.thesledgehammer.groovymc.experimental.models.ModelEntryRegister
+
+import com.thesledgehammer.groovymc.experimental.patterns.ModelEntryRegistery
 import com.thesledgehammer.groovymc.input.InputHandler
 import com.thesledgehammer.groovymc.input.KeyBindings
 import com.thesledgehammer.groovymc.utils.ObjectManager
@@ -25,7 +26,6 @@ class ClientProxy extends CommonProxy {
 	void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 		//Typically initialization of models and such goes here:
-		ModelEntryRegister.preInit();
 	}
 	
 	@Override

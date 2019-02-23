@@ -95,7 +95,17 @@ class GroovyResourcesBuilder {
         }
 
         Builder setTextureAtlasSprite(String sprite) {
-            this.textureAtlasSprite = new TextureAtlasSprite(sprite);
+            this.textureAtlasSprite = TextureAtlas.createForConfig(sprite);
+            return this;
+        }
+
+        Builder setTextureAtlasSprite(ResourceLocation spriteLocation) {
+            this.textureAtlasSprite = TextureAtlas.createForConfig(spriteLocation);
+            return this;
+        }
+
+        Builder setTextureAtlasSprite(String modID, String baseName) {
+            this.textureAtlasSprite = TextureAtlas.createForConfig(modID, baseName);
             return this;
         }
 
@@ -166,6 +176,27 @@ class GroovyResourcesBuilder {
 
         GroovyResourcesBuilder build() {
             return new GroovyResourcesBuilder(this);
+        }
+
+        private static class TextureAtlas extends TextureAtlasSprite {
+
+            protected TextureAtlas(String spriteName) {
+                super(spriteName)
+            }
+
+            static TextureAtlasSprite createForConfig(ResourceLocation baseName) {
+                return makeAtlasSprite(baseName);
+            }
+
+            static TextureAtlasSprite createForConfig(String modID, String baseName) {
+                ResourceLocation resourceLocation = new ResourceLocation(modID, baseName);
+                return makeAtlasSprite(resourceLocation);
+            }
+
+            static TextureAtlasSprite createForConfig(String baseName) {
+                ResourceLocation resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), baseName);
+                return makeAtlasSprite(resourceLocation);
+            }
         }
     }
 }
