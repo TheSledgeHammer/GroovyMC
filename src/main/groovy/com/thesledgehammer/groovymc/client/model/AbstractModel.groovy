@@ -19,6 +19,7 @@ import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 
 //AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
+@Deprecated// Removing ASAP use GroovysonModel
 class AbstractModel extends GroovysonObject {
     private String resourceObject;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();

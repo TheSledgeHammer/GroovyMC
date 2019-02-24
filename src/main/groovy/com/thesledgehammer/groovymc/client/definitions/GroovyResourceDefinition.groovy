@@ -58,15 +58,15 @@ class GroovyResourceDefinition {
     }
 
     void setTextureAtlasSprite(String sprite) {
-        this.textureAtlasSprite = TextureAtlasDefintion.createForConfig(sprite);
+        this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(sprite);
     }
 
     void setTextureAtlasSprite(ResourceLocation spriteLocation) {
-        this.textureAtlasSprite = TextureAtlasDefintion.createForConfig(spriteLocation);
+        this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
     }
 
     void setTextureAtlasSprite(String modID, String baseName) {
-        this.textureAtlasSprite = TextureAtlasDefintion.createForConfig(modID, baseName);
+        this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName);
     }
 
     void setCustomResourceLocation(String type, String fileName) {
@@ -128,27 +128,6 @@ class GroovyResourceDefinition {
         this.modelDirectory = new File(GroovyLoader.Instance().getModPath() + "/" + GroovyLoader.Instance().getModResourcePath() + "/" + GroovyLoader.Instance().getModID() + "/models/" + type + "/" + fileName).absolutePath;
         if (type.isEmpty() || type == "") {
             this.modelDirectory = new File(GroovyLoader.Instance().getModPath() + "/" + GroovyLoader.Instance().getModResourcePath() + "/" + GroovyLoader.Instance().getModID() + "/models/" + fileName).absolutePath;
-        }
-    }
-
-    private static class TextureAtlasDefintion extends TextureAtlasSprite {
-
-        protected TextureAtlasDefintion(String spriteName) {
-            super(spriteName)
-        }
-
-        static TextureAtlasSprite createForConfig(ResourceLocation baseName) {
-            return makeAtlasSprite(baseName);
-        }
-
-        static TextureAtlasSprite createForConfig(String modID, String baseName) {
-            ResourceLocation resourceLocation = new ResourceLocation(modID, baseName);
-            return makeAtlasSprite(resourceLocation);
-        }
-
-        static TextureAtlasSprite createForConfig(String baseName) {
-            ResourceLocation resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), baseName);
-            return makeAtlasSprite(resourceLocation);
         }
     }
 }

@@ -8,7 +8,7 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.experimental.patterns.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.GroovysonModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -95,4 +95,15 @@ class GroovyDefinitionContext {
     void setCustomModelResourceLocation(String type, String fileName) {
         resources.setCustomModelResourceLocation(type, fileName);
     }
+/*
+    static final List<ModelEntry> MODEL_ENTRIES = new ArrayList<>();
+    static final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
+
+    static void registerTextures(TextureEntry index) {
+        TEXTURE_ENTRIES.add(index);
+    }
+
+    static void registerModels(ModelEntry index) {
+       MODEL_ENTRIES.add(index);
+    }*/
 }

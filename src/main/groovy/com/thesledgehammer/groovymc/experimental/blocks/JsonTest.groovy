@@ -11,10 +11,10 @@ package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.bakedmodels.GroovyAbstractModelBaker
-import com.thesledgehammer.groovymc.experimental.patterns.GroovyModel
-import com.thesledgehammer.groovymc.experimental.patterns.GroovysonModel
-import com.thesledgehammer.groovymc.experimental.patterns.ModelEntryStatic
-import com.thesledgehammer.groovymc.experimental.patterns.ModelEntryVariable
+import com.thesledgehammer.groovymc.client.model.GroovysonModel
+import com.thesledgehammer.groovymc.experimental.patterns.ModelBase
+import com.thesledgehammer.groovymc.client.model.ModelEntryStatic
+
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 
 /*TODO: Create Following:
@@ -45,13 +45,14 @@ class JsonTest {
 		GBBM.setModelTextures("#back");
 		GBBM.setModelTextures("#side");
 
-		GroovyModel GM = new GroovyModel(Engine_Def);
+		ModelBase model = new ModelBase("block","engine_base");
+
+		model.setModelTextures("#trunk_blue");
 
 		ModelEntryStatic MES = new ModelEntryStatic();
-		ModelEntryVariable MEV = new ModelEntryVariable();
+		MES.GroovyDefinitionContext().setModelResourceLocation(model.GROOVY_MODEL.name);
 
-		MES.GroovyDefinitionContext().setModelResourceLocation("engine_base");
-		println MES.GroovyDefinitionContext().getModelResourceLocation();
+		println MES.GroovyDefinitionContext().getModelResourceLocation()
 	}
 /*
 	static void Old() {
