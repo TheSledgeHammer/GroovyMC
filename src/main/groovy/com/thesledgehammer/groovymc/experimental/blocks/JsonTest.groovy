@@ -9,19 +9,13 @@
 package com.thesledgehammer.groovymc.experimental.blocks
 
 
-import com.thesledgehammer.groovymc.client.model.BlankGroovyModel
-import com.thesledgehammer.groovymc.client.model.json.GroovyResourcesBuilder
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.models.GBlockBakedModel
-import com.thesledgehammer.groovymc.experimental.models.ModelEntryStatic
-import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureAtasSpriteBuilder
-import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureMap
-import com.thesledgehammer.groovymc.experimental.textures.SpriteEntry
-import com.thesledgehammer.groovymc.experimental.textures.TextureAtlas
+import com.thesledgehammer.groovymc.experimental.bakedmodels.GroovyAbstractModelBaker
+import com.thesledgehammer.groovymc.experimental.patterns.GroovyModel
+import com.thesledgehammer.groovymc.experimental.patterns.GroovysonModel
+import com.thesledgehammer.groovymc.experimental.patterns.ModelEntryStatic
+import com.thesledgehammer.groovymc.experimental.patterns.ModelEntryVariable
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.ResourceLocation
 
 /*TODO: Create Following:
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
@@ -32,9 +26,8 @@ class JsonTest {
 	static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
 
 	static void main(String[] args) {
-
-        GBlockBakedModel GBBM = new GBlockBakedModel("block", "engine_base");
-		ModelEntryStatic entry = new ModelEntryStatic(GBBM.abstractModel, new BlankGroovyModel());
+		GroovyAbstractModelBaker GBBM = new GroovyAbstractModelBaker("block", "engine_base");
+		GroovysonModel Engine_Def = new GroovysonModel("block","engine_base")
 
 		//Model Elements
 		GBBM.setModelParts("base");
@@ -52,33 +45,17 @@ class JsonTest {
 		GBBM.setModelTextures("#back");
 		GBBM.setModelTextures("#side");
 
-		//TextureAtlasSprite & TextureMap with GroovyTextureAtasSpriteBuilder
-		GroovyTextureMap textureMap = new GroovyTextureMap("textures", null, true);
+		GroovyModel GM = new GroovyModel(Engine_Def);
 
-		GroovyTextureAtasSpriteBuilder GTASB = new GroovyTextureAtasSpriteBuilder.Builder()
-				.setGroovyTextureMap("textures")
-				.setTextureAtlasSprite("'#back'")
-				.build();
-		GroovyResourcesBuilder GRB = new GroovyResourcesBuilder.Builder()
-				.setTextureAtlasSprite("back").setResourceLocation("groovy", "side")
-				.build();
+		ModelEntryStatic MES = new ModelEntryStatic();
+		ModelEntryVariable MEV = new ModelEntryVariable();
 
-		println GRB.getResourceLocation()
-		SpriteEntry SE = new SpriteEntry(new ResourceLocation(GL.getModID(), "test"));
-		SE.onTextureStitchPre(textureMap);
-		println SE.spriteLocation
-		//println TextureAtlas.createForConfig(GL.getModID(), "back");
-		//GTASB.getGroovyTextureMap().setTextureEntry(GTASB.getTextureAtlasSpriteProvider());
-		//textureMap.setTextureEntry(GTASB.getTextureAtlasSpriteProvider())
-
-//		println GTASB.getGroovyTextureMap().setTextureEntry()etAtlasSprite("back")
-
-		//println GBBM.getAbstractModel().getJsonTexture(EnumFacing.EAST,0).location//BakeTools.TexturedFaceLookup(GBBM.getAbstractModel(), EnumFacing.EAST, 0, textureMap);
-		//println GBBM.getAbstractModel().TexturedFaceLookup(EnumFacing.UP, 0, textureMap).sprite
+		MES.GroovyDefinitionContext().setModelResourceLocation("engine_base");
+		println MES.GroovyDefinitionContext().getModelResourceLocation();
 	}
-
+/*
 	static void Old() {
-		/*
+
 		GroovysonObject engine = new GroovysonObject(GL.getModResourceDirectory(), GL.getModID(), Constants.MODEL_PATH_BLOCKS, "engine_base")
 		GroovysonObjectPart base = new GroovysonObjectPart(engine, "base")
 		GroovysonObjectPart base_moving = new GroovysonObjectPart(engine, "base_moving")
@@ -110,6 +87,6 @@ class JsonTest {
 				println ModelTools.addBakedQuadsToBlock(AM, face, sprite).size();
 			}
 		}
-		*/
 	}
+	*/
 }

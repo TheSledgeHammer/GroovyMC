@@ -13,11 +13,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
-//TODO:
-//- TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks();
-//- TextureAtlasSprite from resourceLocation
-//- Dealing with situations that use Custom & Default together
-
+@Deprecated //To remove ASAP, refer to GroovyResourceDefinition in defintions
 class GroovyResourcesBuilder {
 
     private ResourceLocation resourceLocation;

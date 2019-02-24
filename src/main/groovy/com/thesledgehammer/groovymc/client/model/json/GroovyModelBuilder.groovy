@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 import javax.annotation.Nullable
-
+@Deprecated //To remove ASAP, refer to GroovyModelDefinition in defintions
 class GroovyModelBuilder {
     private IBakedModel bakedModel;
 
