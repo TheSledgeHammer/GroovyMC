@@ -8,86 +8,46 @@
 
 package com.thesledgehammer.groovymc.experimental.blocks
 
-
+import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.bakedmodels.GroovyAbstractModelBaker
-import com.thesledgehammer.groovymc.client.model.GroovysonModel
-import com.thesledgehammer.groovymc.experimental.patterns.ModelBase
-import com.thesledgehammer.groovymc.client.model.ModelEntryStatic
-
+import com.thesledgehammer.groovymc.experimental.patterns.GroovyBlockModel
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import net.minecraft.util.EnumFacing
 
-/*TODO: Create Following:
-- BlankItemModel: Uses ModelTools.addBakedQuadsToItem
-- BlankBlockModel: Uses ModelTools.addBakedQuadsToBlock
+/*TODO:
+1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry
+2. GroovyResourceDefinition: Add Get TextAtlasSprite by name & as well as by ModelElement if needed
 */
 class JsonTest {
 
 	static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
 
 	static void main(String[] args) {
-		GroovyAbstractModelBaker GBBM = new GroovyAbstractModelBaker("block", "engine_base");
-		GroovysonModel Engine_Def = new GroovysonModel("block","engine_base")
-
+		//GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
+		GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+		//blockModel.setGroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition())
 		//Model Elements
-		GBBM.setModelParts("base");
-		//GBBM.setModelParts("base_moving");
-		GBBM.setModelParts("trunk");
-		//GBBM.setModelParts("chamber");
+		blockModel.setModelElements("base");
+		//blockModel.setModelElements("base_moving");
+		blockModel.setModelElements("trunk");
+		//blockModel.setModelElements("chamber");
 		//Model Textures
-		GBBM.setModelTextures("#trunk_blue");
-		GBBM.setModelTextures("#trunk_green");
-		GBBM.setModelTextures("#trunk_yellow");
-		GBBM.setModelTextures("#trunk_red");
-		GBBM.setModelTextures("#trunk_overheat");
-		GBBM.setModelTextures("#trunk_black");
-		GBBM.setModelTextures("#chamber");
-		GBBM.setModelTextures("#back");
-		GBBM.setModelTextures("#side");
 
-		ModelBase model = new ModelBase("block","engine_base");
+		blockModel.setModelTextures("#trunk_blue");
+		blockModel.setModelTextures("#trunk_green");
+		blockModel.setModelTextures("#trunk_yellow");
+		blockModel.setModelTextures("#trunk_red");
+		blockModel.setModelTextures("#trunk_overheat");
+		blockModel.setModelTextures("#trunk_black");
+		blockModel.setModelTextures("#chamber");
+		blockModel.setModelTextures("#back");
+		blockModel.setModelTextures("#side");
 
-		model.setModelTextures("#trunk_blue");
-
-		ModelEntryStatic MES = new ModelEntryStatic();
-		MES.GroovyDefinitionContext().setModelResourceLocation(model.GROOVY_MODEL.name);
-
-		println MES.GroovyDefinitionContext().getModelResourceLocation()
+		//blockModel.GroovyDefinitionContext().setTextureAtlasSprite("back");
+		//blockModel.GroovyDefinitionContext().setTextureAtlasSprite("side");
+		println blockModel.GroovyDefinitionContext()
+		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
+		//println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
 	}
-/*
-	static void Old() {
-
-		GroovysonObject engine = new GroovysonObject(GL.getModResourceDirectory(), GL.getModID(), Constants.MODEL_PATH_BLOCKS, "engine_base")
-		GroovysonObjectPart base = new GroovysonObjectPart(engine, "base")
-		GroovysonObjectPart base_moving = new GroovysonObjectPart(engine, "base_moving")
-		GroovysonObjectPart trunk = new GroovysonObjectPart(engine, "trunk");
-		GroovysonObjectPart chamber = new GroovysonObjectPart(engine, "chamber");
-
-		//G.addModelResourceObject("block", "engine_base");
-		//G.addTextureResourceObject("items", "beecomb_0");
-		//println base.To();
-		//print base_moving.VariablePart(base_moving.From(),"progress_size", "10.0");
-		//println engine.getTextures()
-		//JsonTexture texture = new JsonTexture(base, EnumFacing.NORTH);
-		//println engine.getTexturesByName("#chamber");
-
-		AbstractModel AM = new AbstractModel("block", "engine_base")
-
-		AM.setRawModelParts("base")
-		//AM.setRawModelParts("base_moving");
-		AM.setRawModelParts("trunk")
-
-		AM.setRawModelTextures("#trunk_yellow")
-		AM.setRawModelTextures("#chamber")
-		//AM.getRawModelTexturesLocation("#chamber");
-		//println AM.getRawModelPart(0).
-		//map.setTextureEntry(
-		//map.registerSprite(G.getTextureResourceLocationObject(0))
-		for(EnumFacing face : EnumFacing.VALUES) {
-			if(face.equals(EnumFacing.NORTH)) {
-				println ModelTools.addBakedQuadsToBlock(AM, face, sprite).size();
-			}
-		}
-	}
-	*/
 }

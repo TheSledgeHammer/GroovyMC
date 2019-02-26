@@ -22,6 +22,7 @@ class ModelTools {
 - BlankItemModel: Uses ModelTools.addBakedQuadsToItem
 - BlankBlockModel: Uses ModelTools.addBakedQuadsToBlock
  */
+    //Revised Version in GroovyBlockModel class
     static List<BakedQuad> addBakedQuadsToBlock(AbstractModel abstractModel, EnumFacing face, TextureAtlasSprite sprite) {
         int size = abstractModel.getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
@@ -30,7 +31,7 @@ class ModelTools {
         }
         return bakedQuads;
     }
-
+    //Revised Version in GroovyItemModel class
     static List<BakedQuad> addBakedQuadsToItem(AbstractModel abstractModel, EnumFacing face, TextureAtlasSprite sprite) {
         int size = abstractModel.getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
@@ -39,7 +40,7 @@ class ModelTools {
         }
         return bakedQuads;
     }
-
+    //Revised Version in ModelBase class
     static MutableQuad[] getMutableQuads(AbstractModel abstractModel, EnumFacing face, TextureAtlasSprite sprite) {
         int size = abstractModel.getRawModelTextures().size();
         MutableQuad[] mutableQuads = new MutableQuad[size];
