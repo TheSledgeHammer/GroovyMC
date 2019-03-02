@@ -1,23 +1,24 @@
-# GroovyMC
+# GroovyMC:
 A Minecraft Mod Library created using the Apache Groovy programming language.
 
 A mod library used in my other mods both existing and upcoming.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
-### Getting Started
+### Getting Started:
 
 Please initialize the "GroovyLoader" in your main class or common proxy class.
-
-GroovyLoader groovyLoader = new GroovyLoader(String modPath, String modResourcePath, String jvm, String url, String modID);
-
+```
+GroovyLoader groovyLoader = new GroovyLoader(modPath, modResourcePath, jvm, url, modID);
+```
 The class is required for using GroovyMC's Models & Rendering. Otherwise it is optional.
 
 Provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
 
 For a complete example look at the GroovyMC class.
 
-### Build Gradle Environment
+### Build Gradle Environment:
+
 Maven Repository:
 Add the following to your build.Gradle
 ```
@@ -33,8 +34,22 @@ dependencies {
 }
 ```
 
-### GNU Lesser General Public License v3.0
+### Apache License v2.0:
 
-Permissions of this copyleft license are conditioned on making available complete source code of licensed works and modifications under the same license or the GNU GPLv3. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work through interfaces provided by the licensed work may be distributed under different terms and without source code for the larger work.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Please Read the License file for more information
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+#### Notice:
+
+GroovyMC is no longer licenced under the LGPL 3.0 and is now licenced under the Apache 2.0 licence. If you are using this project or parts of this project; Please update the licencing to reflect this change.
+
+This project also contains source code that maintained under the LGPL 3.0 and MPL 2.0.

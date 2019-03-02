@@ -29,12 +29,12 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @SideOnly(Side.CLIENT)
-class GroovyStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
+class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
 
     private final T type;
     protected final Map<IBlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
 
-    GroovyStateMapper(T type) {
+    GroovyMachineStateMapper(T type) {
         this.type = type;
     }
 

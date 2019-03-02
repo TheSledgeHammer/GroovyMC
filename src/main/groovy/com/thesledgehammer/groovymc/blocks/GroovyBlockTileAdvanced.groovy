@@ -1,10 +1,18 @@
-/**************************************************************************************************
- * Copyright (c) 2018 TheSledgeHammer.                                                            *
- * All rights reserved. This program and the accompanying materials                               *
- * are made available under the terms of the GNU Lesser Public License v3                         *
- * which accompanies this distribution, and is available at                                       *
- * http://www.gnu.org/licenses/lgpl-3.0.txt                                                       *
- **************************************************************************************************/
+/*
+ * Copyright [2018] [TheSledgeHammer]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.thesledgehammer.groovymc.blocks
 
@@ -13,7 +21,7 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.utils.GroovyStateMapper
+import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -129,7 +137,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     void registerStateMapper() {
-        ModelLoader.setCustomStateMapper(this, new GroovyStateMapper<>(blockType));
+        ModelLoader.setCustomStateMapper(this, new GroovyMachineStateMapper<>(blockType));
     }
 
     @Nullable

@@ -7,7 +7,7 @@
  *
  * Various Contributors including, but not limited to:
  * SirSengir (original work), CovertJaguar, Player, Binnie, MysteriousAges
- * Modified by TheSledgeHammer 2018: Converted to .groovy
+ * Modified by TheSledgeHammer 2018: Adds Methods, Converted to .groovy
  *********************************************************************************/
 package com.thesledgehammer.groovymc.blocks.properties
 
