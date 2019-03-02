@@ -52,4 +52,4 @@ limitations under the License.
 
 GroovyMC is no longer licenced under the LGPL 3.0 and is now licenced under the Apache 2.0 licence. If you are using this project or parts of this project; Please update the licencing to reflect this change.
 
-This project also contains source code that maintained under the LGPL 3.0 and MPL 2.0.
+This project also contains source code that is maintained under the LGPL 3.0 and MPL 2.0.
