@@ -22,7 +22,7 @@ import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.StringTools
 
 //Item & Block Models
-//AbstractModels does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
+//GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class GroovysonModel extends GroovysonObject {
 
     private String resourceObject;

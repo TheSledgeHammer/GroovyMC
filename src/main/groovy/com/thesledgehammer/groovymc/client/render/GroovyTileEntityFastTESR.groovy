@@ -12,16 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Based from Forestry's IBlockTypeTesr
  */
 
-package com.thesledgehammer.groovymc.blocks.properties
+package com.thesledgehammer.groovymc.client.render
 
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.tileentity.TileEntity
+import net.minecraftforge.client.model.animation.FastTESR
 
-interface IBlockTypeFastTESR extends IBlockType {
+abstract class GroovyTileEntityFastTESR<T extends TileEntity> extends FastTESR<T> {
 
-    @Override
-    MachinePropertyTraits<?> getGroovyMachineProperties();
+    private String textureBase;
+
+    GroovyTileEntityFastTESR(String textureBase) {
+        this.textureBase = textureBase;
+    }
 }

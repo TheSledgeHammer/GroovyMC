@@ -15,7 +15,7 @@ buildscript {
 plugins {
 	id 'groovy'
 	id 'maven'
-	id "net.minecraftforge.gradle.forge" version "2.0.0"
+	id "net.minecraftforge.gradle.forge" version "2.0.2"
 	id "com.jfrog.bintray" version "1.8.4"
 }
 apply from: rootProject.file('git-maven.gradle')

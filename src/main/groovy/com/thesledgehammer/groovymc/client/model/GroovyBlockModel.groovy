@@ -16,31 +16,22 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.definitions.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.ModelEntryBakery
-import com.thesledgehammer.groovymc.client.definitions.TextureEntry
-import net.minecraft.util.ResourceLocation
+import net.minecraft.client.renderer.block.model.BakedQuad
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.util.EnumFacing
 
-class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
+class GroovyBlockModel extends GroovyBaseModel {
 
-    GroovyBaseModel GROOVY_MODEL;
-
-    ModelEntryStatic() {
-
+    GroovyBlockModel(String fileName) {
+        super("block", fileName);
     }
 
-    @Override
-    protected void onModelBake() {
-
-    }
-
-    @Override
-    void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-
-    }
-
-    @Override
-    boolean hasBakedQuads() {
-        return false
+    List<BakedQuad> addBakedQuadsToBlock(EnumFacing face, TextureAtlasSprite sprite) {
+        int size = GROOVY_MODEL.getRawModelTextures().size();
+        List<BakedQuad> bakedQuads = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            bakedQuads.add(QuadAFace(face, i).toQuad(sprite).toBakedBlock());
+        }
+        return bakedQuads;
     }
 }
