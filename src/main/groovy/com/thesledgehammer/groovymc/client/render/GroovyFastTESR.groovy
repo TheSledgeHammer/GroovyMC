@@ -19,11 +19,11 @@ package com.thesledgehammer.groovymc.client.render
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.client.model.animation.FastTESR
 
-abstract class GroovyTileEntityFastTESR<T extends TileEntity> extends FastTESR<T> {
+abstract class GroovyFastTESR<T extends TileEntity> extends FastTESR<T> {
 
     private String textureBase;
 
-    GroovyTileEntityFastTESR(String textureBase) {
+    GroovyFastTESR(String textureBase) {
         this.textureBase = textureBase;
     }
 }

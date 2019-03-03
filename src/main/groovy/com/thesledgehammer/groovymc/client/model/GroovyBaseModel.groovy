@@ -20,6 +20,7 @@ import com.google.common.collect.HashBasedTable
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
@@ -168,6 +169,25 @@ class GroovyBaseModel {
             mutableQuads[i] = QuadAFace(face, i).toQuad(sprite);
         }
         return mutableQuads;
+    }
+
+    JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
+        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
+        float[] from = objectPart.from()
+        float[] to = objectPart.to();
+        boolean shade = groovysonObject.Shade(false);
+        List<JsonQuads> quads = new ArrayList<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            JsonQuads q = new JsonQuads(objectPart, from, to, face);
+            //q.shade = shade;
+            quads.add(q);
+        }
+        if(quads.size() == 0) {
+            //Add a Log Error or JsonSyntaxException
+            //Log.logError("Expected between 1 and 6 faces, got an empty object");
+            println "Expected between 1 and 6 faces, got an empty object"
+        }
+        return quads.toArray(new JsonQuads[quads.size()]);
     }
 
     //ModelEntries & TextureEntries
