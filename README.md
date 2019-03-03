@@ -25,7 +25,7 @@ Add the following to your build.Gradle
 repositories {
   maven {
     name = "GroovyMC"
-    url = "https://helixteamhub.cloud/SledgeHammerDevolopment/projects/mods/repositories/maven/devlopment"
+    url = "https://dl.bintray.com/thesledgehammer/development/"
   }
 }
 
