@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
 import com.thesledgehammer.groovymc.client.definitions.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
+import com.thesledgehammer.groovymc.experimental.patterns.Models
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
@@ -30,8 +31,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ModelEntryRegistery  {
 
-    private static final List<ModelEntry> MODEL_ENTRIES = new ArrayList<>();
-    private static final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
+    private static final List<ModelEntry> MODEL_ENTRIES = ModelEntry.Register.getModelEntries();//new ArrayList<>();
+    private static final List<TextureEntry> TEXTURE_ENTRIES = TextureEntry.Register.getTextureEntries();//new ArrayList<>();
 
     static void preInit() {
         MinecraftForge.EVENT_BUS.register(ModelEntryRegistery.class);
@@ -46,22 +47,17 @@ class ModelEntryRegistery  {
     }
 
     static void onTextureStitchPre(TextureMap map) {
-        Set<ResourceLocation> toStitch = new HashSet<>();
+        //Set<ResourceLocation> toStitch = new HashSet<>();
         for(TextureEntry entry : TEXTURE_ENTRIES) {
-            entry.onTextureStitchPre(toStitch);
-            //toStitch.add(entry.getResourceLocation());
+            map.registerSprite(entry.getResourceLocation());
+            map.setTextureEntry(entry.getTextureAtlasSprite());
+            //entry.onTextureStitchPre(toStitch);
         }
+        /*
         for(ResourceLocation loc : toStitch) {
             map.setTextureEntry(GroovyAtlasSpriteDefinition.createForConfig(loc));
         }
-    }
-
-    static void registerTexture(TextureEntry index) {
-        TEXTURE_ENTRIES.add(index);
-    }
-
-    static void registerModel(ModelEntry index) {
-        MODEL_ENTRIES.add(index);
+        */
     }
 
     @SubscribeEvent
@@ -71,4 +67,14 @@ class ModelEntryRegistery  {
             registry.putObject(entry.getModelResourceLocation(), entry.getIBakedModel());
         }
     }
+
+    /*
+    static void registerTexture(TextureEntry index) {
+        TEXTURE_ENTRIES.add(index);
+    }
+
+    static void registerModel(ModelEntry index) {
+        MODEL_ENTRIES.add(index);
+    }
+    */
 }

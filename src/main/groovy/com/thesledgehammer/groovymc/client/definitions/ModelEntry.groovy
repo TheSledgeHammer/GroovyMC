@@ -43,4 +43,36 @@ abstract class ModelEntry extends ModelEntryConsumer {
     IBakedModel getIBakedModel() {
         return this.GroovyDefinitionContext().getIBakedModel();
     }
+
+    static class Register extends ModelEntry {
+        private static List<ModelEntry> MODEL_ENTRIES = new LinkedList<>();
+
+        private Register(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
+            super(modelLocation, bakedModel)
+        }
+
+        private Register(String modelLocation, IBakedModel bakedModel) {
+            super(modelLocation, bakedModel)
+        }
+
+        private Register(String type, String modelLocation, IBakedModel bakedModel) {
+            super(type, modelLocation, bakedModel)
+        }
+
+        static void add(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
+            MODEL_ENTRIES.add(new Register(modelLocation, bakedModel));
+        }
+
+        static void add(String modelLocation, IBakedModel bakedModel) {
+            MODEL_ENTRIES.add(new Register(modelLocation, bakedModel));
+        }
+
+        static void add(String type, String modelLocation, IBakedModel bakedModel) {
+            MODEL_ENTRIES.add(new Register(type, modelLocation, bakedModel));
+        }
+
+        static List<ModelEntry> getModelEntries() {
+            return MODEL_ENTRIES;
+        }
+    }
 }

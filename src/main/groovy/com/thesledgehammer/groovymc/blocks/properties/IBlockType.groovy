@@ -12,10 +12,9 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.util.IStringSerializable
 
 interface IBlockType extends IStringSerializable {
 
-    MachinePropertyTraits<?> getGroovyMachineProperties();
+    MachinePropertyTraits getGroovyMachineProperties();
 }

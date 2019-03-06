@@ -18,10 +18,8 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-
 interface IBlockTypeFastTESR extends IBlockType {
 
     @Override
-    MachinePropertyTraits<?> getGroovyMachineProperties();
+    MachinePropertyTraits getGroovyMachineProperties();
 }

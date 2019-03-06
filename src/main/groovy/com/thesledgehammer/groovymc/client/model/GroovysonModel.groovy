@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.utils.StringTools
 
 //Item & Block Models
@@ -71,5 +72,9 @@ class GroovysonModel extends GroovysonObject {
     //Returns Individual Model Elements in .json if applicable
     GroovysonObjectPart getRawModelPart(int index) {
         return groovysonObjectParts.get(index)
+    }
+
+    String getRawModelPartRenderLayer(int index, String renderLayer) {
+        return getRawModelPart(index).getPartRenderTypeByName(renderLayer);
     }
 }

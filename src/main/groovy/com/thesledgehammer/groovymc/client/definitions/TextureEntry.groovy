@@ -48,4 +48,45 @@ abstract class TextureEntry extends ModelEntryConsumer {
     TextureAtlasSprite getTextureAtlasSprite() {
         return this.GroovyDefinitionContext().getTextureAtlasSprite()
     }
+
+    static class Register extends TextureEntry {
+
+        private static List<TextureEntry> TEXTURE_ENTRIES = new LinkedList<>();
+
+        private Register(String sprite) {
+            super(sprite)
+        }
+
+        private Register(ResourceLocation spriteLocation) {
+            super(spriteLocation)
+        }
+
+        private Register(String modID, String baseName) {
+            super(modID, baseName)
+        }
+
+        private Register(String modID, String type, String baseName) {
+            super(modID, type, baseName)
+        }
+
+        static void add(String sprite) {
+            TEXTURE_ENTRIES.add(new Register(sprite));
+        }
+
+        static void add(ResourceLocation spriteLocation) {
+            TEXTURE_ENTRIES.add(new Register(spriteLocation));
+        }
+
+        static void add(String modID, String baseName) {
+            TEXTURE_ENTRIES.add(new Register(modID, baseName));
+        }
+
+        static void add(String modID, String type, String baseName) {
+            TEXTURE_ENTRIES.add(new Register(modID, type, baseName));
+        }
+
+        static List<TextureEntry> getTextureEntries() {
+            return TEXTURE_ENTRIES;
+        }
+    }
 }

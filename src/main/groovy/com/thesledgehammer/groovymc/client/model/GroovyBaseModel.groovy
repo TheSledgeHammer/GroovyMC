@@ -17,9 +17,11 @@
 package com.thesledgehammer.groovymc.client.model
 
 import com.google.common.collect.HashBasedTable
+import com.google.gson.JsonSyntaxException
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
+import com.thesledgehammer.groovymc.client.definitions.TextureEntry
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
@@ -31,7 +33,7 @@ import net.minecraft.util.EnumFacing
 class GroovyBaseModel {
 
     GroovysonModel GROOVY_MODEL;
-    private HashBasedTable<EnumFacing, Integer, JsonTexture> jsonTexTable = HashBasedTable.create();
+    private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private GroovyDefinitionContext GDC;
     //MutableQuads
 
@@ -58,6 +60,7 @@ class GroovyBaseModel {
 
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
+        TextureEntry.Register.add(name);
     }
 
     GroovyDefinitionContext GroovyDefinitionContext() {
@@ -70,6 +73,11 @@ class GroovyBaseModel {
 
     String getModelTextures(String textureName) {
         return GROOVY_MODEL.getRawModelTextures().get(textureName);
+    }
+
+    //Returns a Texture from x model element and face
+    String getModelElementTextures(int index, EnumFacing face) {
+        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
     }
 
     JsonQuads[] Quads(EnumFacing faces) {
@@ -101,19 +109,49 @@ class GroovyBaseModel {
         return Quads(face)[rawModelTexture];
     }
 
+    MutableQuad[] getMutableQuads(EnumFacing face, TextureAtlasSprite sprite) {
+        int size = GROOVY_MODEL.getRawModelTextures().size();
+        MutableQuad[] mutableQuads = new MutableQuad[size];
+        for(int i = 0; i < size; i++) {
+            mutableQuads[i] = QuadAFace(face, i).toQuad(sprite);
+        }
+        return mutableQuads;
+    }
+
+    //Irrelevant? Currently GroovyMC does not define a model part by cuboid in the model json
+    private static JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
+        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
+        float[] from = objectPart.from()
+        float[] to = objectPart.to();
+        boolean shade = groovysonObject.Shade(false);
+        List<JsonQuads> quads = new ArrayList<>();
+
+        for(EnumFacing face : EnumFacing.VALUES) {
+            JsonQuads q = new JsonQuads(objectPart, from, to, face);
+            //q.shade = shade;
+            quads.add(q);
+        }
+        if(quads.size() == 0) {
+            throw new JsonSyntaxException("Expected between 1 and 6 faces, got an empty object");
+            //Log.logError("Expected between 1 and 6 faces, got an empty object");
+            //println "Expected between 1 and 6 faces, got an empty object"
+        }
+        return quads.toArray(new JsonQuads[quads.size()]);
+    }
+
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
-        return jsonTexTable;
+        return JSON_TEXTABLE;
     }
 
     JsonTexture getJsonTexture(EnumFacing face, int index) {
-        return jsonTexTable.get(face, index);
+        return JSON_TEXTABLE.get(face, index);
     }
 
     void JsonTextureMapping() {
         ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
         ArrayList<String> textureName = GROOVY_MODEL.getRawModelTextures().keySet().toArray() as ArrayList<String>;
         String textureLocation = "";
-        String texturePartName = "";
+        //String texturePartName = "";
 
         //Model Elements (Model Parts)
         for(int i = 0; i < GROOVY_MODEL.getRawModelParts().size(); i++) {
@@ -124,32 +162,17 @@ class GroovyBaseModel {
         for (EnumFacing face : EnumFacing.VALUES) {
             for(int j = 0; j < modelPartTexture.size(); j++) {
                 if(modelPartTexture.get(j).Facing(face) != null) {
-                    texturePartName = modelPartTexture.get(j).TextureFace(face);
+                    //texturePartName = modelPartTexture.get(j).TextureFace(face);
                     for(int k = 0; k < textureName.size(); k++) {
-                        //TODO: Variable Textures
-                        //Implements Non-Variable Texture Location: Doesn't account for json rules or variables
-                        //if(texturePartName.contains(textureName.get(k))) {
                         textureLocation = GROOVY_MODEL.getRawModelTextures().get(textureName.get(k));
-                        //textureLocation = getRawModelTexturesLocation(textureName.get(k));
-                        //Variables & Rules go here if don't match
-                        // }
                     }
                     JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
-                    jsonTexTable.put(face, j, texture);
-                    //Could add TexturedFaceLookup Here...
-                    //TexturedFaceLookup(face, j);
-
+                    JSON_TEXTABLE.put(face, j, texture);
                 }
             }
         }
     }
 
-    //Returns a Texture from x model element and face
-    String getRawModelPartTexture(int index, EnumFacing face) {
-        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
-    }
-
-    //TexturedFace as Defined by a JsonTexture
     //Todo: TextureAtlasSprite sprite
     ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
         //TextureAtlasSprite sprite;
@@ -160,43 +183,6 @@ class GroovyBaseModel {
         //face.sprite = sprite;
         face.faceData = getJsonTexture(facing, index).faceData;
         return face;
-    }
-
-    MutableQuad[] getMutableQuads(EnumFacing face, TextureAtlasSprite sprite) {
-        int size = GROOVY_MODEL.getRawModelTextures().size();
-        MutableQuad[] mutableQuads = new MutableQuad[size];
-        for(int i = 0; i < size; i++) {
-            mutableQuads[i] = QuadAFace(face, i).toQuad(sprite);
-        }
-        return mutableQuads;
-    }
-
-    JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
-        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
-        float[] from = objectPart.from()
-        float[] to = objectPart.to();
-        boolean shade = groovysonObject.Shade(false);
-        List<JsonQuads> quads = new ArrayList<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            JsonQuads q = new JsonQuads(objectPart, from, to, face);
-            //q.shade = shade;
-            quads.add(q);
-        }
-        if(quads.size() == 0) {
-            //Add a Log Error or JsonSyntaxException
-            //Log.logError("Expected between 1 and 6 faces, got an empty object");
-            println "Expected between 1 and 6 faces, got an empty object"
-        }
-        return quads.toArray(new JsonQuads[quads.size()]);
-    }
-
-    //ModelEntries & TextureEntries
-    void onModelBake() {
-
-    }
-
-    void onTextureStitchPre() {
-
     }
 }
 //NOTES:

@@ -40,10 +40,11 @@ abstract class ModelEntryProvider {
     GroovyDefinitionContext GroovyDefinitionContext() {
         return GDC;
     }
-
-    protected abstract void onModelBake();
+/*
+    abstract boolean hasBakedQuads();
 
     abstract void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites);
 
-    abstract boolean hasBakedQuads();
+    protected abstract void onModelBake();
+    */
 }

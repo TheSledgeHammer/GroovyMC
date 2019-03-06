@@ -24,23 +24,26 @@ import net.minecraft.util.ResourceLocation
 class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
     GroovyBaseModel GROOVY_MODEL;
+    private MutableQuad[][] quads;
 
-    ModelEntryStatic() {
-
-    }
-
-    @Override
-    protected void onModelBake() {
+    ModelEntryStatic(ModelEntryBakery MEB) {
 
     }
 
     @Override
     void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
+        //get Textures from GROOVY_MODEL
+    }
 
+    @Override
+    protected void onModelBake() {
+        if(GROOVY_MODEL == null) {
+            quads = null;
+        }
     }
 
     @Override
     boolean hasBakedQuads() {
-        return false
+        return quads != null;
     }
 }
