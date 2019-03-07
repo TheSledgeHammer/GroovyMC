@@ -61,7 +61,7 @@ class GroovysonObjectPart {
             }
         }
         if(!name.equals(groovysonObject.getElementPart(idx).name)) {
-            Log.logError(groovysonObject.getName() + " model does not contain an element named: " + name);
+            Log.logError("${groovysonObject.getName()} model does not contain an element named: ${name}");
         }
     }
 
@@ -69,19 +69,47 @@ class GroovysonObjectPart {
         return part.name;
     }
 
-    //Refers to whether it should be cutout, translucent etc...
-    String getPartRenderType() {
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    String PartRenderTypes() {
         return part.render;
     }
-
+/*
     String getPartRenderTypeByName(String renderType) {
         if(renderType == part.render) {
             return renderType;
         } else {
-            //Log.logError("The element does not contain a render of: " + renderType);
-            println("The element does not contain a render of: " + renderType)
+            //Log.logError("The element does not contain a render of: ${renderType}");
+            println("The element does not contain a render of: ${renderType}")
             return null;
         }
+    }
+    */
+
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    def BlockRenderType(String renderType) {
+        String render = renderType.toLowerCase();
+        if (part.render.get(render) == null) {
+            //Log.logError("The element does not contain a render of: ${renderType}");
+            println "The element does not contain a render of: ${renderType}"
+            return null;
+        }
+        return part.render.get(render);
+    }
+
+    ArrayList<String> BlockRenderTypeFace(String renderType) {
+        ArrayList<String> arrPart = new ArrayList<>();
+        if(BlockRenderType(renderType) == null) {
+            return null;
+        }
+        for(int i = 0; i < BlockRenderType(renderType).faces.size; i++) {
+            arrPart.add(i, BlockRenderType(renderType).faces.get(i));
+        }
+        return arrPart;
+    }
+
+    String[] renderTypeFace(String renderType) {
+        String[] render = BlockRenderTypeFace(renderType);
+        return render;
     }
 
     ArrayList<Float> From() {

@@ -67,17 +67,19 @@ class JsonTest {
 		blockModel.setModelTextures("#back");
 		blockModel.setModelTextures("#side");
 
-		//blockModel.GroovyDefinitionContext().setTextureAtlasSprite("back");
-		//blockModel.GroovyDefinitionContext().setTextureAtlasSprite("#side");
 		//println blockModel.GroovyDefinitionContext()
 		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
 		//println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
 
-		println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
+		//println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
+
+
 
 		//Can be used to define the blockrenderlayer
 		//println blockModel.GROOVY_MODEL.getRawModelPart(0).getPartRenderTypeByName("cutout");
 		//println BlockRenderLayer.CUTOUT
+
+		println blockModel.GROOVY_MODEL.getRawModelPart(0).BlockRenderTypeFace("cutout")
 
 		//Use above in conjunction to bakePart with a cutout, translucent, etc..... render
 		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())

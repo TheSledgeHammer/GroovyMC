@@ -64,7 +64,7 @@ class GroovysonObject {
 
     def getParent() {
         if(obj.parent == null) {
-            //Log.logError(obj.parent + " Isn't defined in " + getName());
+            //Log.logError("${obj.parent} Isn't defined in ${getName()}");
             return null;
         }
         return obj.parent;
@@ -78,8 +78,8 @@ class GroovysonObject {
         return obj.textures.get(name);
     }
 
-    def getTexturesLayer(int index) {
-        return obj.textures.get("layer" + index);
+    def getItemTextureLayer(int index) {
+        return obj.textures.get("layer ${index}");
     }
 
     def getElements() {
@@ -88,10 +88,6 @@ class GroovysonObject {
 
     def getElementPart(int index) {
         return obj.elements.get(index);
-    }
-
-    def getRenderLayer(int index, String render) {
-        return obj.elements.get(index).getAt(render);
     }
 
     private boolean getShade() {
@@ -136,7 +132,7 @@ class GroovysonObject {
 
     def DisplayName(String name) {
         if(obj.display.get(name) == null) {
-            Log.logError(name + " is incorrect...!");
+            Log.logError("${name} is incorrect...!");
             return null;
         }
         return obj.display.get(name);
@@ -145,11 +141,11 @@ class GroovysonObject {
     ArrayList<Float> Translation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError(name + " is incorrect...!");
+            Log.logError("${name} is incorrect...!");
             return null;
         }
         if(obj.display.get(name).translation == null) {
-            Log.logError(name + " does not contain Translation...!");
+            Log.logError("${name} does not contain Translation...!");
             return null;
         }
         for(int i = 0; i < obj.display.get(name).translation.size; i++) {
@@ -166,11 +162,11 @@ class GroovysonObject {
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError(name + " is incorrect...!");
+            Log.logError("${name} is incorrect...!");
             return null;
         }
         if(obj.display.get(name).rotation == null) {
-            Log.logError(name + " does not contain Rotation...!");
+            Log.logError("${name} does not contain Rotation...!");
             return null;
         }
         for(int i = 0; i < obj.display.get(name).rotation.size; i++) {
@@ -187,11 +183,11 @@ class GroovysonObject {
     ArrayList<Float> Scale(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError(name + " is incorrect...!");
+            Log.logError("${name} is incorrect...!");
             return null;
         }
         if(obj.display.get(name).scale == null) {
-            Log.logError(name + " does not contain Scale...!");
+            Log.logError("${name} does not contain Scale...!");
             return null;
         }
         for(int i = 0; i < obj.display.get(name).scale.size; i++) {
