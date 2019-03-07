@@ -16,14 +16,13 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
+
 import com.thesledgehammer.groovymc.client.definitions.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
-import com.thesledgehammer.groovymc.experimental.patterns.Models
+
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.IRegistry
 import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.common.MinecraftForge

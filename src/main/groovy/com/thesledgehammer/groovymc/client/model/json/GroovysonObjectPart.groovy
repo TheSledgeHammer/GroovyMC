@@ -76,7 +76,7 @@ class GroovysonObjectPart {
 
     String getPartRenderTypeByName(String renderType) {
         if(renderType == part.render) {
-            return renderType.toUpperCase();
+            return renderType;
         } else {
             //Log.logError("The element does not contain a render of: " + renderType);
             println("The element does not contain a render of: " + renderType)

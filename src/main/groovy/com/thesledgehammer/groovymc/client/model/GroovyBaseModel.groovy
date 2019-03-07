@@ -71,6 +71,11 @@ class GroovyBaseModel {
         return GROOVY_MODEL.getRawModelPart(index);
     }
 
+    ArrayList<GroovysonObjectPart> getModelElements() {
+        return GROOVY_MODEL.getRawModelParts();
+    }
+
+
     String getModelTextures(String textureName) {
         return GROOVY_MODEL.getRawModelTextures().get(textureName);
     }
