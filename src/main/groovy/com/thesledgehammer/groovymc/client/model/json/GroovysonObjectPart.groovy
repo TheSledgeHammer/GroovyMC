@@ -70,7 +70,7 @@ class GroovysonObjectPart {
     }
 
     //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String PartRenderTypes() {
+    String BlockRenderTypes() {
         return part.render;
     }
 /*

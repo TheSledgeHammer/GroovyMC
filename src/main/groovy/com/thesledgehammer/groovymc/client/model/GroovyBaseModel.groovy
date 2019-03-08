@@ -22,6 +22,7 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
@@ -39,6 +40,7 @@ class GroovyBaseModel {
 
     GroovyBaseModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
+
     }
 
     GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
@@ -61,6 +63,7 @@ class GroovyBaseModel {
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
         TextureEntry.Register.add(name);
+        JsonTextureMapping();
     }
 
     GroovyDefinitionContext GroovyDefinitionContext() {
@@ -152,7 +155,7 @@ class GroovyBaseModel {
         return JSON_TEXTABLE.get(face, index);
     }
 
-    void JsonTextureMapping() {
+    private void JsonTextureMapping() {
         ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
         ArrayList<String> textureName = GROOVY_MODEL.getRawModelTextures().keySet().toArray() as ArrayList<String>;
         String textureLocation = "";
@@ -190,7 +193,3 @@ class GroovyBaseModel {
         return face;
     }
 }
-//NOTES:
-//GroovyDefinitionContext to be assigned so that a ModelEntryStatic, ModelBase and/ or GDC all reference to the same thing
-//Solution #1: Model extends ModelEntryStatic
-//Solution #2: A Cache/Table/Map of GDC: would allow to set Models & Textures and only slight change in registering (Would need to cross check models/ model.json exists)

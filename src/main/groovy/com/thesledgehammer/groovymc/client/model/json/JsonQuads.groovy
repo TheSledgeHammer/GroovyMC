@@ -40,18 +40,18 @@ class JsonQuads {
 		center.add(radius);
 		MutableQuad quad = ModelUtil.createFace(face, center, radius, uvs);
 		quad.rotateTextureUp(rotation);
-		this.vertices[0] = new JsonVertex(quad.vertex_0);
-		this.vertices[1] = new JsonVertex(quad.vertex_1);
-		this.vertices[2] = new JsonVertex(quad.vertex_2);
-		this.vertices[3] = new JsonVertex(quad.vertex_3);
+		vertices[0] = new JsonVertex(quad.vertex_0);
+		vertices[1] = new JsonVertex(quad.vertex_1);
+		vertices[2] = new JsonVertex(quad.vertex_2);
+		vertices[3] = new JsonVertex(quad.vertex_3);
 	}
 
 	MutableQuad toQuad(TextureAtlasSprite sprite) {
 		MutableQuad quad = new MutableQuad(this.tint, this.face, this.shade);
-		this.vertices[0].loadInto(quad.vertex_0);
-		this.vertices[1].loadInto(quad.vertex_1);
-		this.vertices[2].loadInto(quad.vertex_2);
-		this.vertices[3].loadInto(quad.vertex_3);
+		vertices[0].loadInto(quad.vertex_0);
+		vertices[1].loadInto(quad.vertex_1);
+		vertices[2].loadInto(quad.vertex_2);
+		vertices[3].loadInto(quad.vertex_3);
 		if(sprite != null) {
 			quad.texFromSprite(sprite);
 			quad.setSprite(sprite);

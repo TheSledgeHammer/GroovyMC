@@ -18,23 +18,9 @@ package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import com.thesledgehammer.groovymc.client.definitions.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.TextureEntry
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
-import com.thesledgehammer.groovymc.client.model.ModelEntryRegistery
-import com.thesledgehammer.groovymc.client.model.ModelEntryStatic
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.patterns.CutoutKey
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.BakedQuad
-import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.model.BakedItemModel
-import net.minecraftforge.client.model.BakedModelWrapper
-import net.minecraftforge.common.property.IExtendedBlockState
 
 /*TODO:
 1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry
@@ -73,15 +59,6 @@ class JsonTest {
 
 		//println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
 
-
-
-		//Can be used to define the blockrenderlayer
-		//println blockModel.GROOVY_MODEL.getRawModelPart(0).getPartRenderTypeByName("cutout");
-		//println BlockRenderLayer.CUTOUT
-
-		println blockModel.GROOVY_MODEL.getRawModelPart(0).BlockRenderTypeFace("cutout")
-
-		//Use above in conjunction to bakePart with a cutout, translucent, etc..... render
 		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
 	}
 }
