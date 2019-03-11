@@ -19,8 +19,16 @@ package com.thesledgehammer.groovymc.experimental.blocks
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
+import com.thesledgehammer.groovymc.client.render.CutoutKey
+import com.thesledgehammer.groovymc.client.render.SolidKey
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectCache
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.StringTools
+import net.minecraft.block.state.IBlockState
+import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.property.IExtendedBlockState
 
 /*TODO:
 1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry
@@ -58,7 +66,14 @@ class JsonTest {
 		//println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
 
 		//println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
-
 		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
+
+
+		CutoutKey cutout = new CutoutKey(blockModel, 0);
+		IExtendedBlockState state = null;
+		println cutout.CutoutKeyList().size()
+
+		GroovysonObjectCache GOC = new GroovysonObjectCache(blockModel.GROOVY_MODEL, blockModel.getModelElements(0));
+
 	}
 }

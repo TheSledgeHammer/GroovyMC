@@ -73,17 +73,6 @@ class GroovysonObjectPart {
     String BlockRenderTypes() {
         return part.render;
     }
-/*
-    String getPartRenderTypeByName(String renderType) {
-        if(renderType == part.render) {
-            return renderType;
-        } else {
-            //Log.logError("The element does not contain a render of: ${renderType}");
-            println("The element does not contain a render of: ${renderType}")
-            return null;
-        }
-    }
-    */
 
     //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
     def BlockRenderType(String renderType) {

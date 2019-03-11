@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.model.json
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.utils.StringTools
 
@@ -46,10 +47,10 @@ class GroovysonModel extends GroovysonObject {
     //Texture Name & Location
     void setRawModelTextures(String textureName) {
         String texLocation = super.getTexturesByName(textureName);
-        for(int i = 0; i < StringTools.StringToList(texLocation).size(); i++) {
-            rawModelTexturesMap.put(textureName, StringTools.StringToList(texLocation).get(i));
+        for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
+            rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
         }
-        StringTools.StringToList(texLocation).clear();
+        ListTools.StringToList(texLocation).clear();
     }
 
     HashMap<String, String> getRawModelTextures() {

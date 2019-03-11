@@ -17,9 +17,11 @@
 package com.thesledgehammer.groovymc.client.render
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.property.IExtendedBlockState
 
 class SolidKey {
 
@@ -74,7 +76,13 @@ class SolidKey {
         -> true: ignore faces and apply render to all
         -> false: apply render to set faces
          */
-
+        boolean ignoreFaces;
+        if(face == null || solidList.get(0).contentEquals("all") || solidList.size() == 6 && !StringTools.doesListContainDuplicates(solidList)) {
+            ignoreFaces = true;
+        }
+        if(face != null || solidList.size() < 6) {
+            ignoreFaces = false;
+        }
         //extendedState.getBlock().canRenderInLayer(state);
         return state.getBlock().canRenderInLayer(state, render);
     }

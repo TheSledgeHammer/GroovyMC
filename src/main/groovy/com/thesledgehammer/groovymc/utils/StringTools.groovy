@@ -94,65 +94,6 @@ class StringTools {
         return Double.valueOf(getDigitFromString(name));
     }
 
-    static String removeBrackets(String name) {
-        if(name.contains('[') && name.contains(']')) {
-            int idx1 = name.indexOf('[');
-            int idx2 = name.indexOf(']');
-            name = name.substring(idx1 + 1, idx2);
-        }
-        if(name.contains('{') && name.contains('}')) {
-            int idx1 = name.indexOf('{');
-            int idx2 = name.indexOf('}');
-            name = name.substring(idx1 + 1, idx2);
-        }
-        return name;
-    }
-
-    //Character Brackets:''
-    static String removeCharacterBrackets(String name) {
-        int first = 1;
-        int last = name.length() - 1;
-        return name.substring(first, last);
-    }
-
-    static ArrayList<String> StringToList(String name) {
-        return StringToList(name, ', ');
-    }
-
-    static ArrayList<String> StringToList(String name, String regex) {
-        String name1 = removeBrackets(name);
-        String[] arr = name1.split(regex);
-        ArrayList<String> list = new ArrayList<>();
-        for(int i = 0; i < arr.length; i++) {
-            list.add(arr[i]);
-        }
-        return list;
-    }
-
-    private static ArrayList<String> arrToString = new ArrayList<>();
-    static ArrayList<String> FloatListToStringList(ArrayList<Float> arrPart) {
-        //arrToString = new ArrayList<>();
-        for(int i = 0; i < arrPart.size(); i++) {
-            arrToString.add(arrPart.get(i).toString());
-        }
-        return arrToString;
-    }
-
-    //private static ArrayList<String>
-    static ArrayList<String> DoubleListToStringList(ArrayList<Double> arrPart) {
-        //arrToString = new ArrayList<>();
-        for(int i = 0; i < arrPart.size(); i++) {
-            arrToString.add(arrPart.get(i).toString());
-        }
-        return arrToString;
-    }
-
-    static ArrayList<String> getStringList() {
-        return arrToString;
-    }
-
-
-
     /* //Not Working
     static String FloatListVariableName(ArrayList<Float> arrPart, String variableName) {
         String name = "";

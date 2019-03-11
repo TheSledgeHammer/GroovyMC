@@ -17,9 +17,11 @@
 package com.thesledgehammer.groovymc.client.render
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.property.IExtendedBlockState
 
 class CutoutKey {
 
@@ -68,13 +70,27 @@ class CutoutKey {
     }
 
     //Before this, need to setRenderLayer on each Face
-    boolean applyCutoutKey(EnumFacing face, IBlockState state) {
+    boolean applyCutoutKey(EnumFacing face, IExtendedBlockState state) {
         /*
         check if face is null or contains all faces
         -> true: ignore faces and apply render to all
         -> false: apply render to set faces
          */
+        boolean ignoreFaces;
+        if(face == null || cutoutList.get(0).contentEquals("all") || cutoutList.size() == 6 && !StringTools.doesListContainDuplicates(cutoutList)) {
+            ignoreFaces = true;
+        }
+        if(face != null || cutoutList.size() < 6) {
+            ignoreFaces = false;
+        }
 
+        /*
+        if(ignoreFaces) {
+            //apply Render to All Faces
+        } else {
+
+        }
+        */
         //extendedState.getBlock().canRenderInLayer(state);
         return state.getBlock().canRenderInLayer(state, render);
     }

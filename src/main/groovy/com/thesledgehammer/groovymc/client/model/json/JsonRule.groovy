@@ -8,8 +8,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.utils.StringTools
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.MathHelper
 
@@ -70,8 +69,8 @@ class JsonRule {
         }
 
         void apply(List<MutableQuad> quads) {
-            EnumFacing faceFrom = EnumFacing.valueOf(StringTools.removeBrackets(from));
-            EnumFacing faceTo = EnumFacing.valueOf(StringTools.removeBrackets(to));
+            EnumFacing faceFrom = EnumFacing.valueOf(ListTools.removeBrackets(from));
+            EnumFacing faceTo = EnumFacing.valueOf(ListTools.removeBrackets(to));
 
             if(faceFrom == faceTo) {
                 return;
