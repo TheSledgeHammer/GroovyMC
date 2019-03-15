@@ -20,14 +20,9 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.client.render.CutoutKey
-import com.thesledgehammer.groovymc.client.render.SolidKey
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectCache
 import com.thesledgehammer.groovymc.utils.GroovyLoader
-import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.block.state.IBlockState
-import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.property.IExtendedBlockState
 
 /*TODO:
@@ -74,6 +69,5 @@ class JsonTest {
 		println cutout.CutoutKeyList().size()
 
 		GroovysonObjectCache GOC = new GroovysonObjectCache(blockModel.GROOVY_MODEL, blockModel.getModelElements(0));
-
 	}
 }

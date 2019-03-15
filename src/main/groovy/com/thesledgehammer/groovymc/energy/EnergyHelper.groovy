@@ -70,22 +70,4 @@ class EnergyHelper {
         }
         return 0;
     }
-/*
-    static int insertIntoEnergyReceiver(TileEntity tile, EnumFacing face, int energy, boolean simulate) {
-        if(tile instanceof IEnergyStorage) {
-            return tile.receiveEnergy(energy, simulate);
-        } else if(tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
-            return tile.getCapability(CapabilityEnergy.ENERGY, face).receiveEnergy(energy, simulate);
-        }
-        return 0;
-    }
-
-    static int extractFromEnergyProvider(TileEntity tile, EnumFacing face, int energy, boolean simulate) {
-        if(tile instanceof IEnergyStorage) {
-            return tile.extractEnergy(energy, simulate);
-        } else if(tile != null && tile.hasCapability(CapabilityEnergy.ENERGY, face)) {
-            return tile.getCapability(CapabilityEnergy.ENERGY, face).extractEnergy(energy, simulate);
-        }
-        return 0;
-    }*/
 }
