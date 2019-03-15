@@ -12,20 +12,20 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 class ClientProxy extends CommonProxy {
-	
+
 	@Override
 	void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 		//Typically initialization of models and such goes here:
 		ModelEntryRegistery.preInit();
 	}
-	
+
 	@Override
 	void init(FMLInitializationEvent event) {
 		super.init(event);
 		MinecraftForge.EVENT_BUS.register(new InputHandler());
 		KeyBindings.init();
-        ObjectManager.RegisterColors();
+		ObjectManager.RegisterColors();
 	}
 
 	void postInit(FMLPostInitializationEvent event) {
