@@ -22,6 +22,8 @@ import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.client.render.CutoutKey
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectCache
+import com.thesledgehammer.groovymc.experimental.misc.GridTile
+import com.thesledgehammer.groovymc.experimental.misc.SingleGrid
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import net.minecraftforge.common.property.IExtendedBlockState
 
@@ -69,5 +71,9 @@ class JsonTest {
 		println cutout.CutoutKeyList().size()
 
 		GroovysonObjectCache GOC = new GroovysonObjectCache(blockModel.GROOVY_MODEL, blockModel.getModelElements(0));
+		SingleGrid<Integer> sg = new SingleGrid<>()
+		sg.addToHead(10)
+
+		println sg.get(10)
 	}
 }

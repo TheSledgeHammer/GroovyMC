@@ -8,7 +8,7 @@
 
 package com.thesledgehammer.groovymc.experimental.bakedmodels
 
-import com.thesledgehammer.groovymc.client.model.AbstractModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.ItemOverrideList
@@ -23,7 +23,7 @@ import javax.annotation.Nullable
 class AbstractModelBakerModel implements IAbstractModelBakerModel {
 
 
-    private AbstractModel abstractModel;
+    private GroovysonModel groovysonModel;
     private float[] rotation = getDefaultRotation();
     private float[] translation = getDefaultTranslation();
     private float[] scale = getDefaultScale();
@@ -39,7 +39,7 @@ class AbstractModelBakerModel implements IAbstractModelBakerModel {
 
     @Override
     void setAmbientOcclusion(boolean ambientOcclusion) {
-        abstractModel.s
+
     }
 
     @Override

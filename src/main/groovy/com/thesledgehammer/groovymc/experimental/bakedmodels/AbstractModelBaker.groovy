@@ -8,7 +8,6 @@
 
 package com.thesledgehammer.groovymc.experimental.bakedmodels
 
-
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
