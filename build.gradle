@@ -14,7 +14,9 @@ buildscript {
 
 plugins {
 	id 'groovy'
+	id 'java'
 	id 'maven'
+	id 'idea'
 	id "net.minecraftforge.gradle.forge" version "2.0.2"
 	id "com.jfrog.bintray" version "1.8.4"
 }
@@ -36,9 +38,11 @@ repositories {
 }
 
 minecraft {
-	version = mcversion + "-" + forgeversion
+	version =  mcversion + "-" + forgeversion
 	runDir = "run"
 	mappings = mcp_mappings
+	replace '@VERSION@', project.version
+	replace '@BUILD_NUMBER@', getBuildNumber()
 }
 
 group= 'com.thesledgehammer.groovymc'
@@ -52,6 +56,7 @@ dependencies {
 processResources {
 	inputs.property "version", project.version
 	inputs.property "mcversion", project.minecraft.version
+
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
 		// replace version and mcversion
@@ -60,4 +65,10 @@ processResources {
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'
 	}
+	rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+
+def getBuildNumber() {
+	return "$System.env.BUILD_NUMBER" != "null" ? "$System.env.BUILD_NUMBER" : "0"
 }
