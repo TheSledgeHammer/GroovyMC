@@ -38,17 +38,11 @@ class GroovyMC {
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
-
-		ModelEntryRegistery.preInit();
 	}
 
 	@Mod.EventHandler
 	static void init(FMLInitializationEvent event) {
 		proxy.init(event);
-
-		MinecraftForge.EVENT_BUS.register(new InputHandler());
-		KeyBindings.init();
-		ObjectManager.RegisterColors();
 	}
 
 	@Mod.EventHandler
