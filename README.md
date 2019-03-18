@@ -6,12 +6,21 @@ A mod library used in my other mods both existing and upcoming.
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
 ### Getting Started:
+GroovyMC also provides a built-in Groovy Language Adapter.
+To use GroovyMC's Language Adapter add the following to @Mod in your main class
+```
+@Mod(modLanguageAdapter = "com.thesledgehammer.groovymc.api.GroovyLanguageAdapter")
+class modclass {
+    //Your mod class info
+}
+
+```
 
 Please initialize the "GroovyLoader" in your main class or common proxy class.
 ```
 GroovyLoader groovyLoader = new GroovyLoader(modPath, modResourcePath, jvm, url, modID);
 ```
-The class is required for using GroovyMC's Models & Rendering. Otherwise it is optional.
+The class is required for using GroovyMC's Models & Rendering.
 
 Provides a lot of built in functions and functions that have been auto-completed when used, making life that little bit easier.
 
