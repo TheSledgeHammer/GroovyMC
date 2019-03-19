@@ -1,5 +1,6 @@
 package com.thesledgehammer.groovymc
 
+import com.thesledgehammer.groovymc.config.MCMod
 import com.thesledgehammer.groovymc.proxy.CommonProxy
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
@@ -31,6 +32,7 @@ class GroovyMC {
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 		proxy.preInit(event);
+		MCMod.Info(event);
 	}
 
 	@Mod.EventHandler
