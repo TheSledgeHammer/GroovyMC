@@ -29,21 +29,22 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 class ObjectManager {
 
-	private static final Minecraft minecraft = Minecraft.getMinecraft();
 	private final static Set<IItemColor> itemColorList = new HashSet<>();
 	private final static Set<IBlockColor> blockColorList = new HashSet<>();
 	private final static Set<IStateMapper> stateMapperList = new HashSet<>();
-	
+
 	static void RegisterColors() {
 		registerItemColor();
 		registerBlockColor();
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	static void registerBlockClient(Block block) {
 		if(block instanceof IBlockColor) {
@@ -58,7 +59,7 @@ class ObjectManager {
 			}
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	static void registerItemClient(Item item) {
 		if(item instanceof IItemColor) {
@@ -68,20 +69,18 @@ class ObjectManager {
 
 	@SideOnly(Side.CLIENT)
 	private static void registerItemColor() {
-		final ItemColors itemColors = minecraft.getItemColors();
 		for (IItemColor itemColor : itemColorList) {
 			if (itemColor instanceof Item) {
-				itemColors.registerItemColorHandler(ColoredItemItemColor.INSTANCE, (Item) itemColor);
+				Minecraft.getMinecraft().getItemColors().registerItemColorHandler(ColoredItemItemColor.INSTANCE, (Item) itemColor);
 			}
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	private static void registerBlockColor() {
-		BlockColors blockColors = minecraft.getBlockColors();
 		for (IBlockColor blockColor : blockColorList) {
 			if (blockColor instanceof Block) {
-				blockColors.registerBlockColorHandler(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
+				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
 			}
 		}
 	}
