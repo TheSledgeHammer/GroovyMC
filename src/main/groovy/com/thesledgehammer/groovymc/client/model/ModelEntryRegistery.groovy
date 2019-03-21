@@ -19,7 +19,7 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
-
+import com.thesledgehammer.groovymc.utils.ObjectManager
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
