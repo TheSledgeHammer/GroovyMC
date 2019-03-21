@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 
@@ -27,47 +28,52 @@ class GroovysonObjectCache {
     //This could provide a cache for variable models as toArray is a deepCopy of that List
     //As well as a List of non strings can contain a string. Thus can assign the string to a known variable before it becomes an array
 
-    private GroovysonObject GroovysonObject;
-    private GroovysonObjectPart GroovysonObjectPart;
+    private GroovysonObject groovysonObject;
+    private GroovysonObjectPart groovysonObjectPart;
 
-    GroovysonObjectCache(GroovysonObject GroovysonObject) {
-        this.GroovysonObject = GroovysonObject;
+    GroovysonObjectCache() {
+        setGroovysonObject(groovysonObject);
+        setGroovysonObjectPart(groovysonObjectPart);
     }
 
-    GroovysonObjectCache(GroovysonObjectPart GroovysonObjectPart) {
-        this.GroovysonObjectPart = GroovysonObjectPart;
+    GroovysonObjectCache(GroovysonObject groovysonObject, GroovysonObjectPart groovysonObjectPart) {
+        setGroovysonObject(groovysonObject);
+        setGroovysonObjectPart(groovysonObjectPart);
     }
 
-    GroovysonObjectCache(GroovysonObject GroovysonObject, GroovysonObjectPart GroovysonObjectPart) {
-        this.GroovysonObject = GroovysonObject;
-        this.GroovysonObjectPart = GroovysonObjectPart;
+    void setGroovysonObject(GroovysonObject groovysonObject) {
+        this.groovysonObject = groovysonObject;
+    }
+
+    void setGroovysonObjectPart(GroovysonObjectPart groovysonObjectPart) {
+        this.groovysonObjectPart = groovysonObjectPart;
     }
 
     float[] Translation(String name) {
-        return ListTools.FloatListToFloatArray(GroovysonObject.Translation(name));
+        return ListTools.FloatListToFloatArray(groovysonObject.Translation(name));
     }
 
     float[] Rotation(String name) {
-        return ListTools.FloatListToFloatArray(GroovysonObject.Rotation(name));
+        return ListTools.FloatListToFloatArray(groovysonObject.Rotation(name));
     }
 
     float[] Scale(String name) {
-        return ListTools.FloatListToFloatArray(GroovysonObject.Scale(name));
+        return ListTools.FloatListToFloatArray(groovysonObject.Scale(name));
     }
 
     float[] From() {
-        return ListTools.FloatListToFloatArray(GroovysonObjectPart.From());
+        return ListTools.FloatListToFloatArray(groovysonObjectPart.From());
     }
 
     String[] BlockRenderTypeFace(String renderType) {
-        return ListTools.StringListToStringArray(GroovysonObjectPart.BlockRenderTypeFace(renderType));
+        return ListTools.StringListToStringArray(groovysonObjectPart.BlockRenderTypeFace(renderType));
     }
 
     float[] To() {
-        return ListTools.FloatListToFloatArray(GroovysonObjectPart.To());
+        return ListTools.FloatListToFloatArray(groovysonObjectPart.To());
     }
 
     float[] FacingUV(EnumFacing face) {
-        return  ListTools.FloatListToFloatArray(GroovysonObjectPart.FacingUv(face));
+        return  ListTools.FloatListToFloatArray(groovysonObjectPart.FacingUv(face));
     }
 }

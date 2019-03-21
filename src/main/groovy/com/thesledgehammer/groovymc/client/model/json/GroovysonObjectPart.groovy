@@ -96,6 +96,7 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
+    @Deprecated
     String[] renderTypeFace(String renderType) {
         String[] render = BlockRenderTypeFace(renderType);
         return render;
@@ -109,6 +110,7 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
+    @Deprecated
     float[] from() {
         float[] from = From();
         return from;
@@ -122,6 +124,7 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
+    @Deprecated
     float[] to() {
         float[] to = To();
         return to;
@@ -134,7 +137,7 @@ class GroovysonObjectPart {
     def Facing(EnumFacing face) {
         String faces = face.getName().toLowerCase();
         if(part.faces.get(faces) == null) {
-//            Log.logError("Current Face does not exist...!");
+            Log.logError("Current Face does not exist...!");
             return null;
         }
         return part.faces.get(faces);
@@ -151,6 +154,7 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
+    @Deprecated
     float[] FaceUV(EnumFacing face) {
         float[] uv = FacingUv(face);
         return uv;

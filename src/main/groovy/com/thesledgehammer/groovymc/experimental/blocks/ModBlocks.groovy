@@ -1,6 +1,8 @@
 package com.thesledgehammer.groovymc.experimental.blocks
 
 import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.blocks.GroovyBlock
+import com.thesledgehammer.groovymc.items.GroovyItemBlock
 import net.minecraft.block.Block
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
@@ -19,12 +21,12 @@ class ModBlocks {
         block.setUnlocalizedName(name);
         block.setRegistryName(name);
         ForgeRegistries.BLOCKS.register(block);
-        GroovyMC.proxy.registerBlock(block);
+        GroovyMC.registerBlock(block);
 
         if(itemBlock != null) {
             itemBlock.setRegistryName(name);
             ForgeRegistries.ITEMS.register(itemBlock);
-            GroovyMC.proxy.registerItem(itemBlock);
+            GroovyMC.registerItem(itemBlock);
         }
         return block;
     }

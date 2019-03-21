@@ -21,10 +21,9 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.client.render.CutoutKey
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectCache
-import com.thesledgehammer.groovymc.experimental.misc.GridTile
-import com.thesledgehammer.groovymc.experimental.misc.SingleGrid
+import com.thesledgehammer.groovymc.experimental.variables.VariableContext
 import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraftforge.common.property.IExtendedBlockState
 
 /*TODO:
@@ -33,47 +32,44 @@ import net.minecraftforge.common.property.IExtendedBlockState
 */
 class JsonTest {
 
-	static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
+    static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
 
-	//TODO: FIX TextureEntry & ModelEntry Registering
-	static void main(String[] args) {
-		//GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
-		GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
-		blockModel.setGroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition())
+    //TODO: FIX TextureEntry & ModelEntry Registering
+    static void main(String[] args) {
+        //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
+        GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+        blockModel.setGroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition())
 
-		//Model Elements
-		blockModel.setModelElements("base");
-		//blockModel.setModelElements("base_moving");
-		blockModel.setModelElements("trunk");
-		//blockModel.setModelElements("chamber");
+        //Model Elements
+        blockModel.setModelElements("base");
+        blockModel.setModelElements("base_moving");
+        blockModel.setModelElements("trunk");
+        //blockModel.setModelElements("chamber");
 
-		//Model Textures
-		blockModel.setModelTextures("#trunk_blue");
-		blockModel.setModelTextures("#trunk_green");
-		blockModel.setModelTextures("#trunk_yellow");
-		blockModel.setModelTextures("#trunk_red");
-		blockModel.setModelTextures("#trunk_overheat");
-		blockModel.setModelTextures("#trunk_black");
-		blockModel.setModelTextures("#chamber");
-		blockModel.setModelTextures("#back");
-		blockModel.setModelTextures("#side");
+        //Model Textures
+        blockModel.setModelTextures("#trunk_blue");
+        blockModel.setModelTextures("#trunk_green");
+        blockModel.setModelTextures("#trunk_yellow");
+        blockModel.setModelTextures("#trunk_red");
+        blockModel.setModelTextures("#trunk_overheat");
+        blockModel.setModelTextures("#trunk_black");
+        blockModel.setModelTextures("#chamber");
+        blockModel.setModelTextures("#back");
+        blockModel.setModelTextures("#side");
 
-		//println blockModel.GroovyDefinitionContext()
-		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
-		//println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
+        //println blockModel.GroovyDefinitionContext()
+        //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
+        //println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
 
-		//println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
-		//println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
+        //println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
+        //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
 
 
-		CutoutKey cutout = new CutoutKey(blockModel, 0);
-		IExtendedBlockState state = null;
-		println cutout.CutoutKeyList().size()
+        CutoutKey cutout = new CutoutKey(blockModel, 0);
+        IExtendedBlockState state = null;
+        println cutout.CutoutKeyList().size()
 
-		GroovysonObjectCache GOC = new GroovysonObjectCache(blockModel.GROOVY_MODEL, blockModel.getModelElements(0));
-		SingleGrid<Integer> sg = new SingleGrid<>()
-		sg.addToHead(10)
-
-		println sg.get(10)
-	}
+        List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
+        println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue()
+    }
 }

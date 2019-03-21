@@ -64,7 +64,7 @@ class GroovysonObject {
 
     def getParent() {
         if(obj.parent == null) {
-            //Log.logError("${obj.parent} Isn't defined in ${getName()}");
+            Log.logError("${obj.parent} Isn't defined in ${getName()}");
             return null;
         }
         return obj.parent;
@@ -154,6 +154,7 @@ class GroovysonObject {
         return arrObj;
     }
 
+    @Deprecated
     float[] translation(String name) {
         float[] translation = Translation(name);
         return translation;
@@ -175,6 +176,7 @@ class GroovysonObject {
         return arrObj;
     }
 
+    @Deprecated
     float[] rotation(String name) {
         float[] rotation = Rotation(name);
         return rotation;
@@ -196,6 +198,7 @@ class GroovysonObject {
         return arrObj;
     }
 
+    @Deprecated
     float[] scale(String name) {
         float[] scale = Scale(name);
         return scale;

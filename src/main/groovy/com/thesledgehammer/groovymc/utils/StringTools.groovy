@@ -61,6 +61,15 @@ class StringTools {
         return stringToRainbow(name, false);
     }
 
+    static boolean containsDigit(String name) {
+        for(int i = 0; i < name.length(); i++) {
+            if(Character.isDigit(name.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static String getDigitFromString(String name) {
         String digit = "";
 
@@ -92,6 +101,10 @@ class StringTools {
 
     static double getDoubleFromString(String name) {
         return Double.valueOf(getDigitFromString(name));
+    }
+
+    static byte getByteFromString(String name) {
+        return Byte.valueOf(getDigitFromString(name));
     }
 
     /* //Not Working

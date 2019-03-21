@@ -22,6 +22,8 @@
 
 package com.thesledgehammer.groovymc.utils
 
+import org.apache.commons.lang3.mutable.Mutable
+
 class MathTools {
 
     static boolean isPrimitive(def obj) {
@@ -96,6 +98,13 @@ class MathTools {
 
     static boolean isCharacter(def obj) {
         if(obj.class == Character) {
+            return true;
+        }
+        return false;
+    }
+
+    static boolean isVariable(def obj) {
+        if(obj.class instanceof Mutable) {
             return true;
         }
         return false;
