@@ -21,9 +21,9 @@ import com.thesledgehammer.groovymc.client.model.MutableGroovyModel
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.BakedQuad
-import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.client.renderer.block.model.ItemOverrideList
+import net.minecraft.client.renderer.model.BakedQuad
+import net.minecraft.client.renderer.model.IBakedModel
+import net.minecraft.client.renderer.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -53,7 +53,7 @@ class GroovyModelDefinition {
     void setIBakedModelFromMutableGroovyModel(MutableGroovyModel mutableGroovyModel) {
         this.bakedModel = new IBakedModel() {
             @Override
-            List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+            List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, Random rand) {
                 return mutableGroovyModel.getQuads(state, side, rand);
             }
 
@@ -86,8 +86,9 @@ class GroovyModelDefinition {
 
     void setIBakedModelFromBlankGroovyModel(BlankGroovyModel blankGroovyModel) {
         this.bakedModel = new IBakedModel() {
+
             @Override
-            List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+            List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, Random rand) {
                 return blankGroovyModel.getQuads(state, side, rand);
             }
 
@@ -117,6 +118,7 @@ class GroovyModelDefinition {
             }
         }
     }
+
 
     void setGroovysonModel(GroovysonModel groovyModel) {
         this.groovyModel = groovyModel;

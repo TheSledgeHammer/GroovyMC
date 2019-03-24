@@ -20,7 +20,7 @@ import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side

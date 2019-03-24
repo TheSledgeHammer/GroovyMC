@@ -18,7 +18,7 @@ package com.thesledgehammer.groovymc.input
 
 import com.thesledgehammer.groovymc.network.PacketHandler
 import com.thesledgehammer.groovymc.network.PacketSendKey
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.gameevent.InputEvent
 
 class InputHandler {

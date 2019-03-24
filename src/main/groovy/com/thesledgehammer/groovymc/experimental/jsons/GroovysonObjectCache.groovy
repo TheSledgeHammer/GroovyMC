@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 

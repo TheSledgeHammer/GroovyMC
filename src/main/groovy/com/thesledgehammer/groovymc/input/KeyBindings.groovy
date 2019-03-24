@@ -16,13 +16,11 @@
 
 package com.thesledgehammer.groovymc.input
 
+import net.java.games.input.Keyboard
 import net.minecraft.client.settings.KeyBinding
 import net.minecraftforge.fml.client.registry.ClientRegistry
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import org.lwjgl.input.Keyboard
 
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 class KeyBindings {
 	static KeyBinding masterKey;
 	

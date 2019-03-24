@@ -21,10 +21,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 
@@ -59,7 +56,7 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
     RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);
 
     @Override
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     void initModel();
 
     void registerTileEntity();
