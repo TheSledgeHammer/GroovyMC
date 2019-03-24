@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.experimental.blocks
 
+import com.google.common.collect.HashBiMap
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
@@ -25,6 +26,11 @@ import com.thesledgehammer.groovymc.experimental.variables.VariableContext
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraftforge.common.property.IExtendedBlockState
+import org.apache.commons.lang3.builder.HashCodeBuilder
+import org.apache.commons.lang3.builder.HashCodeExclude
+import org.codehaus.groovy.util.HashCodeHelper
+
+import javax.print.attribute.HashAttributeSet
 
 /*TODO:
 1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry
@@ -33,7 +39,8 @@ import net.minecraftforge.common.property.IExtendedBlockState
 class JsonTest {
 
     static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-
+    static int id = 0;
+    static String name= "";
     //TODO: FIX TextureEntry & ModelEntry Registering
     static void main(String[] args) {
         //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
@@ -64,12 +71,11 @@ class JsonTest {
         //println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
         //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
 
-
         CutoutKey cutout = new CutoutKey(blockModel, 0);
         IExtendedBlockState state = null;
         println cutout.CutoutKeyList().size()
 
         List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
-        println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue()
+        println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
     }
 }
