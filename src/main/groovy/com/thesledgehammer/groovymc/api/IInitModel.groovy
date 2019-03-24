@@ -16,11 +16,11 @@
 
 package com.thesledgehammer.groovymc.api
 
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 
 //Add ability to initModels with Metadata
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 interface IInitModel {
 
 	void initModel();

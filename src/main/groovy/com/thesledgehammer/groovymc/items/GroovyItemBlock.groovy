@@ -23,19 +23,20 @@ import net.minecraft.item.ItemStack
 
 class GroovyItemBlock<B extends Block> extends ItemBlock implements ItemBlockTraits {
 
-    GroovyItemBlock(Block block) {
-        super(block);
+
+    GroovyItemBlock(Block block, Properties builder) {
+        super(block, builder);
         setBlock(block);
         setItemBlock(this);
-        setMaxDamage(0);
-        setHasSubtypes(true);
+        builder.defaultMaxDamage(0);
+        //setHasSubtypes(true);
     }
 
     @Override
     B getBlock() {
         return (B) getBlockFromItemBlockTrait();
     }
-
+    
     @Override
     int getMetadata(int i) {
         return getMetadataFromItemBlockTrait(i);

@@ -13,9 +13,9 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 
 interface IMachinePropertiesTESR<T extends GroovyTileBasic> extends IMachineProperties<T> {
 
@@ -23,6 +23,6 @@ interface IMachinePropertiesTESR<T extends GroovyTileBasic> extends IMachineProp
 
     String getParticleTextureLocation();
 
-    @SideOnly(Side.CLIENT)
-    void setRenderer(TileEntitySpecialRenderer<? super T> renderer);
+    @OnlyIn(Dist.CLIENT)
+    void setRenderer(TileEntityRenderer<? super T> renderer);
 }

@@ -14,14 +14,14 @@ package com.thesledgehammer.groovymc.blocks.properties
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.client.registry.ClientRegistry
-import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+
 
 import javax.annotation.Nullable
 
@@ -30,8 +30,8 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     private String particleTextureLocation;
 
     @Nullable
-    @SideOnly(Side.CLIENT)
-    private TileEntitySpecialRenderer<? super T> renderer;
+    @OnlyIn(Dist.CLIENT)
+    private TileEntityRenderer<? super T> renderer;
 
     @Override
     void setParticleTextureLocation(String particleTextureLocation) {
@@ -39,8 +39,8 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    void setRenderer(TileEntitySpecialRenderer<? super T> renderer) {
+    @OnlyIn(Dist.CLIENT)
+    void setRenderer(TileEntityRenderer<? super T> renderer) {
         this.renderer = renderer;
     }
 
@@ -53,13 +53,12 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     void registerTileEntity() {
         super.registerTileEntity();
         Block block = this.getBlock();
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
             Item item = Item.getItemFromBlock(block);
-            if(item != Items.AIR) {
-                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+            if (item != Items.AIR) {
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+                TEISR.renderByItem(new ItemStack(item, 1));
             }
         }
     }
@@ -68,13 +67,12 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     void registerTileEntity(String modID) {
         super.registerTileEntity(modID);
         Block block = this.getBlock();
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
+        if (FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
-                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+                TEISR.renderByItem(new ItemStack(item, 1));
             }
         }
     }

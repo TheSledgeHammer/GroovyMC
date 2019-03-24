@@ -28,21 +28,21 @@ class GroovyFluidBase extends Fluid {
         super(fluidName,
                 FluidStill(modID, texturePath, fluidName),
                 FluidFlowing(modID, texturePath, fluidName));
-        FluidRegistry.addBucketForFluid(this);
+        FluidRegistry.enableUniversalBucket();
     }
 
     GroovyFluidBase(String texturePath, String fluidName) {
         super(fluidName,
                 FluidStill(texturePath, fluidName),
                 FluidFlowing(texturePath, fluidName));
-        FluidRegistry.addBucketForFluid(this);
+        FluidRegistry.enableUniversalBucket();
     }
 
     GroovyFluidBase(String fluidName) {
         super(fluidName,
                 FluidStill(fluidName),
                 FluidFlowing(fluidName));
-        FluidRegistry.addBucketForFluid(this);
+        FluidRegistry.enableUniversalBucket();
     }
 
     private static ResourceLocation FluidStill(String modID, String texturePath, String fluidName) {

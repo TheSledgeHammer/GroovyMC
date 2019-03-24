@@ -21,7 +21,10 @@ import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.animation.FastTESR
+import net.minecraftforge.client.model.animation.TileEntityRendererFast
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side
@@ -34,8 +37,8 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     private String particleTextureLocation;
 
     @Nullable
-    @SideOnly(Side.CLIENT)
-    private FastTESR<? super T> rendererFast;
+    @OnlyIn(Dist.CLIENT)
+    private TileEntityRendererFast<? super T> rendererFast;
 
     @Override
     void setParticleTextureLocation(String particleTextureLocation) {
@@ -43,8 +46,8 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    void setRenderer(FastTESR<? super T> rendererFast) {
+    @OnlyIn(Dist.CLIENT)
+    void setRenderer(TileEntityRendererFast<? super T> rendererFast) {
         this.rendererFast = rendererFast;
     }
 
@@ -61,9 +64,8 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
-                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+                TEISR.renderByItem(new ItemStack(item, 1));
             }
         }
     }
@@ -76,9 +78,8 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
-                //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
+                TEISR.renderByItem(new ItemStack(item, 1));
             }
         }
     }

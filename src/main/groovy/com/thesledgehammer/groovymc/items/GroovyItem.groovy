@@ -21,7 +21,8 @@ import net.minecraft.item.Item
 
 class GroovyItem extends Item implements ItemTraits {
 
-    GroovyItem() {
+    GroovyItem(Properties properties) {
+        super(properties);
         setItem(this);
     }
 }

@@ -19,7 +19,6 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.statemap.IStateMapper
 import net.minecraft.client.renderer.model.ModelResourceLocation
 import net.minecraft.state.IProperty
 import net.minecraft.util.EnumFacing

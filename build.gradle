@@ -16,7 +16,7 @@ plugins {
 	id 'groovy'
 	id 'maven'
 	id 'eclipse'
-	//id "com.jfrog.bintray" version "1.8.4"
+	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply from: rootProject.file('git-maven.gradle')
