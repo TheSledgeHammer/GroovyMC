@@ -1,46 +1,25 @@
 package com.thesledgehammer.groovymc
 
-import com.thesledgehammer.groovymc.client.model.ModelEntryRegistery
-import com.thesledgehammer.groovymc.config.MCMod
-import com.thesledgehammer.groovymc.input.InputHandler
-import com.thesledgehammer.groovymc.input.KeyBindings
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
-@Mod(modid = GroovyMC.MOD_ID, name = GroovyMC.MOD_NAME, version = GroovyMC.VERSION, acceptedMinecraftVersions = GroovyMC.MCVERSION, modLanguageAdapter = GroovyMC.GROOVY_LANGUAGE_ADAPTER)
+@Mod(GroovyMC.MOD_ID)
 class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
 	static final String MOD_NAME = "GroovyMC";
-	static final String VERSION = "1.1.0";
-	static final String MCVERSION = "1.12.2";
-	static final String GROOVY_LANGUAGE_ADAPTER = "com.thesledgehammer.groovymc.api.GroovyLanguageAdapter";
+	static final String VERSION = "1.3.0";
+	static final String MCVERSION = "1.13.2";
 
-	@Mod.Instance("groovymc")
 	static GroovyMC instance;
 
-	static Logger logger;
+	private static final Logger LOGGER = LogManager.getLogger();
 
-	@Mod.EventHandler
-	static void preInit(FMLPreInitializationEvent event) {
-		logger = event.getModLog();
-		MCMod.Info(event);
-		ModelEntryRegistery.preInit();
-	}
-
-	@Mod.EventHandler
-	static void init(FMLInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(new InputHandler());
-		KeyBindings.init();
-	}
-
-	@Mod.EventHandler
-	static void postInit(FMLPostInitializationEvent event) {
-
+	GroovyMC() {
+		instance = this;
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	/*

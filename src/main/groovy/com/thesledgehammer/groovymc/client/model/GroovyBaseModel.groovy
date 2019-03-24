@@ -22,11 +22,7 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.client.model.json.JsonQuads
-import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.client.model.json.*
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing

@@ -16,8 +16,9 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
+
+import net.minecraft.client.renderer.model.IBakedModel
+import net.minecraft.client.renderer.model.ModelResourceLocation
 
 abstract class ModelEntry extends ModelEntryConsumer {
 

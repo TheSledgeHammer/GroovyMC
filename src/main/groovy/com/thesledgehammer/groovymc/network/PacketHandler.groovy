@@ -16,9 +16,8 @@
 
 package com.thesledgehammer.groovymc.network
 
-import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
-import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.network.NetworkRegistry
+
 
 class PacketHandler {
 	private static int packetId = 0;
@@ -34,7 +33,7 @@ class PacketHandler {
 	}
 	
 	static void registerMessages(String channelName) {
-		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
+		INSTANCE = NetworkRegistry..INSTANCE.newSimpleChannel(channelName);
 		registerMessages();
 	}
 

@@ -24,7 +24,6 @@ import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -34,11 +33,9 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraft.world.chunk.BlockStateContainer
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 //To Improve: registerTileEntity

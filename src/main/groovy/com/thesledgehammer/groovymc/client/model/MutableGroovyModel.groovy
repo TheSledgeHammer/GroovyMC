@@ -18,11 +18,13 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.google.common.collect.ImmutableList
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.BakedQuad
-import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.client.renderer.block.model.ItemOverrideList
+import net.minecraft.client.renderer.model.BakedQuad
+import net.minecraft.client.renderer.model.IBakedModel
+import net.minecraft.client.renderer.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+
+import javax.annotation.Nullable
 
 class MutableGroovyModel implements IBakedModel {
 	
@@ -38,9 +40,9 @@ class MutableGroovyModel implements IBakedModel {
 		}
 		this.quads = list.build();
 	}
-	
+
 	@Override
-	List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+	List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, Random rand) {
 		return Collections.emptyList();
 	}
 
@@ -67,5 +69,15 @@ class MutableGroovyModel implements IBakedModel {
 	@Override
 	ItemOverrideList getOverrides() {
 		return model.getOverrides();
+	}
+
+	@Override
+	IBakedModel getBakedModel() {
+		return super.getBakedModel()
+	}
+
+	@Override
+	boolean isAmbientOcclusion(IBlockState state) {
+		return super.isAmbientOcclusion(state)
 	}
 }

@@ -20,8 +20,6 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.MathTools
-import com.thesledgehammer.groovymc.utils.StringTools
 
 //Item & Block Models
 //GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart

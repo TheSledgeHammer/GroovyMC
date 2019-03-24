@@ -19,7 +19,6 @@ package com.thesledgehammer.groovymc.client.definitions
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import net.minecraft.util.ResourceLocation
 
 abstract class ModelEntryProvider {
 

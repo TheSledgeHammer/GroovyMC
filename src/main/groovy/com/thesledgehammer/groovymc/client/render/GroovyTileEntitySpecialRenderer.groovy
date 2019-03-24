@@ -16,12 +16,10 @@
 
 package com.thesledgehammer.groovymc.client.render
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
-import net.minecraft.tileentity.TileEntity
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
-@SideOnly(Side.CLIENT)
+import net.minecraft.tileentity.TileEntity
+
+//@SideOnly(Side.CLIENT)
 abstract class GroovyTileEntitySpecialRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T> {
 
     private String textureBase;

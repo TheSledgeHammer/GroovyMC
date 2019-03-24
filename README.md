@@ -5,6 +5,8 @@ A mod library used in my other mods both existing and upcoming.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
+NOTICE: 1.13.2 IS CURRENTLY IN PRE-ALPHA AND DOES NOT WORK.
+
 ### Getting Started:
 GroovyMC also provides a built-in Groovy Language Adapter.
 To use GroovyMC's Language Adapter add the following to @Mod in your main class
@@ -39,7 +41,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.12.2:+:universal"
+	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.13.2:+:universal"
 }
 ```
 

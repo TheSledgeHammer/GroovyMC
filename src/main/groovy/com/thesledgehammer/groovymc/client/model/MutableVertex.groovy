@@ -9,7 +9,6 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.api.ISprite
 import net.minecraft.client.renderer.BufferBuilder
-import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.client.renderer.vertex.VertexFormat
@@ -18,8 +17,6 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement.EnumUsage
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.math.Vec3i
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.vecmath.*
 
@@ -34,7 +31,7 @@ import javax.vecmath.*
  * will take in 3 doubles and set them to the position element, and {@link #colouri(int, int, int, int)} will take in 4
  * int's and set them to the colour elements.
  */
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 class MutableVertex {
     /** The position of this vertex. */
     float position_x, position_y, position_z;

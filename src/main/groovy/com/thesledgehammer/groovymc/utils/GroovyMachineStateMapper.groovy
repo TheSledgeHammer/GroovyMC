@@ -18,17 +18,15 @@ import com.thesledgehammer.groovymc.blocks.GroovyBlockTileBasic
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import net.minecraft.block.Block
-import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.block.statemap.IStateMapper
+import net.minecraft.client.renderer.model.ModelResourceLocation
+import net.minecraft.state.IProperty
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
-@SideOnly(Side.CLIENT)
+//@SideOnly(Side.CLIENT)
 class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
 
     private final T type;

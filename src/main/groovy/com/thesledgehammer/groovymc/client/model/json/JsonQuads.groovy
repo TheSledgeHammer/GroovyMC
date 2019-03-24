@@ -7,8 +7,8 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.client.model.MutableQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
