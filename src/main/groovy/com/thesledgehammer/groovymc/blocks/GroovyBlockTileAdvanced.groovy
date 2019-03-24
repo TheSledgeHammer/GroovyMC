@@ -35,11 +35,13 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.chunk.BlockStateContainer
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.ModelLoader
 
 import javax.annotation.Nullable
 //To Improve: registerTileEntity
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits {
 
     private final boolean hasTESR;
     private final boolean hasFastTESR;
@@ -122,8 +124,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return getDefinition().CreateTileEntity();
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @OnlyIn(Dist.CLIENT)
     void initModel() {
         blockType.getGroovyMachineProperties().initModel();
     }
@@ -145,14 +147,14 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
         MachinePropertyTraits definition = getDefinition();
         return definition.getBoundingBox(worldIn, pos, state).offset(pos);
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         MachinePropertyTraits definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);

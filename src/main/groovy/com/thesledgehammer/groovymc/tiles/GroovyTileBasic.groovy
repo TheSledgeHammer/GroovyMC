@@ -20,19 +20,21 @@ import com.thesledgehammer.groovymc.tiles.traits.TileTraits
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 
 import javax.annotation.Nullable
 
 abstract class GroovyTileBasic extends TileEntity implements TileTraits {
 
-    GroovyTileBasic() {
 
+    GroovyTileBasic(TileEntityType<?> tileEntityType) {
+        super(tileEntityType)
     }
 
     @Override
     NBTTagCompound getUpdateTag() {
         NBTTagCompound updateTag = super.getUpdateTag();
-        writeToNBT(updateTag);
+        write(updateTag);
         return updateTag;
     }
 
@@ -40,12 +42,12 @@ abstract class GroovyTileBasic extends TileEntity implements TileTraits {
     @Nullable
     SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
+        write(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     boolean isRedstoneActivated() {
-        return world.isBlockIndirectlyGettingPowered(getPos()) > 0;
+        return world.isBlockPowered(getPos());
     }
 
     void onRemoval() {
