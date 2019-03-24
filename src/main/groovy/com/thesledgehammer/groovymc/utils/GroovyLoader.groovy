@@ -16,6 +16,9 @@
 
 package com.thesledgehammer.groovymc.utils
 
+import org.apache.commons.lang3.builder.EqualsBuilder
+import org.apache.commons.lang3.builder.HashCodeBuilder
+
 class GroovyLoader {
 
     private static GroovyLoader instance;
@@ -121,7 +124,6 @@ class GroovyLoader {
         setPackageURL(url);
         setModID(modID);
         this.modDirectory = new File("src/main" + "/" + jvm + "/" + url + "/" + modID + "/").absolutePath;
-        //this.modResourceDirectory = new File("src/main/resources/assets/" + modID + "/").absolutePath;
         this.modResourceDirectory = new File("src/main/resources/assets/").absolutePath;
     }
 
@@ -132,7 +134,31 @@ class GroovyLoader {
         setPackageURL(url);
         setModID(modID);
         this.modDirectory = new File(modPath + "/" + jvm + "/" + url + "/" + modID + "/").absolutePath;
-        //this.modResourceDirectory = new File(modPath + "/" + modResourcePath + "/" + modID + "/").absolutePath;
         this.modResourceDirectory = new File(modPath + "/" + modResourcePath + "/").absolutePath;
+    }
+
+    final int hashCode() {
+        return new HashCodeBuilder(7, 7)
+                .append(this.modPath)
+                .append(this.modResourcePath)
+                .append(this.jvm)
+                .append(this.url)
+                .append(this.modID)
+                .append(this.modDirectory)
+                .append(this.modResourceDirectory)
+                .toHashCode();
+    }
+
+    final boolean equals(Object obj) {
+        GroovyLoader other = (GroovyLoader) obj;
+        return new EqualsBuilder()
+                .append(this.modPath, other.modPath)
+                .append(this.modResourcePath, other.modResourcePath)
+                .append(this.jvm, other.jvm)
+                .append(this.url, other.url)
+                .append(this.modID, other.modID)
+                .append(this.modDirectory, other.modDirectory)
+                .append(this.modResourceDirectory, other.modResourceDirectory)
+                .isEquals();
     }
 }
