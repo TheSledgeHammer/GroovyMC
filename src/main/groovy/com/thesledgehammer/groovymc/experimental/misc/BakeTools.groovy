@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.blocks
+package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.ModelUtil

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.blocks
+package com.thesledgehammer.groovymc.experimental.misc
 
-import com.google.common.collect.HashBiMap
+
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
@@ -26,11 +26,6 @@ import com.thesledgehammer.groovymc.experimental.variables.VariableContext
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraftforge.common.property.IExtendedBlockState
-import org.apache.commons.lang3.builder.HashCodeBuilder
-import org.apache.commons.lang3.builder.HashCodeExclude
-import org.codehaus.groovy.util.HashCodeHelper
-
-import javax.print.attribute.HashAttributeSet
 
 /*TODO:
 1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry

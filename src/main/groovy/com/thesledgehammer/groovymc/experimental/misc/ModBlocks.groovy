@@ -1,8 +1,6 @@
-package com.thesledgehammer.groovymc.experimental.blocks
+package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.GroovyMC
-import com.thesledgehammer.groovymc.blocks.GroovyBlock
-import com.thesledgehammer.groovymc.items.GroovyItemBlock
 import net.minecraft.block.Block
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
