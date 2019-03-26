@@ -1,0 +1,19 @@
+[
+	{
+		"modid": "groovymc",
+		"name": "GroovyMC",
+		"description": "An Apache Groovy Compatibility Library",
+		"version": "1.1.0",
+		"credits": "Apache GroovyMC",
+		"logoFile": "assets/groovymc/textures/groovymclogo.png",
+		"mcversion": "1.1.0",
+		"url": "https://github.com/TheSledgeHammer/GroovyMC",
+		"updateUrl": "",
+		"authorList": [ "TheSledgeHammer" ],
+		"parent": "",
+		"screenshots": [],
+		"dependencies": [
+			"forge"
+		]
+	}
+]
