@@ -33,6 +33,10 @@ repositories {
 		name = "JAXB"
 		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
 	}
+	maven {
+		name = "GroovyForge"
+		url = "https://dl.bintray.com/thesledgehammer/development/"
+	}
 }
 
 minecraft {
@@ -48,6 +52,7 @@ archivesBaseName = "GroovyMC_" + mcversion
 
 dependencies {
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
 
