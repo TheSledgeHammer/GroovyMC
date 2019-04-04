@@ -11,7 +11,14 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import org.apache.logging.log4j.Logger
 
-@Mod(modid = GroovyMC.MOD_ID, name = GroovyMC.MOD_NAME, version = GroovyMC.VERSION, acceptedMinecraftVersions = GroovyMC.MCVERSION, modLanguageAdapter = GroovyMC.GROOVY_LANGUAGE_ADAPTER, dependencies = GroovyMC.DEPENDENCY)
+@Mod(
+		modid = GroovyMC.MOD_ID,
+		name = GroovyMC.MOD_NAME,
+		version = GroovyMC.VERSION,
+		acceptedMinecraftVersions = GroovyMC.MCVERSION,
+		modLanguageAdapter = GroovyMC.GROOVY_LANGUAGE_ADAPTER,
+		dependencies = GroovyMC.DEPENDENCIES
+)
 class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
@@ -19,7 +26,7 @@ class GroovyMC {
 	static final String VERSION = "1.1.0";
 	static final String MCVERSION = "1.12.2";
 	static final String GROOVY_LANGUAGE_ADAPTER = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter";
-	static final String DEPENDENCY = "required-after:groovyforge;"
+	static final String DEPENDENCIES = "required-after:groovyforge;"
 
 	@Mod.Instance("groovymc")
 	static GroovyMC instance;
