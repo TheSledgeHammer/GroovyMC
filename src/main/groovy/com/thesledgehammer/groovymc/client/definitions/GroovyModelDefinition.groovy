@@ -26,13 +26,19 @@ import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+import net.minecraftforge.client.model.IModel
+import net.minecraftforge.common.model.IModelPart
+import net.minecraftforge.common.model.IModelState
 
 import javax.annotation.Nullable
 
 class GroovyModelDefinition {
-//Add IModel's & IModelState
+
     private IBakedModel bakedModel;
     private GroovysonModel groovyModel;
+    private IModel iModel;
+    private IModelState iModelState;
+    private IModelPart iModelPart;
 
     IBakedModel getIBakedModel() {
         return bakedModel;
@@ -40,6 +46,18 @@ class GroovyModelDefinition {
 
     GroovysonModel getGroovysonModel() {
         return groovyModel;
+    }
+
+    IModel getIModel() {
+        return iModel
+    }
+
+    IModelState getIModelState() {
+        return iModelState
+    }
+
+    IModelPart getIModelPart() {
+        return iModelPart
     }
 
     void setIBakedModel(IBakedModel bakedModel) {
@@ -116,6 +134,18 @@ class GroovyModelDefinition {
                 return blankGroovyModel.getOverrides();
             }
         }
+    }
+
+    void setIModel(IModel iModel) {
+        this.iModel = iModel;
+    }
+
+    void setIModelState(IModelState iModelState) {
+        this.iModelState = iModelState;
+    }
+
+    void setIModelPart(IModelPart iModelPart) {
+        this.iModelPart = iModelPart;
     }
 
     void setGroovysonModel(GroovysonModel groovyModel) {

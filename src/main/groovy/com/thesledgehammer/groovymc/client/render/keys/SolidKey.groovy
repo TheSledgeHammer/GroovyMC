@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render
+package com.thesledgehammer.groovymc.client.render.keys
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 import com.thesledgehammer.groovymc.utils.StringTools

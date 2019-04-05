@@ -20,22 +20,17 @@ package com.thesledgehammer.groovymc.experimental.misc
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
-import com.thesledgehammer.groovymc.client.render.CutoutKey
+import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.variables.VariableContext
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraftforge.common.property.IExtendedBlockState
 
-/*TODO:
-1. GroovyBaseModel: Create method to get ResourceLocation of Textures from setModelTextures & setTextureAtlasSprites bug: only gets last sprite entry
-2. GroovyResourceDefinition: Add Get TextAtlasSprite by name & as well as by ModelElement if needed
-*/
 class JsonTest {
 
     static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-    static int id = 0;
-    static String name= "";
+
     //TODO: FIX TextureEntry & ModelEntry Registering
     static void main(String[] args) {
         //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");

@@ -14,44 +14,43 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render
+package com.thesledgehammer.groovymc.client.render.keys
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
-import net.minecraftforge.common.property.IExtendedBlockState
 
-class CutoutKey {
+class CutoutMippedKey {
 
     private String renderName;
-    private LinkedList<String> cutoutList;
+    private LinkedList<String> cutoutMippedList;
     private BlockRenderLayer render;
-    private LinkedList<EnumFacing> cutoutFaces;
+    private LinkedList<EnumFacing> cutoutMippedFaces;
 
-    CutoutKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        setCutoutKey(GROOVY_MODEL, modelElement);
+    CutoutMippedKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
+        setCutoutMippedKey(GROOVY_MODEL, modelElement);
     }
 
-    private void setCutoutKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
+    private void setCutoutMippedKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
         //Valid RenderTypes
         String renderType = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypes();
 
         //Map render to BlockRenderLayer & create a list of applicable faces
-        if(renderType.contains("cutout")) {
-            this.renderName = "cutout";
+        if(renderType.contains("cutout_mipped")) {
+            this.renderName = "cutout_mipped";
             this.render = BlockRenderLayer.valueOf(renderName.toUpperCase());
-            this.cutoutList = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypeFace(renderName);
+            this.cutoutMippedList = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypeFace(renderName);
         }
 
-        //Map Each Face from Cutout to its EnumFacing face
-        this.cutoutFaces = new LinkedList<>();
-        for(int i = 0; i < cutoutList.size(); i++) {
-            String faceCutout = cutoutList.get(i);
+        //Map Each Face from CutoutMipped to its EnumFacing face
+        this.cutoutMippedFaces = new LinkedList<>();
+        for(int i = 0; i < cutoutMippedList.size(); i++) {
+            String faceCutoutMipped = cutoutMippedList.get(i);
             for(EnumFacing face : EnumFacing.VALUES) {
-                if (faceCutout.equalsIgnoreCase(face.name())) {
-                    cutoutFaces.add(EnumFacing.valueOf(faceCutout.toUpperCase()));
+                if (faceCutoutMipped.equalsIgnoreCase(face.name())) {
+                    cutoutMippedFaces.add(EnumFacing.valueOf(faceCutoutMipped.toUpperCase()));
                 }
             }
         }
@@ -61,40 +60,29 @@ class CutoutKey {
         return render;
     }
 
-    LinkedList<String> CutoutKeyList() {
-        return cutoutList;
+    LinkedList<String> CutoutMippedKeyList() {
+        return cutoutMippedList;
     }
 
-    LinkedList<EnumFacing> CutoutKeyFaces() {
-        return cutoutFaces;
+    LinkedList<EnumFacing> CutoutMippedKeyFaces() {
+        return cutoutMippedFaces;
     }
 
     //Before this, need to setRenderLayer on each Face
-    boolean applyCutoutKey(EnumFacing face, IExtendedBlockState state) {
+    boolean applyCutoutMippedKey(EnumFacing face, IBlockState state) {
         /*
         check if face is null or contains all faces
         -> true: ignore faces and apply render to all
         -> false: apply render to set faces
          */
         boolean ignoreFaces;
-        if(face == null || cutoutList.get(0).contentEquals("all") || cutoutList.size() == 6 && !StringTools.doesListContainDuplicates(cutoutList)) {
+        if(face == null || cutoutMippedList.get(0).contentEquals("all") || cutoutMippedList.size() == 6 && !StringTools.doesListContainDuplicates(cutoutMippedList)) {
             ignoreFaces = true;
         }
-        if(face != null || cutoutList.size() < 6) {
+        if(face != null || cutoutMippedList.size() < 6) {
             ignoreFaces = false;
         }
-
-        /*
-        if(ignoreFaces) {
-            //apply Render to All Faces
-        } else {
-
-        }
-        */
         //extendedState.getBlock().canRenderInLayer(state);
         return state.getBlock().canRenderInLayer(state, render);
     }
 }
-//String layerType, ModelElement, BlockRenderLayer
-//IExtendedBlockState state;
-//state.getBlock().canRenderInLayer()

@@ -19,7 +19,6 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
-import com.thesledgehammer.groovymc.utils.ObjectManager
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
@@ -28,13 +27,13 @@ import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
-class ModelEntryRegistery  {
+class ModelEntryRegistry {
 
     private static final List<ModelEntry> MODEL_ENTRIES = ModelEntry.Register.getModelEntries();//new ArrayList<>();
     private static final List<TextureEntry> TEXTURE_ENTRIES = TextureEntry.Register.getTextureEntries();//new ArrayList<>();
 
     static void preInit() {
-        MinecraftForge.EVENT_BUS.register(ModelEntryRegistery.class);
+        MinecraftForge.EVENT_BUS.register(ModelEntryRegistry.class);
     }
 
     static void init() {

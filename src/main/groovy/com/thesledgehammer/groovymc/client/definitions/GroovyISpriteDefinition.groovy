@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.textures.isprite
+package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.api.ISprite
 import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
@@ -10,12 +10,12 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @SideOnly(Side.CLIENT)
-class SpriteEntry implements ISprite {
+class GroovyISpriteDefinition implements ISprite {
 
-    final ResourceLocation spriteLocation;
+    private final ResourceLocation spriteLocation;
     private TextureAtlasSprite sprite;
 
-    SpriteEntry(ResourceLocation spriteLocation) {
+    GroovyISpriteDefinition(ResourceLocation spriteLocation) {
         this.spriteLocation = spriteLocation;
         this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
     }

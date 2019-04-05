@@ -21,6 +21,9 @@ import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.model.IModel
+import net.minecraftforge.common.model.IModelPart
+import net.minecraftforge.common.model.IModelState
 
 class GroovyDefinitionContext {
 
@@ -40,6 +43,18 @@ class GroovyDefinitionContext {
         return models.getGroovysonModel();
     }
 
+    IModel getIModel() {
+        return models.getIModel();
+    }
+
+    IModelState getIModelState() {
+        return models.getIModelState();
+    }
+
+    IModelPart getIModelPart() {
+        return models.getIModelPart();
+    }
+
     ResourceLocation getResourceLocation() {
         return resources.getResourceLocation();
     }
@@ -54,6 +69,18 @@ class GroovyDefinitionContext {
 
     void setIBakedModel(IBakedModel bakedModel) {
         models.setIBakedModel(bakedModel);
+    }
+
+    void setIModel(IModel iModel) {
+        models.setIModel(iModel);
+    }
+
+    void setIModelState(IModelState iModelState) {
+        models.setIModelState(iModelState);
+    }
+
+    void setIModelPart(IModelPart iModelPart) {
+        models.setIModelPart(iModelPart);
     }
 
     void setGroovysonModel(GroovysonModel groovyModel) {
