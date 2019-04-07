@@ -36,6 +36,10 @@ repositories {
 		name = "JAXB"
 		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
 	}
+	maven {
+		name = "TheSledgeHammer"
+		url = "https://dl.bintray.com/thesledgehammer/development/"
+	}
 }
 
 minecraft {
@@ -70,5 +74,6 @@ minecraft {
 dependencies {
 	minecraft 'net.minecraftforge:forge:' + mcversion + '-' + forgeversion
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.13.2:+:universal"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
