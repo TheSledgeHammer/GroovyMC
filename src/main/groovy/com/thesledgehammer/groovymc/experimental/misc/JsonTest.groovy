@@ -63,6 +63,7 @@ class JsonTest {
 
         CutoutKey cutout = new CutoutKey(blockModel, 0);
         IExtendedBlockState state = null;
+
         println cutout.CutoutKeyList().size()
 
         List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());

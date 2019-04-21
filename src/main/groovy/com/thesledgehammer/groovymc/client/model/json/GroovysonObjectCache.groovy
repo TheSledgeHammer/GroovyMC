@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 
+//A GroovysonModel Cache used for both static and variable models. Especially models that have dynamic model elements (i.e. animation)
 class GroovysonObjectCache {
-
-    //GroovyBaseModel: could revise to use this for components that use arrays and not lists
-    //This could provide a cache for variable models as toArray is a deepCopy of that List
-    //As well as a List of non strings can contain a string. Thus can assign the string to a known variable before it becomes an array
 
     private GroovysonObject groovysonObject;
     private GroovysonObjectPart groovysonObjectPart;

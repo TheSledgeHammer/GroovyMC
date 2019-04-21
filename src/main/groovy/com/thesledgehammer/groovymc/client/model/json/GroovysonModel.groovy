@@ -16,18 +16,16 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+
 import com.thesledgehammer.groovymc.utils.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.MathTools
-import com.thesledgehammer.groovymc.utils.StringTools
 
 //Item & Block Models
 //GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class GroovysonModel extends GroovysonObject {
 
     private String resourceObject;
+    private GroovysonObjectCache groovysonObjectCache;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
@@ -73,6 +71,16 @@ class GroovysonModel extends GroovysonObject {
     //Returns Individual Model Elements in .json if applicable
     GroovysonObjectPart getRawModelPart(int index) {
         return groovysonObjectParts.get(index)
+    }
+
+    void setObjectCache() {
+        for(int i = 0; i < groovysonObjectParts.size(); i++) {
+            groovysonObjectCache = new GroovysonObjectCache(this, getRawModelPart(i));
+        }
+    }
+
+    GroovysonObjectCache getObjectCache() {
+        return groovysonObjectCache;
     }
 
     //Returns All BlockRenderLayer types and all the faces for a given Model Part

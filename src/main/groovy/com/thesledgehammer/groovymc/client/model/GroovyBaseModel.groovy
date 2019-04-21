@@ -26,8 +26,11 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.utils.Log
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -36,15 +39,17 @@ class GroovyBaseModel {
     GroovysonModel GROOVY_MODEL;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private GroovyDefinitionContext GDC;
+    private JsonRule jsonRules;
     //MutableQuads
 
     GroovyBaseModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
-
+        setRules();
     }
 
     GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
+        setRules();
     }
 
     //Add GroovyDefinitionContext to GroovyLoader? Initilized with GroovyLoader
@@ -56,8 +61,17 @@ class GroovyBaseModel {
         this.GDC = new GroovyDefinitionContext(GRD, GMD);
     }
 
+    GroovysonModel getGroovyModel() {
+        return GROOVY_MODEL;
+    }
+
+    GroovysonObjectCache getCachedVariables() {
+        return GROOVY_MODEL.getObjectCache()
+    }
+
     void setModelElements(String name) {
         GROOVY_MODEL.setRawModelParts(name);
+        GROOVY_MODEL.setObjectCache();
     }
 
     void setModelTextures(String name) {
@@ -86,6 +100,14 @@ class GroovyBaseModel {
     //Returns a Texture from x model element and face
     String getModelElementTextures(int index, EnumFacing face) {
         return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
+    }
+
+    private void setRules() {
+        this.jsonRules = new JsonRule(GROOVY_MODEL);
+    }
+
+    JsonRule getRules() {
+        return jsonRules
     }
 
     JsonQuads[] Quads(EnumFacing faces) {
@@ -141,7 +163,7 @@ class GroovyBaseModel {
         }
         if(quads.size() == 0) {
             throw new JsonSyntaxException("Expected between 1 and 6 faces, got an empty object");
-            //Log.logError("Expected between 1 and 6 faces, got an empty object");
+            Log.logError("Expected between 1 and 6 faces, got an empty object");
             //println "Expected between 1 and 6 faces, got an empty object"
         }
         return quads.toArray(new JsonQuads[quads.size()]);

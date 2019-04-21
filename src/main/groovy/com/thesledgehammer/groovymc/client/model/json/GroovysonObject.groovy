@@ -154,12 +154,6 @@ class GroovysonObject {
         return arrObj;
     }
 
-    @Deprecated
-    float[] translation(String name) {
-        float[] translation = Translation(name);
-        return translation;
-    }
-
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
@@ -176,12 +170,6 @@ class GroovysonObject {
         return arrObj;
     }
 
-    @Deprecated
-    float[] rotation(String name) {
-        float[] rotation = Rotation(name);
-        return rotation;
-    }
-
     ArrayList<Float> Scale(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
@@ -196,11 +184,5 @@ class GroovysonObject {
             arrObj.add(i, obj.display.get(name).scale.get(i));
         }
         return arrObj;
-    }
-
-    @Deprecated
-    float[] scale(String name) {
-        float[] scale = Scale(name);
-        return scale;
     }
 }

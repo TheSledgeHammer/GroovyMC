@@ -9,6 +9,7 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -27,7 +28,7 @@ class JsonQuads {
 		this.tint = groovysonObjectPart.Tint(face, -1);
 		this.texture = groovysonObjectPart.TextureFace(face);
 		int rotation = groovysonObjectPart.Rotation(face, 0);
-		float[] uv = groovysonObjectPart.FacingUv(face);
+		float[] uv = ListTools.FloatListToFloatArray(groovysonObjectPart.FacingUv(face));
 
         ModelUtil.UvFaceData uvs = new ModelUtil.UvFaceData();
 		uvs.minU = (float) (uv[0] / 16f);

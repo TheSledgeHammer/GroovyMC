@@ -78,8 +78,8 @@ class GroovysonObjectPart {
     def BlockRenderType(String renderType) {
         String render = renderType.toLowerCase();
         if (part.render.get(render) == null) {
-            //Log.logError("The element does not contain a render of: ${renderType}");
-            println "The element does not contain a render of: ${renderType}"
+            Log.logError("The element does not contain a render of: ${renderType}");
+            //println "The element does not contain a render of: ${renderType}"
             return null;
         }
         return part.render.get(render);
@@ -96,12 +96,6 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    @Deprecated
-    String[] renderTypeFace(String renderType) {
-        String[] render = BlockRenderTypeFace(renderType);
-        return render;
-    }
-
     ArrayList<Float> From() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.from.size; i++) {
@@ -110,24 +104,12 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    @Deprecated
-    float[] from() {
-        float[] from = From();
-        return from;
-    }
-
     ArrayList<Float> To() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.to.size; i++) {
             arrPart.add(i, part.to.get(i));
         }
         return arrPart;
-    }
-
-    @Deprecated
-    float[] to() {
-        float[] to = To();
-        return to;
     }
 
     def Faces() {
@@ -152,12 +134,6 @@ class GroovysonObjectPart {
             arrPart.add(i, Facing(face).uv.get(i));
         }
         return arrPart;
-    }
-
-    @Deprecated
-    float[] FaceUV(EnumFacing face) {
-        float[] uv = FacingUv(face);
-        return uv;
     }
 
     String TextureFace(EnumFacing face) {

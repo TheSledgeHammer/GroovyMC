@@ -29,8 +29,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ModelEntryRegistry {
 
-    private static final List<ModelEntry> MODEL_ENTRIES = ModelEntry.Register.getModelEntries();//new ArrayList<>();
-    private static final List<TextureEntry> TEXTURE_ENTRIES = TextureEntry.Register.getTextureEntries();//new ArrayList<>();
+    private static final List<ModelEntry> MODEL_ENTRIES = ModelEntry.Register.getModelEntries();
+    private static final List<TextureEntry> TEXTURE_ENTRIES = TextureEntry.Register.getTextureEntries();
 
     static void preInit() {
         MinecraftForge.EVENT_BUS.register(ModelEntryRegistry.class);
@@ -45,17 +45,10 @@ class ModelEntryRegistry {
     }
 
     static void onTextureStitchPre(TextureMap map) {
-        //Set<ResourceLocation> toStitch = new HashSet<>();
         for(TextureEntry entry : TEXTURE_ENTRIES) {
             map.registerSprite(entry.getResourceLocation());
             map.setTextureEntry(entry.getTextureAtlasSprite());
-            //entry.onTextureStitchPre(toStitch);
         }
-        /*
-        for(ResourceLocation loc : toStitch) {
-            map.setTextureEntry(GroovyAtlasSpriteDefinition.createForConfig(loc));
-        }
-        */
     }
 
     @SubscribeEvent
@@ -65,14 +58,4 @@ class ModelEntryRegistry {
             registry.putObject(entry.getModelResourceLocation(), entry.getIBakedModel());
         }
     }
-
-    /*
-    static void registerTexture(TextureEntry index) {
-        TEXTURE_ENTRIES.add(index);
-    }
-
-    static void registerModel(ModelEntry index) {
-        MODEL_ENTRIES.add(index);
-    }
-    */
 }

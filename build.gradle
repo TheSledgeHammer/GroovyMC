@@ -34,7 +34,7 @@ repositories {
 		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
 	}
 	maven {
-		name = "GroovyForge"
+		name = "TheSledgeHammer"
 		url = "https://dl.bintray.com/thesledgehammer/development/"
 	}
 }
