@@ -73,10 +73,8 @@ class GroovysonModel extends GroovysonObject {
         return groovysonObjectParts.get(index)
     }
 
-    void setObjectCache() {
-        for(int i = 0; i < groovysonObjectParts.size(); i++) {
-            groovysonObjectCache = new GroovysonObjectCache(this, getRawModelPart(i));
-        }
+    void setObjectCacheByModelPart(int index) {
+        groovysonObjectCache = new GroovysonObjectCache(this, getRawModelPart(index));
     }
 
     GroovysonObjectCache getObjectCache() {

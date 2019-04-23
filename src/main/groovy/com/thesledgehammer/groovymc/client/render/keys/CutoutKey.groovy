@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.client.render.keys
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
+import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
@@ -77,21 +78,12 @@ class CutoutKey {
         -> false: apply render to set faces
          */
         boolean ignoreFaces;
-        if(face == null || cutoutList.get(0).contentEquals("all") || cutoutList.size() == 6 && !StringTools.doesListContainDuplicates(cutoutList)) {
+        if(face == null || cutoutList.get(0).contentEquals("all") || cutoutList.size() == 6 && !ListTools.doesListContainDuplicates(cutoutList)) {
             ignoreFaces = true;
         }
         if(face != null || cutoutList.size() < 6) {
             ignoreFaces = false;
         }
-
-        /*
-        if(ignoreFaces) {
-            //apply Render to All Faces
-        } else {
-
-        }
-        */
-        //extendedState.getBlock().canRenderInLayer(state);
         return state.getBlock().canRenderInLayer(state, render);
     }
 }

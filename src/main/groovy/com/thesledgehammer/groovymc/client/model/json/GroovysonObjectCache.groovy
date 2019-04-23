@@ -35,11 +35,11 @@ class GroovysonObjectCache {
         setGroovysonObjectPart(groovysonObjectPart);
     }
 
-    void setGroovysonObject(GroovysonObject groovysonObject) {
+    private void setGroovysonObject(GroovysonObject groovysonObject) {
         this.groovysonObject = groovysonObject;
     }
 
-    void setGroovysonObjectPart(GroovysonObjectPart groovysonObjectPart) {
+    private void setGroovysonObjectPart(GroovysonObjectPart groovysonObjectPart) {
         this.groovysonObjectPart = groovysonObjectPart;
     }
 

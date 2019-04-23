@@ -52,7 +52,6 @@ class GroovyBaseModel {
         setRules();
     }
 
-    //Add GroovyDefinitionContext to GroovyLoader? Initilized with GroovyLoader
     void setGroovyDefinitionContext(GroovyDefinitionContext GDC) {
         this.GDC = GDC;
     }
@@ -65,13 +64,12 @@ class GroovyBaseModel {
         return GROOVY_MODEL;
     }
 
-    GroovysonObjectCache getCachedVariables() {
+    GroovysonObjectCache getObjectCache() {
         return GROOVY_MODEL.getObjectCache()
     }
 
     void setModelElements(String name) {
         GROOVY_MODEL.setRawModelParts(name);
-        GROOVY_MODEL.setObjectCache();
     }
 
     void setModelTextures(String name) {
@@ -113,7 +111,8 @@ class GroovyBaseModel {
     JsonQuads[] Quads(EnumFacing faces) {
         JsonQuads[] jQuads = new JsonQuads[GROOVY_MODEL.getRawModelParts().size()];
         for(int i = 0; i < jQuads.size(); i++) {
-            jQuads[i] = new JsonQuads(GROOVY_MODEL.getRawModelPart(i), GROOVY_MODEL.getRawModelPart(i).from(), GROOVY_MODEL.getRawModelPart(i).to(), faces);
+            GROOVY_MODEL.setObjectCacheByModelPart(i);
+            jQuads[i] = new JsonQuads(GROOVY_MODEL.getRawModelPart(i), getObjectCache().From(), getObjectCache().To(), faces);
         }
         return jQuads;
     }
@@ -148,27 +147,6 @@ class GroovyBaseModel {
         return mutableQuads;
     }
 
-    //Irrelevant? Currently GroovyMC does not define a model part by cuboid in the model json
-    private static JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
-        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
-        float[] from = objectPart.from()
-        float[] to = objectPart.to();
-        boolean shade = groovysonObject.Shade(false);
-        List<JsonQuads> quads = new ArrayList<>();
-
-        for(EnumFacing face : EnumFacing.VALUES) {
-            JsonQuads q = new JsonQuads(objectPart, from, to, face);
-            //q.shade = shade;
-            quads.add(q);
-        }
-        if(quads.size() == 0) {
-            throw new JsonSyntaxException("Expected between 1 and 6 faces, got an empty object");
-            Log.logError("Expected between 1 and 6 faces, got an empty object");
-            //println "Expected between 1 and 6 faces, got an empty object"
-        }
-        return quads.toArray(new JsonQuads[quads.size()]);
-    }
-
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
         return JSON_TEXTABLE;
     }
@@ -181,7 +159,6 @@ class GroovyBaseModel {
         ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
         ArrayList<String> textureName = GROOVY_MODEL.getRawModelTextures().keySet().toArray() as ArrayList<String>;
         String textureLocation = "";
-        //String texturePartName = "";
 
         //Model Elements (Model Parts)
         for(int i = 0; i < GROOVY_MODEL.getRawModelParts().size(); i++) {
@@ -192,7 +169,6 @@ class GroovyBaseModel {
         for (EnumFacing face : EnumFacing.VALUES) {
             for(int j = 0; j < modelPartTexture.size(); j++) {
                 if(modelPartTexture.get(j).Facing(face) != null) {
-                    //texturePartName = modelPartTexture.get(j).TextureFace(face);
                     for(int k = 0; k < textureName.size(); k++) {
                         textureLocation = GROOVY_MODEL.getRawModelTextures().get(textureName.get(k));
                     }
@@ -203,7 +179,6 @@ class GroovyBaseModel {
         }
     }
 
-    //Todo: TextureAtlasSprite sprite
     ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
         //TextureAtlasSprite sprite;
         String name = GROOVY_MODEL.getRawModelPart(index).TextureFace(facing);
@@ -214,4 +189,26 @@ class GroovyBaseModel {
         face.faceData = getJsonTexture(facing, index).faceData;
         return face;
     }
+
+    //Irrelevant? Currently GroovyMC does not define a model part by cuboid in the model json
+    private static JsonQuads[] readCuboid(GroovysonObject groovysonObject, int index) {
+        GroovysonObjectPart objectPart = new GroovysonObjectPart(groovysonObject, index);
+        float[] from = objectPart.From()
+        float[] to = objectPart.To();
+        boolean shade = groovysonObject.Shade(false);
+        List<JsonQuads> quads = new ArrayList<>();
+
+        for(EnumFacing face : EnumFacing.VALUES) {
+            JsonQuads q = new JsonQuads(objectPart, from, to, face);
+            //q.shade = shade;
+            quads.add(q);
+        }
+        if(quads.size() == 0) {
+            Log.logError("Expected between 1 and 6 faces, got an empty object");
+            //println "Expected between 1 and 6 faces, got an empty object"
+        }
+        return quads.toArray(new JsonQuads[quads.size()]);
+    }
 }
+
+//TODO: JsonQuads & MutableQuads for Render Keys

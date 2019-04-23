@@ -31,7 +31,6 @@ class JsonTest {
 
     static GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
 
-    //TODO: FIX TextureEntry & ModelEntry Registering
     static void main(String[] args) {
         //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
         GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");

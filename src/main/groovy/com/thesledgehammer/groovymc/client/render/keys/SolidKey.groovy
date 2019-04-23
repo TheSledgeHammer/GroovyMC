@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.client.render.keys
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
+import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
@@ -70,20 +71,19 @@ class SolidKey {
     }
 
     //Before this, need to setRenderLayer on each Face
-    boolean applySolidKey(EnumFacing face, IBlockState state) {
+    boolean applySolidKey(EnumFacing face, IExtendedBlockState state) {
         /*
         check if face is null or contains all faces
         -> true: ignore faces and apply render to all
         -> false: apply render to set faces
          */
         boolean ignoreFaces;
-        if(face == null || solidList.get(0).contentEquals("all") || solidList.size() == 6 && !StringTools.doesListContainDuplicates(solidList)) {
+        if(face == null || solidList.get(0).contentEquals("all") || solidList.size() == 6 && !ListTools.doesListContainDuplicates(solidList)) {
             ignoreFaces = true;
         }
         if(face != null || solidList.size() < 6) {
             ignoreFaces = false;
         }
-        //extendedState.getBlock().canRenderInLayer(state);
         return state.getBlock().canRenderInLayer(state, render);
     }
 }

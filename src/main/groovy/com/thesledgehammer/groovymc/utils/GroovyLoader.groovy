@@ -138,7 +138,7 @@ class GroovyLoader {
     }
 
     final int hashCode() {
-        return new HashCodeBuilder(7, 7)
+        return new HashCodeBuilder(7, 31)
                 .append(this.modPath)
                 .append(this.modResourcePath)
                 .append(this.jvm)
