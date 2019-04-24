@@ -10,7 +10,7 @@
  * Modified by TheSledgeHammer 2018: Renamed from InventoryUtil & Converted to .groovy
  ******************************************************************************/
 
-package com.thesledgehammer.groovymc.utils
+package com.thesledgehammer.groovymc.gui.inventory
 
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.inventory.IInventory

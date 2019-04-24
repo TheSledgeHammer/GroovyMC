@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.gui
+package com.thesledgehammer.groovymc.gui.container
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
@@ -25,7 +25,7 @@ import net.minecraft.item.ItemStack
 
 abstract class ContainerGroovy extends Container {
 	
-	int sizeOfInventory = 9;
+	private int sizeOfInventory = 9;
 	
 	protected void addPlayerInventory(InventoryPlayer playerInventory, int xInv, int yInv) {
 		// Player inventory
@@ -73,8 +73,12 @@ abstract class ContainerGroovy extends Container {
 		return itemstack;
 	}
 	
-	int setContainerInventorySize(int sizeOfInventory) {
+	void setContainerInventorySize(int sizeOfInventory) {
 		this.sizeOfInventory = sizeOfInventory;
+	}
+
+	//Will always return a size of 9 unless set
+	int getContainerInventorySize() {
 		return sizeOfInventory;
 	}
 }

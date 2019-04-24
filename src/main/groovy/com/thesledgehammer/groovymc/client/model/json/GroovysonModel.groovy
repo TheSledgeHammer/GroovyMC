@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 
 //Item & Block Models

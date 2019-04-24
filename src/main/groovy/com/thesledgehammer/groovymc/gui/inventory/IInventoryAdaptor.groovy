@@ -10,7 +10,7 @@
  * Modified by TheSledgeHammer 2018: Added INBTSerializable & Converted to .groovy
  *********************************************************************************/
 
-package com.thesledgehammer.groovymc.utils
+package com.thesledgehammer.groovymc.gui.inventory
 
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.nbt.NBTTagCompound

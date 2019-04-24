@@ -14,43 +14,44 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.gui
+package com.thesledgehammer.groovymc.gui.container
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
-import net.minecraft.inventory.ClickType
-import net.minecraft.inventory.Slot
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 
-class ContainerItemGroovy<T extends Item> extends ContainerGroovy {
+class ContainerTileGroovy<T extends TileEntity> extends ContainerGroovy {
 	
-	protected final T item;
+	protected final T tile;
 	
-	protected ContainerItemGroovy(T item) {
-		this.item = item;
+	ContainerTileGroovy(T tile) {
+		this.tile = tile;
 	}
 	
-	protected ContainerItemGroovy(T item, InventoryPlayer playerInventory, int xInv, int yInv) {
-		this(item);
+	protected ContainerTileGroovy(T tile, InventoryPlayer playerInventory, int xInv, int yInv) {
+		this(tile);
 		
 		addPlayerInventory(playerInventory, xInv, yInv);
-		setContainerInventorySize(sizeOfInventory);
+		setContainerInventorySize(getContainerInventorySize());
 	}
 	
 	@Override
 	boolean canInteractWith(EntityPlayer playerIn) {
-		return true;
-	}
-	
-	@Override
-	ItemStack slotClick(int slot, int button, ClickType flag, EntityPlayer player) {
-		ItemStack stack =  super.slotClick(slot, button, flag, player);
-		if(slot > 0) {
-			Slot slots = this.getSlot(slot);
-			slots.getSlotIndex();
-			
+		if(tile == null) {
+			return false;
 		}
-		return stack;
+		BlockPos pos = tile.getPos();
+		World world = tile.getWorld();
+		
+		if(tile.isInvalid()) {
+			return false;
+		}
+		
+		if(world.getTileEntity(pos) != tile) {
+			return false;
+		}
+		return playerIn.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) <= 64;
 	}
 }

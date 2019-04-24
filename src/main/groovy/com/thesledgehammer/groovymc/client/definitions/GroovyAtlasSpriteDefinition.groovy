@@ -7,7 +7,7 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 

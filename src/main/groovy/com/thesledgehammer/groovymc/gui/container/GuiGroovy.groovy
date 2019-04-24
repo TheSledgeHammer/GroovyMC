@@ -14,24 +14,40 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.gui
+package com.thesledgehammer.groovymc.gui.container
 
-
-import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.config.Constants
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.util.ResourceLocation
 
 class GuiGroovy<T extends ContainerGroovy> extends GuiContainer {
 	
-	public static final int WIDTH = 180
-	public static final int HEIGHT = 152
+	static final int WIDTH = 180
+	static final int HEIGHT = 152
 	
 	final T container
 	
-	private static final ResourceLocation background = new ResourceLocation(GroovyMC.MOD_ID, "textures/gui/container.png")
+	private ResourceLocation background;
 	
 	GuiGroovy(T container) {
 		super(container)
+		this.container = container
+		xSize = WIDTH
+		ySize = HEIGHT
+	}
+
+	GuiGroovy(T container, String backgroundTexture) {
+		super(container)
+		setBackground(backgroundTexture)
+		this.container = container
+		xSize = WIDTH
+		ySize = HEIGHT
+	}
+
+	GuiGroovy(T container, String modID, String backgroundTexture) {
+		super(container)
+		setBackground(modID, backgroundTexture)
 		this.container = container
 		xSize = WIDTH
 		ySize = HEIGHT
@@ -41,5 +57,17 @@ class GuiGroovy<T extends ContainerGroovy> extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		mc.getTextureManager().bindTexture(background)
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize)
+	}
+
+	void setBackground(String texture) {
+		this.background = new ResourceLocation(GroovyLoader.Instance().getModID(), Constants.TEXTURE_PATH_GUI + '/' + texture);
+	}
+
+	void setBackground(String modID, String texture) {
+		this.background = new ResourceLocation(modID, Constants.TEXTURE_PATH_GUI + '/' + texture);
+	}
+
+	ResourceLocation getBackground() {
+		return background;
 	}
 }

@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.fluids
 
 import com.thesledgehammer.groovymc.api.IInitModel
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.GroovyStateMapperBase
 import net.minecraft.block.material.Material
 import net.minecraft.item.Item

@@ -23,7 +23,7 @@ import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.variables.VariableContext
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraftforge.common.property.IExtendedBlockState
 

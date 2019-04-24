@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
