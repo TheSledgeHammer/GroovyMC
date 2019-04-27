@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation
 
 class GuiSlot extends AbstractGui {
 
-    private static ResourceLocation slotTexture = new ResourceLocation(Constants.TEXTURE_PATH_GUI + "/components/slot.png");
+    private static ResourceLocation slotTexture = new ResourceLocation(Constants.TEXTURE_PATH_GUI + "/builder/slot.png");
 
     GuiSlot() {
         super(slotTexture, 0, 0, 18, 18, 18, 18);

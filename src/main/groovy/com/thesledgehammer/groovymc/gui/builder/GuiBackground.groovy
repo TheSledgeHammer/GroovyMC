@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation
 
 class GuiBackground extends AbstractGui {
 
-    private static ResourceLocation backgroundTexture = new ResourceLocation(Constants.TEXTURE_PATH_GUI + "/components/background.png");
+    private static ResourceLocation backgroundTexture = new ResourceLocation(Constants.TEXTURE_PATH_GUI + "/builder/background.png");
 
     GuiBackground() {
         super(backgroundTexture, 0, 0, 256, 256, 256, 256);
