@@ -16,58 +16,48 @@
 
 package com.thesledgehammer.groovymc.gui.container
 
-import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.gui.builder.GuiBackground
+import com.thesledgehammer.groovymc.gui.builder.GuiSlot
 import net.minecraft.client.gui.inventory.GuiContainer
-import net.minecraft.util.ResourceLocation
 
-class GuiGroovy<T extends ContainerGroovy> extends GuiContainer {
+class GuiGroovy<C extends ContainerGroovy> extends GuiContainer {
 	
-	static final int WIDTH = 180
-	static final int HEIGHT = 152
+	static final int WIDTH = 200
+	static final int HEIGHT = 200
+
+	private final GuiSlot guiSlot = new GuiSlot();
+	private final GuiBackground guiBackground = new GuiBackground();
 	
-	final T container
-	
-	private ResourceLocation background;
-	
-	GuiGroovy(T container) {
+	GuiGroovy(C container) {
 		super(container)
-		this.container = container
-		xSize = WIDTH
-		ySize = HEIGHT
+		setXSize(WIDTH);
+		setYSize(HEIGHT);
 	}
 
-	GuiGroovy(T container, String backgroundTexture) {
-		super(container)
-		setBackground(backgroundTexture)
-		this.container = container
-		xSize = WIDTH
-		ySize = HEIGHT
-	}
-
-	GuiGroovy(T container, String modID, String backgroundTexture) {
-		super(container)
-		setBackground(modID, backgroundTexture)
-		this.container = container
-		xSize = WIDTH
-		ySize = HEIGHT
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		int xOffset = xSize - (xSize - 19);
+		int yOffset = (ySize - 22);
+		guiSlot.drawPlayerHotbar(xOffset, yOffset);
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		mc.getTextureManager().bindTexture(background)
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize)
+		guiBackground.draw(guiLeft, guiTop,  xSize, ySize);
 	}
 
-	void setBackground(String texture) {
-		this.background = new ResourceLocation(GroovyLoader.Instance().getModID(), Constants.TEXTURE_PATH_GUI + '/' + texture);
+	@Override
+	void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.renderHoveredToolTip(mouseX, mouseY);
 	}
 
-	void setBackground(String modID, String texture) {
-		this.background = new ResourceLocation(modID, Constants.TEXTURE_PATH_GUI + '/' + texture);
+	void setXSize(int xSize) {
+		this.xSize = xSize;
 	}
 
-	ResourceLocation getBackground() {
-		return background;
+	void setYSize(int ySize) {
+		this.ySize = ySize;
 	}
 }

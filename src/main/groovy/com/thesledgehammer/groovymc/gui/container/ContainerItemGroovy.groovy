@@ -23,15 +23,17 @@ import net.minecraft.inventory.Slot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 
-class ContainerItemGroovy<T extends Item> extends ContainerGroovy {
+class ContainerItemGroovy<I extends Item> extends ContainerGroovy {
 	
-	protected final T item;
+	protected final I item;
 	
-	protected ContainerItemGroovy(T item) {
+	protected ContainerItemGroovy(I item) {
 		this.item = item;
+		addPlayerInventory(playerInventory, xInv, yInv);
+		setContainerInventorySize(getContainerInventorySize());
 	}
 	
-	protected ContainerItemGroovy(T item, InventoryPlayer playerInventory, int xInv, int yInv) {
+	protected ContainerItemGroovy(I item, InventoryPlayer playerInventory, int xInv, int yInv) {
 		this(item);
 		
 		addPlayerInventory(playerInventory, xInv, yInv);

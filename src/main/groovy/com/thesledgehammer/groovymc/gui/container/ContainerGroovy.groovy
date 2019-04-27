@@ -77,7 +77,6 @@ abstract class ContainerGroovy extends Container {
 		this.sizeOfInventory = sizeOfInventory;
 	}
 
-	//Will always return a size of 9 unless set
 	int getContainerInventorySize() {
 		return sizeOfInventory;
 	}

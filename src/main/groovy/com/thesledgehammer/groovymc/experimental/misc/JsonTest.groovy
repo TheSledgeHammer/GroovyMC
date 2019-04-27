@@ -22,10 +22,15 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
 import com.thesledgehammer.groovymc.config.Constants
+
 import com.thesledgehammer.groovymc.experimental.variables.VariableContext
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.property.IExtendedBlockState
+import net.minecraftforge.fml.client.config.GuiUtils
+
+import java.awt.Graphics2D
 
 class JsonTest {
 
@@ -33,7 +38,7 @@ class JsonTest {
 
     static void main(String[] args) {
         //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
-        GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+        /*GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
         blockModel.setGroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition())
 
         //Model Elements
@@ -63,9 +68,9 @@ class JsonTest {
         CutoutKey cutout = new CutoutKey(blockModel, 0);
         IExtendedBlockState state = null;
 
-        println cutout.CutoutKeyList().size()
+        println cutout.CutoutKeyList().size()*/
 
-        List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
-        println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
+        //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
+        //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
     }
 }
