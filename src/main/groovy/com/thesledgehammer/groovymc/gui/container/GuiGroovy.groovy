@@ -38,7 +38,7 @@ class GuiGroovy<C extends ContainerGroovy> extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		int xOffset = xSize - (xSize - 19);
 		int yOffset = (ySize - 22);
-		guiSlot.drawPlayerHotbar(xOffset, yOffset);
+		guiSlot.drawSlotGrid(xOffset, yOffset, 18, 18, 9, 1);
 	}
 
 	@Override

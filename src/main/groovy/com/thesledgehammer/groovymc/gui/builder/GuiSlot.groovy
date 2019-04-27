@@ -21,6 +21,12 @@ import net.minecraft.util.ResourceLocation
 
 class GuiSlot extends AbstractGui {
 
+    private int xNumber;
+    private int yNumber;
+    private int xSize;
+    private int ySize;
+    private int xBoundary;
+    private int yBoundary;
     private static ResourceLocation slotTexture = new ResourceLocation(Constants.TEXTURE_PATH_GUI + "/builder/slot.png");
 
     GuiSlot() {
@@ -39,57 +45,83 @@ class GuiSlot extends AbstractGui {
         super(modID, texture, u, v, uWidth, vHeight, textureWidth, textureHeight)
     }
 
-    /**
-     * Draws a single row of 9 slots, for the player hotbar with the default texture size
-     * @param xOffsetBase : the base x value, for where the 9 player slots start
-     * @param yOffsetBase : the base y value, for where the 9 player slots start
-     */
-    void drawPlayerHotbar(int xOffsetBase, int yOffsetBase) {
-        for (int x = 0; x < 162; x += 18) {
-            draw(xOffsetBase + x, yOffsetBase);
-        }
+    private void setXBoundary(int xSize, int xNumber) {
+        setXSize(xSize);
+        setXNumberOfSlots(xNumber);
+        this.xBoundary = xSize * xNumber;
+    }
+
+    private void setYBoundary(int ySize, int yNumber) {
+        setYSize(ySize);
+        setYNumberOfSlots(yNumber);
+        this.yBoundary = ySize * yNumber;
+    }
+
+    private void setXSize(int xSize) {
+        this.xSize = xSize;
+    }
+
+    private void setYSize(int ySize) {
+        this.ySize = ySize;
+    }
+
+    private void setXNumberOfSlots(int xNumber) {
+        this.xNumber = xNumber;
+    }
+
+    private void setYNumberOfSlots(int yNumber) {
+        this.yNumber = yNumber;
+    }
+
+    int getXBoundary() {
+        return xBoundary;
+    }
+
+    int getYBoundary() {
+        return yBoundary;
+    }
+
+    int getXSize() {
+        return xSize;
+    }
+
+    int getYSize() {
+        return ySize;
+    }
+
+    int getXNumber() {
+        return xNumber;
+    }
+
+    int getYNumber() {
+        return yNumber;
     }
 
     /**
-     *  Draws a single row of 9 slots, for the player hotbar at a set texture size
-     * @param xOffsetBase: the base x value, for where the 9 player slots start
-     * @param yOffsetBase: the base y value, for where the 9 player slots start
+     * Draws a grid of slots at a set texture size
+     * @param xOffsetBase: the base x value
+     * @param yOffsetBase: the base y value
      * @param xSize: Size of texture along x axis
      * @param ySize: Size of texture along y axis
+     * @param xNumber: The number of slots along the x axis
+     * @param yNumber: The number of slots along the y axis
      */
-    void drawPlayerHotbar(int xOffsetBase, int yOffsetBase, int xSize, int ySize) {
-        int xBoundary = xSize * 9;
-        for(int x = 0; x < xBoundary; x+=xSize) {
-            draw(xOffsetBase + x, yOffsetBase, xSize, ySize);
-        }
-    }
-
-    /**
-     * Draws 3 rows of 9 slots, for the player inventory with the default texture size
-     * @param xOffsetBase : the base x value, for where the 9 player slots start
-     * @param yOffsetBase : the base y value, for where the 9 player slots start
-     */
-    void drawPlayerInventory(int xOffsetBase, int yOffsetBase) {
-        for (int x = 0; x < 162; x += 18) {
-            for (int y = 0; y < 54; y += 18) {
-                draw(xOffsetBase + x, yOffsetBase + y);
+    void drawSlotGrid(int xOffsetBase, int yOffsetBase, int xSize, int ySize, int xNumber, int yNumber) {
+        setXBoundary(xSize, xNumber);
+        setYBoundary(ySize, yNumber);
+        for(int x = 0; x < getXBoundary(); x+= xSize) {
+            for(int y = 0; y < getYBoundary(); y+= ySize) {
+                draw(xOffsetBase + x, yOffsetBase + y, xSize, ySize);
             }
         }
     }
 
-    /**
-     * Draws 3 rows of 9 slots, for the player inventory at a set texture size
-     * @param xOffsetBase : the base x value, for where the 9 player slots start
-     * @param yOffsetBase : the base y value, for where the 9 player slots start
-     * @param xSize: Size of texture along x axis
-     * @param ySize: Size of texture along y axis
-     */
-    void drawPlayerInventory(int xOffsetBase, int yOffsetBase, int xSize, int ySize) {
-        int xBoundary = xSize * 9;
-        int yBoundary = ySize * 3
-        for (int x = 0; x < xBoundary; x += xSize) {
-            for (int y = 0; y < yBoundary; y += ySize) {
-                draw(xOffsetBase + x, yOffsetBase + y, xSize, ySize);
+    void drawSlotGrid(int xOffsetBase, int yOffsetBase, int xNumber, int yNumber) {
+        setXBoundary(18, xNumber);
+        setYBoundary(18, yNumber);
+        for(int x = 0; x < getXBoundary(); x+= 18) {
+            for(int y = 0; y < getYBoundary(); y+= 18) {
+                draw(xOffsetBase + x, yOffsetBase + y, 18, 18);
             }
         }
     }
