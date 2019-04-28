@@ -22,19 +22,17 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class ContainerTileGroovy<T extends TileEntity> extends ContainerGroovy {
+abstract class ContainerTileGroovy<T extends TileEntity> extends ContainerGroovy {
 	
 	protected final T tile;
-	
-	ContainerTileGroovy(T tile) {
+
+	protected ContainerTileGroovy(T tile) {
 		this.tile = tile;
 	}
-	
+
 	protected ContainerTileGroovy(T tile, InventoryPlayer playerInventory, int xInv, int yInv) {
-		this(tile);
-		
+		this.tile = tile;
 		addPlayerInventory(playerInventory, xInv, yInv);
-		setContainerInventorySize(getContainerInventorySize());
 	}
 	
 	@Override

@@ -16,11 +16,12 @@
 
 package com.thesledgehammer.groovymc.gui.container
 
-import com.thesledgehammer.groovymc.gui.builder.GuiBackground
-import com.thesledgehammer.groovymc.gui.builder.GuiSlot
+import com.thesledgehammer.groovymc.experimental.gui.builder.GuiBackground
+import com.thesledgehammer.groovymc.experimental.gui.builder.GuiSlot
 import net.minecraft.client.gui.inventory.GuiContainer
+import net.minecraft.inventory.Container
 
-class GuiGroovy<C extends ContainerGroovy> extends GuiContainer {
+class GuiGroovy<C extends Container> extends GuiContainer {
 	
 	static final int WIDTH = 200
 	static final int HEIGHT = 200

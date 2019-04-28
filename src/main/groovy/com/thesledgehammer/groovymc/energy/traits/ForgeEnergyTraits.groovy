@@ -16,7 +16,7 @@
  * Base of MinecraftForge's EnergyStorage
  */
 
-package com.thesledgehammer.groovymc.energy;
+package com.thesledgehammer.groovymc.energy.traits;
 
 import net.minecraftforge.energy.IEnergyStorage
 

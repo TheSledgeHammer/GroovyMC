@@ -18,11 +18,19 @@ package com.thesledgehammer.groovymc.experimental.multiblocks
 
 import net.minecraft.tileentity.TileEntity
 
-class GridTile extends SingleGrid<TileEntity> {
+class GridTile extends LinkedList<TileEntity> {
+
+    private TileEntity tile;
 
     GridTile(TileEntity tile) {
-        super(tile);
+        this.tile = tile;
     }
 
+    void addTile(int index, TileEntity tile){
+        this.add(index, tile);
+    }
 
+    void removeTile(int index) {
+        this.remove(index);
+    }
 }

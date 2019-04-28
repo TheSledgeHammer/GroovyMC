@@ -43,12 +43,18 @@ abstract class ContainerGroovy extends Container {
 	protected void addHotbarSlot(InventoryPlayer playerInventory, int slot, int x, int y) {
 		addSlotToContainer(new Slot(playerInventory, slot, x, y));
 	}
-	
+
+	@Override
+	Slot addSlotToContainer(Slot slot) {
+		return super.addSlotToContainer(slot);
+	}
+
 	@Override
 	ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
 		return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}
-	
+
+	/*
 	@Override
 	final ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = null;
@@ -72,6 +78,7 @@ abstract class ContainerGroovy extends Container {
 		}
 		return itemstack;
 	}
+	*/
 	
 	void setContainerInventorySize(int sizeOfInventory) {
 		this.sizeOfInventory = sizeOfInventory;
