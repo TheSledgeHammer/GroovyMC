@@ -16,11 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import net.minecraft.util.ResourceLocation
-
 abstract class ModelEntryProvider {
 
     private GroovyDefinitionContext GDC;
@@ -34,17 +29,10 @@ abstract class ModelEntryProvider {
     }
 
     ModelEntryProvider() {
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
+        GDC = null;
     }
 
     GroovyDefinitionContext GroovyDefinitionContext() {
         return GDC;
     }
-/*
-    abstract boolean hasBakedQuads();
-
-    abstract void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites);
-
-    protected abstract void onModelBake();
-    */
 }

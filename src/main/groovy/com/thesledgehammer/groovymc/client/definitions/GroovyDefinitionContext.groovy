@@ -27,12 +27,21 @@ import net.minecraftforge.common.model.IModelState
 
 class GroovyDefinitionContext {
 
+    private static GroovyDefinitionContext instance;
     private GroovyResourceDefinition resources;
     private GroovyModelDefinition models;
 
     GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models) {
         this.resources = resources
         this.models = models;
+        instance = this;
+    }
+
+    static GroovyDefinitionContext Instance() {
+        if(instance == null) {
+            return null;
+        }
+        return instance;
     }
 
     IBakedModel getIBakedModel() {

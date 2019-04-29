@@ -22,26 +22,26 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 abstract class ModelEntry extends ModelEntryConsumer {
 
     ModelEntry(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
-        this.GroovyDefinitionContext().setModelResourceLocation(modelLocation);
-        this.GroovyDefinitionContext().setIBakedModel(bakedModel);
+        GroovyDefinitionContext().setModelResourceLocation(modelLocation);
+        GroovyDefinitionContext().setIBakedModel(bakedModel);
     }
 
     ModelEntry(String modelLocation, IBakedModel bakedModel) {
-        this.GroovyDefinitionContext().setModelResourceLocation(modelLocation);
-        this.GroovyDefinitionContext().setIBakedModel(bakedModel);
+        GroovyDefinitionContext().setModelResourceLocation(modelLocation);
+        GroovyDefinitionContext().setIBakedModel(bakedModel);
     }
 
     ModelEntry(String type, String modelLocation, IBakedModel bakedModel) {
-        this.GroovyDefinitionContext().setCustomModelResourceLocation(type, modelLocation);
-        this.GroovyDefinitionContext().setIBakedModel(bakedModel);
+        GroovyDefinitionContext().setCustomModelResourceLocation(type, modelLocation);
+        GroovyDefinitionContext().setIBakedModel(bakedModel);
     }
 
     ModelResourceLocation getModelResourceLocation() {
-        return this.GroovyDefinitionContext().getModelResourceLocation();
+        return GroovyDefinitionContext().getModelResourceLocation();
     }
 
     IBakedModel getIBakedModel() {
-        return this.GroovyDefinitionContext().getIBakedModel();
+        return GroovyDefinitionContext().getIBakedModel();
     }
 
     static class Register extends ModelEntry {
