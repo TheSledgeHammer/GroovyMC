@@ -17,23 +17,24 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
+import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeysDefinition
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        //GroovyBaseModel model = new GroovyBaseModel("block","engine_base");
         GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
-       // blockModel.setGroovyDefinitionContext(GroovyDefinitionContext.Instance())
 
         //Model Elements
         blockModel.setModelElements("base");
         //blockModel.setModelElements("base_moving");
         //blockModel.setModelElements("trunk");
         //blockModel.setModelElements("chamber");
+
 
         //Model Textures
         blockModel.setModelTextures("#trunk_blue");
@@ -45,6 +46,7 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
+
         //blockModel.GroovyDefinitionContext().setResourceLocation("#side")
         //println blockModel.GroovyDefinitionContext()
         //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
@@ -60,5 +62,14 @@ class JsonTest {
 
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
+        GroovyRenderKeysDefinition renderKeysDefinition = new GroovyRenderKeysDefinition(blockModel);
+
+        //IBlockState testState = test.getDefaultState();
+        if(renderKeysDefinition.contains(0, "cutout")) {
+            renderKeysDefinition.setCutoutKey(0);
+            //println renderKeysDefinition.getCutoutKey().canRenderLayerCutout(EnumFacing.DOWN, test.getRenderType());
+        }
+        renderKeysDefinition.setCutoutKey(0);
+        List<EnumFacing> list = renderKeysDefinition.getCutoutKey().CutoutKeyFaces();
     }
 }

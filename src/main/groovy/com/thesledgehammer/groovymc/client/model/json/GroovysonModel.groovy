@@ -90,10 +90,4 @@ class GroovysonModel extends GroovysonObject {
     ArrayList<String> getRawModelPartRenderLayerOfFaces(int index, String renderLayer) {
         return getRawModelPart(index).BlockRenderTypeFace(renderLayer);
     }
-
-    ArrayList<String> getRawModelPartRenderLayers(int index) {
-        ArrayList<String> renderTypes = new ArrayList<>();
-        renderTypes.add(getRawModelPart(index).BlockRenderTypes());
-        return renderTypes;
-    }
 }

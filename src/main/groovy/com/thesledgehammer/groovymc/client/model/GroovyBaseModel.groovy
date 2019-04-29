@@ -43,23 +43,20 @@ class GroovyBaseModel {
 
     GroovyBaseModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
-        setRules();
         GRKD = new GroovyRenderKeysDefinition(this);
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
+        setRules();
     }
 
     GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
-        setRules();
         GRKD = new GroovyRenderKeysDefinition(this);
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
+        setRules();
     }
 
-
-    void setGroovyDefinitionContext(GroovyDefinitionContext GDC) {
-        this.GDC = GDC;
-    }
-
-    void setGroovyDefinitionContext(GroovyResourceDefinition GRD, GroovyModelDefinition GMD) {
-        this.GDC = new GroovyDefinitionContext(GRD, GMD);
+    GroovyDefinitionContext GroovyDefinitionContext() {
+        return GDC;
     }
 
     GroovysonModel getGroovyModel() {
@@ -78,10 +75,6 @@ class GroovyBaseModel {
         GROOVY_MODEL.setRawModelTextures(name);
         //TextureEntry.Register.add(name);
         JsonTextureMapping();
-    }
-
-    GroovyDefinitionContext GroovyDefinitionContext() {
-        return GDC;
     }
 
     GroovysonObjectPart getModelElements(int index) {
