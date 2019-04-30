@@ -112,6 +112,42 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
+    def Rotation() {
+        return part.rotation;
+    }
+
+    ArrayList<Float> RotationOrigin() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.origin.size; i++) {
+            arrPart.add(part.rotation.origin.get(i));
+        }
+        return arrPart;
+    }
+
+    ArrayList<Float> RotationAxis() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.axis.size; i++) {
+            arrPart.add(part.rotation.axis.get(i));
+        }
+        return arrPart;
+    }
+
+    ArrayList<Float> RotationAngle() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.angle.size; i++) {
+            arrPart.add(part.rotation.angle.get(i));
+        }
+        return arrPart;
+    }
+
+    boolean RotationRescale() {
+        return part.rotation.rescale;
+    }
+
+    boolean Shade() {
+        return part.shade;
+    }
+
     def Faces() {
         return part.faces;
     }
@@ -140,25 +176,29 @@ class GroovysonObjectPart {
         return Facing(face).texture;
     }
 
-    def Rotation(EnumFacing face, int fallback) {
+    String CullFaceFace(EnumFacing face) {
+        return Facing(face).cullface
+    }
+
+    def FacingRotation(EnumFacing face, int fallback) {
         if(Facing(face).rotation == null) {
             return fallback;
         }
         return Facing(face).rotation;
     }
 
-    int Rotation(EnumFacing face) {
-        return Rotation(face, 0);
+    int RotationFace(EnumFacing face) {
+        return FacingRotation(face, 0);
     }
 
-    def Tint(EnumFacing face, int fallback) {
+    def FacingTint(EnumFacing face, int fallback) {
         if(Facing(face).tintindex == null) {
             return fallback;
         }
         return Facing(face).tintindex;
     }
 
-    int Tint(EnumFacing face) {
-        return Tint(face, 0);
+    int TintFace(EnumFacing face) {
+        return FacingTint(face, 0);
     }
 }

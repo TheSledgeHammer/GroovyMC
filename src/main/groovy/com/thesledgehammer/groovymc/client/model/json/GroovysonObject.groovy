@@ -125,6 +125,10 @@ class GroovysonObject {
         return obj.values.get(valueName);
     }
 
+    boolean AmbientOcclusion() {
+        return obj.ambientocclusion;
+    }
+
     //Translation Rotation Scale Rotation(TRSR)
     def Display() {
         return obj.display;
@@ -184,5 +188,18 @@ class GroovysonObject {
             arrObj.add(i, obj.display.get(name).scale.get(i));
         }
         return arrObj;
+    }
+
+    //Used in Item Models Only
+    def Overrides() {
+        return obj.overrides;
+    }
+
+    def OverridesPredicate() {
+        return obj.overrides.predicate;
+    }
+
+    def OverridesModel() {
+        return obj.overrides.model;
     }
 }
