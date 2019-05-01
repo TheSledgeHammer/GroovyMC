@@ -16,7 +16,8 @@ import org.apache.logging.log4j.Logger
 		version = GroovyMC.VERSION,
 		acceptedMinecraftVersions = GroovyMC.MCVERSION,
 		modLanguageAdapter = GroovyMC.GROOVY_LANGUAGE_ADAPTER,
-		dependencies = GroovyMC.DEPENDENCIES
+		dependencies = GroovyMC.DEPENDENCIES,
+		certificateFingerprint = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
 )
 class GroovyMC {
 
