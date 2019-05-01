@@ -21,6 +21,7 @@ import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeysDefinitio
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectState
 import net.minecraft.util.EnumFacing
 
 class JsonTest {
@@ -71,5 +72,10 @@ class JsonTest {
         }
         renderKeysDefinition.setCutoutKey(0);
         List<EnumFacing> list = renderKeysDefinition.getCutoutKey().CutoutKeyFaces();
+
+        GroovysonObjectState GOS = new GroovysonObjectState(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "blockstat");
+
+        //println GOS.getMultipartWhen().OR.east
+        println GOS.getMultipartWhenORFace(0, "east")
     }
 }

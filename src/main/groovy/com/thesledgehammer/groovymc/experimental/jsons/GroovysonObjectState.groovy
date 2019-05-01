@@ -64,11 +64,103 @@ class GroovysonObjectState {
         return obj;
     }
 
-    def getVariant() {
-        if(obj.variant == null) {
-            Log.logError("${obj.variant} Isn't defined in ${getName()}");
+    def getVariants() {
+        if(obj.variants == null) {
+            Log.logError("${obj.variants} Isn't defined in ${getName()}");
             return null;
         }
-        return obj.variant;
+        return obj.variants;
+    }
+
+    def getVariantName(String name) {
+        if(obj.variants.get(name) == null) {
+            Log.logError("${name} is incorrect...!");
+            return null;
+        }
+        return obj.variants.get(name);
+    }
+
+    ArrayList<String> getVariantsFromName(String name) {
+        ArrayList<String> arrObj = new ArrayList<>();
+        if(obj.variants.get(name) == null) {
+            Log.logError("${name} is incorrect...!");
+            return null;
+        }
+        for(int i = 0; i < obj.variants.get(name).size; i++) {
+            arrObj.add(obj.variants.get(name).get(i));
+        }
+        return arrObj;
+    }
+
+    def getVariantModelProperties(String name, int index) {
+        return getVariantsFromName(name).get(index).model;
+    }
+
+    def getVariantModelXRotationProperties(String name, int index) {
+        return getVariantsFromName(name).get(index).x;
+    }
+
+    def getVariantModelYRotationProperties(String name, int index) {
+        return getVariantsFromName(name).get(index).y;
+    }
+
+    def getVariantModelUVLockProperties(String name, int index) {
+        return getVariantsFromName(name).get(index).uvlock;
+    }
+
+    def getVariantModelWeightProperties(String name, int index) {
+        return getVariantsFromName(name).get(index).weight;
+    }
+
+    def getVariantModelBlock(String name, int index) {
+        return getVariantsFromName(name).get(index).model;
+    }
+
+    def getVariantModelXRotationOnBlock(String name, int index) {
+        return getVariantsFromName(name).get(index).x;
+    }
+
+    def getVariantModelYRotationOnBlock(String name, int index) {
+        return getVariantsFromName(name).get(index).y;
+    }
+
+    def getVariantModelUVLockOnBlock(String name, int index) {
+        return getVariantsFromName(name).get(index).uvlock;
+    }
+
+    def getMultipart() {
+        if(obj.multipart == null) {
+            Log.logError("${obj.multipart} Isn't defined in ${getName()}");
+            return null;
+        }
+        return obj.multipart;
+    }
+
+    ArrayList<String> getMultipartWhen() {
+        ArrayList<String> arrObj = new ArrayList<>();
+        for(int i = 0; i < obj.multipart.size; i++) {
+            arrObj.add(obj.multipart.get(i).when);
+        }
+        return arrObj;
+    }
+
+    ArrayList<String> getMultipartWhenOR() {
+        ArrayList<String> arrObj = new ArrayList<>();
+        for(int i = 0; i < obj.multipart.size; i++) {
+            arrObj.add(obj.multipart.get(i).when.OR);
+        }
+        return arrObj;
+    }
+
+    def getMultipartWhenORFace(int index, String face) {
+        return getMultipartWhenOR().get(index).getAt(face)
+    }
+
+    ArrayList<String> getMultipartApply() {
+        ArrayList<String> arrObj = new ArrayList<>();
+        for(int i = 0; i < obj.multipart.size; i++) {
+            arrObj.add(obj.multipart.get(i).apply);
+        }
+        return arrObj;
     }
 }
