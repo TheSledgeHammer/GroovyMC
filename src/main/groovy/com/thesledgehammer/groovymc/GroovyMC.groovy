@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger
 		acceptedMinecraftVersions = GroovyMC.MCVERSION,
 		modLanguageAdapter = GroovyMC.GROOVY_LANGUAGE_ADAPTER,
 		dependencies = GroovyMC.DEPENDENCIES,
-		certificateFingerprint = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
+		certificateFingerprint = GroovyMC.CERTIFICATE_FINGERPRINT
 )
 class GroovyMC {
 
@@ -27,6 +27,7 @@ class GroovyMC {
 	static final String MCVERSION = "1.12.2";
 	static final String GROOVY_LANGUAGE_ADAPTER = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter";
 	static final String DEPENDENCIES = "required-after:groovyforge;"
+    static final String CERTIFICATE_FINGERPRINT = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
 
 	@Mod.Instance("groovymc")
 	static GroovyMC instance;

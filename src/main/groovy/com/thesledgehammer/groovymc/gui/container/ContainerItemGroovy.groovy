@@ -34,7 +34,7 @@ class ContainerItemGroovy<I extends Item> extends ContainerGroovy {
 	}
 	
 	protected ContainerItemGroovy(I item, InventoryPlayer playerInventory, int xInv, int yInv) {
-		this(item);
+		this.item = item;
 		
 		addPlayerInventory(playerInventory, xInv, yInv);
 		setContainerInventorySize(getContainerInventorySize());

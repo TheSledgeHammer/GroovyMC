@@ -192,7 +192,7 @@ class GroovysonObjectPart {
     }
 
     def FacingTint(EnumFacing face, int fallback) {
-        if(Facing(face).tintindex == null) {
+        if(Facing(face).tintindex == null || Facing(face) == null) {
             return fallback;
         }
         return Facing(face).tintindex;

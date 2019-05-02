@@ -112,18 +112,6 @@ class GroovyBaseModel {
         return jQuads;
     }
 
-    JsonQuads QuadAllFaces(int rawModelTexture) {
-        for (EnumFacing face : EnumFacing.VALUES) {
-            if(rawModelTexture > Quads(face).size()) {
-                Log.logError("This ModelTexture does not contain " + face);
-                Log.logError("Or this Model does not contain a ModelTexture at " + rawModelTexture);
-                return null;
-            }
-            return Quads(face)[rawModelTexture];
-        }
-        return null;
-    }
-
     JsonQuads QuadAFace(EnumFacing face, int rawModelTexture) {
         if(rawModelTexture > Quads(face).size()) {
             Log.logError("This ModelTexture does not contain " + face);

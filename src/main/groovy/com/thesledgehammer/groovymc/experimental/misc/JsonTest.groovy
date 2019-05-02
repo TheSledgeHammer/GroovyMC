@@ -16,12 +16,18 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
+import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
+import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeysDefinition
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectState
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 class JsonTest {
@@ -76,6 +82,7 @@ class JsonTest {
         GroovysonObjectState GOS = new GroovysonObjectState(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "blockstat");
 
         //println GOS.getMultipartWhen().OR.east
+
         println GOS.getMultipartWhenORFace(0, "east")
     }
 }
