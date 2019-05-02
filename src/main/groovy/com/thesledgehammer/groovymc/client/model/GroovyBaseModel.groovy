@@ -27,7 +27,7 @@ import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
-import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeysDefinition
+import com.thesledgehammer.groovymc.experimental.render.GroovyRenderKeyDefinition
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -37,20 +37,20 @@ class GroovyBaseModel {
     GroovysonModel GROOVY_MODEL;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private GroovyDefinitionContext GDC;
-    private GroovyRenderKeysDefinition GRKD;
+    private GroovyRenderKeyDefinition GRKD;
     private JsonRule jsonRules;
     //MutableQuads
 
     GroovyBaseModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
-        GRKD = new GroovyRenderKeysDefinition(this);
+        GRKD = new GroovyRenderKeyDefinition(this);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
         setRules();
     }
 
     GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
-        GRKD = new GroovyRenderKeysDefinition(this);
+        GRKD = new GroovyRenderKeyDefinition(this);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
         setRules();
     }
@@ -63,6 +63,10 @@ class GroovyBaseModel {
         return GROOVY_MODEL;
     }
 
+    GroovyRenderKeyDefinition getGroovyRenderKeyDefinition() {
+        return GRKD;
+    }
+
     GroovysonObjectCache getObjectCache() {
         return GROOVY_MODEL.getObjectCache()
     }
@@ -73,7 +77,6 @@ class GroovyBaseModel {
 
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
-        //TextureEntry.Register.add(name);
         JsonTextureMapping();
     }
 
@@ -106,7 +109,7 @@ class GroovyBaseModel {
     JsonQuads[] Quads(EnumFacing faces) {
         JsonQuads[] jQuads = new JsonQuads[GROOVY_MODEL.getRawModelParts().size()];
         for(int i = 0; i < jQuads.size(); i++) {
-            GROOVY_MODEL.setObjectCacheByModelPart(i);
+            //GROOVY_MODEL.setObjectCacheByModelPart(i);
             jQuads[i] = new JsonQuads(GROOVY_MODEL.getRawModelPart(i), getObjectCache().From(), getObjectCache().To(), faces);
         }
         return jQuads;

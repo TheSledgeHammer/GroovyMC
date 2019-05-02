@@ -90,15 +90,8 @@ class GroovysonObject {
         return obj.elements.get(index);
     }
 
-    private boolean getShade() {
+    boolean getShade() {
         return obj.shade;
-    }
-
-    boolean Shade(boolean fallback) {
-        if(getShade() == null) {
-            return fallback;
-        }
-        return getShade();
     }
 
     def getVariables() {

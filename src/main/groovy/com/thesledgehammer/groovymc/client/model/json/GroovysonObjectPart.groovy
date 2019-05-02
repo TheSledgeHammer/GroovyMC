@@ -119,7 +119,7 @@ class GroovysonObjectPart {
     ArrayList<Float> RotationOrigin() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.rotation.origin.size; i++) {
-            arrPart.add(part.rotation.origin.get(i));
+            arrPart.add(i, part.rotation.origin.get(i));
         }
         return arrPart;
     }
@@ -127,7 +127,7 @@ class GroovysonObjectPart {
     ArrayList<Float> RotationAxis() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.rotation.axis.size; i++) {
-            arrPart.add(part.rotation.axis.get(i));
+            arrPart.add(i, part.rotation.axis.get(i));
         }
         return arrPart;
     }
@@ -135,7 +135,7 @@ class GroovysonObjectPart {
     ArrayList<Float> RotationAngle() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.rotation.angle.size; i++) {
-            arrPart.add(part.rotation.angle.get(i));
+            arrPart.add(i, part.rotation.angle.get(i));
         }
         return arrPart;
     }
@@ -172,11 +172,11 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    String TextureFace(EnumFacing face) {
+    def TextureFace(EnumFacing face) {
         return Facing(face).texture;
     }
 
-    String CullFaceFace(EnumFacing face) {
+    def CullFaceFace(EnumFacing face) {
         return Facing(face).cullface
     }
 
@@ -187,18 +187,10 @@ class GroovysonObjectPart {
         return Facing(face).rotation;
     }
 
-    int RotationFace(EnumFacing face) {
-        return FacingRotation(face, 0);
-    }
-
     def FacingTint(EnumFacing face, int fallback) {
         if(Facing(face).tintindex == null || Facing(face) == null) {
             return fallback;
         }
         return Facing(face).tintindex;
-    }
-
-    int TintFace(EnumFacing face) {
-        return FacingTint(face, 0);
     }
 }

@@ -61,6 +61,9 @@ class GroovysonModel extends GroovysonObject {
 
     void setRawModelParts(String partName) {
         groovysonObjectParts.add(new GroovysonObjectPart(this, partName));
+        for(GroovysonObjectPart part : groovysonObjectParts) {
+            setObjectCache(part);
+        }
     }
 
     //Returns all Model Elements in .json if applicable
@@ -73,21 +76,11 @@ class GroovysonModel extends GroovysonObject {
         return groovysonObjectParts.get(index)
     }
 
-    void setObjectCacheByModelPart(int index) {
-        groovysonObjectCache = new GroovysonObjectCache(this, getRawModelPart(index));
+    private void setObjectCache(GroovysonObjectPart partName) {
+        groovysonObjectCache = new GroovysonObjectCache(this, partName);
     }
 
     GroovysonObjectCache getObjectCache() {
         return groovysonObjectCache;
-    }
-
-    //Returns All BlockRenderLayer types and all the faces for a given Model Part
-    String getRawModelPartRenderLayerTypes(int index, String renderLayer) {
-        return getRawModelPart(index).BlockRenderType(renderLayer);
-    }
-
-    //Returns a BlockRenderLayer type and the faces it applies too
-    ArrayList<String> getRawModelPartRenderLayerOfFaces(int index, String renderLayer) {
-        return getRawModelPart(index).BlockRenderTypeFace(renderLayer);
     }
 }

@@ -18,16 +18,12 @@ package com.thesledgehammer.groovymc.client.render.keys
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.entity.Render
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
-import net.minecraftforge.common.property.IExtendedBlockState
 
+@Deprecated //Please refer to the RenderKeys in "experimental/render"
 class CutoutKey {
 
     private String renderName;

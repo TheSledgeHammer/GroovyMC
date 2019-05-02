@@ -24,7 +24,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.property.IExtendedBlockState
-
+@Deprecated //Please refer to the RenderKeys in "experimental/render"
 class CutoutMippedKey {
 
     private String renderName;

@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render.keys
+package com.thesledgehammer.groovymc.experimental.render
 
 import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 
-//WIP: Can apply a various BlockRenderLayers to a model from the model's json file.
-@Deprecated //Please refer to the RenderKeys in "experimental/render"
-class GroovyRenderKeysDefinition {
-
+class GroovyRenderKeyDefinition {
     private CutoutKey cutoutKey;
     private CutoutMippedKey cutoutMippedKey;
     private SolidKey solidKey;
     private TranslucentKey translucentKey;
     private GroovyBaseModel groovyBaseModel;
 
-    GroovyRenderKeysDefinition() {
+    GroovyRenderKeyDefinition() {
         setGroovyBaseModel(null);
     }
 
-    GroovyRenderKeysDefinition(GroovyBaseModel groovyBaseModel) {
+    GroovyRenderKeyDefinition(GroovyBaseModel groovyBaseModel) {
         setGroovyBaseModel(groovyBaseModel);
     }
 
@@ -97,20 +94,5 @@ class GroovyRenderKeysDefinition {
             return true;
         }
         return false;
-    }
-
-    void setRenderKeys(int element) {
-        if(contains(element, "cutout")) {
-            setCutoutKey(element);
-        }
-        if(contains(element, "cutout_mipped")) {
-            setCutoutMippedKey(element);
-        }
-        if(contains(element, "solid")) {
-            setSolidKey(element);
-        }
-        if(contains(element, "translucent")) {
-            setTranslucentKey(element);
-        }
     }
 }

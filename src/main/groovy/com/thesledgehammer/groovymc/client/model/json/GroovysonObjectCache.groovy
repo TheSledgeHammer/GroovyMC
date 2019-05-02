@@ -17,6 +17,8 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.MathTools
+import net.minecraft.client.renderer.block.model.ItemOverride
 import net.minecraft.util.EnumFacing
 
 //A GroovysonModel Cache used for both static and variable models. Especially models that have dynamic model elements (i.e. animation)
@@ -43,31 +45,104 @@ class GroovysonObjectCache {
         this.groovysonObjectPart = groovysonObjectPart;
     }
 
+    GroovysonObject GroovysonObject() {
+        return groovysonObject;
+    }
+
+    GroovysonObjectPart GroovysonObjectPart() {
+        return groovysonObjectPart;
+    }
+
+    boolean Shade(boolean fallback) {
+        if(GroovysonObject().getShade() == null) {
+            return fallback;
+        }
+        return GroovysonObject().getShade();
+    }
+
+    boolean AmbientOcclusion() {
+        return  GroovysonObject().AmbientOcclusion();
+    }
+
     float[] Translation(String name) {
-        return ListTools.FloatListToFloatArray(groovysonObject.Translation(name));
+        return ListTools.FloatListToFloatArray(GroovysonObject().Translation(name));
     }
 
     float[] Rotation(String name) {
-        return ListTools.FloatListToFloatArray(groovysonObject.Rotation(name));
+        return ListTools.FloatListToFloatArray(GroovysonObject().Rotation(name));
     }
 
     float[] Scale(String name) {
-        return ListTools.FloatListToFloatArray(groovysonObject.Scale(name));
+        return ListTools.FloatListToFloatArray(GroovysonObject().Scale(name));
     }
 
-    float[] From() {
-        return ListTools.FloatListToFloatArray(groovysonObjectPart.From());
+    float[] RotationOrigin() {
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().RotationOrigin());
+    }
+
+    float[] RotationAxis() {
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().RotationAxis());
+    }
+
+    float[] RotationAngle() {
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().RotationAngle());
+    }
+
+    boolean RotationRescale() {
+        boolean rescale = GroovysonObjectPart().RotationRescale();
+        return rescale;
     }
 
     String[] BlockRenderTypeFace(String renderType) {
-        return ListTools.StringListToStringArray(groovysonObjectPart.BlockRenderTypeFace(renderType));
+        return ListTools.StringListToStringArray(GroovysonObjectPart().BlockRenderTypeFace(renderType));
+    }
+
+    float[] From() {
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().From());
     }
 
     float[] To() {
-        return ListTools.FloatListToFloatArray(groovysonObjectPart.To());
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().To());
     }
 
     float[] FacingUV(EnumFacing face) {
-        return  ListTools.FloatListToFloatArray(groovysonObjectPart.FacingUv(face));
+        return ListTools.FloatListToFloatArray(GroovysonObjectPart().FacingUv(face));
+    }
+
+    boolean ShadePart() {
+        boolean shade = GroovysonObjectPart().Shade();
+        return shade;
+    }
+
+    String TextureFace(EnumFacing face) {
+        String texture = GroovysonObjectPart().TextureFace(face);
+        return texture;
+    }
+
+    String CullFace(EnumFacing face) {
+        String cullface = GroovysonObjectPart().CullFaceFace(face);
+        return cullface;
+    }
+
+    int TintFace(EnumFacing face, int fallback) {
+        int tint = GroovysonObjectPart().FacingTint(face, fallback);
+        return tint;
+    }
+
+    int RotationFace(EnumFacing face, int fallback) {
+        int rotation = GroovysonObjectPart().FacingRotation(face, fallback);
+        return rotation;
+    }
+
+    def ItemOverride() {
+        return GroovysonObject().Overrides();
+    }
+
+    def ItemOverrideModel() {
+        return GroovysonObject().OverridesModel();
+    }
+
+    def ItemOverridePredicate() {
+        return GroovysonObject().OverridesPredicate();
     }
 }
