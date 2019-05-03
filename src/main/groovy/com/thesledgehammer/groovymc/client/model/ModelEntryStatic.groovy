@@ -31,8 +31,8 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
     GroovyBaseModel GROOVY_MODEL;
     private MutableQuad[][] quads;
 
-    ModelEntryStatic(ModelEntryBakery MEB) {
-
+    ModelEntryStatic(GroovyBaseModel GROOVY_MODEL) {
+        this.GROOVY_MODEL = GROOVY_MODEL;
     }
 
     @Override
@@ -45,7 +45,7 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         if(GROOVY_MODEL == null) {
             quads = null;
         } else {
-            //Needs to create MutableQuads from RenderKeys
+            //Does not work correctly for different Renders
             MutableQuad[] cut = bakePart(GROOVY_MODEL);
             MutableQuad[] trans = bakePart(GROOVY_MODEL);
             quads = [cut, trans];
@@ -58,7 +58,7 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         return quads != null;
     }
 
-    private MutableQuad[] bakePart(GroovyBaseModel groovyBaseModel) {
+    MutableQuad[] bakePart(GroovyBaseModel groovyBaseModel) {
         List<MutableQuad[]> mutableQuads = new ArrayList<>();
         for(EnumFacing face : EnumFacing.VALUES) {
             if (face != null) {

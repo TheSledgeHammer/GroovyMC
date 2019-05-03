@@ -109,7 +109,6 @@ class GroovyBaseModel {
     JsonQuads[] Quads(EnumFacing faces) {
         JsonQuads[] jQuads = new JsonQuads[GROOVY_MODEL.getRawModelParts().size()];
         for(int i = 0; i < jQuads.size(); i++) {
-            //GROOVY_MODEL.setObjectCacheByModelPart(i);
             jQuads[i] = new JsonQuads(GROOVY_MODEL.getRawModelPart(i), getObjectCache().From(), getObjectCache().To(), faces);
         }
         return jQuads;
