@@ -16,18 +16,10 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
-import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
-import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.client.model.json.JsonQuads
-import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeysDefinition
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonObjectState
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
@@ -38,7 +30,7 @@ class JsonTest {
         //Model Elements
         blockModel.setModelElements("base");
         //blockModel.setModelElements("base_moving");
-        //blockModel.setModelElements("trunk");
+        blockModel.setModelElements("trunk");
         //blockModel.setModelElements("chamber");
 
 
@@ -63,60 +55,8 @@ class JsonTest {
 
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
+        //test.addQuads(EnumFacing.EAST)
+        //GroovysonModelPart GMP = new GroovysonModelPart(blockModel.getGroovyModel())
 
-        GroovysonObjectState GOS = new GroovysonObjectState(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "blockstat");
-
-        //println GOS.getMultipartWhen().OR.east
-       // renderKeysDefinition.getCutoutKey().Test(blockModel)
-        //CutoutKey cutoutParts = new CutoutKey(blockModel, 0);
-       // cutoutParts.Cutout(blockModel);
-
-        //println blockModel.getGroovyRenderKeyDefinition().getCutoutKey().Cutout(blockModel)
-    }
-
-    static MutableQuad[] bakePart(GroovyBaseModel model, List<GroovysonObjectPart> groovysonObjectParts) {
-        List<MutableQuad[]> mutableQuads = new ArrayList<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            if (face != null) {
-                mutableQuads.add(bakePartFace(model, groovysonObjectParts, face))
-            }
-        }
-        MutableQuad[] mutable = mutableQuads.toArray() as MutableQuad[];
-        return mutable;
-    }
-
-    static MutableQuad[] bakePartFace(GroovyBaseModel model, List<GroovysonObjectPart> groovysonObjectParts, EnumFacing face) {
-        //TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
-        List<MutableQuad> list = new ArrayList<>();
-        groovysonObjectParts = model.getModelElements();
-
-        for (GroovysonObjectPart part : groovysonObjectParts) {
-            for (JsonQuads quad : model.Quads(face)) {
-                String lookup = quad.texture;
-                int attempts = 0;
-                while (lookup.startsWith("#") && part.TextureFace(face).contains(lookup) && attempts < 10) {
-                    lookup = part.TextureFace(face);
-                    attempts++;
-                }
-                if(lookup.startsWith("~") && part.TextureFace(face).contains(lookup)) {
-                    //BC8 makes this an immutable map
-                    //lookup = part.TextureFace(face);
-                }
-                TextureAtlasSprite sprite;
-                /*if (lookup.startsWith("#") || lookup.startsWith("~")) {
-                    if (allowTextureFallthrough) {
-                        sprite = null;
-                    } else {
-                        sprite = missingSprite;
-                    }
-                } else {
-                    sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
-                }*/
-               // sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
-                list.add(quad.toQuad(sprite));
-            }
-        }
-        MutableQuad[] mutableQuads = new MutableQuad[list.size()];
-        return list.toArray(mutableQuads);
     }
 }

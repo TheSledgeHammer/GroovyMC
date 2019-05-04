@@ -47,7 +47,7 @@ class GroovysonObjectPart {
     }
 
     //Refers to def part
-    void setPart(int index) {
+    private void setPart(int index) {
         part = groovysonObject.getElementPart(index);
     }
 
@@ -70,7 +70,7 @@ class GroovysonObjectPart {
     }
 
     //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String BlockRenderTypes() {
+    String BlockRenderType() {
         return part.render;
     }
 
@@ -79,12 +79,12 @@ class GroovysonObjectPart {
         String render = renderType.toLowerCase();
         if (part.render.get(render) == null) {
             Log.logError("The element does not contain a render of: ${renderType}");
-            //println "The element does not contain a render of: ${renderType}"
             return null;
         }
         return part.render.get(render);
     }
 
+    @Deprecated //No Longer used
     ArrayList<String> BlockRenderTypeFace(String renderType) {
         ArrayList<String> arrPart = new ArrayList<>();
         if(BlockRenderType(renderType) == null) {

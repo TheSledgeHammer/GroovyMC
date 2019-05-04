@@ -21,6 +21,7 @@ import com.thesledgehammer.groovymc.client.definitions.ModelEntryBakery
 import com.thesledgehammer.groovymc.client.definitions.TextureEntry
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -28,11 +29,12 @@ import net.minecraft.util.ResourceLocation
 
 class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
-    GroovyBaseModel GROOVY_MODEL;
+    private GroovyBaseModel groovyBaseModel;
     private MutableQuad[][] quads;
 
-    ModelEntryStatic(GroovyBaseModel GROOVY_MODEL) {
-        this.GROOVY_MODEL = GROOVY_MODEL;
+    ModelEntryStatic(GroovyBaseModel groovyBaseModel) {
+        this.groovyBaseModel = groovyBaseModel;
+        groovyBaseModel.setRenderKeysDefintion(groovyBaseModel.getGroovyModel());
     }
 
     @Override
@@ -42,14 +44,15 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
     @Override
     protected void onModelBake() {
-        if(GROOVY_MODEL == null) {
+        if(groovyBaseModel == null) {
             quads = null;
         } else {
-            //Does not work correctly for different Renders
-            MutableQuad[] cut = bakePart(GROOVY_MODEL);
-            MutableQuad[] trans = bakePart(GROOVY_MODEL);
-            quads = [cut, trans];
-            GROOVY_MODEL = null;
+            MutableQuad[] cut = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getCutoutKey().getCutoutModelElements());
+            MutableQuad[] trans = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getTranslucentKey().getTranslucentModelElements());
+            MutableQuad[] solid = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getSolidKey().getSolidModelElements());
+            MutableQuad[] cut_mip = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getCutoutMippedKey().getCutoutMippedModelElements());
+            quads = [cut, trans, solid, cut_mip];
+            groovyBaseModel = null;
         }
     }
 
@@ -58,22 +61,20 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         return quads != null;
     }
 
-    MutableQuad[] bakePart(GroovyBaseModel groovyBaseModel) {
-        List<MutableQuad[]> mutableQuads = new ArrayList<>();
+    private MutableQuad[] bakePart(ArrayList<GroovysonObjectPart > modelParts) {
         for(EnumFacing face : EnumFacing.VALUES) {
             if (face != null) {
-                mutableQuads.add(bakePartFace(groovyBaseModel, face))
+                return bakePartFace(modelParts, face);
             }
         }
-        MutableQuad[] mutable = mutableQuads.toArray() as MutableQuad[];
-        return mutable;
+        return null;
     }
 
-    private MutableQuad[] bakePartFace(GroovyBaseModel groovyBaseModel, EnumFacing face) {
+    private MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, EnumFacing face) {
         TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
         List<MutableQuad> list = new ArrayList<>();
-        for (GroovysonObjectPart part : groovyBaseModel.getModelElements()) {
-            for (JsonQuads quad : groovyBaseModel.Quads(face)) {
+        for (GroovysonObjectPart part : modelParts) {
+            for (JsonQuads quad : JsonTools.Quads(modelParts, face)) {
                 String lookup = quad.texture;
                 int attempts = 0;
                 while (lookup.startsWith("#") && part.TextureFace(face).contains(lookup) && attempts < 10) {

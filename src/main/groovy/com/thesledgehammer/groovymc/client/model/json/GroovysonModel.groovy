@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
+import net.minecraft.util.EnumFacing
 
 //Item & Block Models
 //GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
@@ -40,6 +41,10 @@ class GroovysonModel extends GroovysonObject {
 
     private void setResourceObject(String resourceObject) {
         this.resourceObject = resourceObject;
+    }
+
+    String getResourceObject() {
+        return resourceObject
     }
 
     //Texture Name & Location
@@ -82,5 +87,14 @@ class GroovysonModel extends GroovysonObject {
 
     GroovysonObjectCache getObjectCache() {
         return groovysonObjectCache;
+    }
+
+    //Get Element variables at index by face name
+    HashMap<String, EnumFacing> FaceMap(int index) {
+        HashMap<String, EnumFacing> arrMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
+        }
+        return arrMap;
     }
 }

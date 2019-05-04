@@ -16,80 +16,25 @@
 
 package com.thesledgehammer.groovymc.client.render.keys
 
-import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
-import com.thesledgehammer.groovymc.utils.ListTools
-import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.EnumFacing
-
-@Deprecated //Please refer to the RenderKeys in "experimental/render"
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 class CutoutKey {
 
-    private String renderName;
-    private LinkedList<String> cutoutList;
-    private BlockRenderLayer render;
-    private LinkedList<EnumFacing> cutoutFaces;
+    private List<GroovysonObjectPart> cutoutParts = new ArrayList<>();
 
-    CutoutKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        setCutoutKey(GROOVY_MODEL, modelElement);
-    }
-
-    private void setCutoutKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        //Valid RenderTypes
-        String renderType = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypes();
-
-        //Map render to BlockRenderLayer & create a list of applicable faces
-        if(renderType.contains("cutout")) {
-            this.renderName = "cutout";
-            this.render = BlockRenderLayer.valueOf(renderName.toUpperCase());
-            this.cutoutList = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypeFace(renderName);
-        }
-
-        //Map Each Face from Cutout to its EnumFacing face
-        this.cutoutFaces = new LinkedList<>();
-        for(int i = 0; i < cutoutList.size(); i++) {
-            String faceCutout = cutoutList.get(i);
-            for(EnumFacing face : EnumFacing.VALUES) {
-                if (faceCutout.equalsIgnoreCase(face.name())) {
-                    cutoutFaces.add(EnumFacing.valueOf(faceCutout.toUpperCase()));
-                }
+    CutoutKey(GroovysonModel groovysonModel) {
+        for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
+            if(parts.BlockRenderType() == "cutout") {
+                cutoutParts.add(parts);
             }
         }
     }
 
-    BlockRenderLayer RenderLayer() {
-        return render;
+    String getRenderType() {
+        return "cutout";
     }
 
-    LinkedList<String> CutoutKeyList() {
-        return cutoutList;
-    }
-
-    LinkedList<EnumFacing> CutoutKeyFaces() {
-        return cutoutFaces;
-    }
-
-    //Before this, need to setRenderLayer on each Face
-    boolean canRenderLayerCutout(Block block, IBlockState state) {
-        return block.canRenderInLayer(state, RenderLayer());
-    }
-
-    boolean ignoreFaces(EnumFacing face) {
-        /*
-        check if face is null or contains all faces
-        -> true: ignore faces and apply render to all
-        -> false: apply render to set faces
-        */
-        if(face == null || cutoutList.get(0).contentEquals("all") || cutoutList.size() == 6 && !ListTools.doesListContainDuplicates(cutoutList)) {
-            return true;
-        }
-        if(face != null || cutoutList.size() < 6) {
-            return false;
-        }
-        return false;
+    ArrayList<GroovysonObjectPart> getCutoutModelElements() {
+        return cutoutParts;
     }
 }
-//String layerType, ModelElement, BlockRenderLayer
-//IExtendedBlockState state;
-//state.getBlock().canRenderInLayer()

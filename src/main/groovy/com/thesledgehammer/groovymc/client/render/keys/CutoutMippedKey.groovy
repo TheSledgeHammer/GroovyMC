@@ -16,77 +16,26 @@
 
 package com.thesledgehammer.groovymc.client.render.keys
 
-import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
-import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.EnumFacing
-import net.minecraftforge.common.property.IExtendedBlockState
-@Deprecated //Please refer to the RenderKeys in "experimental/render"
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+
 class CutoutMippedKey {
 
-    private String renderName;
-    private LinkedList<String> cutoutMippedList;
-    private BlockRenderLayer render;
-    private LinkedList<EnumFacing> cutoutMippedFaces;
+    private List<GroovysonObjectPart> cutoutMippedParts = new ArrayList<>();
 
-    CutoutMippedKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        setCutoutMippedKey(GROOVY_MODEL, modelElement);
-    }
-
-    private void setCutoutMippedKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        //Valid RenderTypes
-        String renderType = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypes();
-
-        //Map render to BlockRenderLayer & create a list of applicable faces
-        if(renderType.contains("cutout_mipped")) {
-            this.renderName = "cutout_mipped";
-            this.render = BlockRenderLayer.valueOf(renderName.toUpperCase());
-            this.cutoutMippedList = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypeFace(renderName);
-        }
-
-        //Map Each Face from CutoutMipped to its EnumFacing face
-        this.cutoutMippedFaces = new LinkedList<>();
-        for(int i = 0; i < cutoutMippedList.size(); i++) {
-            String faceCutoutMipped = cutoutMippedList.get(i);
-            for(EnumFacing face : EnumFacing.VALUES) {
-                if (faceCutoutMipped.equalsIgnoreCase(face.name())) {
-                    cutoutMippedFaces.add(EnumFacing.valueOf(faceCutoutMipped.toUpperCase()));
-                }
+    CutoutMippedKey(GroovysonModel groovysonModel) {
+        for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
+            if(parts.BlockRenderType() == "cutout_mipped") {
+                cutoutMippedParts.add(parts);
             }
         }
     }
 
-    BlockRenderLayer RenderLayer() {
-        return render;
+    String getRenderType() {
+        return "cutout_mipped";
     }
 
-    LinkedList<String> CutoutMippedKeyList() {
-        return cutoutMippedList;
-    }
-
-    LinkedList<EnumFacing> CutoutMippedKeyFaces() {
-        return cutoutMippedFaces;
-    }
-
-    boolean canRenderLayerCutoutMipped(Block block, IBlockState state) {
-        return block.canRenderInLayer(state, RenderLayer());
-    }
-
-    boolean ignoreFaces(EnumFacing face) {
-        /*
-        check if face is null or contains all faces
-        -> true: ignore faces and apply render to all
-        -> false: apply render to set faces
-        */
-        if(face == null || cutoutMippedList.get(0).contentEquals("all") || cutoutMippedList.size() == 6 && !ListTools.doesListContainDuplicates(cutoutMippedList)) {
-            return true;
-        }
-        if(face != null || cutoutMippedList.size() < 6) {
-            return false;
-        }
-        return false;
+    ArrayList<GroovysonObjectPart> getCutoutMippedModelElements() {
+        return cutoutMippedParts;
     }
 }

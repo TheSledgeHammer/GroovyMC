@@ -14,27 +14,34 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.render
+package com.thesledgehammer.groovymc.client.render.keys
 
-import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 
 class GroovyRenderKeyDefinition {
+
+    private static GroovyRenderKeyDefinition instance;
     private CutoutKey cutoutKey;
     private CutoutMippedKey cutoutMippedKey;
     private SolidKey solidKey;
     private TranslucentKey translucentKey;
-    private GroovyBaseModel groovyBaseModel;
+    private GroovysonModel groovysonModel;
 
     GroovyRenderKeyDefinition() {
-        setGroovyBaseModel(null);
+        setGroovysonModel(null);
+        instance = this;
     }
 
-    GroovyRenderKeyDefinition(GroovyBaseModel groovyBaseModel) {
-        setGroovyBaseModel(groovyBaseModel);
+    GroovyRenderKeyDefinition(GroovysonModel groovysonModel) {
+        setGroovysonModel(groovysonModel);
+        instance = this;
     }
 
-    GroovyBaseModel getGroovyBaseModel() {
-        return groovyBaseModel;
+    static GroovyRenderKeyDefinition Instance() {
+        if(instance == null) {
+            return null;
+        }
+        return instance;
     }
 
     CutoutKey getCutoutKey() {
@@ -53,46 +60,24 @@ class GroovyRenderKeyDefinition {
         return translucentKey;
     }
 
-    void setGroovyBaseModel(GroovyBaseModel groovyBaseModel) {
-        this.groovyBaseModel = groovyBaseModel;
+    private void setGroovysonModel(GroovysonModel groovysonModel) {
+        this.groovysonModel = groovysonModel;
     }
 
     void setCutoutKey(CutoutKey cutoutKey) {
         this.cutoutKey = cutoutKey;
     }
 
-    void setCutoutKey(int element) {
-        this.cutoutKey = new CutoutKey(groovyBaseModel, element);
-    }
-
     void setCutoutMippedKey(CutoutMippedKey cutoutMippedKey) {
         this.cutoutMippedKey = cutoutMippedKey;
     }
 
-    void setCutoutMippedKey(int element) {
-        this.cutoutMippedKey = new CutoutMippedKey(groovyBaseModel, element);
-    }
 
     void setSolidKey(SolidKey solidKey) {
         this.solidKey = solidKey;
     }
 
-    void setSolidKey(int element) {
-        this.solidKey = new SolidKey(groovyBaseModel, element);
-    }
-
     void setTranslucentKey(TranslucentKey translucentKey) {
         this.translucentKey = translucentKey;
-    }
-
-    void setTranslucentKey(int element) {
-        this.translucentKey = new TranslucentKey(groovyBaseModel, element);
-    }
-
-    boolean contains(int element, String renderKeyType) {
-        if(groovyBaseModel.getGroovyModel().getRawModelPart(element).BlockRenderTypes().contains(renderKeyType)) {
-            return true;
-        }
-        return false;
     }
 }

@@ -16,78 +16,26 @@
 
 package com.thesledgehammer.groovymc.client.render.keys
 
-import com.thesledgehammer.groovymc.client.model.GroovyBaseModel
-import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.EnumFacing
-import net.minecraftforge.common.property.IExtendedBlockState
-@Deprecated //Please refer to the RenderKeys in "experimental/render"
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+
 class TranslucentKey {
 
-    private String renderName;
-    private LinkedList<String> translucentList;
-    private BlockRenderLayer render;
-    private LinkedList<EnumFacing> translucentFaces;
+    private List<GroovysonObjectPart> translucentParts = new ArrayList<>();
 
-    TranslucentKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        setTranslucentKey(GROOVY_MODEL, modelElement);
-    }
-
-    private void setTranslucentKey(GroovyBaseModel GROOVY_MODEL, int modelElement) {
-        //Valid RenderTypes
-        String renderType = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypes();
-
-        //Map render to BlockRenderLayer & create a list of applicable faces
-        if(renderType.contains("translucent")) {
-            this.renderName = "translucent";
-            this.render = BlockRenderLayer.valueOf(renderName.toUpperCase());
-            this.translucentList = GROOVY_MODEL.getModelElements(modelElement).BlockRenderTypeFace(renderName);
-        }
-
-        //Map Each Face from Translucent to its EnumFacing face
-        this.translucentFaces = new LinkedList<>();
-        for(int i = 0; i < translucentList.size(); i++) {
-            String faceTranslucent = translucentList.get(i);
-            for(EnumFacing face : EnumFacing.VALUES) {
-                if (faceTranslucent.equalsIgnoreCase(face.name())) {
-                    translucentFaces.add(EnumFacing.valueOf(faceTranslucent.toUpperCase()));
-                }
+    TranslucentKey(GroovysonModel groovysonModel) {
+        for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
+            if(parts.BlockRenderType() == "translucent") {
+                translucentParts.add(parts);
             }
         }
     }
 
-    BlockRenderLayer RenderLayer() {
-        return render;
+    String getRenderType() {
+        return "translucent";
     }
 
-    LinkedList<String> TranslucentKeyList() {
-        return translucentList;
-    }
-
-    LinkedList<EnumFacing> TranslucentKeyFaces() {
-        return translucentFaces;
-    }
-
-    //Before this, need to setRenderLayer on each Face
-    boolean canRenderLayerTranslucent(Block block, IBlockState state) {
-        return block.canRenderInLayer(state, RenderLayer());
-    }
-
-    boolean ignoreFaces(EnumFacing face) {
-        /*
-        check if face is null or contains all faces
-        -> true: ignore faces and apply render to all
-        -> false: apply render to set faces
-        */
-        if(face == null || translucentList.get(0).contentEquals("all") || translucentList.size() == 6 && !ListTools.doesListContainDuplicates(translucentList)) {
-            return true;
-        }
-        if(face != null || translucentList.size() < 6) {
-            return false;
-        }
-        return false;
+    ArrayList<GroovysonObjectPart> getTranslucentModelElements() {
+        return translucentParts;
     }
 }

@@ -19,15 +19,7 @@ package com.thesledgehammer.groovymc.client.definitions
 abstract class ModelEntryProvider {
 
     private GroovyDefinitionContext GDC;
-/*
-    ModelEntryProvider(GroovyDefinitionContext GDC) {
-        this.GDC = GDC;
-    }
 
-    ModelEntryProvider(GroovyResourceDefinition resources, GroovyModelDefinition models) {
-        GDC = new GroovyDefinitionContext(resources, models);
-    }
-*/
     ModelEntryProvider() {
         this.GDC = GroovyDefinitionContext.Instance();
     }
