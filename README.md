@@ -1,11 +1,14 @@
-# GroovyMC:
-A Minecraft Mod Library created using the Apache Groovy programming language.
+<p align="center" style="padding: 3em;"><img width="150" src="https://github.com/TheSledgeHammer/GroovyMC/blob/master/src/main/resources/assets/groovymc/textures/groovymclogo.png?raw=true" /></p>
+<h1 align="center" style="margin-top: 20px; border-bottom: 0;">GroovyMC Library</h1>
+<p align="center">A Minecraft Mod Library created using the Apache Groovy programming language.</p>
+<p align="center">
+    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/full_312384_downloads.svg" /></a>
+    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/packs/full_312384_in_packs.svg" /></a>
+</p>
 
 A mod library used in my other mods both existing and upcoming.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
-
-Requires: GroovyForge
 
 ### Getting Started:
 Please initialize the "GroovyLoader" in your main class or common proxy class.
@@ -49,7 +52,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 #### Notice:
-
-GroovyMC is no longer licenced under the LGPL 3.0 and is now licenced under the Apache 2.0 licence. If you are using this project or parts of this project; Please update the licencing to reflect this change.
-
 This project also contains source code that is maintained under the LGPL 3.0 and MPL 2.0.
