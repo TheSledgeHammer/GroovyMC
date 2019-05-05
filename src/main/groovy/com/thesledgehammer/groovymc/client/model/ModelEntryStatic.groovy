@@ -22,6 +22,7 @@ import com.thesledgehammer.groovymc.client.definitions.TextureEntry
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
+import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -29,36 +30,37 @@ import net.minecraft.util.ResourceLocation
 
 class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
-    private GroovyBaseModel groovyBaseModel;
+    private GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
+    private boolean unseen = true;
 
-    ModelEntryStatic(GroovyBaseModel groovyBaseModel) {
-        this.groovyBaseModel = groovyBaseModel;
-        groovyBaseModel.setRenderKeysDefintion(groovyBaseModel.getGroovyModel());
-    }
-
-    @Override
-    void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-        //get Textures from GROOVY_MODEL
-    }
-
-    @Override
-    protected void onModelBake() {
-        if(groovyBaseModel == null) {
-            quads = null;
-        } else {
-            MutableQuad[] cut = bakePart(groovyBaseModel.GroovyDefinitionContext().getCutoutKey().getCutoutModelElements());
-            MutableQuad[] trans = bakePart(groovyBaseModel.GroovyDefinitionContext().getTranslucentKey().getTranslucentModelElements());
-            MutableQuad[] solid = bakePart(groovyBaseModel.GroovyDefinitionContext().getSolidKey().getSolidModelElements());
-            MutableQuad[] cut_mip = bakePart(groovyBaseModel.GroovyDefinitionContext().getCutoutMippedKey().getCutoutMippedModelElements());
-            quads = [cut, trans, solid, cut_mip];
-            groovyBaseModel = null;
-        }
+    ModelEntryStatic(GroovyStaticModel groovyStaticModel) {
+        this.groovyStaticModel = groovyStaticModel;
+        groovyStaticModel.setRenderKeysDefintion(groovyStaticModel.getGroovysonModel());
     }
 
     @Override
     boolean hasBakedQuads() {
         return quads != null;
+    }
+
+    @Override
+    void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
+        //toRegisterSprites.add(groovyBaseModel.GroovyDefinitionContext().getResourceLocation())
+    }
+
+    @Override
+    protected void onModelBake() {
+        if(groovyStaticModel == null) {
+            quads = null;
+        } else {
+            MutableQuad[] cut = bakePart(groovyStaticModel.GroovyDefinitionContext().getCutoutKey().getCutoutModelElements());
+            MutableQuad[] trans = bakePart(groovyStaticModel.GroovyDefinitionContext().getTranslucentKey().getTranslucentModelElements());
+            MutableQuad[] solid = bakePart(groovyStaticModel.GroovyDefinitionContext().getSolidKey().getSolidModelElements());
+            MutableQuad[] cut_mip = bakePart(groovyStaticModel.GroovyDefinitionContext().getCutoutMippedKey().getCutoutMippedModelElements());
+            quads = [cut, trans, solid, cut_mip];
+            groovyStaticModel = null;
+        }
     }
 
     private MutableQuad[] bakePart(ArrayList<GroovysonObjectPart > modelParts) {
@@ -101,5 +103,32 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         }
         MutableQuad[] mutableQuads = new MutableQuad[list.size()];
         return list.toArray(mutableQuads);
+    }
+
+    private MutableQuad[][] getQuadsChecking() {
+        if(quads == null) {
+            if(unseen) {
+                unseen = false;
+                Log.logWarn("Tried to use the model ${groovyStaticModel.getGroovysonModel().getName()} before it was baked")
+            }
+            return [MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY];
+        }
+        return quads;
+    }
+
+    MutableQuad[] getCutoutQuads() {
+        return getQuadsChecking()[0];
+    }
+
+    MutableQuad[] getTranslucentQuads() {
+        return getQuadsChecking()[1];
+    }
+
+    MutableQuad[] getSolidQuads() {
+        return getQuadsChecking()[2];
+    }
+
+    MutableQuad[] getCutoutMippedQuads() {
+        return getQuadsChecking()[3];
     }
 }

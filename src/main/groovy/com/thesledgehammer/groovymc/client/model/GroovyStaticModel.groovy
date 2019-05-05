@@ -37,7 +37,7 @@ import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-class GroovyBaseModel {
+class GroovyStaticModel {
 
     private GroovysonModel GROOVY_MODEL;
     private GroovyDefinitionContext GDC;
@@ -45,13 +45,13 @@ class GroovyBaseModel {
     private JsonRule jsonRules;
     //MutableQuads
 
-    GroovyBaseModel(String resourceObject, String fileName) {
+    GroovyStaticModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();
     }
 
-    GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
+    GroovyStaticModel(GroovysonModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();

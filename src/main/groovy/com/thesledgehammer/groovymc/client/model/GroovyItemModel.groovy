@@ -21,7 +21,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-class GroovyItemModel extends GroovyBaseModel {
+class GroovyItemModel extends GroovyStaticModel {
 
     GroovyItemModel(String fileName) {
         super("item", fileName);

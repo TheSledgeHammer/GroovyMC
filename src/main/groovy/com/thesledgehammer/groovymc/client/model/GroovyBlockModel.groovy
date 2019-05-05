@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-class GroovyBlockModel extends GroovyBaseModel {
+class GroovyBlockModel extends GroovyStaticModel {
 
     GroovyBlockModel(String fileName) {
         super("block", fileName);
