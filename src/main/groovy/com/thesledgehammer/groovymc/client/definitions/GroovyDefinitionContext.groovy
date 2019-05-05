@@ -17,6 +17,10 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
+import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.render.keys.SolidKey
+import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -30,10 +34,12 @@ class GroovyDefinitionContext {
     private static GroovyDefinitionContext instance;
     private GroovyResourceDefinition resources;
     private GroovyModelDefinition models;
+    private GroovyRenderDefinition renders;
 
-    GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models) {
+    GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models, GroovyRenderDefinition renders) {
         this.resources = resources
         this.models = models;
+        this.renders = renders;
         instance = this;
     }
 
@@ -76,6 +82,23 @@ class GroovyDefinitionContext {
         return resources.getTextureAtlasSprite();
     }
 
+    CutoutKey getCutoutKey() {
+        return renders.getCutoutKey();
+    }
+
+    CutoutMippedKey getCutoutMippedKey() {
+        return renders.getCutoutMippedKey();
+    }
+
+    SolidKey getSolidKey() {
+        return renders.getSolidKey();
+    }
+
+    TranslucentKey getTranslucentKey() {
+        return renders.getTranslucentKey();
+    }
+
+    /**GroovyModelDefinition**/
     void setIBakedModel(IBakedModel bakedModel) {
         models.setIBakedModel(bakedModel);
     }
@@ -96,6 +119,7 @@ class GroovyDefinitionContext {
         models.setGroovysonModel(groovyModel);
     }
 
+    /**GroovyResourceDefinition**/
     void setResourceLocation(ResourceLocation resourceLocation) {
         resources.setResourceLocation(resourceLocation);
     }
@@ -138,5 +162,22 @@ class GroovyDefinitionContext {
 
     void setCustomModelResourceLocation(String type, String fileName) {
         resources.setCustomModelResourceLocation(type, fileName);
+    }
+
+    /**GroovyRenderDefinition**/
+    void setCutoutKey(CutoutKey cutoutKey) {
+        renders.setCutoutKey(cutoutKey);
+    }
+
+    void setCutoutMippedKey(CutoutMippedKey cutoutMippedKey) {
+        renders.setCutoutMippedKey(cutoutMippedKey)
+    }
+
+    void setSolidKey(SolidKey solidKey) {
+        renders.setSolidKey(solidKey);
+    }
+
+    void setTranslucentKey(TranslucentKey translucentKey) {
+        renders.setTranslucentKey(translucentKey);
     }
 }

@@ -47,10 +47,10 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         if(groovyBaseModel == null) {
             quads = null;
         } else {
-            MutableQuad[] cut = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getCutoutKey().getCutoutModelElements());
-            MutableQuad[] trans = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getTranslucentKey().getTranslucentModelElements());
-            MutableQuad[] solid = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getSolidKey().getSolidModelElements());
-            MutableQuad[] cut_mip = bakePart(groovyBaseModel.GroovyRenderKeyDefinition().getCutoutMippedKey().getCutoutMippedModelElements());
+            MutableQuad[] cut = bakePart(groovyBaseModel.GroovyDefinitionContext().getCutoutKey().getCutoutModelElements());
+            MutableQuad[] trans = bakePart(groovyBaseModel.GroovyDefinitionContext().getTranslucentKey().getTranslucentModelElements());
+            MutableQuad[] solid = bakePart(groovyBaseModel.GroovyDefinitionContext().getSolidKey().getSolidModelElements());
+            MutableQuad[] cut_mip = bakePart(groovyBaseModel.GroovyDefinitionContext().getCutoutMippedKey().getCutoutMippedModelElements());
             quads = [cut, trans, solid, cut_mip];
             groovyBaseModel = null;
         }

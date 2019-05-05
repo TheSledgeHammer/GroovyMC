@@ -14,34 +14,28 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render.keys
+package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
+import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.render.keys.SolidKey
+import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
 
-class GroovyRenderKeyDefinition {
+class GroovyRenderDefinition {
 
-    private static GroovyRenderKeyDefinition instance;
     private CutoutKey cutoutKey;
     private CutoutMippedKey cutoutMippedKey;
     private SolidKey solidKey;
     private TranslucentKey translucentKey;
     private GroovysonModel groovysonModel;
 
-    GroovyRenderKeyDefinition() {
+    GroovyRenderDefinition() {
         setGroovysonModel(null);
-        instance = this;
     }
 
-    GroovyRenderKeyDefinition(GroovysonModel groovysonModel) {
+    GroovyRenderDefinition(GroovysonModel groovysonModel) {
         setGroovysonModel(groovysonModel);
-        instance = this;
-    }
-
-    static GroovyRenderKeyDefinition Instance() {
-        if(instance == null) {
-            return null;
-        }
-        return instance;
     }
 
     CutoutKey getCutoutKey() {
@@ -71,7 +65,6 @@ class GroovyRenderKeyDefinition {
     void setCutoutMippedKey(CutoutMippedKey cutoutMippedKey) {
         this.cutoutMippedKey = cutoutMippedKey;
     }
-
 
     void setSolidKey(SolidKey solidKey) {
         this.solidKey = solidKey;

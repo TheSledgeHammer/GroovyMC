@@ -29,7 +29,7 @@ import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
 import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
-import com.thesledgehammer.groovymc.client.render.keys.GroovyRenderKeyDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.render.keys.SolidKey
 import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
 import com.thesledgehammer.groovymc.utils.JsonTools
@@ -40,23 +40,20 @@ import net.minecraft.util.EnumFacing
 class GroovyBaseModel {
 
     private GroovysonModel GROOVY_MODEL;
-    private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private GroovyDefinitionContext GDC;
-    private GroovyRenderKeyDefinition GRKD;
+    private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private JsonRule jsonRules;
     //MutableQuads
 
     GroovyBaseModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
-        GRKD = new GroovyRenderKeyDefinition(GROOVY_MODEL);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();
     }
 
     GroovyBaseModel(GroovysonModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
-        GRKD = new GroovyRenderKeyDefinition(GROOVY_MODEL);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition());
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();
     }
 
@@ -69,14 +66,10 @@ class GroovyBaseModel {
     }
 
     void setRenderKeysDefintion(GroovysonModel GROOVY_MODEL) {
-        GRKD.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GRKD.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GRKD.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GRKD.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
-    }
-
-    GroovyRenderKeyDefinition GroovyRenderKeyDefinition() {
-        return GRKD;
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
     GroovysonObjectCache getObjectCache() {
@@ -118,31 +111,12 @@ class GroovyBaseModel {
         return jsonRules;
     }
 
-    @Deprecated //Moved to JsonTools
-    JsonQuads[] Quads(EnumFacing faces) {
-        JsonQuads[] jQuads = new JsonQuads[GROOVY_MODEL.getRawModelParts().size()];
-        for(int i = 0; i < jQuads.size(); i++) {
-            jQuads[i] = new JsonQuads(GROOVY_MODEL.getRawModelPart(i), getObjectCache().From(), getObjectCache().To(), faces);
-        }
-        return jQuads;
-    }
-
-    @Deprecated //Moved to JsonTools
-    JsonQuads QuadAFace(EnumFacing face, int rawModelTexture) {
-        if(rawModelTexture > Quads(face).size()) {
-            Log.logError("This ModelTexture does not contain " + face);
-            Log.logError("Or this Model does not contain a ModelTexture at " + rawModelTexture);
-            return null;
-        }
-        return Quads(face)[rawModelTexture];
-    }
-
     //Is Very Likely to be Refactored
     MutableQuad[] getMutableQuads(EnumFacing face, TextureAtlasSprite sprite) {
-        int size = GROOVY_MODEL.getRawModelTextures().size();
+        int size = getModelElements().size();
         MutableQuad[] mutableQuads = new MutableQuad[size];
         for(int i = 0; i < size; i++) {
-            mutableQuads[i] = JsonTools.QuadAFace(GROOVY_MODEL.getRawModelParts(), face, i).toQuad(sprite);
+            mutableQuads[i] = JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite);
         }
         return mutableQuads;
     }
