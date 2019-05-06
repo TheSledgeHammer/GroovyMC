@@ -1,8 +1,8 @@
 package com.thesledgehammer.groovymc.experimental.models
 
-import com.thesledgehammer.groovymc.client.definitions.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.ModelEntryBakery
-import com.thesledgehammer.groovymc.client.definitions.TextureEntry
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryBakery
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import net.minecraft.util.ResourceLocation
 

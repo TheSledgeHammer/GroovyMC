@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render.keys
+package com.thesledgehammer.groovymc.client.definitions.render
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 
-class SolidKey {
+class CutoutMippedKey {
 
-    private List<GroovysonObjectPart> solidParts = new ArrayList<>();
+    private List<GroovysonObjectPart> cutoutMippedParts = new ArrayList<>();
 
-    SolidKey(GroovysonModel groovysonModel) {
+    CutoutMippedKey(GroovysonModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
-            if(parts.BlockRenderType() == "solid") {
-                solidParts.add(parts);
+            if(parts.BlockRenderType() == "cutout_mipped") {
+                cutoutMippedParts.add(parts);
             }
         }
     }
 
     String getRenderType() {
-        return "solid";
+        return "cutout_mipped";
     }
 
-    ArrayList<GroovysonObjectPart> getSolidModelElements() {
-        return solidParts;
+    ArrayList<GroovysonObjectPart> getCutoutMippedModelElements() {
+        return cutoutMippedParts;
     }
 }

@@ -27,7 +27,7 @@ class GroovyMC {
 	static final String MCVERSION = "1.12.2";
 	static final String GROOVY_LANGUAGE_ADAPTER = "com.thesledgehammer.groovyforge.GroovyLanguageAdapter";
 	static final String DEPENDENCIES = "required-after:groovyforge;"
-    static final String CERTIFICATE_FINGERPRINT = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
+	static final String CERTIFICATE_FINGERPRINT = "616437EBB587FE5A83EE547EA1D2E1C403B074CF"
 
 	@Mod.Instance("groovymc")
 	static GroovyMC instance;

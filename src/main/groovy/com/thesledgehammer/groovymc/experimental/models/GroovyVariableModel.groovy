@@ -8,10 +8,10 @@ import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
-import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
-import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
-import com.thesledgehammer.groovymc.client.render.keys.SolidKey
-import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
+import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 
 //Work In Progress
 class GroovyVariableModel {

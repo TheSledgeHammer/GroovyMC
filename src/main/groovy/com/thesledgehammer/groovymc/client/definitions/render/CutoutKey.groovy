@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render.keys
+package com.thesledgehammer.groovymc.client.definitions.render
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart

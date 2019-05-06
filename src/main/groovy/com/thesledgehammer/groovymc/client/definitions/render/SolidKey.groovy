@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render.keys
+package com.thesledgehammer.groovymc.client.definitions.render
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 
-class TranslucentKey {
+class SolidKey {
 
-    private List<GroovysonObjectPart> translucentParts = new ArrayList<>();
+    private List<GroovysonObjectPart> solidParts = new ArrayList<>();
 
-    TranslucentKey(GroovysonModel groovysonModel) {
+    SolidKey(GroovysonModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
-            if(parts.BlockRenderType() == "translucent") {
-                translucentParts.add(parts);
+            if(parts.BlockRenderType() == "solid") {
+                solidParts.add(parts);
             }
         }
     }
 
     String getRenderType() {
-        return "translucent";
+        return "solid";
     }
 
-    ArrayList<GroovysonObjectPart> getTranslucentModelElements() {
-        return translucentParts;
+    ArrayList<GroovysonObjectPart> getSolidModelElements() {
+        return solidParts;
     }
 }

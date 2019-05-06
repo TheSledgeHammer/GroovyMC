@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions
+package com.thesledgehammer.groovymc.client.definitions.model
 
 import net.minecraft.util.ResourceLocation
 

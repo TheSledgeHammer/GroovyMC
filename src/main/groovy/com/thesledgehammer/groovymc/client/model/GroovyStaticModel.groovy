@@ -27,11 +27,11 @@ import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
-import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
-import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
-import com.thesledgehammer.groovymc.client.render.keys.SolidKey
-import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
+import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
+import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureAtlasSprite

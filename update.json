@@ -1,0 +1,10 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/groovymc-library",
+  "1.12.2": {
+    "1.0.5": ""
+  },
+  "promos": {
+    "1.12.2-latest": "1.0.5",
+    "1.12.2-recommended": "1.0.5"
+  }
+}

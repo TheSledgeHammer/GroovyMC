@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions
+package com.thesledgehammer.groovymc.client.definitions.model
 
-abstract class ModelEntryConsumer extends ModelEntryProvider {
+import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 
-    ModelEntryConsumer() {
-        super();
+abstract class ModelEntryProvider {
+
+    private GroovyDefinitionContext GDC;
+
+    ModelEntryProvider() {
+        this.GDC = GroovyDefinitionContext.Instance();
+    }
+
+    GroovyDefinitionContext GroovyDefinitionContext() {
+        return GDC;
     }
 }

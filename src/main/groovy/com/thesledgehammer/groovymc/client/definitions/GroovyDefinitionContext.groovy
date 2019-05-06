@@ -17,13 +17,14 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
-import com.thesledgehammer.groovymc.client.render.keys.CutoutKey
-import com.thesledgehammer.groovymc.client.render.keys.CutoutMippedKey
-import com.thesledgehammer.groovymc.client.render.keys.SolidKey
-import com.thesledgehammer.groovymc.client.render.keys.TranslucentKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
+import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.IModel
 import net.minecraftforge.common.model.IModelPart
@@ -50,6 +51,7 @@ class GroovyDefinitionContext {
         return instance;
     }
 
+    /**GroovyModelDefinition**/
     IBakedModel getIBakedModel() {
         return models.getIBakedModel();
     }
@@ -70,35 +72,6 @@ class GroovyDefinitionContext {
         return models.getIModelPart();
     }
 
-    ResourceLocation getResourceLocation() {
-        return resources.getResourceLocation();
-    }
-
-    ModelResourceLocation getModelResourceLocation() {
-        return resources.getModelResourceLocation();
-    }
-
-    TextureAtlasSprite getTextureAtlasSprite() {
-        return resources.getTextureAtlasSprite();
-    }
-
-    CutoutKey getCutoutKey() {
-        return renders.getCutoutKey();
-    }
-
-    CutoutMippedKey getCutoutMippedKey() {
-        return renders.getCutoutMippedKey();
-    }
-
-    SolidKey getSolidKey() {
-        return renders.getSolidKey();
-    }
-
-    TranslucentKey getTranslucentKey() {
-        return renders.getTranslucentKey();
-    }
-
-    /**GroovyModelDefinition**/
     void setIBakedModel(IBakedModel bakedModel) {
         models.setIBakedModel(bakedModel);
     }
@@ -120,6 +93,18 @@ class GroovyDefinitionContext {
     }
 
     /**GroovyResourceDefinition**/
+    ResourceLocation getResourceLocation() {
+        return resources.getResourceLocation();
+    }
+
+    ModelResourceLocation getModelResourceLocation() {
+        return resources.getModelResourceLocation();
+    }
+
+    TextureAtlasSprite getTextureAtlasSprite() {
+        return resources.getTextureAtlasSprite();
+    }
+
     void setResourceLocation(ResourceLocation resourceLocation) {
         resources.setResourceLocation(resourceLocation);
     }
@@ -152,6 +137,10 @@ class GroovyDefinitionContext {
         resources.setTextureAtlasSprite(modID, baseName);
     }
 
+    void onTextureStitchPre(TextureMap map) {
+        resources.onTextureStitchPre(map);
+    }
+
     void setCustomResourceLocation(String type, String fileName) {
         resources.setCustomResourceLocation(type, fileName);
     }
@@ -165,6 +154,23 @@ class GroovyDefinitionContext {
     }
 
     /**GroovyRenderDefinition**/
+
+    CutoutKey getCutoutKey() {
+        return renders.getCutoutKey();
+    }
+
+    CutoutMippedKey getCutoutMippedKey() {
+        return renders.getCutoutMippedKey();
+    }
+
+    SolidKey getSolidKey() {
+        return renders.getSolidKey();
+    }
+
+    TranslucentKey getTranslucentKey() {
+        return renders.getTranslucentKey();
+    }
+
     void setCutoutKey(CutoutKey cutoutKey) {
         renders.setCutoutKey(cutoutKey);
     }

@@ -17,8 +17,10 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.api.ISprite
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 
 class GroovyResourceDefinition {
@@ -66,15 +68,28 @@ class GroovyResourceDefinition {
     }
 
     void setTextureAtlasSprite(String sprite) {
+        if(this.textureAtlasSprite instanceof ISprite) {
+            this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(sprite);
+        }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(sprite);
     }
 
     void setTextureAtlasSprite(ResourceLocation spriteLocation) {
+        if(this.textureAtlasSprite instanceof ISprite) {
+            this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(spriteLocation);
+        }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
     }
 
     void setTextureAtlasSprite(String modID, String baseName) {
+        if(this.textureAtlasSprite instanceof ISprite) {
+            this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(modID, baseName);
+        }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName);
+    }
+
+    void onTextureStitchPre(TextureMap map) {
+        GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getResourceLocation());
     }
 
     void setCustomResourceLocation(String type, String fileName) {

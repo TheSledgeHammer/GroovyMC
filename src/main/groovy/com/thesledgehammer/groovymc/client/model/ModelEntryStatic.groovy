@@ -16,9 +16,9 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.definitions.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.ModelEntryBakery
-import com.thesledgehammer.groovymc.client.definitions.TextureEntry
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryBakery
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools

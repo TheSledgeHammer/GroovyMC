@@ -1,7 +1,7 @@
 package com.thesledgehammer.groovymc.client.definitions
 
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.api.ISprite
-import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
 import com.thesledgehammer.groovymc.utils.SpriteTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
@@ -15,13 +15,38 @@ class GroovyISpriteDefinition implements ISprite {
     private final ResourceLocation spriteLocation;
     private TextureAtlasSprite sprite;
 
-    GroovyISpriteDefinition(ResourceLocation spriteLocation) {
+    protected GroovyISpriteDefinition(ResourceLocation spriteLocation) {
         this.spriteLocation = spriteLocation;
         this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
     }
 
-    void onTextureStitchPre(TextureMap map) {
-        TextureAtlasSprite spriteVar = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
+    protected GroovyISpriteDefinition(String modID, String baseName) {
+        this.spriteLocation = new ResourceLocation(modID, baseName);
+        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName);
+    }
+
+    protected GroovyISpriteDefinition(String baseName) {
+        this.spriteLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), baseName);
+        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(baseName);
+    }
+
+    static TextureAtlasSprite createForConfig(ResourceLocation baseName) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName);
+        return iSprite.getTextureAtlasSprite();
+    }
+
+    static TextureAtlasSprite createForConfig(String modID, String baseName) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(modID, baseName);
+        return iSprite.getTextureAtlasSprite();
+    }
+
+    static TextureAtlasSprite createForConfig(String baseName) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName);
+        return iSprite.getTextureAtlasSprite();
+    }
+
+    static void onTextureStitchPre(TextureMap map, TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
+        TextureAtlasSprite spriteVar = createForConfig(spriteLocation);
         if(map.setTextureEntry(spriteVar)) {
             sprite = spriteVar;
         } else {
@@ -42,5 +67,9 @@ class GroovyISpriteDefinition implements ISprite {
     @Override
     double getInterpV(double v) {
         return sprite.getInterpolatedV(v * 16);
+    }
+
+    private TextureAtlasSprite getTextureAtlasSprite() {
+        return sprite;
     }
 }

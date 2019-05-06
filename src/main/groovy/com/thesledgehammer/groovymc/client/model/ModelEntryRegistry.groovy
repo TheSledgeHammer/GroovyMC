@@ -16,9 +16,9 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-
-import com.thesledgehammer.groovymc.client.definitions.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.TextureEntry
+import com.thesledgehammer.groovymc.api.ISprite
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureMap
@@ -46,6 +46,9 @@ class ModelEntryRegistry {
 
     static void onTextureStitchPre(TextureMap map) {
         for(TextureEntry entry : TEXTURE_ENTRIES) {
+            if(entry.getTextureAtlasSprite() instanceof ISprite) {
+                entry.GroovyDefinitionContext().onTextureStitchPre(map);
+            }
             map.registerSprite(entry.getResourceLocation());
             map.setTextureEntry(entry.getTextureAtlasSprite());
         }
