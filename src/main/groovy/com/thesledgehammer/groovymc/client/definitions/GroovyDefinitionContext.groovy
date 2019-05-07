@@ -72,6 +72,26 @@ class GroovyDefinitionContext {
         return models.getIModelPart();
     }
 
+    List<IBakedModel> getIBakedModels() {
+        return models.getIBakedModels();
+    }
+
+    List<IModel> getIModels() {
+        return models.getIModels();
+    }
+
+    List<IModelState> getIModelStates() {
+        return models.getIModelStates();
+    }
+
+    List<IModelPart> getIModelParts() {
+        return models.getIModelParts();
+    }
+
+    List<GroovysonModel> getGroovysonModels() {
+        return models.getGroovysonModels();
+    }
+
     void setIBakedModel(IBakedModel bakedModel) {
         models.setIBakedModel(bakedModel);
     }
@@ -103,6 +123,18 @@ class GroovyDefinitionContext {
 
     TextureAtlasSprite getTextureAtlasSprite() {
         return resources.getTextureAtlasSprite();
+    }
+
+    List<ResourceLocation> getResourceLocations() {
+        return resources.getResourceLocations();
+    }
+
+    List<ModelResourceLocation> getModelResourceLocations() {
+        return resources.getModelResourceLocations();
+    }
+
+    List<TextureAtlasSprite> getTextureAtlasSprites() {
+        return resources.getTextureAtlasSprites();
     }
 
     void setResourceLocation(ResourceLocation resourceLocation) {

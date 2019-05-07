@@ -16,21 +16,11 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.BlankGroovyModel
-import com.thesledgehammer.groovymc.client.model.MutableGroovyModel
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.client.renderer.block.model.ItemOverrideList
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.util.EnumFacing
 import net.minecraftforge.client.model.IModel
 import net.minecraftforge.common.model.IModelPart
 import net.minecraftforge.common.model.IModelState
-
-import javax.annotation.Nullable
 
 class GroovyModelDefinition {
 
@@ -39,6 +29,11 @@ class GroovyModelDefinition {
     private IModel iModel;
     private IModelState iModelState;
     private IModelPart iModelPart;
+    private List<IBakedModel> bakedModelList = new LinkedList<>();
+    private List<IModel> iModelList = new LinkedList<>();
+    private List<IModelState> iModelStateList = new LinkedList<>();
+    private List<IModelPart> iModelPartList = new LinkedList<>();
+    private List<GroovysonModel> groovyModelList = new LinkedList<>();
 
     IBakedModel getIBakedModel() {
         return bakedModel;
@@ -60,24 +55,49 @@ class GroovyModelDefinition {
         return iModelPart
     }
 
+    List<IBakedModel> getIBakedModels() {
+        return bakedModelList;
+    }
+
+    List<IModel> getIModels() {
+        return iModelList;
+    }
+
+    List<IModelState> getIModelStates() {
+        return iModelStateList;
+    }
+
+    List<IModelPart> getIModelParts() {
+        return iModelPartList;
+    }
+
+    List<GroovysonModel> getGroovysonModels() {
+        return groovyModelList;
+    }
+
     void setIBakedModel(IBakedModel bakedModel) {
         this.bakedModel = bakedModel;
+        bakedModelList.add(this.bakedModel);
     }
 
     void setIModel(IModel iModel) {
         this.iModel = iModel;
+        iModelList.add(this.iModel);
     }
 
     void setIModelState(IModelState iModelState) {
         this.iModelState = iModelState;
+        iModelStateList.add(this.iModelState);
     }
 
     void setIModelPart(IModelPart iModelPart) {
         this.iModelPart = iModelPart;
+        iModelPartList.add(this.iModelPart);
     }
 
     void setGroovysonModel(GroovysonModel groovyModel) {
         this.groovyModel = groovyModel;
+        groovyModelList.add(this.groovyModel);
     }
 }
 /*

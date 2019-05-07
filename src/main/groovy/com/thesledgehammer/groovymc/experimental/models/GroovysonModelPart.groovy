@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.experimental.models
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache

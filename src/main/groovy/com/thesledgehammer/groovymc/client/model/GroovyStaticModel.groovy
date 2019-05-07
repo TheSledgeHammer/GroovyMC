@@ -57,10 +57,6 @@ class GroovyStaticModel {
         setRules();
     }
 
-    GroovyDefinitionContext GroovyDefinitionContext() {
-        return GDC;
-    }
-
     GroovysonModel getGroovysonModel() {
         return GROOVY_MODEL;
     }

@@ -87,7 +87,7 @@ trait BlockTileTraits implements IBlockRotation {
         TileEntity tile = world.getTileEntity(pos);
         if(tile instanceof GroovyTileBasic) {
             GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
-            ItemStack stack = new ItemStack(Item.getItemFromBlock(block));
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(tile.getBlockType()));
             NBTTagCompound nbt = new NBTTagCompound();
             groovyTile.writeToNBT(nbt);
             stack.setTagCompound(nbt);

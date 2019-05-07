@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.definitions.model
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 
+@Deprecated //Being Replaced with ModelEntryV2
 abstract class ModelEntry extends ModelEntryConsumer {
 
     ModelEntry(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
@@ -36,15 +37,8 @@ abstract class ModelEntry extends ModelEntryConsumer {
         GroovyDefinitionContext().setIBakedModel(bakedModel);
     }
 
-    ModelResourceLocation getModelResourceLocation() {
-        return GroovyDefinitionContext().getModelResourceLocation();
-    }
-
-    IBakedModel getIBakedModel() {
-        return GroovyDefinitionContext().getIBakedModel();
-    }
-
     static class Register extends ModelEntry {
+
         private static List<ModelEntry> MODEL_ENTRIES = new LinkedList<>();
 
         private Register(ModelResourceLocation modelLocation, IBakedModel bakedModel) {

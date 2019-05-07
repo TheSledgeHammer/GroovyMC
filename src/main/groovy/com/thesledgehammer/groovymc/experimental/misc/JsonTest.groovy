@@ -16,10 +16,14 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
+
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.experimental.models.ModelEntryV2
+import com.thesledgehammer.groovymc.experimental.models.TextureEntryV2
+import net.minecraft.util.ResourceLocation
 
 class JsonTest {
 
@@ -45,18 +49,41 @@ class JsonTest {
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
 
-        //blockModel.GroovyDefinitionContext().setResourceLocation("#side")
-        //println blockModel.GroovyDefinitionContext()
-        //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite());
-        //println blockModel.addBakedQuadsToBlock(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite()).sprite
+        //TextureEntry.Register.add("#trunk_blue")
+        //TextureEntry.Register.add("blocks/engine/trunk_green")
 
-        //println TextureEntry.Register.getTextureEntries().get(0).getResourceLocation()
-        //println blockModel.getMutableQuads(EnumFacing.EAST, blockModel.GroovyDefinitionContext().getTextureAtlasSprite())
+        TextureEntryV2.Register.add("#trunk_blue")
+        TextureEntryV2.Register.add("blocks/engine/trunk_green")
 
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
-        //test.addQuads(EnumFacing.EAST)
-        //GroovysonModelPart GMP = new GroovysonModelPart(blockModel.getGroovyModel())
 
+        //ModelEntryStatic MES = new ModelEntryStatic(blockModel);
+       // map.add("#trunk_blue").build();
+        TextureEntryV2 entry = new TextureEntryV2.Register().build();
+        ModelEntryV2 modelEntry2 = new ModelEntryV2.Register().build();
+        println entry.getResourceLocations()
+    }
+
+
+    static List<ResourceLocation> removeDuplicates(List<ResourceLocation> list) {
+        List<ResourceLocation> newList = new ArrayList<>();
+
+        for(ResourceLocation element : list) {
+            if(!newList.contains(element)) {
+                newList.add(element);
+            }
+        }
+        return newList;
+    }
+
+    static def getValueFromList(List<Object> list, Object value) {
+        int idx = 0;
+        for(int i = 0; i < list.size(); i++) {
+            if(list.contains(value)) {
+                idx = list.indexOf(value);
+            }
+        }
+        return list.get(idx);
     }
 }

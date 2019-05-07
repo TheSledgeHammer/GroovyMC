@@ -19,7 +19,11 @@ package com.thesledgehammer.groovymc.client.definitions.model
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
+@Deprecated //Being Replaced with TextureEntryV2
 abstract class TextureEntry extends ModelEntryConsumer {
+
+    private List<ResourceLocation> resourceLocationList = GroovyDefinitionContext().getResourceLocations();
+    private List<TextureAtlasSprite> textureAtlasSpriteList = GroovyDefinitionContext().getTextureAtlasSprites();
 
     TextureEntry(String sprite) {
         GroovyDefinitionContext().setTextureAtlasSprite(sprite);
@@ -41,12 +45,22 @@ abstract class TextureEntry extends ModelEntryConsumer {
         GroovyDefinitionContext().setCustomResourceLocation(modID, type, baseName);
     }
 
-    ResourceLocation getResourceLocation() {
-        return GroovyDefinitionContext().getResourceLocation()
+    TextureAtlasSprite getTextureAtlasSprite(int index) {
+   //     textureAtlasSpriteList.add(GroovyDefinitionContext().getTextureAtlasSprite())
+        return GroovyDefinitionContext().getTextureAtlasSprites().get(index)
     }
 
-    TextureAtlasSprite getTextureAtlasSprite() {
-        return GroovyDefinitionContext().getTextureAtlasSprite()
+    ResourceLocation getResourceLocation(int index) {
+     //   resourceLocationList.add(GroovyDefinitionContext().getResourceLocation())
+        return GroovyDefinitionContext().getResourceLocations().get(index)
+    }
+
+    List<TextureAtlasSprite> getTextureAtlasSprites() {
+        return GroovyDefinitionContext().getTextureAtlasSprites();
+    }
+
+    List<ResourceLocation> getResourceLocations() {
+        return GroovyDefinitionContext().getResourceLocations();
     }
 
     static class Register extends TextureEntry {
@@ -55,38 +69,53 @@ abstract class TextureEntry extends ModelEntryConsumer {
 
         private Register(String sprite) {
             super(sprite)
+            //TEXTURE_ENTRIES.add(this);
         }
 
         private Register(ResourceLocation spriteLocation) {
             super(spriteLocation)
+           // TEXTURE_ENTRIES.add(this);
         }
 
         private Register(String modID, String baseName) {
             super(modID, baseName)
+           // TEXTURE_ENTRIES.add(this);
         }
 
         private Register(String modID, String type, String baseName) {
             super(modID, type, baseName)
+            //TEXTURE_ENTRIES.add(this);
         }
 
-        static void add(String sprite) {
-            TEXTURE_ENTRIES.add(new Register(sprite));
+        static Register add(String sprite) {
+            new Register(sprite);
         }
 
-        static void add(ResourceLocation spriteLocation) {
-            TEXTURE_ENTRIES.add(new Register(spriteLocation));
+        static Register add(ResourceLocation spriteLocation) {
+            new Register(spriteLocation);
         }
 
-        static void add(String modID, String baseName) {
-            TEXTURE_ENTRIES.add(new Register(modID, baseName));
+        static Register add(String modID, String baseName) {
+            new Register(modID, baseName);
         }
 
-        static void add(String modID, String type, String baseName) {
-            TEXTURE_ENTRIES.add(new Register(modID, type, baseName));
+        static Register add(String modID, String type, String baseName) {
+            new Register(modID, type, baseName);
         }
-
+/*
         static List<TextureEntry> getTextureEntries() {
             return TEXTURE_ENTRIES;
         }
+
+        static TextureEntry getTextureEntryByEntry(TextureEntry entry) {
+            int idx = 0;
+            for(int i = 0; i < TEXTURE_ENTRIES.size(); i++) {
+                if(TEXTURE_ENTRIES.contains(entry)) {
+                    idx = TEXTURE_ENTRIES.indexOf(entry);
+                }
+            }
+            return TEXTURE_ENTRIES.get(idx);
+        }
+       */
     }
 }

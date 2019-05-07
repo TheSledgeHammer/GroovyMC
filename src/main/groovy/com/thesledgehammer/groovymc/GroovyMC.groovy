@@ -37,7 +37,7 @@ class GroovyMC {
 	@Mod.EventHandler
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
-		ModelEntryRegistry.preInit();
+		//ModelEntryRegistry.preInit();
 	}
 
 	@Mod.EventHandler

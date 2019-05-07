@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent
 class InputHandler {
 	
 	@SubscribeEvent
-	void onKeyInput(InputEvent.KeyInputEvent event) {
+	static void onKeyInput(InputEvent.KeyInputEvent event) {
 		if(KeyBindings.masterKey.isPressed()) {
 			PacketHandler.INSTANCE.sendToServer(new PacketSendKey());
 		}

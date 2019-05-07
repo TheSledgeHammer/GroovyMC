@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model
 
+import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryBakery
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
@@ -23,13 +24,13 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
 class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
+    final Map<String, String> textureLookup;
     private GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
     private boolean unseen = true;
@@ -37,6 +38,7 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
     ModelEntryStatic(GroovyStaticModel groovyStaticModel) {
         this.groovyStaticModel = groovyStaticModel;
         groovyStaticModel.setRenderKeysDefintion(groovyStaticModel.getGroovysonModel());
+        this.textureLookup = groovyStaticModel.getGroovysonModel().getRawModelTextures();
     }
 
     @Override
@@ -46,7 +48,25 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
     @Override
     void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-        //toRegisterSprites.add(groovyBaseModel.GroovyDefinitionContext().getResourceLocation())
+        groovyStaticModel = null;
+        quads = null;
+        if(groovyStaticModel != null) {
+            for (Map.Entry<String, String> entry : groovyStaticModel.getGroovysonModel().getRawModelTextures()) {
+                String lookup = entry.getValue();
+                if (lookup.startsWith("#")) {
+                    continue;
+                }
+                if (lookup.startsWith("~") && textureLookup.containsKey(lookup)) {
+                    lookup = textureLookup.get(lookup);
+                }
+                if (lookup == null || lookup.startsWith("#") || lookup.startsWith("~")) {
+                    groovyStaticModel = null;
+                    break;
+                } else {
+                    toRegisterSprites.add(new ResourceLocation(lookup));
+                }
+            }
+        }
     }
 
     @Override
@@ -54,10 +74,10 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         if(groovyStaticModel == null) {
             quads = null;
         } else {
-            MutableQuad[] cut = bakePart(groovyStaticModel.GroovyDefinitionContext().getCutoutKey().getCutoutModelElements());
-            MutableQuad[] trans = bakePart(groovyStaticModel.GroovyDefinitionContext().getTranslucentKey().getTranslucentModelElements());
-            MutableQuad[] solid = bakePart(groovyStaticModel.GroovyDefinitionContext().getSolidKey().getSolidModelElements());
-            MutableQuad[] cut_mip = bakePart(groovyStaticModel.GroovyDefinitionContext().getCutoutMippedKey().getCutoutMippedModelElements());
+            MutableQuad[] cut = bakePart(GroovyDefinitionContext.Instance().getCutoutKey().getCutoutModelElements());
+            MutableQuad[] trans = bakePart(GroovyDefinitionContext.Instance().getTranslucentKey().getTranslucentModelElements());
+            MutableQuad[] solid = bakePart(GroovyDefinitionContext.Instance().getSolidKey().getSolidModelElements());
+            MutableQuad[] cut_mip = bakePart(GroovyDefinitionContext.Instance().getCutoutMippedKey().getCutoutMippedModelElements());
             quads = [cut, trans, solid, cut_mip];
             groovyStaticModel = null;
         }
@@ -72,8 +92,8 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         return null;
     }
 
-    private MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, EnumFacing face) {
-        TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+    MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, EnumFacing face) {
+        //TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
         List<MutableQuad> list = new ArrayList<>();
         for (GroovysonObjectPart part : modelParts) {
             for (JsonQuads quad : JsonTools.Quads(modelParts, face)) {
@@ -83,21 +103,20 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
                     lookup = part.TextureFace(face);
                     attempts++;
                 }
-                if(lookup.startsWith("~") && part.TextureFace(face).contains(lookup)) {
+                if(lookup.startsWith("~") && textureLookup.containsKey(lookup)) {
                     //BC8 makes this an immutable map
-                    //lookup = part.TextureFace(face);
+                    lookup = textureLookup.get(lookup);
                 }
-                TextureAtlasSprite sprite;
-                /*if (lookup.startsWith("#") || lookup.startsWith("~")) {
-                    if (allowTextureFallthrough) {
+                TextureAtlasSprite sprite = null;
+                if (lookup.startsWith("#") || lookup.startsWith("~")) {
+                    /*if (allowTextureFallthrough) {
                         sprite = null;
                     } else {
                         sprite = missingSprite;
-                    }
+                    }*/
                 } else {
-                    sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
-                }*/
-                sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+                    //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+                }
                 list.add(quad.toQuad(sprite));
             }
         }

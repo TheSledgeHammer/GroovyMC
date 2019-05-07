@@ -25,11 +25,14 @@ import net.minecraft.util.ResourceLocation
 
 class GroovyResourceDefinition {
 
-    private ResourceLocation resourceLocation;
-    private ModelResourceLocation modelResourceLocation;
-    private TextureAtlasSprite textureAtlasSprite;
     private String resourceDirectory;
     private String modelDirectory;
+    private ResourceLocation resourceLocation;
+    private TextureAtlasSprite textureAtlasSprite;
+    private ModelResourceLocation modelResourceLocation;
+    private List<ResourceLocation> resourceLocationList = new LinkedList<>();
+    private List<TextureAtlasSprite> textureAtlasSpriteList = new LinkedList<>();
+    private List<ModelResourceLocation> modelResourceLocationList = new LinkedList<>();
 
     ResourceLocation getResourceLocation() {
         return resourceLocation;
@@ -43,28 +46,45 @@ class GroovyResourceDefinition {
         return textureAtlasSprite;
     }
 
+    List<ResourceLocation> getResourceLocations() {
+        return resourceLocationList;
+    }
+
+    List<ModelResourceLocation> getModelResourceLocations() {
+        return modelResourceLocationList;
+    }
+
+    List<TextureAtlasSprite> getTextureAtlasSprites() {
+        return textureAtlasSpriteList;
+    }
+
     void setResourceLocation(ResourceLocation resourceLocation) {
         this.resourceLocation = resourceLocation;
     }
 
     void setModelResourceLocation(ModelResourceLocation modelResourceLocation) {
         this.modelResourceLocation = modelResourceLocation;
+        modelResourceLocationList.add(this.modelResourceLocation);
     }
 
     void setTextureAtlasSprite(TextureAtlasSprite textureAtlasSprite) {
         this.textureAtlasSprite = textureAtlasSprite;
+        textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
     void setResourceLocation(String resource) {
         this.resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), resource);
+        resourceLocationList.add(this.resourceLocation);
     }
 
     void setResourceLocation(String modID, String resource) {
         this.resourceLocation = new ResourceLocation(modID, resource);
+        resourceLocationList.add(this.resourceLocation);
     }
 
     void setModelResourceLocation(String modelLocation) {
         this.modelResourceLocation = new ModelResourceLocation(modelLocation, "inventory")
+        modelResourceLocationList.add(this.modelResourceLocation);
     }
 
     void setTextureAtlasSprite(String sprite) {
@@ -72,6 +92,7 @@ class GroovyResourceDefinition {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(sprite);
         }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(sprite);
+        textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
     void setTextureAtlasSprite(ResourceLocation spriteLocation) {
@@ -79,6 +100,7 @@ class GroovyResourceDefinition {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(spriteLocation);
         }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
+        textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
     void setTextureAtlasSprite(String modID, String baseName) {
@@ -86,6 +108,7 @@ class GroovyResourceDefinition {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(modID, baseName);
         }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName);
+        textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
     void onTextureStitchPre(TextureMap map) {
@@ -106,6 +129,7 @@ class GroovyResourceDefinition {
             }
         }
         this.resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), resource);
+        resourceLocationList.add(this.resourceLocation);
     }
 
     void setCustomResourceLocation(String modID, String type, String fileName) {
@@ -122,6 +146,7 @@ class GroovyResourceDefinition {
             }
         }
         this.resourceLocation = new ResourceLocation(modID, resource);
+        resourceLocationList.add(this.resourceLocation);
     }
 
     void setCustomModelResourceLocation(String type, String fileName) {
@@ -138,6 +163,7 @@ class GroovyResourceDefinition {
             }
         }
         this.modelResourceLocation = new ModelResourceLocation(modelLocation, "inventory");
+        modelResourceLocationList.add(this.modelResourceLocation);
     }
 
     private void setResourceDirectory(String type, String fileName) {

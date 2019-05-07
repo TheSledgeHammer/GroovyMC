@@ -24,7 +24,7 @@ class ModelEntryVariable extends ModelEntryBakery<ModelEntry, TextureEntry>  {
 
     @Override
     void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-
+        
     }
 
     @Override

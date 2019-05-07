@@ -35,12 +35,12 @@ class PacketSendKey implements IMessage {
 	private BlockPos blockPos;
 
 	@Override
-	public void fromBytes(ByteBuf buf) {
+	void fromBytes(ByteBuf buf) {
 		blockPos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 	}
 
 	@Override
-	public void toBytes(ByteBuf buf) {
+	void toBytes(ByteBuf buf) {
 		buf.writeInt(blockPos.getX());
 		buf.writeInt(blockPos.getY());
 		buf.writeInt(blockPos.getZ());
@@ -54,10 +54,10 @@ class PacketSendKey implements IMessage {
 	static class Handler implements IMessageHandler<PacketSendKey, IMessage> {
 
 		@Override
-		public IMessage onMessage(PacketSendKey message, MessageContext ctx) {
+		IMessage onMessage(PacketSendKey message, MessageContext ctx) {
 			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(new Runnable() {
 				@Override
-				public void run() {
+				void run() {
 					Handle(message, ctx);
 				}
 			});
