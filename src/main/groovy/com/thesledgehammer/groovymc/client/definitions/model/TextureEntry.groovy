@@ -45,22 +45,12 @@ abstract class TextureEntry extends ModelEntryConsumer {
         GroovyDefinitionContext().setCustomResourceLocation(modID, type, baseName);
     }
 
-    TextureAtlasSprite getTextureAtlasSprite(int index) {
-   //     textureAtlasSpriteList.add(GroovyDefinitionContext().getTextureAtlasSprite())
-        return GroovyDefinitionContext().getTextureAtlasSprites().get(index)
+    TextureAtlasSprite getTextureAtlasSprite() {
+        return GroovyDefinitionContext().getTextureAtlasSprite();
     }
 
-    ResourceLocation getResourceLocation(int index) {
-     //   resourceLocationList.add(GroovyDefinitionContext().getResourceLocation())
-        return GroovyDefinitionContext().getResourceLocations().get(index)
-    }
-
-    List<TextureAtlasSprite> getTextureAtlasSprites() {
-        return GroovyDefinitionContext().getTextureAtlasSprites();
-    }
-
-    List<ResourceLocation> getResourceLocations() {
-        return GroovyDefinitionContext().getResourceLocations();
+    ResourceLocation getResourceLocation() {
+        return GroovyDefinitionContext().getResourceLocation();
     }
 
     static class Register extends TextureEntry {
@@ -102,20 +92,9 @@ abstract class TextureEntry extends ModelEntryConsumer {
         static Register add(String modID, String type, String baseName) {
             new Register(modID, type, baseName);
         }
-/*
+
         static List<TextureEntry> getTextureEntries() {
             return TEXTURE_ENTRIES;
         }
-
-        static TextureEntry getTextureEntryByEntry(TextureEntry entry) {
-            int idx = 0;
-            for(int i = 0; i < TEXTURE_ENTRIES.size(); i++) {
-                if(TEXTURE_ENTRIES.contains(entry)) {
-                    idx = TEXTURE_ENTRIES.indexOf(entry);
-                }
-            }
-            return TEXTURE_ENTRIES.get(idx);
-        }
-       */
     }
 }

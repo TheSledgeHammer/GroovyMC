@@ -1,18 +1,24 @@
-package com.thesledgehammer.groovymc.experimental.models
+package com.thesledgehammer.groovymc.experimental.models.testing
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryConsumer
+import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 
 class ModelEntryV2 extends ModelEntryConsumer {
 
-    private final ModelResourceLocation modelLocation
-    private final IBakedModel bakedModel
+    private static ModelEntryV2 instance
 
     ModelEntryV2(Register register) {
-        this.modelLocation = register.modelLocation;
-        this.bakedModel = register.bakedModel;
+        instance = this;
+    }
+
+    static ModelEntryV2 Instance() {
+        if(instance == null) {
+            return null;
+        }
+        return instance;
     }
 
     List<ModelResourceLocation> getModelResourceLocations() {
@@ -23,10 +29,27 @@ class ModelEntryV2 extends ModelEntryConsumer {
         return GroovyDefinitionContext().getIBakedModels();
     }
 
-    static class Register {
+    ModelResourceLocation getModelResourceLocation(ModelResourceLocation modelResourceLocation) {
+        for(ModelResourceLocation modelLoc : getModelResourceLocations()) {
+            if(modelResourceLocation.equals(modelLoc)) {
+                return modelLoc
+            }
+        }
+        Log.logDebug("No ModelResourceLocation was found at ${modelResourceLocation}")
+        return null;
+    }
 
-        private ModelResourceLocation modelLocation
-        private IBakedModel bakedModel
+    IBakedModel getIBakedModel(IBakedModel bakedModel) {
+        for(IBakedModel baked : getIBakedModels()) {
+            if(bakedModel.equals(baked)) {
+                return baked
+            }
+        }
+        Log.logDebug("No IBakedModel was found named ${bakedModel}")
+        return null;
+    }
+
+    static class Register {
 
         Register() {
 

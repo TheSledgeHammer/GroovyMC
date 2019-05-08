@@ -27,7 +27,7 @@ import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
-@Deprecated //Being Replaced with ModelEntryRegistryV2
+@Deprecated
 class ModelEntryRegistry {
 
     private static final List<ModelEntry> MODEL_ENTRIES = ModelEntry.Register.getModelEntries();
@@ -47,17 +47,11 @@ class ModelEntryRegistry {
 
     static void onTextureStitchPre(TextureMap map) {
         for(TextureEntry entry : TEXTURE_ENTRIES) {
-            for(int i = 0; i < entry.getTextureAtlasSprites().size(); i++) {
-                if(entry.getTextureAtlasSprite(i) instanceof ISprite) {
-                    entry.GroovyDefinitionContext().onTextureStitchPre(map);
-                }
+            if(entry.getTextureAtlasSprite() instanceof ISprite) {
+                entry.GroovyDefinitionContext().onTextureStitchPre(map);
             }
-            for(int i = 0; i < entry.getResourceLocations().size(); i++) {
-                map.registerSprite(entry.getResourceLocation(i));
-            }
-            for(int i = 0; i < entry.getTextureAtlasSprites().size(); i++) {
-                map.setTextureEntry(entry.getTextureAtlasSprite(i));
-            }
+            map.registerSprite(entry.getResourceLocation());
+            map.setTextureEntry(entry.getTextureAtlasSprite());
         }
     }
 
