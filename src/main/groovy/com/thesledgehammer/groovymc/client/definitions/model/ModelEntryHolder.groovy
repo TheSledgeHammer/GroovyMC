@@ -16,26 +16,24 @@
 
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import net.minecraft.util.ResourceLocation
+import com.thesledgehammer.groovymc.client.model.ModelEntryHolderRegistry
 
-abstract class ModelEntryBakery<M extends ModelEntry, T extends TextureEntry> extends ModelEntryConsumer {
+abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
-    private M modelEntry;
-    private T textureEntry;
+    private ModelEntry modelEntry;
+    private TextureEntry textureEntry;
 
-    ModelEntryBakery() {
-        super();
+    ModelEntryHolder() {
+        modelEntry = ModelEntry.Instance();
+        textureEntry = TextureEntry.Instance();
+        ModelEntryHolderRegistry.ENTRY_HOLDERS().add(this);
     }
 
-    private ModelEntryBakery(T textureEntry, M modelEntry) {
-        this();
-        this.textureEntry = textureEntry;
-        this.modelEntry = modelEntry;
+    ModelEntry ModelEntry() {
+        return modelEntry;
     }
 
-    abstract boolean hasBakedQuads();
-
-    abstract void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites);
-
-    abstract void onModelBake();
+    TextureEntry TextureEntry() {
+        return textureEntry;
+    }
 }

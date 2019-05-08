@@ -19,16 +19,18 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryBakery
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
+import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
-class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
+class ModelEntryStatic extends ModelEntryHolder {
 
     final Map<String, String> textureLookup;
     private GroovyStaticModel groovyStaticModel;
@@ -70,7 +72,7 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
     }
 
     @Override
-    protected void onModelBake() {
+    void onModelBake() {
         if(groovyStaticModel == null) {
             quads = null;
         } else {
@@ -92,8 +94,8 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
         return null;
     }
 
-    MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, EnumFacing face) {
-        //TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+    private MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, EnumFacing face) {
+        TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
         List<MutableQuad> list = new ArrayList<>();
         for (GroovysonObjectPart part : modelParts) {
             for (JsonQuads quad : JsonTools.Quads(modelParts, face)) {
@@ -115,7 +117,7 @@ class ModelEntryStatic extends ModelEntryBakery<ModelEntry, TextureEntry> {
                         sprite = missingSprite;
                     }*/
                 } else {
-                    //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+                    sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
                 }
                 list.add(quad.toQuad(sprite));
             }

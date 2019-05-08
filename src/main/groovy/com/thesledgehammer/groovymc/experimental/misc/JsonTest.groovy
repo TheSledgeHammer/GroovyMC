@@ -18,18 +18,13 @@ package com.thesledgehammer.groovymc.experimental.misc
 
 
 import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
+import com.thesledgehammer.groovymc.client.model.ModelEntryStatic
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.experimental.models.testing.ModelEntryHolder
-import com.thesledgehammer.groovymc.experimental.models.testing.ModelEntryHolderRegistry
-import com.thesledgehammer.groovymc.experimental.models.testing.ModelEntryStatic2
-import com.thesledgehammer.groovymc.experimental.models.testing.ModelEntryV2
-import com.thesledgehammer.groovymc.experimental.models.testing.TextureEntryV2
-import com.thesledgehammer.groovymc.experimental.textures.GroovyTextureMap
-import net.minecraft.client.renderer.block.model.IBakedModel
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
 class JsonTest {
@@ -56,16 +51,17 @@ class JsonTest {
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
 
-        TextureEntryV2.Register.add("#trunk_blue")
-        TextureEntryV2.Register.add("blocks/engine/trunk_green")
+        TextureEntry.Register.add("#trunk_blue")
+        TextureEntry.Register.add("blocks/engine/trunk_green")
 
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
 
-        TextureEntryV2 texture = new TextureEntryV2.Register().build();
-        ModelEntryV2 model = new ModelEntryV2.Register().build();
-        ModelEntryV2.Register.add(new ModelResourceLocation("models/block/engine_base"), null)
-        ModelEntryV2.Register.add(new ModelResourceLocation("models/block/blockstat"), null)
+        TextureEntry texture = new TextureEntry.Register().build();
+        ModelEntry model = new ModelEntry.Register().build();
+        ModelEntry.Register.add(new ModelResourceLocation("models/block/engine_base"), null)
+        ModelEntry.Register.add(new ModelResourceLocation("models/block/blockstat"), null)
+        ModelEntryStatic MES = new ModelEntryStatic(blockModel);
     }
 
 

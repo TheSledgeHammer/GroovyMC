@@ -2,12 +2,13 @@ package com.thesledgehammer.groovymc.experimental.models
 
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryBakery
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import net.minecraft.util.ResourceLocation
 
 //Work In Progress
-class ModelEntryVariable extends ModelEntryBakery<ModelEntry, TextureEntry>  {
+class ModelEntryVariable extends ModelEntryHolder  {
 
     private GroovyVariableModel groovyVariableModel;
     private boolean unseen = true;
@@ -28,7 +29,7 @@ class ModelEntryVariable extends ModelEntryBakery<ModelEntry, TextureEntry>  {
     }
 
     @Override
-    protected void onModelBake() {
+    void onModelBake() {
 
     }
 
