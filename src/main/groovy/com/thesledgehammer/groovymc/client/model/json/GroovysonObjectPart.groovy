@@ -84,18 +84,6 @@ class GroovysonObjectPart {
         return part.render.get(render);
     }
 
-    @Deprecated //No Longer used
-    ArrayList<String> BlockRenderTypeFace(String renderType) {
-        ArrayList<String> arrPart = new ArrayList<>();
-        if(BlockRenderType(renderType) == null) {
-            return null;
-        }
-        for(int i = 0; i < BlockRenderType(renderType).faces.size; i++) {
-            arrPart.add(i, BlockRenderType(renderType).faces.get(i));
-        }
-        return arrPart;
-    }
-
     ArrayList<Float> From() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.from.size; i++) {

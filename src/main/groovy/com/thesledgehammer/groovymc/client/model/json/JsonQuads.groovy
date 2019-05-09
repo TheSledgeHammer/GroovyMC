@@ -48,7 +48,7 @@ class JsonQuads {
 	}
 
 	MutableQuad toQuad(TextureAtlasSprite sprite) {
-		MutableQuad quad = new MutableQuad(this.tint, this.face, this.shade);
+		MutableQuad quad = new MutableQuad(tint, face, shade);
 		vertices[0].loadInto(quad.vertex_0);
 		vertices[1].loadInto(quad.vertex_1);
 		vertices[2].loadInto(quad.vertex_2);

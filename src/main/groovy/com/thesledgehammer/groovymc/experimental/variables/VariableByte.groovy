@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableByte
 
 class VariableByte extends MutableByte {
 
-    private MutableByte mutableByte;
-
     VariableByte() {
-        this.mutableByte = new MutableByte();
+        super();
     }
 
     VariableByte(byte value) {
-        this.mutableByte = new MutableByte(value);
+        super(value);
     }
 }

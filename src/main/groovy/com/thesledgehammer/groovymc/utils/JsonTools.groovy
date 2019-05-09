@@ -18,7 +18,7 @@ package com.thesledgehammer.groovymc.utils
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
-import com.thesledgehammer.groovymc.utils.Log
+import groovy.transform.ToString
 import net.minecraft.util.EnumFacing
 
 class JsonTools {

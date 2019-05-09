@@ -24,9 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @SideOnly(Side.CLIENT)
 abstract class GroovyTileEntitySpecialRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T> {
 
-    private String textureBase;
+    GroovyTileEntitySpecialRenderer() {
 
-    GroovyTileEntitySpecialRenderer(String textureBase) {
-        this.textureBase = textureBase;
     }
 }

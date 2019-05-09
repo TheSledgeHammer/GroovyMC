@@ -20,13 +20,14 @@ import org.apache.commons.lang3.mutable.MutableObject
 
 class VariableObject<T> extends MutableObject<T> {
 
-    private MutableObject<T> mutableObject;
+    private T value;
 
     VariableObject() {
-        this.mutableObject = new MutableObject<>();
+        super();
     }
 
     VariableObject(final T value) {
-        this.mutableObject = new MutableObject<T>(value);
+        super();
+        this.value = value;
     }
 }

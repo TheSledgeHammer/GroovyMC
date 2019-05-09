@@ -16,13 +16,10 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 
-//Item & Block Models
-//GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class GroovysonModel extends GroovysonObject {
 
     private String resourceObject;
@@ -34,9 +31,18 @@ class GroovysonModel extends GroovysonObject {
         setRawModel(resourceObject, fileName);
     }
 
+    GroovysonModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+        setRawModel(resourceDirectory, modID, resourceObject, fileName);
+    }
+
     private void setRawModel(String resourceObject, String fileName) {
         setResourceObject(resourceObject);
         setJsonObject(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
+    }
+
+    private void setRawModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+        setResourceObject(resourceObject);
+        setJsonObject(resourceDirectory, modID, "models", resourceObject, fileName);
     }
 
     private void setResourceObject(String resourceObject) {

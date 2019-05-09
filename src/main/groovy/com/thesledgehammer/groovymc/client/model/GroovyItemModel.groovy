@@ -16,7 +16,8 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-
+import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -24,14 +25,22 @@ import net.minecraft.util.EnumFacing
 class GroovyItemModel extends GroovyStaticModel {
 
     GroovyItemModel(String fileName) {
-        super("item", fileName);
+        super("item", fileName)
+    }
+
+    GroovyItemModel(String resourceDirectory, String modID, String fileName) {
+        super(resourceDirectory, modID, "item", fileName)
+    }
+
+    GroovyItemModel(GroovysonModel GROOVY_MODEL) {
+        super(GROOVY_MODEL)
     }
 
     List<BakedQuad> addBakedQuadsToItem(EnumFacing face, TextureAtlasSprite sprite) {
-        int size = GROOVY_MODEL.getRawModelTextures().size();
+        int size = getGroovysonModel().getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
         for(int i = 0; i < size; i++) {
-            bakedQuads.add(QuadAFace(face, i).toQuad(sprite).toBakedItem());
+            bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedItem());
         }
         return bakedQuads;
     }

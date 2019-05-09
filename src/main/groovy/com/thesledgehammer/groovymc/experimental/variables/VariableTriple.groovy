@@ -20,13 +20,18 @@ import org.apache.commons.lang3.tuple.MutableTriple
 
 class VariableTriple<L, M, R> extends MutableTriple<L, M, R> {
 
-    private MutableTriple<L, M, R> mutableTriple;
+    private L left;
+    private M middle;
+    private R right;
 
     VariableTriple() {
-        this.mutableTriple = new MutableTriple<>();
+        super();
     }
 
     VariableTriple(final L left, final M middle, final R right) {
-        this.mutableTriple = new MutableTriple<>(left, middle, right);
+        super();
+        this.left = left;
+        this.middle = middle;
+        this.right = right;
     }
 }

@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableBoolean
 
 class VariableBoolean extends MutableBoolean {
 
-    private MutableBoolean mutableBoolean;
-
     VariableBoolean() {
-        this.mutableBoolean = new MutableBoolean();
+        super();
     }
 
     VariableBoolean(boolean value) {
-        this.mutableBoolean = new MutableBoolean(value);
+        super(value);
     }
 }

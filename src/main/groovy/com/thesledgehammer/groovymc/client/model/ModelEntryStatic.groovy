@@ -32,7 +32,6 @@ import net.minecraft.util.ResourceLocation
 
 class ModelEntryStatic extends ModelEntryHolder {
 
-    final Map<String, String> textureLookup;
     private GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
     private boolean unseen = true;
@@ -40,7 +39,7 @@ class ModelEntryStatic extends ModelEntryHolder {
     ModelEntryStatic(GroovyStaticModel groovyStaticModel) {
         this.groovyStaticModel = groovyStaticModel;
         groovyStaticModel.setRenderKeysDefintion(groovyStaticModel.getGroovysonModel());
-        this.textureLookup = groovyStaticModel.getGroovysonModel().getRawModelTextures();
+        groovyStaticModel.createTextureLookup();
     }
 
     @Override
@@ -53,13 +52,13 @@ class ModelEntryStatic extends ModelEntryHolder {
         groovyStaticModel = null;
         quads = null;
         if(groovyStaticModel != null) {
-            for (Map.Entry<String, String> entry : groovyStaticModel.getGroovysonModel().getRawModelTextures()) {
+            for (Map.Entry<String, String> entry : groovyStaticModel.TextureLookup()) {
                 String lookup = entry.getValue();
                 if (lookup.startsWith("#")) {
                     continue;
                 }
-                if (lookup.startsWith("~") && textureLookup.containsKey(lookup)) {
-                    lookup = textureLookup.get(lookup);
+                if (lookup.startsWith("~") && groovyStaticModel.TextureLookup().containsKey(lookup)) {
+                    lookup = groovyStaticModel.TextureLookup().get(lookup);
                 }
                 if (lookup == null || lookup.startsWith("#") || lookup.startsWith("~")) {
                     groovyStaticModel = null;
@@ -105,9 +104,8 @@ class ModelEntryStatic extends ModelEntryHolder {
                     lookup = part.TextureFace(face);
                     attempts++;
                 }
-                if(lookup.startsWith("~") && textureLookup.containsKey(lookup)) {
-                    //BC8 makes this an immutable map
-                    lookup = textureLookup.get(lookup);
+                if(lookup.startsWith("~") && groovyStaticModel.TextureLookup().containsKey(lookup)) {
+                    lookup = groovyStaticModel.TextureLookup().get(lookup);
                 }
                 TextureAtlasSprite sprite = null;
                 if (lookup.startsWith("#") || lookup.startsWith("~")) {

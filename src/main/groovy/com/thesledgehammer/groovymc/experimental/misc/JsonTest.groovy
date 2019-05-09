@@ -24,6 +24,11 @@ import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
+import com.thesledgehammer.groovymc.experimental.variables.Variable
+import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
+import com.thesledgehammer.groovymc.experimental.variables.VariableFloat
+import com.thesledgehammer.groovymc.experimental.variables.VariableInteger
+import com.thesledgehammer.groovymc.experimental.variables.VariableLong
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.util.ResourceLocation
 
@@ -51,17 +56,12 @@ class JsonTest {
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
 
-        TextureEntry.Register.add("#trunk_blue")
-        TextureEntry.Register.add("blocks/engine/trunk_green")
-
+        TextureEntry.Register
+                .add("#trunk_blue")
+                .add("blocks/engine/trunk_green")
+                .build();
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
-
-        TextureEntry texture = new TextureEntry.Register().build();
-        ModelEntry model = new ModelEntry.Register().build();
-        ModelEntry.Register.add(new ModelResourceLocation("models/block/engine_base"), null)
-        ModelEntry.Register.add(new ModelResourceLocation("models/block/blockstat"), null)
-        ModelEntryStatic MES = new ModelEntryStatic(blockModel);
     }
 
 

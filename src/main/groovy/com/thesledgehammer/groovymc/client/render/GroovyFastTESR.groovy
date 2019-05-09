@@ -21,9 +21,7 @@ import net.minecraftforge.client.model.animation.FastTESR
 
 abstract class GroovyFastTESR<T extends TileEntity> extends FastTESR<T> {
 
-    private String textureBase;
+    GroovyFastTESR() {
 
-    GroovyFastTESR(String textureBase) {
-        this.textureBase = textureBase;
     }
 }
