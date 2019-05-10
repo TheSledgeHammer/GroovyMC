@@ -21,6 +21,7 @@
 /saves
 /out
 /ClientRuntime
+/ServerRuntime
 usernamecache.json
 usercache.json
 options.txt

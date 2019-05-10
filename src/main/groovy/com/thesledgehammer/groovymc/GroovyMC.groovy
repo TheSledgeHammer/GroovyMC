@@ -1,8 +1,7 @@
 package com.thesledgehammer.groovymc
 
-import com.thesledgehammer.groovymc.client.model.ModelEntryHolderRegistry
+
 import com.thesledgehammer.groovymc.input.InputHandler
-import com.thesledgehammer.groovymc.input.KeyBindings
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -37,13 +36,11 @@ class GroovyMC {
 	@Mod.EventHandler
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
-		ModelEntryHolderRegistry.preInit();
 	}
 
 	@Mod.EventHandler
 	static void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new InputHandler());
-		KeyBindings.init();
 	}
 
 	@Mod.EventHandler

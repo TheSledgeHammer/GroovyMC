@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.model
+package com.thesledgehammer.groovymc.client.definitions.model
 
 import com.thesledgehammer.groovymc.api.ISprite
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -28,6 +25,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.registry.IRegistry
 import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ModelEntryHolderRegistry {
 
@@ -67,6 +65,7 @@ class ModelEntryHolderRegistry {
         }
     }
 
+    @SubscribeEvent
     static void onModelBake(ModelBakeEvent event) {
         IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
         for(ModelEntryHolder holder : ENTRY_HOLDERS()) {

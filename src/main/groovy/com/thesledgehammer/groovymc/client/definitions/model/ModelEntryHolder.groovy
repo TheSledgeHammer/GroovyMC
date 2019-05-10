@@ -16,8 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.client.model.ModelEntryHolderRegistry
-
 abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
     private ModelEntry modelEntry;
