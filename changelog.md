@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [1.1.0] - TBA
+## [1.1.0] - 2019-05-10
 ### Added
 - Added Experimental GUI Builder
 - Added ModelEntryHolder
