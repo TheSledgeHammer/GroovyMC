@@ -17,14 +17,18 @@
 package com.thesledgehammer.groovymc.fluids
 
 import com.thesledgehammer.groovymc.api.IInitModel
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.GroovyStateMapperBase
 import net.minecraft.block.material.Material
 import net.minecraft.item.Item
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
+import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 class GroovyBlockFluid extends BlockFluidClassic implements IInitModel {
 
@@ -40,7 +44,7 @@ class GroovyBlockFluid extends BlockFluidClassic implements IInitModel {
     GroovyBlockFluid(Fluid fluid, Material material, String name) {
         this(fluid, material, name, GroovyLoader.Instance().getModID());
     }
-/*
+
     @Override
     boolean canDisplace(IBlockAccess world, BlockPos pos) {
         if(world.getBlockState(pos).getMaterial().isLiquid()) {
@@ -56,10 +60,9 @@ class GroovyBlockFluid extends BlockFluidClassic implements IInitModel {
         }
         return super.displaceIfPossible(world, pos);
     }
-    */
 
     @Override
-    @OnlyIn(Dist.CLIENT)
+    @SideOnly(Side.CLIENT)
     void initModel() {
         Item item = Item.getItemFromBlock(this);
         if(modID == null) {

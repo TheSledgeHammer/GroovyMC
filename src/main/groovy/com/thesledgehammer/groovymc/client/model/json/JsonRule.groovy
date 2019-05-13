@@ -28,31 +28,31 @@ class JsonRule {
         return groovysonObject.getRules();
     }
 
-    def getRuleWhen() {
+    def getWhen() {
         return groovysonObject.getRulesByName("when");
     }
 
-    def getRuleType() {
+    def getType() {
         return groovysonObject.getRulesByName("type");
     }
 
-    def getRuleFrom() {
+    def getFrom() {
         return groovysonObject.getRulesByName("from");
     }
 
-    def getRuleTo() {
+    def getTo() {
         return groovysonObject.getRulesByName("to");
     }
 
-    def getRuleOrigin() {
+    def getOrigin() {
         return groovysonObject.getRulesByName("origin");
     }
 
-    def getRuleAngle() {
+    def getAngle() {
         return groovysonObject.getRulesByName("angle");
     }
 
-    def getRuleScale() {
+    def getScale() {
         return groovysonObject.getRulesByName("scale");
     }
 

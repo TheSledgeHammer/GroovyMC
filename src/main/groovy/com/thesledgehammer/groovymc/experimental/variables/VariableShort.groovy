@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableShort
 
 class VariableShort extends MutableShort {
 
-    private MutableShort mutableShort;
-
     VariableShort() {
-        this.mutableShort = new MutableShort();
+        super();
     }
 
     VariableShort(short value) {
-        this.mutableShort = new MutableShort(value);
+        super(value);
     }
 }

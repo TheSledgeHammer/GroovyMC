@@ -47,7 +47,7 @@ class GroovysonObjectPart {
     }
 
     //Refers to def part
-    void setPart(int index) {
+    private void setPart(int index) {
         part = groovysonObject.getElementPart(index);
     }
 
@@ -70,7 +70,7 @@ class GroovysonObjectPart {
     }
 
     //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String BlockRenderTypes() {
+    String BlockRenderType() {
         return part.render;
     }
 
@@ -78,28 +78,10 @@ class GroovysonObjectPart {
     def BlockRenderType(String renderType) {
         String render = renderType.toLowerCase();
         if (part.render.get(render) == null) {
-            //Log.logError("The element does not contain a render of: ${renderType}");
-            println "The element does not contain a render of: ${renderType}"
+            Log.logError("The element does not contain a render of: ${renderType}");
             return null;
         }
         return part.render.get(render);
-    }
-
-    ArrayList<String> BlockRenderTypeFace(String renderType) {
-        ArrayList<String> arrPart = new ArrayList<>();
-        if(BlockRenderType(renderType) == null) {
-            return null;
-        }
-        for(int i = 0; i < BlockRenderType(renderType).faces.size; i++) {
-            arrPart.add(i, BlockRenderType(renderType).faces.get(i));
-        }
-        return arrPart;
-    }
-
-    @Deprecated
-    String[] renderTypeFace(String renderType) {
-        String[] render = BlockRenderTypeFace(renderType);
-        return render;
     }
 
     ArrayList<Float> From() {
@@ -110,12 +92,6 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    @Deprecated
-    float[] from() {
-        float[] from = From();
-        return from;
-    }
-
     ArrayList<Float> To() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.to.size; i++) {
@@ -124,10 +100,40 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    @Deprecated
-    float[] to() {
-        float[] to = To();
-        return to;
+    def Rotation() {
+        return part.rotation;
+    }
+
+    ArrayList<Float> RotationOrigin() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.origin.size; i++) {
+            arrPart.add(i, part.rotation.origin.get(i));
+        }
+        return arrPart;
+    }
+
+    ArrayList<Float> RotationAxis() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.axis.size; i++) {
+            arrPart.add(i, part.rotation.axis.get(i));
+        }
+        return arrPart;
+    }
+
+    ArrayList<Float> RotationAngle() {
+        ArrayList<Float> arrPart = new ArrayList<>();
+        for(int i = 0; i < part.rotation.angle.size; i++) {
+            arrPart.add(i, part.rotation.angle.get(i));
+        }
+        return arrPart;
+    }
+
+    boolean RotationRescale() {
+        return part.rotation.rescale;
+    }
+
+    boolean Shade() {
+        return part.shade;
     }
 
     def Faces() {
@@ -154,35 +160,25 @@ class GroovysonObjectPart {
         return arrPart;
     }
 
-    @Deprecated
-    float[] FaceUV(EnumFacing face) {
-        float[] uv = FacingUv(face);
-        return uv;
-    }
-
-    String TextureFace(EnumFacing face) {
+    def TextureFace(EnumFacing face) {
         return Facing(face).texture;
     }
 
-    def Rotation(EnumFacing face, int fallback) {
+    def CullFaceFace(EnumFacing face) {
+        return Facing(face).cullface
+    }
+
+    def FacingRotation(EnumFacing face, int fallback) {
         if(Facing(face).rotation == null) {
             return fallback;
         }
         return Facing(face).rotation;
     }
 
-    int Rotation(EnumFacing face) {
-        return Rotation(face, 0);
-    }
-
-    def Tint(EnumFacing face, int fallback) {
-        if(Facing(face).tintindex == null) {
+    def FacingTint(EnumFacing face, int fallback) {
+        if(Facing(face).tintindex == null || Facing(face) == null) {
             return fallback;
         }
         return Facing(face).tintindex;
-    }
-
-    int Tint(EnumFacing face) {
-        return Tint(face, 0);
     }
 }

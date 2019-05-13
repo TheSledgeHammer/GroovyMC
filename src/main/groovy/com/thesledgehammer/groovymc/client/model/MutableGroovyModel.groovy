@@ -20,11 +20,14 @@ import com.google.common.collect.ImmutableList
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.model.BakedQuad
 import net.minecraft.client.renderer.model.IBakedModel
+import net.minecraft.client.renderer.model.ItemCameraTransforms
 import net.minecraft.client.renderer.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+import org.apache.commons.lang3.tuple.Pair
 
 import javax.annotation.Nullable
+import javax.vecmath.Matrix4f
 
 class MutableGroovyModel implements IBakedModel {
 	
@@ -52,6 +55,12 @@ class MutableGroovyModel implements IBakedModel {
 	}
 
 	@Override
+	boolean isAmbientOcclusion(IBlockState state) {
+		return model.isAmbientOcclusion(state)
+	}
+
+
+	@Override
 	boolean isGui3d() {
 		return model.isGui3d();
 	}
@@ -73,11 +82,11 @@ class MutableGroovyModel implements IBakedModel {
 
 	@Override
 	IBakedModel getBakedModel() {
-		return super.getBakedModel()
+		return model.getBakedModel()
 	}
 
 	@Override
-	boolean isAmbientOcclusion(IBlockState state) {
-		return super.isAmbientOcclusion(state)
+	Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+		return model.handlePerspective(cameraTransformType)
 	}
 }

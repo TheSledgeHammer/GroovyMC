@@ -12,6 +12,8 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+
 interface IBlockTypeTESR extends IBlockType {
 
     @Override

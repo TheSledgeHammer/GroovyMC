@@ -20,13 +20,16 @@ import org.apache.commons.lang3.tuple.MutablePair
 
 class VariablePair<L, R> extends MutablePair<L, R> {
 
-    private MutablePair<L, R> mutablePair;
+    private L left;
+    private R right;
 
     VariablePair() {
-        this.mutablePair = new MutablePair<>();
+        super();
     }
 
     VariablePair(final L left, final R right) {
-        this.mutablePair = new MutablePair<>(left, right);
+        super();
+        this.left = left;
+        this.right = right;
     }
 }

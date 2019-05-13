@@ -23,7 +23,6 @@ import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
 import net.minecraft.block.ITileEntityProvider
-import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -41,28 +40,36 @@ import net.minecraftforge.client.model.ModelLoader
 
 import javax.annotation.Nullable
 //To Improve: registerTileEntity
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits {
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
     private final boolean hasTESR;
     private final boolean hasFastTESR;
+    private final Properties properties;
 
     final P blockType
 
-    GroovyBlockTileAdvanced(P blockType, Material blockMaterialIn) {
-        super(blockMaterialIn);
+    GroovyBlockTileAdvanced(P blockType, Properties properties) {
+        super(properties);
+        this.properties = properties;
+
 
         this.blockType = blockType;
         blockType.getGroovyMachineProperties().setBlock(this);
 
         this.hasTESR = blockType instanceof IBlockTypeTESR;
         this.hasFastTESR = blockType instanceof IBlockTypeFastTESR;
-        this.lightOpacity = (!hasFastTESR && !hasTESR) ? 255 : 0;
+        properties.lightValue(!hasFastTESR && !hasTESR ? 255 : 0);
 
         this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     GroovyBlockTileAdvanced(P blockType) {
-        this(blockType, Material.IRON);
+        super(getProperties());
+        this.blockType = blockType;
+    }
+
+    private Properties getProperties() {
+        return properties;
     }
 
     private MachinePropertyTraits getDefinition() {
@@ -124,8 +131,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return getDefinition().CreateTileEntity();
     }
 
-    @Override
     @OnlyIn(Dist.CLIENT)
+    @Override
     void initModel() {
         blockType.getGroovyMachineProperties().initModel();
     }

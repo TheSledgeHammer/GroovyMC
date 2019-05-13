@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableLong
 
 class VariableLong extends MutableLong {
 
-    private MutableLong mutableLong;
-
     VariableLong() {
-        this.mutableLong = new MutableLong();
+        super();
     }
 
     VariableLong(long value) {
-        this.mutableLong = new MutableLong(value);
+        super(value);
     }
 }

@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableInt
 
 class VariableInteger extends MutableInt {
 
-    private MutableInt mutableInt;
-
     VariableInteger() {
-        this.mutableInt = new MutableInt();
+        super();
     }
 
-    VariableInteger(int value) {
-        this.mutableInt = new MutableInt(value);
+    VariableInteger(Integer value) {
+        super(value);
     }
 }

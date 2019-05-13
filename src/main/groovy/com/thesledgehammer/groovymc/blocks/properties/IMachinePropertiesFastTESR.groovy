@@ -29,5 +29,5 @@ interface IMachinePropertiesFastTESR<T extends GroovyTileBasic> extends IMachine
     String getParticleTextureLocation();
 
     @OnlyIn(Dist.CLIENT)
-    void setRenderer(TileEntityRendererFast < ? super T > rendererFast)
+    void setRenderer(TileEntityRendererFast<? super T> rendererFast)
 }

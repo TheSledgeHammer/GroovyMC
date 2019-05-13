@@ -53,8 +53,8 @@ class ListTools {
         return list;
     }
 
-    private static ArrayList<String> arrToString = new ArrayList<>();
     static ArrayList<String> IntegerListToStringList(ArrayList<Integer> arrPart) {
+        ArrayList<String> arrToString = new ArrayList<>();
         for(int i = 0; i < arrPart.size(); i++) {
             arrToString.add(arrPart.get(i).toString());
         }
@@ -62,6 +62,7 @@ class ListTools {
     }
 
     static ArrayList<String> LongListToStringList(ArrayList<Long> arrPart) {
+        ArrayList<String> arrToString = new ArrayList<>();
         for(int i = 0; i < arrPart.size(); i++) {
             arrToString.add(arrPart.get(i).toString());
         }
@@ -69,6 +70,7 @@ class ListTools {
     }
 
     static ArrayList<String> FloatListToStringList(ArrayList<Float> arrPart) {
+        ArrayList<String> arrToString = new ArrayList<>();
         for(int i = 0; i < arrPart.size(); i++) {
             arrToString.add(arrPart.get(i).toString());
         }
@@ -76,13 +78,10 @@ class ListTools {
     }
 
     static ArrayList<String> DoubleListToStringList(ArrayList<Double> arrPart) {
+        ArrayList<String> arrToString = new ArrayList<>();
         for(int i = 0; i < arrPart.size(); i++) {
             arrToString.add(arrPart.get(i).toString());
         }
-        return arrToString;
-    }
-
-    static ArrayList<String> getStringList() {
         return arrToString;
     }
 

@@ -18,24 +18,23 @@ package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.api.IRegisterTileEntity
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import net.minecraft.block.ITileEntityProvider
-import net.minecraft.block.material.Material
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
+import net.minecraft.world.chunk.BlockStateContainer
 import net.minecraftforge.fml.common.registry.GameRegistry
 
 abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTraits, ITileEntityProvider, IRegisterTileEntity {
 
-    GroovyBlockTileBasic(Material blockMaterialIn) {
-        super(blockMaterialIn);
+    GroovyBlockTileBasic(Properties properties) {
+        super(properties);
     }
 
     GroovyBlockTileBasic() {
-        super(Material.IRON);
+        super();
     }
 
     @Override

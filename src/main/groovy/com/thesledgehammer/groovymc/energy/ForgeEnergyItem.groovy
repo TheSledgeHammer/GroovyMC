@@ -30,13 +30,11 @@ class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityP
     protected ForgeEnergy FE;
 
     ForgeEnergyItem(ItemStack container, int capacity, int maxTransfer) {
-        super(null)
         setItemContainer(container);
         FE = new ForgeEnergy(capacity, maxTransfer);
     }
 
     ForgeEnergyItem(int capacity, int maxTransfer) {
-        super(null)
         setItemContainer(container);
         FE = new ForgeEnergy(capacity, maxTransfer);
     }

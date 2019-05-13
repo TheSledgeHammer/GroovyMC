@@ -26,9 +26,8 @@ import javax.annotation.Nullable
 
 abstract class GroovyTileBasic extends TileEntity implements TileTraits {
 
-
-    GroovyTileBasic(TileEntityType<?> tileEntityType) {
-        super(tileEntityType)
+    GroovyTileBasic(TileEntityType<?> tileEntityTypeIn) {
+        super(tileEntityTypeIn)
     }
 
     @Override
@@ -47,7 +46,7 @@ abstract class GroovyTileBasic extends TileEntity implements TileTraits {
     }
 
     boolean isRedstoneActivated() {
-        return world.isBlockPowered(getPos());
+        return world.getRedstonePowerFromNeighbors(getPos()) > 0;
     }
 
     void onRemoval() {

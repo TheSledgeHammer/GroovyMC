@@ -1,6 +1,9 @@
 package com.thesledgehammer.groovymc.config
 
 import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.utils.StringTools
+import net.minecraft.util.text.TextFormatting
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 class Constants {
 

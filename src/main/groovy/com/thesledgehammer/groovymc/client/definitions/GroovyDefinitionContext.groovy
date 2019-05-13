@@ -17,21 +17,41 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
+import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
+import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
+import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import net.minecraft.client.renderer.model.IBakedModel
 import net.minecraft.client.renderer.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.client.model.IModel
+import net.minecraftforge.common.model.IModelPart
+import net.minecraftforge.common.model.IModelState
 
 class GroovyDefinitionContext {
 
+    private static GroovyDefinitionContext instance;
     private GroovyResourceDefinition resources;
     private GroovyModelDefinition models;
+    private GroovyRenderDefinition renders;
 
-    GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models) {
+    GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models, GroovyRenderDefinition renders) {
         this.resources = resources
         this.models = models;
+        this.renders = renders;
+        instance = this;
     }
 
+    static GroovyDefinitionContext Instance() {
+        if(instance == null) {
+            return null;
+        }
+        return instance;
+    }
+
+    /**GroovyModelDefinition**/
     IBakedModel getIBakedModel() {
         return models.getIBakedModel();
     }
@@ -40,6 +60,59 @@ class GroovyDefinitionContext {
         return models.getGroovysonModel();
     }
 
+    IModel getIModel() {
+        return models.getIModel();
+    }
+
+    IModelState getIModelState() {
+        return models.getIModelState();
+    }
+
+    IModelPart getIModelPart() {
+        return models.getIModelPart();
+    }
+
+    List<IBakedModel> getIBakedModels() {
+        return models.getIBakedModels();
+    }
+
+    List<IModel> getIModels() {
+        return models.getIModels();
+    }
+
+    List<IModelState> getIModelStates() {
+        return models.getIModelStates();
+    }
+
+    List<IModelPart> getIModelParts() {
+        return models.getIModelParts();
+    }
+
+    List<GroovysonModel> getGroovysonModels() {
+        return models.getGroovysonModels();
+    }
+
+    void setIBakedModel(IBakedModel bakedModel) {
+        models.setIBakedModel(bakedModel);
+    }
+
+    void setIModel(IModel iModel) {
+        models.setIModel(iModel);
+    }
+
+    void setIModelState(IModelState iModelState) {
+        models.setIModelState(iModelState);
+    }
+
+    void setIModelPart(IModelPart iModelPart) {
+        models.setIModelPart(iModelPart);
+    }
+
+    void setGroovysonModel(GroovysonModel groovyModel) {
+        models.setGroovysonModel(groovyModel);
+    }
+
+    /**GroovyResourceDefinition**/
     ResourceLocation getResourceLocation() {
         return resources.getResourceLocation();
     }
@@ -52,12 +125,16 @@ class GroovyDefinitionContext {
         return resources.getTextureAtlasSprite();
     }
 
-    void setIBakedModel(IBakedModel bakedModel) {
-        models.setIBakedModel(bakedModel);
+    List<ResourceLocation> getResourceLocations() {
+        return resources.getResourceLocations();
     }
 
-    void setGroovysonModel(GroovysonModel groovyModel) {
-        models.setGroovysonModel(groovyModel);
+    List<ModelResourceLocation> getModelResourceLocations() {
+        return resources.getModelResourceLocations();
+    }
+
+    List<TextureAtlasSprite> getTextureAtlasSprites() {
+        return resources.getTextureAtlasSprites();
     }
 
     void setResourceLocation(ResourceLocation resourceLocation) {
@@ -92,6 +169,10 @@ class GroovyDefinitionContext {
         resources.setTextureAtlasSprite(modID, baseName);
     }
 
+    void onTextureStitchPre(TextureMap map) {
+        resources.onTextureStitchPre(map);
+    }
+
     void setCustomResourceLocation(String type, String fileName) {
         resources.setCustomResourceLocation(type, fileName);
     }
@@ -102,5 +183,39 @@ class GroovyDefinitionContext {
 
     void setCustomModelResourceLocation(String type, String fileName) {
         resources.setCustomModelResourceLocation(type, fileName);
+    }
+
+    /**GroovyRenderDefinition**/
+
+    CutoutKey getCutoutKey() {
+        return renders.getCutoutKey();
+    }
+
+    CutoutMippedKey getCutoutMippedKey() {
+        return renders.getCutoutMippedKey();
+    }
+
+    SolidKey getSolidKey() {
+        return renders.getSolidKey();
+    }
+
+    TranslucentKey getTranslucentKey() {
+        return renders.getTranslucentKey();
+    }
+
+    void setCutoutKey(CutoutKey cutoutKey) {
+        renders.setCutoutKey(cutoutKey);
+    }
+
+    void setCutoutMippedKey(CutoutMippedKey cutoutMippedKey) {
+        renders.setCutoutMippedKey(cutoutMippedKey)
+    }
+
+    void setSolidKey(SolidKey solidKey) {
+        renders.setSolidKey(solidKey);
+    }
+
+    void setTranslucentKey(TranslucentKey translucentKey) {
+        renders.setTranslucentKey(translucentKey);
     }
 }

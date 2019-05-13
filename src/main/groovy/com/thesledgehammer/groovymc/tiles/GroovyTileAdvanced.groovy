@@ -16,9 +16,11 @@
 
 package com.thesledgehammer.groovymc.tiles
 
+import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
 import com.thesledgehammer.groovymc.tiles.traits.TileInventoryTraits
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
@@ -31,9 +33,10 @@ class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits 
     private IItemHandler itemHandler;
     private IItemHandler itemHandlerSided;
 
-    GroovyTileAdvanced() {
+    GroovyTileAdvanced(TileEntityType<?> tileEntityTypeIn) {
+        super(tileEntityTypeIn)
         setTileEntity(this);
-        setIInventory(this);
+        setIInventory(new InventoryAdaptor());
     }
 
     @Override

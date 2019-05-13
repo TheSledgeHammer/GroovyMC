@@ -7,8 +7,9 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -24,10 +25,10 @@ class JsonQuads {
 
 	JsonQuads(GroovysonObjectPart groovysonObjectPart, float[] from, float[] to, EnumFacing face) {
 		this.face = face;
-		this.tint = groovysonObjectPart.Tint(face, -1);
+		this.tint = groovysonObjectPart.FacingTint(face, -1);
 		this.texture = groovysonObjectPart.TextureFace(face);
-		int rotation = groovysonObjectPart.Rotation(face, 0);
-		float[] uv = groovysonObjectPart.FacingUv(face);
+		int rotation = groovysonObjectPart.FacingRotation(face, 0);
+		float[] uv = ListTools.FloatListToFloatArray(groovysonObjectPart.FacingUv(face));
 
         ModelUtil.UvFaceData uvs = new ModelUtil.UvFaceData();
 		uvs.minU = (float) (uv[0] / 16f);
@@ -47,7 +48,7 @@ class JsonQuads {
 	}
 
 	MutableQuad toQuad(TextureAtlasSprite sprite) {
-		MutableQuad quad = new MutableQuad(this.tint, this.face, this.shade);
+		MutableQuad quad = new MutableQuad(tint, face, shade);
 		vertices[0].loadInto(quad.vertex_0);
 		vertices[1].loadInto(quad.vertex_1);
 		vertices[2].loadInto(quad.vertex_2);

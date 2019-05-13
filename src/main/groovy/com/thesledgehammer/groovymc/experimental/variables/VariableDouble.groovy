@@ -20,13 +20,11 @@ import org.apache.commons.lang3.mutable.MutableDouble
 
 class VariableDouble extends MutableDouble {
 
-    private MutableDouble mutableDouble;
-
     VariableDouble() {
-        this.mutableDouble = new MutableDouble();
+        super();
     }
 
     VariableDouble(double value) {
-        this.mutableDouble = new MutableDouble(value);
+        super(value);
     }
 }

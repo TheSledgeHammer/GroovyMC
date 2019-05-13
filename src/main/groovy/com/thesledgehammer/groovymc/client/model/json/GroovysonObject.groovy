@@ -90,15 +90,8 @@ class GroovysonObject {
         return obj.elements.get(index);
     }
 
-    private boolean getShade() {
+    boolean getShade() {
         return obj.shade;
-    }
-
-    boolean Shade(boolean fallback) {
-        if(getShade() == null) {
-            return fallback;
-        }
-        return getShade();
     }
 
     def getVariables() {
@@ -123,6 +116,10 @@ class GroovysonObject {
 
     def getValueByName(def valueName) {
         return obj.values.get(valueName);
+    }
+
+    boolean AmbientOcclusion() {
+        return obj.ambientocclusion;
     }
 
     //Translation Rotation Scale Rotation(TRSR)
@@ -154,12 +151,6 @@ class GroovysonObject {
         return arrObj;
     }
 
-    @Deprecated
-    float[] translation(String name) {
-        float[] translation = Translation(name);
-        return translation;
-    }
-
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
@@ -174,12 +165,6 @@ class GroovysonObject {
             arrObj.add(i, obj.display.get(name).rotation.get(i));
         }
         return arrObj;
-    }
-
-    @Deprecated
-    float[] rotation(String name) {
-        float[] rotation = Rotation(name);
-        return rotation;
     }
 
     ArrayList<Float> Scale(String name) {
@@ -198,9 +183,16 @@ class GroovysonObject {
         return arrObj;
     }
 
-    @Deprecated
-    float[] scale(String name) {
-        float[] scale = Scale(name);
-        return scale;
+    //Used in Item Models Only
+    def Overrides() {
+        return obj.overrides;
+    }
+
+    def OverridesPredicate() {
+        return obj.overrides.predicate;
+    }
+
+    def OverridesModel() {
+        return obj.overrides.model;
     }
 }

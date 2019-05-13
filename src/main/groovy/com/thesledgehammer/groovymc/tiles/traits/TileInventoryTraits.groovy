@@ -16,8 +16,8 @@
 
 package com.thesledgehammer.groovymc.tiles.traits
 
-import com.thesledgehammer.groovymc.utils.IInventoryAdaptor
-import com.thesledgehammer.groovymc.utils.InventoryAdaptor
+import com.thesledgehammer.groovymc.gui.inventory.IInventoryAdaptor
+import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
@@ -28,27 +28,18 @@ import net.minecraft.util.EnumFacing
 trait TileInventoryTraits implements IInventory, ISidedInventory {
 
     private TileEntity tileEntity;
-    private IInventory inventory;
-    private IInventoryAdaptor inventoryAdapter = new InventoryAdaptor();
+    private IInventoryAdaptor inventoryAdapter;
 
     void setTileEntity(TileEntity tileEntity) {
         this.tileEntity = tileEntity;
     }
 
-    void setIInventory(IInventory inventory) {
-        this.inventory = inventory;
-    }
-
-    void setIInventoryAdaptor(IInventoryAdaptor inventoryAdapter) {
+    void setIInventory(IInventoryAdaptor inventoryAdapter) {
         this.inventoryAdapter = inventoryAdapter;
     }
 
     TileEntity getTileEntityFromTrait() {
         return tileEntity;
-    }
-
-    IInventory getIInventoryFromTait() {
-        return inventory;
     }
 
     IInventoryAdaptor getIInventoryAdaptor() {
@@ -57,52 +48,52 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
 
     @Override
     int getSizeInventory() {
-        return inventory.getSizeInventory();
+        return inventoryAdapter.getSizeInventory();
     }
 
     @Override
     ItemStack getStackInSlot(int index) {
-        return inventory.getStackInSlot(index);
+        return inventoryAdapter.getStackInSlot(index);
     }
 
     @Override
     ItemStack decrStackSize(int index, int count) {
-        return inventory.decrStackSize(index, count);
+        return inventoryAdapter.decrStackSize(index, count);
     }
 
     @Override
     ItemStack removeStackFromSlot(int index) {
-        return inventory.removeStackFromSlot(index);
+        return inventoryAdapter.removeStackFromSlot(index);
     }
 
     @Override
     void setInventorySlotContents(int index, ItemStack stack) {
-        inventory.setInventorySlotContents(index, stack);
+        inventoryAdapter.setInventorySlotContents(index, stack);
     }
 
     @Override
     int getInventoryStackLimit() {
-        return inventory.getInventoryStackLimit();
+        return inventoryAdapter.getInventoryStackLimit();
     }
 
     @Override
     boolean isUsableByPlayer(EntityPlayer player) {
-        return inventory.isUsableByPlayer(player);
+        return inventoryAdapter.isUsableByPlayer(player);
     }
 
     @Override
     void openInventory(EntityPlayer player) {
-        inventory.openInventory(player);
+        inventoryAdapter.openInventory(player);
     }
 
     @Override
     void closeInventory(EntityPlayer player) {
-        inventory.closeInventory(player);
+        inventoryAdapter.closeInventory(player);
     }
 
     @Override
     boolean isItemValidForSlot(int index, ItemStack stack) {
-        return inventory.isItemValidForSlot(index, stack);
+        return inventoryAdapter.isItemValidForSlot(index, stack);
     }
 
     @Override
@@ -152,7 +143,7 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
 
     @Override
     String getName() {
-        String blockUnlocalizedName = tileEntity.getBlockType().getUnlocalizedName();
+        String blockUnlocalizedName = tileEntity.getBlockState().getBlock().getTranslationKey();
         return blockUnlocalizedName + '.' + tileEntity.getBlockMetadata() + ".name";
     }
 }

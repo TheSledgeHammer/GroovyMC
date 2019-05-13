@@ -20,14 +20,12 @@ import org.apache.commons.lang3.mutable.MutableFloat
 
 class VariableFloat extends MutableFloat {
 
-    MutableFloat mutableFloat;
-
     VariableFloat() {
-        this.mutableFloat = new MutableFloat();
+        super();
     }
 
     VariableFloat(float value) {
-        this.mutableFloat = new MutableFloat(value);
+        super(value);
     }
 
 }

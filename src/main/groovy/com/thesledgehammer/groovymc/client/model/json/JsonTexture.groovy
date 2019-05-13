@@ -7,8 +7,8 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.utils.MathTools
+import com.thesledgehammer.groovymc.client.model.ModelUtil
 import net.minecraft.util.EnumFacing
 
 class JsonTexture {

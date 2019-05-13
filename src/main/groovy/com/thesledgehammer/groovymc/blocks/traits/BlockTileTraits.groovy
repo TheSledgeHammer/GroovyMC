@@ -18,7 +18,7 @@ package com.thesledgehammer.groovymc.blocks.traits
 
 import com.thesledgehammer.groovymc.blocks.properties.IBlockRotation
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import com.thesledgehammer.groovymc.utils.InventoryTools
+import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
@@ -87,7 +87,7 @@ trait BlockTileTraits implements IBlockRotation {
         TileEntity tile = world.getTileEntity(pos);
         if(tile instanceof GroovyTileBasic) {
             GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
-            ItemStack stack = new ItemStack(Item.getItemFromBlock(block));
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(tile.getBlockType()));
             NBTTagCompound nbt = new NBTTagCompound();
             groovyTile.writeToNBT(nbt);
             stack.setTagCompound(nbt);

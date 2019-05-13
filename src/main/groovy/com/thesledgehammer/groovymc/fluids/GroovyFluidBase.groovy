@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.fluids
 
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
@@ -28,21 +28,21 @@ class GroovyFluidBase extends Fluid {
         super(fluidName,
                 FluidStill(modID, texturePath, fluidName),
                 FluidFlowing(modID, texturePath, fluidName));
-        FluidRegistry.enableUniversalBucket();
+        FluidRegistry.addBucketForFluid(this);
     }
 
     GroovyFluidBase(String texturePath, String fluidName) {
         super(fluidName,
                 FluidStill(texturePath, fluidName),
                 FluidFlowing(texturePath, fluidName));
-        FluidRegistry.enableUniversalBucket();
+        FluidRegistry.addBucketForFluid(this);
     }
 
     GroovyFluidBase(String fluidName) {
         super(fluidName,
                 FluidStill(fluidName),
                 FluidFlowing(fluidName));
-        FluidRegistry.enableUniversalBucket();
+        FluidRegistry.addBucketForFluid(this);
     }
 
     private static ResourceLocation FluidStill(String modID, String texturePath, String fluidName) {

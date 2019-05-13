@@ -16,16 +16,14 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
+import net.minecraft.util.EnumFacing
 
-//Item & Block Models
-//GroovysonModel does not utilise IBakedModel, it reads .jsons directly from a GroovysonObject and GroovysonObjectPart
 class GroovysonModel extends GroovysonObject {
 
     private String resourceObject;
+    private GroovysonObjectCache groovysonObjectCache;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
@@ -33,13 +31,26 @@ class GroovysonModel extends GroovysonObject {
         setRawModel(resourceObject, fileName);
     }
 
+    GroovysonModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+        setRawModel(resourceDirectory, modID, resourceObject, fileName);
+    }
+
     private void setRawModel(String resourceObject, String fileName) {
         setResourceObject(resourceObject);
         setJsonObject(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
     }
 
+    private void setRawModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+        setResourceObject(resourceObject);
+        setJsonObject(resourceDirectory, modID, "models", resourceObject, fileName);
+    }
+
     private void setResourceObject(String resourceObject) {
         this.resourceObject = resourceObject;
+    }
+
+    String getResourceObject() {
+        return resourceObject
     }
 
     //Texture Name & Location
@@ -61,6 +72,9 @@ class GroovysonModel extends GroovysonObject {
 
     void setRawModelParts(String partName) {
         groovysonObjectParts.add(new GroovysonObjectPart(this, partName));
+        for(GroovysonObjectPart part : groovysonObjectParts) {
+            setObjectCache(part);
+        }
     }
 
     //Returns all Model Elements in .json if applicable
@@ -73,14 +87,20 @@ class GroovysonModel extends GroovysonObject {
         return groovysonObjectParts.get(index)
     }
 
-    //Returns All BlockRenderLayer types and all the faces for a given Model Part
-    String getRawModelPartRenderLayerTypes(int index, String renderLayer) {
-        getRawModelPart(index).BlockRenderType(renderLayer)
-        return getRawModelPart(index).BlockRenderType(renderLayer);
+    private void setObjectCache(GroovysonObjectPart partName) {
+        groovysonObjectCache = new GroovysonObjectCache(this, partName);
     }
 
-    //Returns a BlockRenderLayer type and the faces it applies too
-    ArrayList<String> getRawModelPartRenderLayerOfFaces(int index, String renderLayer) {
-        return getRawModelPart(index).BlockRenderTypeFace(renderLayer);
+    GroovysonObjectCache getObjectCache() {
+        return groovysonObjectCache;
+    }
+
+    //Get Element variables at index by face name
+    HashMap<String, EnumFacing> FaceMap(int index) {
+        HashMap<String, EnumFacing> arrMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
+        }
+        return arrMap;
     }
 }

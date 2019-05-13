@@ -47,13 +47,13 @@ trait ItemBlockTraits {
         return i;
     }
 
-    String getUnlocalizedNameFromItemBlockTrait(ItemStack itemstack) {
+    String getTranslationKeyFromItemBlockTrait(ItemStack itemstack) {
         Block block = getBlockFromItemBlockTrait();
         if (block instanceof IBlockMeta) {
             IBlockMeta blockMeta = (IBlockMeta) block;
             int meta = itemstack.getMetadata();
-            return block.getUnlocalizedName() + "." + blockMeta.getNameFromMeta(meta);
+            return block.getTranslationKey() + "." + blockMeta.getNameFromMeta(meta);
         }
-        return block.getUnlocalizedName();
+        return block.getTranslationKey();
     }
 }

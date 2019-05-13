@@ -22,7 +22,6 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.fml.client.registry.ClientRegistry
 
-
 import javax.annotation.Nullable
 
 trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesTESR<T> {
@@ -53,12 +52,12 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     void registerTileEntity() {
         super.registerTileEntity();
         Block block = this.getBlock();
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
+        if(FMLCommonHandler.instance().getSide() == Dist.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
-            Item item = Item.getItemFromBlock(block);
-            if (item != Items.AIR) {
+            Item item = Item.BLOCK_TO_ITEM.get(block);
+            if(item != Items.AIR) {
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                TEISR.renderByItem(new ItemStack(item, 1));
+                TEISR.renderByItem(new ItemStack(item));
             }
         }
     }
@@ -67,12 +66,12 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     void registerTileEntity(String modID) {
         super.registerTileEntity(modID);
         Block block = this.getBlock();
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT && renderer != null && block != null) {
+        if(FMLCommonHandler.instance().getSide() == Dist.CLIENT && renderer != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), renderer);
-            Item item = Item.getItemFromBlock(block);
+            Item item = Item.BLOCK_TO_ITEM.get(block);
             if (item != Items.AIR) {
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                TEISR.renderByItem(new ItemStack(item, 1));
+                TEISR.renderByItem(new ItemStack(item));
             }
         }
     }

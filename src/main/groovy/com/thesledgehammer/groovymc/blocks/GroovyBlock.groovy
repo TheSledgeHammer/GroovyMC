@@ -19,7 +19,6 @@ package com.thesledgehammer.groovymc.blocks
 import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
 import net.minecraft.block.Block
-import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.api.distmarker.Dist
@@ -28,9 +27,9 @@ import net.minecraftforge.client.model.ModelLoader
 
 class GroovyBlock extends Block implements BlockTraits, IInitModel {
 
-    GroovyBlock(Material blockMaterialIn) {
-        super(blockMaterialIn);
-        setHardness(1.5F);
+    GroovyBlock(Properties properties) {
+        super(properties);
+        properties.hardnessAndResistance(1.5F);
     }
 
     @Override

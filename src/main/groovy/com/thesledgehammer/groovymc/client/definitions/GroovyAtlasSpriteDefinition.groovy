@@ -7,14 +7,26 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.utils.GroovyLoader
+import com.thesledgehammer.groovymc.api.GroovyLoader
+import net.minecraft.client.renderer.texture.PngSizeInfo
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.resources.data.AnimationMetadataSection
 import net.minecraft.util.ResourceLocation
 
-class GroovyAtlasSpriteDefinition extends TextureAtlasSprite {
+import javax.annotation.Nullable
 
+class GroovyAtlasSpriteDefinition extends TextureAtlasSprite {
+/*
     protected GroovyAtlasSpriteDefinition(String spriteName) {
         super(spriteName);
+    }*/
+
+    protected GroovyAtlasSpriteDefinition(ResourceLocation locationIn, int widthIn, int heightIn) {
+        super(locationIn, widthIn, heightIn)
+    }
+
+    protected GroovyAtlasSpriteDefinition(ResourceLocation locationIn, PngSizeInfo sizeIn, @Nullable AnimationMetadataSection animationMetadataIn) {
+        super(locationIn, sizeIn, animationMetadataIn)
     }
 
     static TextureAtlasSprite createForConfig(ResourceLocation baseName) {

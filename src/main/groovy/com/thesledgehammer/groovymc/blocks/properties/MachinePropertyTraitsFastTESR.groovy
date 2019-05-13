@@ -60,12 +60,12 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     void registerTileEntity() {
         super.registerTileEntity();
         Block block = this.getBlock();
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
+        if(FMLCommonHandler.instance().getSide() == Dist.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
-            Item item = Item.getItemFromBlock(block);
+            Item item = Item.BLOCK_TO_ITEM.get(block);
             if (item != Items.AIR) {
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                TEISR.renderByItem(new ItemStack(item, 1));
+                TEISR.renderByItem(new ItemStack(item));
             }
         }
     }
@@ -76,10 +76,10 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
         Block block = this.getBlock();
         if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
-            Item item = Item.getItemFromBlock(block);
+            Item item = Item.BLOCK_TO_ITEM.get(block);
             if (item != Items.AIR) {
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
-                TEISR.renderByItem(new ItemStack(item, 1));
+                TEISR.renderByItem(new ItemStack(item));
             }
         }
     }

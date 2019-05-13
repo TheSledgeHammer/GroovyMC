@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.items.traits
 
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 
 trait ItemTraits {
 
