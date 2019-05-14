@@ -16,9 +16,11 @@
 
 package com.thesledgehammer.groovymc.gui.container
 
+import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.ClickType
+import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack

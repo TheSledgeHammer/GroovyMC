@@ -1,0 +1,9 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/groovymc-library",
+  "1.13.2": {
+    "2.0.0": "Changelog: https://github.com/TheSledgeHammer/GroovyMC/blob/1.13.2/changelog1.13.md"
+  },
+  "promos": {
+    "1.13.2-latest": "2.0.0"
+  }
+}

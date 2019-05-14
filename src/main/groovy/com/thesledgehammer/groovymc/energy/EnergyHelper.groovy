@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package com.thesledgehammer.groovymc.energy
-
+/*
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.energy.CapabilityEnergy
@@ -71,3 +71,4 @@ class EnergyHelper {
         return 0;
     }
 }
+*/

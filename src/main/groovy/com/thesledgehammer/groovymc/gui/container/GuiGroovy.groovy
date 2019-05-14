@@ -46,13 +46,14 @@ class GuiGroovy<C extends Container> extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		guiBackground.draw(guiLeft, guiTop,  xSize, ySize);
 	}
-
+/*
 	@Override
 	void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		super.renderHoveredToolTip(mouseX, mouseY);
 	}
+	*/
 
 	void setXSize(int xSize) {
 		this.xSize = xSize;

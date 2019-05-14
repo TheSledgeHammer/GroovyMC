@@ -14,11 +14,11 @@ import net.minecraft.util.ResourceLocation
 class SpriteTools {
 
     static void BindTexture(String identifier) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(identifier));
+        Minecraft.instance.textureManager.bindTexture(new ResourceLocation(identifier));
     }
 
     static void BindTexture(ResourceLocation identifier) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(identifier);
+        Minecraft.instance.textureManager.bindTexture(identifier);
         TextureMap.LOCATION_BLOCKS_TEXTURE
     }
 

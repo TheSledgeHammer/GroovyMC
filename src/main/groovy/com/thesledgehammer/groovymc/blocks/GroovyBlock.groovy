@@ -19,13 +19,19 @@ package com.thesledgehammer.groovymc.blocks
 import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
 import net.minecraft.block.Block
+import net.minecraft.block.material.Material
+import net.minecraft.block.state.BlockState
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.model.ModelResourceLocation
 import net.minecraft.item.Item
+import net.minecraft.state.StateContainer
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.ModelLoader
 
 class GroovyBlock extends Block implements BlockTraits, IInitModel {
+
+    protected StateContainer.Builder<Block, IBlockState> builder = new StateContainer.Builder<>(this);
 
     GroovyBlock(Properties properties) {
         super(properties);
@@ -35,6 +41,6 @@ class GroovyBlock extends Block implements BlockTraits, IInitModel {
     @Override
     @OnlyIn(Dist.CLIENT)
     void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 }

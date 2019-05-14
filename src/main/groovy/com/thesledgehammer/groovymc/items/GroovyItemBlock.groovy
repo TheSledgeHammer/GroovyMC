@@ -18,18 +18,19 @@ package com.thesledgehammer.groovymc.items
 
 import com.thesledgehammer.groovymc.items.traits.ItemBlockTraits
 import net.minecraft.block.Block
+import net.minecraft.item.BlockItemUseContext
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 
 class GroovyItemBlock<B extends Block> extends ItemBlock implements ItemBlockTraits {
 
-    GroovyItemBlock(Block blockIn, Properties builder) {
-        super(blockIn, builder);
+    GroovyItemBlock(Block block, Properties builder) {
+        super(block, builder);
         setBlock(block);
         setItemBlock(this);
         builder.defaultMaxDamage(0);
     }
-
+/*
     @Override
     B getBlock() {
         return (B) getBlockFromItemBlockTrait();
@@ -39,7 +40,7 @@ class GroovyItemBlock<B extends Block> extends ItemBlock implements ItemBlockTra
     int getMetadata(int i) {
         return getMetadataFromItemBlockTrait(i);
     }
-
+*/
     @Override
     String getTranslationKey(ItemStack itemstack) {
         return getTranslationKeyFromItemBlockTrait(itemstack);

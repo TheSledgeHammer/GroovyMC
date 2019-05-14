@@ -19,9 +19,9 @@ package com.thesledgehammer.groovymc.client.render
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.client.model.animation.TileEntityRendererFast
 
-abstract class GroovyTileEntityRenderFast<T extends TileEntity> extends TileEntityRendererFast<T> {
+abstract class GroovyTileEntityRendererFast<T extends TileEntity> extends TileEntityRendererFast<T> {
 
-    GroovyTileEntityRenderFast() {
+    GroovyTileEntityRendererFast() {
 
     }
 }

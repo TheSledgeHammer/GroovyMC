@@ -22,11 +22,15 @@ import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.text.ITextComponent
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import net.minecraftforge.items.wrapper.SidedInvWrapper
+
+import javax.annotation.Nonnull
 
 class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits {
 
@@ -38,30 +42,47 @@ class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits 
         setTileEntity(this);
         setIInventory(new InventoryAdaptor());
     }
-
+/*
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return true;
         }
         return super.hasCapability(capability, facing);
+    }*/
+
+    @Override
+    <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            for(EnumFacing facing : EnumFacing.values()) {
+                if (facing == null) {
+                    if (itemHandler == null) {
+                        itemHandler = new InvWrapper((IInventory) this);
+                    }
+                    return (T) itemHandler as LazyOptional<T>;
+                } else {
+                    if (itemHandlerSided == null) {
+                        itemHandlerSided = new SidedInvWrapper((ISidedInventory) this, facing);
+                    }
+                    return (T) itemHandlerSided as LazyOptional<T>;
+                }
+            }
+        }
+        return super.getCapability(capability)
     }
 
     @Override
-    <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (facing == null) {
-                if(itemHandler == null) {
-                    itemHandler = new InvWrapper((IInventory) this);
-                }
-                return (T) itemHandler;
-            } else {
-                if(itemHandlerSided == null) {
-                    itemHandlerSided = new SidedInvWrapper((ISidedInventory) this, facing);
-                }
-                return (T) itemHandlerSided;
-            }
-        }
-        return super.getCapability(capability, facing);
+    ITextComponent getName() {
+        return this.getName()
+    }
+
+    @Override
+    ITextComponent getDisplayName() {
+        return this.getDisplayName()
+    }
+
+    @Override
+    ITextComponent getCustomName() {
+        return this.getCustomName();
     }
 }

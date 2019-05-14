@@ -11,24 +11,25 @@
  *********************************************************************************/
 
 package com.thesledgehammer.groovymc.utils
-
+/*
 import com.google.common.collect.Maps
 import com.thesledgehammer.groovymc.blocks.GroovyBlockTileAdvanced
 import com.thesledgehammer.groovymc.blocks.GroovyBlockTileBasic
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import net.minecraft.block.Block
-import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.block.statemap.IStateMapper
+import net.minecraft.client.renderer.statemap.IStateMapper
+import net.minecraft.client.renderer.model.ModelResourceLocation
+import net.minecraft.state.IProperty
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
 
     private final T type;
@@ -50,9 +51,9 @@ class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializa
                   state = block.getDefaultState().withProperty(GroovyBlockTileBasic.FACING, facing);
                 }
                 if(block instanceof GroovyBlockTileAdvanced) {
-                  state = block.getDefaultState().withProperty(GroovyBlockTileAdvanced.FACING, facing);
+                  state = block.getDefaultState().has(GroovyBlockTileAdvanced.FACING, facing);
                 }
-                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(state.getProperties());
+                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(state);
                 ResourceLocation blockLocation = Block.REGISTRY.getNameForObject(block);
                 String s = String.format("%s:%s", blockLocation.getResourceDomain(), blockLocation.getResourcePath());
                 mapStateModelLocations.put(state, new ModelResourceLocation(s, getPropertyString(linkedhashmap)));
@@ -61,3 +62,4 @@ class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializa
         return this.mapStateModelLocations;
     }
 }
+*/

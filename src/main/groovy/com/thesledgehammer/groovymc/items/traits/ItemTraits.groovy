@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.items.traits
 
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.oredict.OreDictionary
 
 trait ItemTraits {
 
@@ -32,7 +31,8 @@ trait ItemTraits {
         return item;
     }
 
+    //TODO: No OreDictionary WildCard
     ItemStack getWildcard() {
-        return new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
+        return new ItemStack(item);
     }
 }

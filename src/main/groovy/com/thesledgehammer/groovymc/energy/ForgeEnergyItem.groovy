@@ -20,21 +20,28 @@ import com.thesledgehammer.groovymc.items.GroovyItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
+
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityProvider {
 
     private ItemStack container;
     protected ForgeEnergy FE;
 
-    ForgeEnergyItem(ItemStack container, int capacity, int maxTransfer) {
+    ForgeEnergyItem(Properties properties, ItemStack container, int capacity, int maxTransfer) {
+        super(properties);
         setItemContainer(container);
         FE = new ForgeEnergy(capacity, maxTransfer);
     }
 
-    ForgeEnergyItem(int capacity, int maxTransfer) {
+    ForgeEnergyItem(Properties properties, int capacity, int maxTransfer) {
+        super(properties);
         setItemContainer(container);
         FE = new ForgeEnergy(capacity, maxTransfer);
     }
@@ -96,7 +103,7 @@ class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityP
         }
         return false
     }
-
+/*
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if(capability == CapabilityEnergy.ENERGY) {
@@ -111,5 +118,15 @@ class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityP
             return CapabilityEnergy.ENERGY.cast(this);
         }
         return null;
+    }*/
+
+    @Override
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+        return null
+    }
+
+    @Override
+    <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        return getCapability(cap) as LazyOptional<T>;
     }
 }

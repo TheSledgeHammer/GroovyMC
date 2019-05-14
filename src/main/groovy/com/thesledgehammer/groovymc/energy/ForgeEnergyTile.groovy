@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.energy
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
@@ -28,14 +29,16 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
     protected ForgeEnergy fe;
     private int energy;
-    private String tileName; //Needed For Tile NBT Only
+    private String tileName;//Needed For Tile NBT Only
 
-    ForgeEnergyTile(String tileName, int capacity, int maxTransfer) {
+    ForgeEnergyTile(TileEntityType<?> tileEntityTypeIn, String tileName, int capacity, int maxTransfer) {
+        super(tileEntityTypeIn)
         fe = new ForgeEnergy(capacity, maxTransfer);
         this.tileName = tileName;
     }
 
-    ForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract) {
+    ForgeEnergyTile(TileEntityType<?> tileEntityTypeIn, String tileName, int capacity, int maxReceive, int maxExtract) {
+        super(tileEntityTypeIn)
         fe = new ForgeEnergy(capacity, maxReceive, maxExtract);
         this.tileName = tileName;
     }
@@ -71,24 +74,24 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     }
 
     @Override
-    void readFromNBT(NBTTagCompound tagCompound) {
-        super.readFromNBT(tagCompound);
+    void read(NBTTagCompound tagCompound) {
+        super.read(tagCompound);
         if (tagCompound.hasKey(tileName)) {
-            energy = tagCompound.getCompoundTag(tileName).getInteger("energy");
+            energy = tagCompound.getCompound(tileName).getInt("energy");
         }
     }
 
     @Override
-    NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
-        super.writeToNBT(tagCompound);
+    NBTTagCompound write(NBTTagCompound tagCompound) {
+        super.write(tagCompound);
         if (energy > 0) {
             NBTTagCompound data = new NBTTagCompound();
-            data.setInteger("energy", getEnergyStored());
+            data.setInt("energy", getEnergyStored());
             tagCompound.setTag(tileName, data);
         }
         return tagCompound;
     }
-
+/*
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if(capability == CapabilityEnergy.ENERGY) {
@@ -103,5 +106,5 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
             return CapabilityEnergy.ENERGY.cast(this);
         }
         return super.getCapability(capability, facing);
-    }
+    }*/
 }

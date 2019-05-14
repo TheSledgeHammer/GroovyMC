@@ -15,7 +15,7 @@
  */
 
 package com.thesledgehammer.groovymc.utils
-
+/*
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -121,3 +121,4 @@ class ObjectManager {
 		}
 	}
 }
+*/

@@ -52,18 +52,18 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     boolean isFullCube(IBlockState state);
 
-    AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state);
+    //AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state);
 
-    @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);
+    //@Nullable
+    //RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);
 
     @Override
     @OnlyIn(Dist.CLIENT)
     void initModel();
 
-    void registerTileEntity();
+    //void registerTileEntity();
 
-    void registerTileEntity(String modID);
+    //void registerTileEntity(String modID);
 
     TileEntity CreateTileEntity();
 }

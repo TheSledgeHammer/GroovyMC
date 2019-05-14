@@ -31,7 +31,7 @@ abstract class ContainerGroovy extends Container {
 		// Player inventory
 		for(int row = 0; row < 3; row++) {
 			for(int column = 0; column < 9; column++) {
-				addSlotToContainer(new Slot(playerInventory, column + row * 9 + 9, xInv + column * 18, yInv + row * 18));
+				addSlot(new Slot(playerInventory, column + row * 9 + 9, xInv + column * 18, yInv + row * 18));
 			}
 		}
 		// Player hotbar
@@ -41,12 +41,12 @@ abstract class ContainerGroovy extends Container {
 	}
 	
 	protected void addHotbarSlot(InventoryPlayer playerInventory, int slot, int x, int y) {
-		addSlotToContainer(new Slot(playerInventory, slot, x, y));
+		addSlot(new Slot(playerInventory, slot, x, y));
 	}
 
 	@Override
-	Slot addSlotToContainer(Slot slot) {
-		return super.addSlotToContainer(slot);
+	Slot addSlot(Slot slot) {
+		return super.addSlot(slot);
 	}
 
 	@Override

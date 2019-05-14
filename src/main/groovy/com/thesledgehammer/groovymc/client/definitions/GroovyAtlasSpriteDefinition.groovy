@@ -40,6 +40,7 @@ class GroovyAtlasSpriteDefinition extends TextureAtlasSprite {
 
     static TextureAtlasSprite createForConfig(String baseName) {
         ResourceLocation resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), baseName);
+
         return makeAtlasSprite(resourceLocation);
     }
 }

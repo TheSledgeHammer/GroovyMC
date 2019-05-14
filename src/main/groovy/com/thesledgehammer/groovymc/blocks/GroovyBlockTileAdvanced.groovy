@@ -22,8 +22,13 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
+import net.minecraft.block.Block
 import net.minecraft.block.ITileEntityProvider
+import net.minecraft.block.state.BlockState
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.BlockItemUseContext
+import net.minecraft.state.StateContainer
+import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
@@ -32,26 +37,25 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraft.world.chunk.BlockStateContainer
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.ModelLoader
 
+import javax.annotation.Nonnull
 import javax.annotation.Nullable
 //To Improve: registerTileEntity
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
     private final boolean hasTESR;
     private final boolean hasFastTESR;
-    private final Properties properties;
 
     final P blockType
 
     GroovyBlockTileAdvanced(P blockType, Properties properties) {
         super(properties);
-        this.properties = properties;
-
 
         this.blockType = blockType;
         blockType.getGroovyMachineProperties().setBlock(this);
@@ -59,17 +63,12 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         this.hasTESR = blockType instanceof IBlockTypeTESR;
         this.hasFastTESR = blockType instanceof IBlockTypeFastTESR;
         properties.lightValue(!hasFastTESR && !hasTESR ? 255 : 0);
-
-        this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(getStateContainer().getBaseState().with(BlockStateProperties.FACING, EnumFacing.NORTH));
     }
 
     GroovyBlockTileAdvanced(P blockType) {
-        super(getProperties());
+        super();
         this.blockType = blockType;
-    }
-
-    private Properties getProperties() {
-        return properties;
     }
 
     private MachinePropertyTraits getDefinition() {
@@ -77,7 +76,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     @Override
-    boolean isOpaqueCube(IBlockState state) {
+    boolean isVariableOpacity() {
         return !hasFastTESR && !hasTESR;
     }
 
@@ -107,27 +106,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     @Override
-    boolean getUseNeighborBrightness(IBlockState state) {
-        return hasFastTESR || hasTESR;
-    }
-
-    @Override
-    int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-
-    @Override
-    IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
-    }
-
-    @Override
-    BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
-
-    @Override
-    TileEntity createNewTileEntity(World worldIn, int meta) {
+    TileEntity createNewTileEntity(IBlockReader worldIn) {
         return getDefinition().CreateTileEntity();
     }
 
@@ -136,16 +115,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     void initModel() {
         blockType.getGroovyMachineProperties().initModel();
     }
-
-    void registerAdvancedTileEntity() {
-        blockType.getGroovyMachineProperties().registerTileEntity();
-        registerStateMapper();
-    }
-
-    void registerStateMapper() {
-        ModelLoader.setCustomStateMapper(this, new GroovyMachineStateMapper<>(blockType));
-    }
-
+//VoxelShape: Relates to boundingboxes
+/*
     @Nullable
     @Override
     AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
@@ -166,4 +137,5 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         MachinePropertyTraits definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
     }
+    */
 }

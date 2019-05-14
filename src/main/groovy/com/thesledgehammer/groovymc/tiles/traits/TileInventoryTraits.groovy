@@ -141,9 +141,11 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
         return inventoryAdapter.hasCustomName();
     }
 
+    //Todo: Fix getName()
+    /*
     @Override
     String getName() {
         String blockUnlocalizedName = tileEntity.getBlockState().getBlock().getTranslationKey();
         return blockUnlocalizedName + '.' + tileEntity.getBlockMetadata() + ".name";
-    }
+    }*/
 }

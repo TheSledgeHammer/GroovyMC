@@ -78,7 +78,7 @@ abstract class AbstractGui {
         TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
         textureManager.bindTexture(textureLocation);
 
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         Gui.drawScaledCustomSizeModalRect(xOffset, yOffset, u, v, uWidth, vHeight, width, height, textureWidth, textureHeight);
     }
 

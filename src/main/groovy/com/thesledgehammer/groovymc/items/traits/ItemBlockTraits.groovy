@@ -30,15 +30,15 @@ trait ItemBlockTraits {
     void setItemBlock(ItemBlock itemBlock) {
         this.itemBlock = itemBlock;
     }
-
+/*
     ItemBlock getItemBlockFromItemBlockTrait() {
         return itemBlock;
     }
-
+*/
     void setBlock(Block block) {
         this.block = block;
     }
-
+/*
     Block getBlockFromItemBlockTrait() {
         return block;
     }
@@ -46,12 +46,13 @@ trait ItemBlockTraits {
     int getMetadataFromItemBlockTrait(int i) {
         return i;
     }
+    */
 
     String getTranslationKeyFromItemBlockTrait(ItemStack itemstack) {
-        Block block = getBlockFromItemBlockTrait();
+        Block block = this.block;
         if (block instanceof IBlockMeta) {
             IBlockMeta blockMeta = (IBlockMeta) block;
-            int meta = itemstack.getMetadata();
+            int meta = itemstack.getItem().getTranslationKey(itemstack)
             return block.getTranslationKey() + "." + blockMeta.getNameFromMeta(meta);
         }
         return block.getTranslationKey();

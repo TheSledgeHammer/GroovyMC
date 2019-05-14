@@ -19,26 +19,26 @@ package com.thesledgehammer.groovymc.blocks.traits
 import com.thesledgehammer.groovymc.blocks.properties.IBlockRotation
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
-import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.state.EnumProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.NonNullList
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 
-trait BlockTileTraits implements IBlockRotation {
+trait BlockTileTraits extends BlockTraits implements IBlockRotation {
 
-    static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
+    static final EnumProperty<EnumFacing> FACING = EnumProperty.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
 
+    //TODO: Find equivalent method or replace
     void breakBlock(World world, BlockPos pos, IBlockState state) {
         if (world.isRemote) {
             return;
@@ -60,7 +60,7 @@ trait BlockTileTraits implements IBlockRotation {
     void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
         IBlockState state = world.getBlockState(pos);
         EnumFacing facing = getPlacementRotation(player, world, pos, side);
-        world.setBlockState(pos, state.withProperty(FACING, facing));
+        world.setBlockState(pos, state.with(FACING, facing));
     }
 
     EnumFacing getPlacementRotation(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
@@ -78,21 +78,21 @@ trait BlockTileTraits implements IBlockRotation {
     }
 
     IBlockState withRotation(IBlockState state, Rotation rot) {
-        EnumFacing facing = state.getValue(FACING);
-        return state.withProperty(FACING, rot.rotate(facing));
+        EnumFacing facing = state.get(FACING);
+        return state.with(FACING, rot.rotate(facing));
     }
 
     //TODO: Incomplete
-    void getDrops(NonNullList<ItemStack> result, IBlockAccess world, BlockPos pos, IBlockState metadata, int fortune) {
+    void getDrops(NonNullList<ItemStack> drops, World world, BlockPos pos, IBlockState metadata, int fortune) {
         TileEntity tile = world.getTileEntity(pos);
         if(tile instanceof GroovyTileBasic) {
             GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
-            ItemStack stack = new ItemStack(Item.getItemFromBlock(tile.getBlockType()));
+            ItemStack stack = new ItemStack(Item.BLOCK_TO_ITEM.get(tile.getBlockState().getBlock()));
             NBTTagCompound nbt = new NBTTagCompound();
-            groovyTile.writeToNBT(nbt);
-            stack.setTagCompound(nbt);
+            groovyTile.write(nbt);
+            stack.setTag(nbt);
             groovyTile.addDrops(drops, fortune);
         }
-        super.getDrops(result, world, pos, metadata, fortune);
+        super.getDrops(drops, world, pos, metadata, fortune);
     }
 }

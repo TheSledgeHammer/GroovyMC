@@ -16,22 +16,30 @@
 
 package com.thesledgehammer.groovymc.blocks.traits
 
+import net.minecraft.block.Block
+import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
+import net.minecraft.world.IWorldReader
 import net.minecraft.world.World
+
+import javax.annotation.Nullable
 
 trait BlockTraits {
 
-    void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
+    void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, @Nullable EntityLivingBase placer, ItemStack stack) {
         if (world.isRemote) {
             return;
         }
     }
 
-    void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbour) {
-        super.onNeighborChange(world, pos, neighbour);
+    void onNeighborChange(IWorldReader world, BlockPos pos, BlockPos neighbor) {
+        super.onNeighborChange(world, pos, neighbor);
+    }
+
+    Block.Properties setMaterial(Material material) {
+        return Block.Properties.create(material);
     }
 }

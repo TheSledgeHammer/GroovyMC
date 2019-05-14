@@ -1,5 +1,10 @@
-# GroovyMC:
-A Minecraft Mod Library created using the Apache Groovy programming language.
+<p align="center" style="padding: 3em;"><img width="150" src="https://github.com/TheSledgeHammer/GroovyMC/blob/master/src/main/resources/assets/groovymc/textures/groovymclogo.png?raw=true" /></p>
+<h1 align="center" style="margin-top: 20px; border-bottom: 0;">GroovyMC Library</h1>
+<p align="center">A Minecraft Mod Library created using the Apache Groovy programming language.</p>
+<p align="center">
+    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/full_312384_downloads.svg" /></a>
+    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/packs/full_312384_in_packs.svg" /></a>
+</p>
 
 A mod library used in my other mods both existing and upcoming.
 
@@ -15,7 +20,6 @@ To use GroovyMC's Language Adapter add the following to @Mod in your main class
 class modclass {
     //Your mod class info
 }
-
 ```
 
 Please initialize the "GroovyLoader" in your main class or common proxy class.
