@@ -95,8 +95,14 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
         return true;
     }
 
-    AxisAlignedBB createBoundingBox(Vec3d startVec, Vec3d endVec) {
-        return new AxisAlignedBB(startVec, endVec);;
+    @Override
+    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec) {
+        return new AxisAlignedBB(startVec, endVec);
+    }
+
+    @Override
+    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos) {
+        return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX(), maxPos.getY(), maxPos.getZ());
     }
 /*
     @Override

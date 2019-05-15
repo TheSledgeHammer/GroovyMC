@@ -12,22 +12,37 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Based from Forestry's IMachinePropertiesTesr
  */
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.animation.TileEntityRendererFast
+import net.minecraftforge.client.model.animation.TileEntityRendererAnimation
 
-interface IMachinePropertiesFastTESR<T extends GroovyTileBasic> extends IMachineProperties<T> {
+import javax.annotation.Nullable
 
-    void setParticleTextureLocation(String particleTextureLocation);
+trait MachinePropertyTraitsTERAnimation<T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesTERAnimation<T> {
 
-    String getParticleTextureLocation();
+    private String particleTextureLocation;
 
+    @Nullable
     @OnlyIn(Dist.CLIENT)
-    void setRenderer(TileEntityRendererFast<? super T> rendererFast)
+    private TileEntityRendererAnimation<? super T> rendererAnimation;
+
+    @Override
+    void setParticleTextureLocation(String particleTextureLocation) {
+        this.particleTextureLocation = particleTextureLocation;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    void setRenderer(TileEntityRendererAnimation< ? super T > rendererAnimation) {
+        this.rendererAnimation = rendererAnimation;
+    }
+
+    @Override
+    String getParticleTextureLocation() {
+        return particleTextureLocation;
+    }
 }

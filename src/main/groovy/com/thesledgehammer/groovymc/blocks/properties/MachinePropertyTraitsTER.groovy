@@ -24,7 +24,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry
 
 import javax.annotation.Nullable
 
-trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesTESR<T> {
+trait MachinePropertyTraitsTER<T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesTER<T> {
 
     private String particleTextureLocation;
 
@@ -47,7 +47,7 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
     String getParticleTextureLocation() {
         return particleTextureLocation;
     }
-
+/*
     @Override
     void registerTileEntity() {
         super.registerTileEntity();
@@ -75,4 +75,6 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
             }
         }
     }
+
+ */
 }

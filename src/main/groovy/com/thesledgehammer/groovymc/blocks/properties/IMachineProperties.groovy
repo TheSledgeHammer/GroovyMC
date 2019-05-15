@@ -52,7 +52,9 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     boolean isFullCube(IBlockState state);
 
-    //AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state);
+    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec);
+
+    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos);
 
     //@Nullable
     //RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);

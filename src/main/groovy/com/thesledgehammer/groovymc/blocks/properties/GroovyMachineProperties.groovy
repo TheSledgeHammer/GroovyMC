@@ -31,46 +31,69 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
         setAxisAlignedBB(boundingBox);
     }
 
-    static class WithTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTESR<T> {
+    static class WithTER<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTER<T> {
 
-        WithTESR(Class<T> teClass, String name, String particleTextureLocation) {
+        WithTER(Class<T> teClass, String name, String particleTextureLocation) {
             this(teClass, name, particleTextureLocation, true);
         }
 
-        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
+        WithTER(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
             this(teClass, name, boundingBox, particleTextureLocation, true);
         }
 
-        WithTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
+        WithTER(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
             super(teClass, name);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
 
-        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
+        WithTER(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
             super(teClass, name, boundingBox);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
     }
 
-    static class WithFastTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsFastTESR<T> {
+    static class WithTERFast<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTERFast<T> {
 
-        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation) {
+        WithTERFast(Class<T> teClass, String name, String particleTextureLocation) {
             this(teClass, name, particleTextureLocation, true);
         }
 
-        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
+        WithTERFast(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
             this(teClass, name, boundingBox, particleTextureLocation, true);
         }
 
-        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
+        WithTERFast(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
             super(teClass, name);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
 
-        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
+        WithTERFast(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name, boundingBox);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
+    }
+
+    static class WithTERAnimation<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTERAnimation<T> {
+
+        WithTERAnimation(Class<T> teClass, String name, String particleTextureLocation) {
+            this(teClass, name, particleTextureLocation, true);
+        }
+
+        WithTERAnimation(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
+            this(teClass, name, boundingBox, particleTextureLocation, true);
+        }
+
+        WithTERAnimation(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
+            super(teClass, name);
+            setParticleTextureLocation(particleTextureLocation);
+            setIsFullCube(isFullCube);
+        }
+
+        WithTERAnimation(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
             super(teClass, name, boundingBox);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);

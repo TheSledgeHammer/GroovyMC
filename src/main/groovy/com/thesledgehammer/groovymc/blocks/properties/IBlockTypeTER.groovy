@@ -13,16 +13,9 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
 
-interface IMachinePropertiesTESR<T extends GroovyTileBasic> extends IMachineProperties<T> {
+interface IBlockTypeTER extends IBlockType {
 
-    void setParticleTextureLocation(String particleTextureLocation);
-
-    String getParticleTextureLocation();
-
-    @OnlyIn(Dist.CLIENT)
-    void setRenderer(TileEntityRenderer<? super T> renderer);
+    @Override
+    MachinePropertyTraits getGroovyMachineProperties();
 }

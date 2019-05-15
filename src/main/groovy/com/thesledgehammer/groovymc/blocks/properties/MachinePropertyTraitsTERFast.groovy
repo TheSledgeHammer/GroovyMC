@@ -16,23 +16,13 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import net.minecraft.block.Block
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
-import net.minecraft.init.Items
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.animation.FastTESR
 import net.minecraftforge.client.model.animation.TileEntityRendererFast
-import net.minecraftforge.fml.client.registry.ClientRegistry
-import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 
-trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesFastTESR<T> {
+trait MachinePropertyTraitsTERFast<T extends GroovyTileBasic> extends MachinePropertyTraits<T> implements IMachinePropertiesTERFast<T> {
 
     private String particleTextureLocation;
 
@@ -55,7 +45,7 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
     String getParticleTextureLocation() {
         return particleTextureLocation;
     }
-
+/*
     @Override
     void registerTileEntity() {
         super.registerTileEntity();
@@ -83,4 +73,5 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
             }
         }
     }
+ */
 }

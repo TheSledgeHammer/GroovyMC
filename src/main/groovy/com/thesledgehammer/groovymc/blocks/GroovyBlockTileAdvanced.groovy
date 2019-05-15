@@ -17,17 +17,12 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
-import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
-import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERFast
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
-import net.minecraft.block.Block
 import net.minecraft.block.ITileEntityProvider
-import net.minecraft.block.state.BlockState
 import net.minecraft.block.state.IBlockState
-import net.minecraft.item.BlockItemUseContext
-import net.minecraft.state.StateContainer
 import net.minecraft.state.properties.BlockStateProperties
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
@@ -35,22 +30,16 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
-import net.minecraft.world.World
-import net.minecraft.world.chunk.BlockStateContainer
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.ModelLoader
 
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
-//To Improve: registerTileEntity
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
-    private final boolean hasTESR;
-    private final boolean hasFastTESR;
+    private boolean hasTER;
+    private boolean hasTERFast;
 
     final P blockType
 
@@ -60,9 +49,9 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         this.blockType = blockType;
         blockType.getGroovyMachineProperties().setBlock(this);
 
-        this.hasTESR = blockType instanceof IBlockTypeTESR;
-        this.hasFastTESR = blockType instanceof IBlockTypeFastTESR;
-        properties.lightValue(!hasFastTESR && !hasTESR ? 255 : 0);
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
+        properties.lightValue(!hasTERFast && !hasTER ? 255 : 0);
         this.setDefaultState(getStateContainer().getBaseState().with(BlockStateProperties.FACING, EnumFacing.NORTH));
     }
 
@@ -77,12 +66,12 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     @Override
     boolean isVariableOpacity() {
-        return !hasFastTESR && !hasTESR;
+        return !hasTERFast && !hasTER;
     }
 
     @Override
     boolean isNormalCube(IBlockState state) {
-        return !hasFastTESR && !hasTESR;
+        return !hasTERFast && !hasTER;
     }
 
     @Override
@@ -98,7 +87,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     @Override
     EnumBlockRenderType getRenderType(IBlockState state) {
-        if(hasFastTESR || hasTESR) {
+        if(hasTERFast || hasTER) {
             return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
         } else {
             return EnumBlockRenderType.MODEL;
@@ -114,7 +103,21 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     @Override
     void initModel() {
         blockType.getGroovyMachineProperties().initModel();
+        VoxelShape
     }
+
+    @OnlyIn(Dist.CLIENT)
+    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec) {
+        MachinePropertyTraits definition = getDefinition();
+        return definition.getBoundingBox(startVec, endVec);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos) {
+        MachinePropertyTraits definition = getDefinition();
+        return definition.getBoundingBox(minPos, maxPos);
+    }
+
 //VoxelShape: Relates to boundingboxes
 /*
     @Nullable
