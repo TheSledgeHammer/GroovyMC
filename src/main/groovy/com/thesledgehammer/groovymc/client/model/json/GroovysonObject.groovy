@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
+import com.thesledgehammer.groovymc.api.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.Log
 
 class GroovysonObject {

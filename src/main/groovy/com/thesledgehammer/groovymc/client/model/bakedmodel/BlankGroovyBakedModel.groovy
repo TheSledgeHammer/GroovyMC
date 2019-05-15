@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.model
+package com.thesledgehammer.groovymc.client.model.bakedmodel
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -27,13 +27,13 @@ import net.minecraft.util.EnumFacing
 
 import javax.annotation.Nullable
 
-class BlankGroovyModel implements IBakedModel {
+class BlankGroovyBakedModel implements IBakedModel {
 	
 	private final List<BakedQuad> quads;
 	@Nullable
 	protected ItemOverrideList overrideList;
 
-	BlankGroovyModel(List<BakedQuad> quads) {
+    BlankGroovyBakedModel(List<BakedQuad> quads) {
 		this.quads = quads;
 	}
 	

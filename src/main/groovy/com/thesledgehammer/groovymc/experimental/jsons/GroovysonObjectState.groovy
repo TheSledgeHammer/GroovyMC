@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.experimental.jsons
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonReader
+import com.thesledgehammer.groovymc.api.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.Log
 
 //Work In Progress

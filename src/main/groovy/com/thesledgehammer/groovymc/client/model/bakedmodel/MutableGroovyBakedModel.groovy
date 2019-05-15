@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.model
+package com.thesledgehammer.groovymc.client.model.bakedmodel
 
 import com.google.common.collect.ImmutableList
+import com.thesledgehammer.groovymc.client.model.MutableQuad
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel
@@ -24,12 +25,12 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
-class MutableGroovyModel implements IBakedModel {
+class MutableGroovyBakedModel implements IBakedModel {
 	
 	private final List<BakedQuad> quads;
-	private BlankGroovyModel model;
-	
-	MutableGroovyModel(MutableQuad[]... quads) {
+	private BlankGroovyBakedModel model;
+
+	MutableGroovyBakedModel(MutableQuad[]... quads) {
 		ImmutableList.Builder<BakedQuad> list = ImmutableList.builder();
 		for (MutableQuad[] qu : quads) {
 			for (MutableQuad q : qu) {

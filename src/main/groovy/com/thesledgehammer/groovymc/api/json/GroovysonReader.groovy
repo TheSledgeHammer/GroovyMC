@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.model.json
+package com.thesledgehammer.groovymc.api.json
 
 import groovy.json.JsonSlurper
 
