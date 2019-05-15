@@ -4,6 +4,7 @@
 <p align="center">
     <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/full_312384_downloads.svg" /></a>
     <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/packs/full_312384_in_packs.svg" /></a>
+    <a href="https://depshield.github.io"><img src="https://depshield.sonatype.org/badges/TheSledgeHammer/GroovyMC/depshield.svg")] /></a>
 </p>
 
 A mod library used in my other mods both existing and upcoming.
