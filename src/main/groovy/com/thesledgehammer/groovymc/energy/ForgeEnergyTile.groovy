@@ -40,6 +40,8 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
         this.tileName = tileName;
     }
 
+    //TODO: SetEnergyValue, getEnergyValue or make public
+
     @Override
     int receiveEnergy(int maxReceive, boolean simulate) {
         return fe.receiveEnergy(maxReceive, simulate);

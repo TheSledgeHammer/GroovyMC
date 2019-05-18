@@ -1,6 +1,6 @@
 package com.thesledgehammer.groovymc
 
-
+import com.thesledgehammer.groovymc.experimental.integration.ModuleContainer
 import com.thesledgehammer.groovymc.input.InputHandler
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
@@ -38,16 +38,18 @@ class GroovyMC {
 	@Mod.EventHandler
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
+		ModuleContainer.preInit(event);
 	}
 
 	@Mod.EventHandler
 	static void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new InputHandler());
+		ModuleContainer.init(event);
 	}
 
 	@Mod.EventHandler
 	static void postInit(FMLPostInitializationEvent event) {
-
+		ModuleContainer.postInit(event);
 	}
 
 	/*

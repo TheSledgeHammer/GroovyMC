@@ -16,27 +16,18 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
-
-import com.thesledgehammer.groovymc.client.model.GroovyBlockModel
-import com.thesledgehammer.groovymc.client.model.ModelEntryStatic
+import com.thesledgehammer.groovymc.experimental.integration.ModuleContainer
+import com.thesledgehammer.groovymc.Integration.modules.BuildcraftModule
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
-import com.thesledgehammer.groovymc.experimental.variables.Variable
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.experimental.variables.VariableFloat
-import com.thesledgehammer.groovymc.experimental.variables.VariableInteger
-import com.thesledgehammer.groovymc.experimental.variables.VariableLong
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.util.ResourceLocation
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+       /* GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
@@ -60,8 +51,12 @@ class JsonTest {
                 .add("#trunk_blue")
                 .add("blocks/engine/trunk_green")
                 .build();
+
+        */
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
+        BuildcraftModule BCModule = new BuildcraftModule();
+        println ModuleContainer.CONTAINER.size()
     }
 
 
