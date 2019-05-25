@@ -1,6 +1,8 @@
 package com.thesledgehammer.groovymc.experimental.integration
 
 import com.thesledgehammer.groovymc.experimental.integration.api.BlankModule
+import com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft.BuildcraftModule
+import com.thesledgehammer.groovymc.experimental.integration.modules.industrialcraft.IndustrialcraftModule
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -39,10 +41,15 @@ class ModuleContainer {
     }
 
     private static void ModuleInit(BlankModule module, FMLInitializationEvent event) {
-        module.Init(event);
+        module.init(event);
     }
 
     private static void ModulePostInit(BlankModule module, FMLPostInitializationEvent event) {
         module.postInit(event);
+    }
+
+    private static void preRegisteredModules() {
+        BuildcraftModule BC = new BuildcraftModule();
+        IndustrialcraftModule IC2 = new IndustrialcraftModule();
     }
 }

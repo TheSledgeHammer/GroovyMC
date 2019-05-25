@@ -2,6 +2,7 @@ package com.thesledgehammer.groovymc.experimental.models
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
@@ -21,7 +22,7 @@ abstract class VariableBase {
     static VariableLong light;
     static VariableLong colour;
 
-    VariableBase(GroovysonStaticModel groovysonModel) {
+    VariableBase(GroovysonAbstractModel groovysonModel) {
         from = new VariableDouble[groovysonModel.getObjectCache().From()];
         to = new VariableDouble[groovysonModel.getObjectCache().To()];
         shade = new VariableBoolean(groovysonModel.getObjectCache().Shade(true));

@@ -11,7 +11,7 @@ interface IModule {
     void preInit(FMLPreInitializationEvent event);
 
     @Mod.EventHandler
-    void Init(FMLInitializationEvent event);
+    void init(FMLInitializationEvent event);
 
     @Mod.EventHandler
     void postInit(FMLPostInitializationEvent event);

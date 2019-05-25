@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.integration.modules
+package com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft
 
 import com.thesledgehammer.groovymc.experimental.integration.api.BlankModule
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -7,8 +7,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 class BuildcraftModule extends BlankModule {
 
+    private static BuildcraftModule instance;
+
     BuildcraftModule() {
-        super("buildcraft")
+        super("buildcraft");
+        instance = this;
+    }
+
+    static BuildcraftModule Instance() {
+        if(instance != null) {
+            return instance;
+        }
+        return null;
     }
 
     @Override
@@ -17,7 +27,7 @@ class BuildcraftModule extends BlankModule {
     }
 
     @Override
-    void Init(FMLInitializationEvent event) {
+    void init(FMLInitializationEvent event) {
 
     }
 

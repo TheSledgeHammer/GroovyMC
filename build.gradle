@@ -38,6 +38,10 @@ repositories {
 		name = "TheSledgeHammer"
 		url = "https://dl.bintray.com/thesledgehammer/development/"
 	}
+	maven {
+		name = "BuildCraft"
+		url = "https://mod-buildcraft.com/maven"
+	}
 }
 
 version = version_major + '.' + version_minor + '.' + version_patch
@@ -56,8 +60,10 @@ archivesBaseName = "GroovyMC_" + mcversion
 
 dependencies {
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 	//compile "javax.xml.bind:jaxb-api:+"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
+	compile "com.mod-buildcraft:buildcraft-api:+"
+	//compile "net.industrial-craft:industrialcraft-2:+:api"
 }
 
 processResources {

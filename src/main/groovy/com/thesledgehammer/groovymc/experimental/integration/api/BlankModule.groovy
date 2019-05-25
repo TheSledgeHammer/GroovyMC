@@ -26,7 +26,7 @@ abstract class BlankModule implements IModule {
     abstract void preInit(FMLPreInitializationEvent event);
 
     @Override
-    abstract void Init(FMLInitializationEvent event);
+    abstract void init(FMLInitializationEvent event);
 
     @Override
     abstract void postInit(FMLPostInitializationEvent event);

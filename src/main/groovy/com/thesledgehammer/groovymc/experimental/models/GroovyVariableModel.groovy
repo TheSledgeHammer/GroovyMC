@@ -7,7 +7,6 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
@@ -58,7 +57,7 @@ class GroovyVariableModel {
         return jsonRules;
     }
 
-    void setRenderKeysDefintion(GroovysonStaticModel GROOVY_MODEL) {
+    void setRenderKeysDefintion(GroovysonVariableModel GROOVY_MODEL) {
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));

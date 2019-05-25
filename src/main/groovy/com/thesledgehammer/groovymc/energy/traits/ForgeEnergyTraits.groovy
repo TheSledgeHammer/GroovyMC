@@ -62,8 +62,9 @@ trait ForgeEnergyTraits implements IEnergyStorage {
 
     @Override
     int receiveEnergy(int maxReceive, boolean simulate) {
-        if (!canReceive())
+        if (!canReceive()) {
             return 0;
+        }
 
         int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
@@ -73,8 +74,9 @@ trait ForgeEnergyTraits implements IEnergyStorage {
 
     @Override
     int extractEnergy(int maxExtract, boolean simulate) {
-        if (!canExtract())
+        if (!canExtract()) {
             return 0;
+        }
 
         int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
