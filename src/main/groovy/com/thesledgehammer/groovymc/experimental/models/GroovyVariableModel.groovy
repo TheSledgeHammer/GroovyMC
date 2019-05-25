@@ -7,7 +7,7 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
@@ -15,6 +15,7 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -22,30 +23,30 @@ import net.minecraft.util.EnumFacing
 //Work In Progress
 class GroovyVariableModel {
 
-    private GroovysonModel GROOVY_MODEL;
+    private GroovysonVariableModel GROOVY_MODEL;
     private GroovyDefinitionContext GDC;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private JsonRule jsonRules;
     private JsonRule[] rules;
 
     GroovyVariableModel(String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
+        this.GROOVY_MODEL = new GroovysonVariableModel(resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();
     }
 
     GroovyVariableModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonModel(resourceDirectory, modID, resourceObject, fileName);
+        this.GROOVY_MODEL = new GroovysonVariableModel(resourceDirectory, modID, resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
-    GroovyVariableModel(GroovysonModel GROOVY_MODEL) {
+    GroovyVariableModel(GroovysonVariableModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
         setRules();
     }
 
-    GroovysonModel getGroovysonModel() {
+    GroovysonVariableModel getGroovysonModel() {
         return GROOVY_MODEL;
     }
 
@@ -57,7 +58,7 @@ class GroovyVariableModel {
         return jsonRules;
     }
 
-    void setRenderKeysDefintion(GroovysonModel GROOVY_MODEL) {
+    void setRenderKeysDefintion(GroovysonStaticModel GROOVY_MODEL) {
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));

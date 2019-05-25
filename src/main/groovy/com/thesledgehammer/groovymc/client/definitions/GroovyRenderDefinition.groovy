@@ -16,7 +16,8 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -28,13 +29,13 @@ class GroovyRenderDefinition {
     private CutoutMippedKey cutoutMippedKey;
     private SolidKey solidKey;
     private TranslucentKey translucentKey;
-    private GroovysonModel groovysonModel;
+    private GroovysonAbstractModel groovysonModel;
 
     GroovyRenderDefinition() {
         setGroovysonModel(null);
     }
 
-    GroovyRenderDefinition(GroovysonModel groovysonModel) {
+    GroovyRenderDefinition(GroovysonAbstractModel groovysonModel) {
         setGroovysonModel(groovysonModel);
     }
 
@@ -54,7 +55,7 @@ class GroovyRenderDefinition {
         return translucentKey;
     }
 
-    private void setGroovysonModel(GroovysonModel groovysonModel) {
+    private void setGroovysonModel(GroovysonAbstractModel groovysonModel) {
         this.groovysonModel = groovysonModel;
     }
 

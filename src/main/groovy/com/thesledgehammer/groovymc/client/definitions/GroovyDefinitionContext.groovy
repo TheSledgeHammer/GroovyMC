@@ -16,7 +16,7 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -56,7 +56,7 @@ class GroovyDefinitionContext {
         return models.getIBakedModel();
     }
 
-    GroovysonModel getGroovysonModel() {
+    GroovysonStaticModel getGroovysonModel() {
         return models.getGroovysonModel();
     }
 
@@ -88,7 +88,7 @@ class GroovyDefinitionContext {
         return models.getIModelParts();
     }
 
-    List<GroovysonModel> getGroovysonModels() {
+    List<GroovysonStaticModel> getGroovysonModels() {
         return models.getGroovysonModels();
     }
 
@@ -108,7 +108,7 @@ class GroovyDefinitionContext {
         models.setIModelPart(iModelPart);
     }
 
-    void setGroovysonModel(GroovysonModel groovyModel) {
+    void setGroovysonModel(GroovysonStaticModel groovyModel) {
         models.setGroovysonModel(groovyModel);
     }
 

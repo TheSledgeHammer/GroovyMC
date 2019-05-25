@@ -17,21 +17,23 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.ListTools
-import net.minecraft.util.EnumFacing
 
-class GroovysonModel extends GroovysonObject {
+abstract class GroovysonAbstractModel extends GroovysonObject {
 
     private String resourceObject;
     private GroovysonObjectCache groovysonObjectCache;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
-    GroovysonModel(String resourceObject, String fileName) {
+    GroovysonAbstractModel(String resourceObject, String fileName) {
         setRawModel(resourceObject, fileName);
     }
 
-    GroovysonModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+    GroovysonAbstractModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         setRawModel(resourceDirectory, modID, resourceObject, fileName);
     }
 
@@ -93,14 +95,5 @@ class GroovysonModel extends GroovysonObject {
 
     GroovysonObjectCache getObjectCache() {
         return groovysonObjectCache;
-    }
-
-    //Get Element variables at index by face name
-    HashMap<String, EnumFacing> FaceMap(int index) {
-        HashMap<String, EnumFacing> arrMap = new HashMap<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
-        }
-        return arrMap;
     }
 }

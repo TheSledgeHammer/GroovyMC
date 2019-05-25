@@ -19,7 +19,7 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
@@ -33,30 +33,30 @@ import net.minecraft.util.EnumFacing
 
 class GroovyStaticModel {
 
-    private GroovysonModel GROOVY_MODEL;
+    private GroovysonStaticModel GROOVY_MODEL;
     private GroovyDefinitionContext GDC;
     private Map<String, String> textureLookup;
 
     GroovyStaticModel(String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonModel(resourceObject, fileName);
+        this.GROOVY_MODEL = new GroovysonStaticModel(resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
     GroovyStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonModel(resourceDirectory, modID, resourceObject, fileName);
+        this.GROOVY_MODEL = new GroovysonStaticModel(resourceDirectory, modID, resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
-    GroovyStaticModel(GroovysonModel GROOVY_MODEL) {
+    GroovyStaticModel(GroovysonStaticModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
-    GroovysonModel getGroovysonModel() {
+    GroovysonStaticModel getGroovysonModel() {
         return GROOVY_MODEL;
     }
 
-    void setRenderKeysDefintion(GroovysonModel GROOVY_MODEL) {
+    void setRenderKeysDefintion(GroovysonStaticModel GROOVY_MODEL) {
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));

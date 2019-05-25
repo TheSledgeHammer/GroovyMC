@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -32,7 +32,7 @@ class GroovyBlockModel extends GroovyStaticModel {
         super(resourceDirectory, modID, "block", fileName)
     }
 
-    GroovyBlockModel(GroovysonModel GROOVY_MODEL) {
+    GroovyBlockModel(GroovysonStaticModel GROOVY_MODEL) {
         super(GROOVY_MODEL)
     }
 

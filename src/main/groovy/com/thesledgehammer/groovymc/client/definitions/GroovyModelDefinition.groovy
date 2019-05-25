@@ -16,7 +16,7 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraftforge.client.model.IModel
 import net.minecraftforge.common.model.IModelPart
@@ -25,7 +25,7 @@ import net.minecraftforge.common.model.IModelState
 class GroovyModelDefinition {
 
     private IBakedModel bakedModel;
-    private GroovysonModel groovyModel;
+    private GroovysonStaticModel groovyModel;
     private IModel iModel;
     private IModelState iModelState;
     private IModelPart iModelPart;
@@ -33,13 +33,13 @@ class GroovyModelDefinition {
     private List<IModel> iModelList = new LinkedList<>();
     private List<IModelState> iModelStateList = new LinkedList<>();
     private List<IModelPart> iModelPartList = new LinkedList<>();
-    private List<GroovysonModel> groovyModelList = new LinkedList<>();
+    private List<GroovysonStaticModel> groovyModelList = new LinkedList<>();
 
     IBakedModel getIBakedModel() {
         return bakedModel;
     }
 
-    GroovysonModel getGroovysonModel() {
+    GroovysonStaticModel getGroovysonModel() {
         return groovyModel;
     }
 
@@ -71,7 +71,7 @@ class GroovyModelDefinition {
         return iModelPartList;
     }
 
-    List<GroovysonModel> getGroovysonModels() {
+    List<GroovysonStaticModel> getGroovysonModels() {
         return groovyModelList;
     }
 
@@ -95,7 +95,7 @@ class GroovyModelDefinition {
         iModelPartList.add(this.iModelPart);
     }
 
-    void setGroovysonModel(GroovysonModel groovyModel) {
+    void setGroovysonModel(GroovysonStaticModel groovyModel) {
         this.groovyModel = groovyModel;
         groovyModelList.add(this.groovyModel);
     }

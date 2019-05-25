@@ -2,7 +2,7 @@ package com.thesledgehammer.groovymc.experimental.models
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableLong
@@ -14,21 +14,20 @@ import javax.vecmath.Vector3f
 //Based from BC8's VariableCuboidBase
 abstract class VariableBase {
 
-    static final VariableDouble[] from;
-    static final VariableDouble[] to;
-    static final VariableBoolean visible;
-    static final VariableBoolean shade;
-    static final VariableLong light;
-    static final VariableLong colour;
+    static VariableDouble[] from;
+    static VariableDouble[] to;
+    static VariableBoolean visible;
+    static VariableBoolean shade;
+    static VariableLong light;
+    static VariableLong colour;
 
-    VariableBase(GroovysonModel groovysonModel) {
-        /*from = new VariableDouble[groovysonModel.getObjectCache().From()];
-        to = groovysonModel.getObjectCache().To()
-        shade = groovysonModel.getObjectCache().Shade(true);
-        visible = groovysonModel.getObjectCache().Visible()
-        light = groovysonModel.getObjectCache().Light()
-        colour = groovysonModel.getObjectCache().Colour()
-        */
+    VariableBase(GroovysonStaticModel groovysonModel) {
+        from = new VariableDouble[groovysonModel.getObjectCache().From()];
+        to = new VariableDouble[groovysonModel.getObjectCache().To()];
+        shade = new VariableBoolean(groovysonModel.getObjectCache().Shade(true));
+        visible = new VariableBoolean(groovysonModel.getObjectCache().Visible())
+        light = new VariableLong(groovysonModel.getObjectCache().Light())
+        colour = new VariableLong(groovysonModel.getObjectCache().Colour());
     }
 
     static void addQuads(List<MutableQuad> addTo) {

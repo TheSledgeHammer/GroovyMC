@@ -16,68 +16,41 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
-import com.thesledgehammer.groovymc.experimental.integration.ModuleContainer
-import com.thesledgehammer.groovymc.Integration.modules.BuildcraftModule
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import net.minecraft.util.ResourceLocation
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-       /* GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+        /* GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
 
-        //Model Elements
-        blockModel.setModelElements("base");
-        //blockModel.setModelElements("base_moving");
-        blockModel.setModelElements("trunk");
-        //blockModel.setModelElements("chamber");
+         //Model Elements
+         blockModel.setModelElements("base");
+         //blockModel.setModelElements("base_moving");
+         blockModel.setModelElements("trunk");
+         //blockModel.setModelElements("chamber");
 
 
-        //Model Textures
-        blockModel.setModelTextures("#trunk_blue");
-        blockModel.setModelTextures("#trunk_green");
-        blockModel.setModelTextures("#trunk_yellow");
-        blockModel.setModelTextures("#trunk_red");
-        blockModel.setModelTextures("#trunk_overheat");
-        blockModel.setModelTextures("#trunk_black");
-        blockModel.setModelTextures("#chamber");
-        blockModel.setModelTextures("#back");
-        blockModel.setModelTextures("#side");
+         //Model Textures
+         blockModel.setModelTextures("#trunk_blue");
+         blockModel.setModelTextures("#trunk_green");
+         blockModel.setModelTextures("#trunk_yellow");
+         blockModel.setModelTextures("#trunk_red");
+         blockModel.setModelTextures("#trunk_overheat");
+         blockModel.setModelTextures("#trunk_black");
+         blockModel.setModelTextures("#chamber");
+         blockModel.setModelTextures("#back");
+         blockModel.setModelTextures("#side");
 
-        TextureEntry.Register
-                .add("#trunk_blue")
-                .add("blocks/engine/trunk_green")
-                .build();
+         TextureEntry.Register
+                 .add("#trunk_blue")
+                 .add("blocks/engine/trunk_green")
+                 .build();
 
-        */
+         */
         //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
-        BuildcraftModule BCModule = new BuildcraftModule();
-        println ModuleContainer.CONTAINER.size()
-    }
-
-
-    static List<ResourceLocation> removeDuplicates(List<ResourceLocation> list) {
-        List<ResourceLocation> newList = new ArrayList<>();
-
-        for(ResourceLocation element : list) {
-            if(!newList.contains(element)) {
-                newList.add(element);
-            }
-        }
-        return newList;
-    }
-
-    static def getValueFromList(List<Object> list, Object value) {
-        int idx = 0;
-        for(int i = 0; i < list.size(); i++) {
-            if(list.contains(value)) {
-                idx = list.indexOf(value);
-            }
-        }
-        return list.get(idx);
     }
 }

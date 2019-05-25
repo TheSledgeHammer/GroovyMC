@@ -16,14 +16,14 @@
 
 package com.thesledgehammer.groovymc.client.definitions.render
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 
 class CutoutMippedKey {
 
     private List<GroovysonObjectPart> cutoutMippedParts = new ArrayList<>();
 
-    CutoutMippedKey(GroovysonModel groovysonModel) {
+    CutoutMippedKey(GroovysonStaticModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
             if(parts.BlockRenderType() == "cutout_mipped") {
                 cutoutMippedParts.add(parts);

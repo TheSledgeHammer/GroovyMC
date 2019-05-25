@@ -61,7 +61,19 @@ class GroovysonObjectCache {
     }
 
     boolean AmbientOcclusion() {
-        return  GroovysonObject().AmbientOcclusion();
+        return GroovysonObject().AmbientOcclusion();
+    }
+
+    boolean Visible() {
+        return false;
+    }
+
+    long Light() {
+        return 0;
+    }
+
+    long Colour() {
+        return 0;
     }
 
     float[] Translation(String name) {

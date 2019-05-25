@@ -16,14 +16,14 @@
 
 package com.thesledgehammer.groovymc.client.definitions.render
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 
 class TranslucentKey {
 
     private List<GroovysonObjectPart> translucentParts = new ArrayList<>();
 
-    TranslucentKey(GroovysonModel groovysonModel) {
+    TranslucentKey(GroovysonStaticModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
             if(parts.BlockRenderType() == "translucent") {
                 translucentParts.add(parts);
