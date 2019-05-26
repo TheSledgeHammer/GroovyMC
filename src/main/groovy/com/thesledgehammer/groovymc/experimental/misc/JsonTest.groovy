@@ -19,13 +19,16 @@ package com.thesledgehammer.groovymc.experimental.misc
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
+import com.thesledgehammer.groovymc.utils.ListTools
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        /*GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
+        GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
@@ -52,5 +55,47 @@ class JsonTest {
 
          */
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
+        List<String> var = getVariableTo(blockModel.getGroovysonModel(), 2);
+
+        println setVariableFrom(blockModel.getGroovysonModel(), 2, "3", "progress_size")
+
+        //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
+        //println getVariableTo(blockModel.getGroovysonModel(), 2);
+    }
+
+    static List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
+        return var;
+    }
+
+    static List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
+        return var;
+    }
+
+    static VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableFrom(groovysonModel, modelIndex);
+        VariableDouble[] from = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                from[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                from[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return from;
+    }
+
+    static VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableTo(groovysonModel, modelIndex);
+        VariableDouble[] to = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                to[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                to[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return to;
     }
 }

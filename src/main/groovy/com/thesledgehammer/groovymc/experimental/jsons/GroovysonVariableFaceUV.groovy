@@ -24,7 +24,7 @@ class GroovysonVariableFaceUV {
 
     }
 
-    private static VariableObject<String> readVariableString(GroovysonVariableModel model, String member) {
+    private static VariableObject<String> readVariableString(GroovysonVariableModel model, String variable) {
 
         return model.AssignVariableString();
     }
@@ -36,19 +36,19 @@ class GroovysonVariableFaceUV {
                 var = getVariableUV(model, modelIndex).get(face);
             }
         }
-        VariableDouble[] to = new VariableDouble[4];
+        VariableDouble[] uv = new VariableDouble[4];
         if(var.size() != 4) {
             throw new Exception("Expected exactly 4 doubles, but got: ${var.toArray().toString()}")
         } else {
             for(int i = 0; i < 4; i++) {
                 if(!var.get(i).contains(variable)) {
-                    to[i] = new VariableDouble(var.get(i).toDouble());
+                    uv[i] = new VariableDouble(var.get(i).toDouble());
                 } else {
-                    to[i] = model.AssignVariableDouble(newValue, var, i, variable);
+                    uv[i] = model.AssignVariableDouble(newValue, var, i, variable);
                 }
             }
         }
-        return to;
+        return uv;
     }
 
     Map<EnumFacing, List<String>> getVariableUV(GroovysonVariableModel groovysonModel, int index) {
@@ -56,11 +56,47 @@ class GroovysonVariableFaceUV {
         HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
         for(EnumFacing face : EnumFacing.VALUES) {
             if(face != null) {
-                var = ListTools.FloatListToStringList(groovysonModel.getRawModelParts().get(index).FacingUv(face));
+                var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).FacingUv(face));
                 variableMap.put(face, var)
             }
         }
         return variableMap;
+    }
+
+    List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
+        return var;
+    }
+
+    List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
+        return var;
+    }
+
+    VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableFrom(groovysonModel, modelIndex);
+        VariableDouble[] from = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                from[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                from[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return from;
+    }
+
+    VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableTo(groovysonModel, modelIndex);
+        VariableDouble[] to = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                to[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                to[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return to;
     }
 
     VariableBase.VariableFaceData evaluate(GroovyVariableModel.ITextureGetter spriteLookup) {

@@ -5,6 +5,7 @@ import buildcraft.api.mj.IMjPassiveProvider
 import buildcraft.api.mj.IMjReadable
 import buildcraft.api.mj.IMjReceiver
 import buildcraft.api.mj.IMjRedstoneReceiver
+import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
 
