@@ -21,6 +21,7 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.ListTools
+import net.minecraft.util.EnumFacing
 
 abstract class GroovysonAbstractModel extends GroovysonObject {
 
@@ -95,5 +96,14 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
 
     GroovysonObjectCache getObjectCache() {
         return groovysonObjectCache;
+    }
+
+    //Get Element variables at index by face name
+    HashMap<String, EnumFacing> FaceMap(int index) {
+        HashMap<String, EnumFacing> arrMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
+        }
+        return arrMap;
     }
 }

@@ -35,7 +35,7 @@ abstract class VariableBase {
         float[] f = bakePosition(from);
         float[] t = bakePosition(to);
         boolean s = shade;
-        int l = (light & 15);
+        int l = (int) (light & 15);
         int rgba = 0;
         for(EnumFacing face : EnumFacing.VALUES) {
             VariableFaceData data = getFaceData(face);
@@ -62,9 +62,9 @@ abstract class VariableBase {
     }
 
     static float[] bakePosition(VariableDouble[] In) {
-        float x = In[0] / 16f;
-        float y = In[1] / 16f;
-        float z = In[2] / 16f;
+        float x = (float) (In[0].getValue() / 16f);
+        float y = (float) (In[1].getValue() / 16f);
+        float z = (float) (In[2].getValue() / 16f);
         return [x, y, z];
     }
 

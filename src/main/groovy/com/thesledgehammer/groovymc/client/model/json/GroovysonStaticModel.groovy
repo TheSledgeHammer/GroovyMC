@@ -28,13 +28,4 @@ class GroovysonStaticModel extends GroovysonAbstractModel {
     GroovysonStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         super(resourceDirectory, modID, resourceObject, fileName);
     }
-
-    //Get Element variables at index by face name
-    HashMap<String, EnumFacing> FaceMap(int index) {
-        HashMap<String, EnumFacing> arrMap = new HashMap<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
-        }
-        return arrMap;
-    }
 }

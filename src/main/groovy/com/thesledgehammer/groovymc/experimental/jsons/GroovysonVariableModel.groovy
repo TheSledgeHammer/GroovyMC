@@ -105,6 +105,12 @@ class GroovysonVariableModel extends GroovysonAbstractModel {
         return vBoolean;
     }
 
+    VariableObject<String> AssignVariableString() {
+        VariableObject<String> vString = new VariableObject<String>();
+
+        return vString;
+    }
+
     //Fix Up not relavent to Object
     /*
     <T> VariableObject<T> AssignVariableObject(String newValue, List<String> arr, int index, String inputVariable) {
@@ -136,5 +142,12 @@ class GroovysonVariableModel extends GroovysonAbstractModel {
             return true;
         }
         return false;
+    }
+
+    static float[] bakePosition(VariableDouble[] var) {
+        float x = (float) (var[0].getValue() / 16f);
+        float y = (float) (var[1].getValue() / 16f)
+        float z = (float) (var[2].getValue() / 16f)
+        return [x, y, z];
     }
 }

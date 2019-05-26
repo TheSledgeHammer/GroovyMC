@@ -143,7 +143,7 @@ class GroovysonObjectPart {
     def Facing(EnumFacing face) {
         String faces = face.getName().toLowerCase();
         if(part.faces.get(faces) == null) {
-            Log.logError("Current Face does not exist...!");
+           // Log.logError("Current Face does not exist...!");
             return null;
         }
         return part.faces.get(faces);
@@ -151,11 +151,14 @@ class GroovysonObjectPart {
 
     ArrayList<Float> FacingUv(EnumFacing face) {
         ArrayList<Float> arrPart = new ArrayList<>();
-        if(Facing(face) == null) {
-            return null;
+        def uvFace = null;
+        if(Facing(face) != null) {
+            uvFace = Facing(face);
         }
-        for(int i = 0; i < Facing(face).uv.size; i++) {
-            arrPart.add(i, Facing(face).uv.get(i));
+        if(uvFace != null) {
+            for(int i = 0; i < uvFace.uv.size; i++) {
+                arrPart.add(i, uvFace.uv.get(i));
+            }
         }
         return arrPart;
     }

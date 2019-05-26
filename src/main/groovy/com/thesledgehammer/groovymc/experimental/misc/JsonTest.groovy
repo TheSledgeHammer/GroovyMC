@@ -19,38 +19,38 @@ package com.thesledgehammer.groovymc.experimental.misc
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        /* GroovyBlockModel blockModel = new GroovyBlockModel("engine_base");
+        /*GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
 
-         //Model Elements
-         blockModel.setModelElements("base");
-         //blockModel.setModelElements("base_moving");
-         blockModel.setModelElements("trunk");
-         //blockModel.setModelElements("chamber");
+        //Model Elements
+        blockModel.setModelElements("base");
+        //blockModel.setModelElements("base_moving");
+        blockModel.setModelElements("trunk");
+        blockModel.setModelElements("chamber");
 
 
-         //Model Textures
-         blockModel.setModelTextures("#trunk_blue");
-         blockModel.setModelTextures("#trunk_green");
-         blockModel.setModelTextures("#trunk_yellow");
-         blockModel.setModelTextures("#trunk_red");
-         blockModel.setModelTextures("#trunk_overheat");
-         blockModel.setModelTextures("#trunk_black");
-         blockModel.setModelTextures("#chamber");
-         blockModel.setModelTextures("#back");
-         blockModel.setModelTextures("#side");
-
+        //Model Textures
+        blockModel.setModelTextures("#trunk_blue");
+        blockModel.setModelTextures("#trunk_green");
+        blockModel.setModelTextures("#trunk_yellow");
+        blockModel.setModelTextures("#trunk_red");
+        blockModel.setModelTextures("#trunk_overheat");
+        blockModel.setModelTextures("#trunk_black");
+        blockModel.setModelTextures("#chamber");
+        blockModel.setModelTextures("#back");
+        blockModel.setModelTextures("#side");
+/*
          TextureEntry.Register
                  .add("#trunk_blue")
                  .add("blocks/engine/trunk_green")
                  .build();
 
          */
-        //List<String> var = ListTools.FloatListToStringList(blockModel.getModelElements(1).To());
         //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
     }
 }
