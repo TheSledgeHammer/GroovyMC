@@ -8,7 +8,7 @@ import buildcraft.api.mj.IMjRedstoneReceiver
 
 import javax.annotation.Nonnull
 
-class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
+class MinecraftJoulesStorage implements IMinecraftJoulesStorage {
 
     private long power;
     private long capacity;
@@ -69,10 +69,10 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
         if (!canExtract()) {
             return 0;
         }
-
-        long powerExtracted = Math.min(power, Math.min(this.maxExtract, maxExtract));
-        if (!simulate)
+        long powerExtracted = Math.min(power, Math.min(this.maxExtract, (max - min)));
+        if (!simulate) {
             power -= powerExtracted;
+        }
         return powerExtracted;
     }
 
@@ -98,9 +98,10 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
             return 0;
         }
 
-        long powerReceived = Math.min(capacity - power, Math.min(this.maxReceive, maxReceive));
-        if (!simulate)
+        long powerReceived = Math.min(capacity - power, Math.min(this.maxReceive, microJoules));
+        if (!simulate) {
             power += powerReceived;
+        }
         return powerReceived;
     }
 
@@ -109,12 +110,16 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
         return this.maxReceive > 0;
     }
 
+    @Override
     boolean canExtract() {
         return this.maxExtract > 0;
     }
 
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
-        return true;
+        if(other != null && other.canConnect(this)) {
+            return true;
+        }
+        return false;
     }
 }

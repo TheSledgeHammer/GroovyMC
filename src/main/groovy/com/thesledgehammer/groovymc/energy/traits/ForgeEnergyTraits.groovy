@@ -67,8 +67,9 @@ trait ForgeEnergyTraits implements IEnergyStorage {
         }
 
         int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
-        if (!simulate)
+        if (!simulate) {
             energy += energyReceived;
+        }
         return energyReceived;
     }
 
@@ -79,8 +80,9 @@ trait ForgeEnergyTraits implements IEnergyStorage {
         }
 
         int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
-        if (!simulate)
+        if (!simulate) {
             energy -= energyExtracted;
+        }
         return energyExtracted;
     }
 
