@@ -29,7 +29,7 @@ class GroovysonVariableFaceUV {
         return model.AssignVariableString();
     }
 
-    VariableDouble[] readVariableUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
+    VariableDouble[] setVariableUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
         List<String> var = null
         for(EnumFacing face : EnumFacing.VALUES) {
             if (!getVariableUV(model, modelIndex).get(face).isEmpty()) {

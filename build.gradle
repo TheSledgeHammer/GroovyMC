@@ -42,6 +42,10 @@ repositories {
 		name = "BuildCraft"
 		url = "https://mod-buildcraft.com/maven"
 	}
+	maven {
+		name = "IC2"
+		url = "http://maven.ic2.player.to/"
+	}
 }
 
 version = version_major + '.' + version_minor + '.' + version_patch
@@ -63,7 +67,7 @@ dependencies {
 	//compile "javax.xml.bind:jaxb-api:+"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 	compile "com.mod-buildcraft:buildcraft-api:+"
-	//compile "net.industrial-craft:industrialcraft-2:+:api"
+	compile "net.industrial-craft:industrialcraft-2:+:api"
 }
 
 processResources {

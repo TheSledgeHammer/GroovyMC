@@ -62,40 +62,4 @@ class JsonTest {
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
         //println getVariableTo(blockModel.getGroovysonModel(), 2);
     }
-
-    static List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
-        return var;
-    }
-
-    static List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
-        return var;
-    }
-
-    static VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableFrom(groovysonModel, modelIndex);
-        VariableDouble[] from = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                from[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                from[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
-        return from;
-    }
-
-    static VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableTo(groovysonModel, modelIndex);
-        VariableDouble[] to = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                to[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                to[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
-        return to;
-    }
 }
