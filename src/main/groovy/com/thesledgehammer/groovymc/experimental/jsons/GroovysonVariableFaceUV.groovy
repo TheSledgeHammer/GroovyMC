@@ -11,25 +11,76 @@ import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 
 //Based from BC8's JsonVariableFaceUV
+//TODO: Complete: textureRotation, Visibility, Invert, BothSides & Texture
 class GroovysonVariableFaceUV {
-
-    final VariableDouble[] uv;
+    
+    private VariableDouble[] from;
+    private VariableDouble[] to;
+    private VariableDouble[] uv;
     final VariableLong textureRotation;
     final VariableBoolean visible;
     final VariableBoolean invert;
     final VariableBoolean bothSides;
     final VariableObject<String> texture;
-
-    GroovysonVariableFaceUV(GroovysonVariableModel model) {
-
+    Map<EnumFacing, VariableDouble[]> uvFace;
+    
+    GroovysonVariableFaceUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
+        setFrom(setVariableFrom(model, modelIndex, newValue, variable));
+        setTo(setVariableTo(model, modelIndex, newValue, variable));
+        setUV(setVariableUV(model, modelIndex, newValue, variable));
+    }
+    
+    private void setFrom(VariableDouble[] from) {
+        this.from = from;
     }
 
-    private static VariableObject<String> readVariableString(GroovysonVariableModel model, String variable) {
-
-        return model.AssignVariableString();
+    private void setTo(VariableDouble[] to) {
+        this.to = to;
     }
 
-    VariableDouble[] setVariableUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
+    private void setUV(VariableDouble[] uv) {
+        this.uv = uv;
+    }
+    
+    VariableDouble[] getFrom() {
+        return from;
+    }
+
+    VariableDouble[] getTo() {
+        return to;
+    }
+
+    VariableDouble[] getUV() {
+        return uv;
+    }
+
+    private static VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableFrom(groovysonModel, modelIndex);
+        VariableDouble[] from = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                from[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                from[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return from;
+    }
+
+    private static VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+        List<String> var = getVariableTo(groovysonModel, modelIndex);
+        VariableDouble[] to = new VariableDouble[3];
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                to[i] = new VariableDouble(var.get(i).toDouble());
+            } else {
+                to[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
+            }
+        }
+        return to;
+    }
+
+    private static VariableDouble[] setVariableUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
         List<String> var = null
         for(EnumFacing face : EnumFacing.VALUES) {
             if (!getVariableUV(model, modelIndex).get(face).isEmpty()) {
@@ -50,8 +101,18 @@ class GroovysonVariableFaceUV {
         }
         return uv;
     }
+    
+    private static List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
+        return var;
+    }
 
-    Map<EnumFacing, List<String>> getVariableUV(GroovysonVariableModel groovysonModel, int index) {
+    private static List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
+        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
+        return var;
+    }
+
+    private static Map<EnumFacing, List<String>> getVariableUV(GroovysonVariableModel groovysonModel, int index) {
         List<String> var = null;
         HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
         for(EnumFacing face : EnumFacing.VALUES) {
@@ -62,43 +123,12 @@ class GroovysonVariableFaceUV {
         }
         return variableMap;
     }
+    
+    private static VariableObject<String> getVariableString(GroovysonVariableModel model, String variable) {
 
-    List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
-        return var;
+        return model.AssignVariableString();
     }
-
-    List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
-        return var;
-    }
-
-    VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableFrom(groovysonModel, modelIndex);
-        VariableDouble[] from = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                from[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                from[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
-        return from;
-    }
-
-    VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableTo(groovysonModel, modelIndex);
-        VariableDouble[] to = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                to[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                to[i] = groovysonModel.AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
-        return to;
-    }
-
+    
     VariableBase.VariableFaceData evaluate(GroovyVariableModel.ITextureGetter spriteLookup) {
         VariableBase.VariableFaceData data = new VariableBase.VariableFaceData();
         ModelUtil.TexturedFace face = spriteLookup.get(texture.getValue());

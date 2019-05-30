@@ -16,9 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
-import net.minecraft.util.EnumFacing
-
 class GroovysonStaticModel extends GroovysonAbstractModel {
 
     GroovysonStaticModel(String resourceObject, String fileName) {

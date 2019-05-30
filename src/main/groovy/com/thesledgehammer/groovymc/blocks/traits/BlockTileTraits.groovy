@@ -17,8 +17,8 @@
 package com.thesledgehammer.groovymc.blocks.traits
 
 import com.thesledgehammer.groovymc.blocks.properties.IBlockRotation
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer

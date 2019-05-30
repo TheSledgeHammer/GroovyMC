@@ -17,11 +17,13 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.MathTools
-import net.minecraft.client.renderer.block.model.ItemOverride
 import net.minecraft.util.EnumFacing
 
-//A GroovysonModel Cache used for both static and variable models. Especially models that have dynamic model elements (i.e. animation)
+
+/**Unused (Outside of VariableBase), May be rewritten or removed
+ * Not really needed with change to how static and variable models read model files
+ **/
+@Deprecated //A GroovysonModel Cache used for both static and variable models. Especially models that have dynamic model elements (i.e. animation)
 class GroovysonObjectCache {
 
     private GroovysonObject groovysonObject;

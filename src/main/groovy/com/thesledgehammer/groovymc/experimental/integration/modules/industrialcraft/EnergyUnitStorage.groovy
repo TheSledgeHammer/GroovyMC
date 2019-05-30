@@ -3,8 +3,6 @@ package com.thesledgehammer.groovymc.experimental.integration.modules.industrial
 import ic2.api.energy.EnergyNet
 import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
-import ic2.api.energy.tile.IEnergySink
-import ic2.api.energy.tile.IEnergySource
 import net.minecraft.util.EnumFacing
 
 //IEnergyConductor

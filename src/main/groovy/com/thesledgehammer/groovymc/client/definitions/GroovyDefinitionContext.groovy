@@ -16,11 +16,11 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite

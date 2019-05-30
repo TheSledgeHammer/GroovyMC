@@ -18,15 +18,15 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
-import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing

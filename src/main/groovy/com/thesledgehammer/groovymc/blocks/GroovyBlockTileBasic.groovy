@@ -16,9 +16,9 @@
 
 package com.thesledgehammer.groovymc.blocks
 
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.api.IRegisterTileEntity
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.api.GroovyLoader
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer

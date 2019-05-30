@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.tiles.traits
 
 import com.thesledgehammer.groovymc.gui.inventory.IInventoryAdaptor
-import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory

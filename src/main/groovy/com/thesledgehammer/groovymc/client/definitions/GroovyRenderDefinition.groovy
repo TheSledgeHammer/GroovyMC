@@ -16,12 +16,11 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
+import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
 
 class GroovyRenderDefinition {
 

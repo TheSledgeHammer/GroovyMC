@@ -3,7 +3,6 @@ package com.thesledgehammer.groovymc.experimental.models
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableLong

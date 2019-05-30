@@ -51,8 +51,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     GroovyBlockTileAdvanced(P blockType, Material blockMaterialIn) {
         super(blockMaterialIn);
-
         this.blockType = blockType;
+
         blockType.getGroovyMachineProperties().setBlock(this);
 
         this.hasTESR = blockType instanceof IBlockTypeTESR;
@@ -63,7 +63,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     GroovyBlockTileAdvanced(P blockType) {
-        this(blockType, Material.IRON);
+        super(Material.IRON);
+        this.blockType = blockType;
     }
 
     private MachinePropertyTraits getDefinition() {

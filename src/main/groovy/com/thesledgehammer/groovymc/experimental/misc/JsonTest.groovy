@@ -16,13 +16,14 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
-import com.thesledgehammer.groovymc.config.Constants
-
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
+import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableFaceUV
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.experimental.multiblocks.IBlockHolder
+import com.thesledgehammer.groovymc.experimental.multiblocks.MultiBlock
+import net.minecraft.block.Block
+import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
@@ -54,12 +55,8 @@ class JsonTest {
                  .build();
 
          */
-        //println VariableContext.AssignVariable("10.0", var, 1, "progress_size").getValue();
-        List<String> var = getVariableTo(blockModel.getGroovysonModel(), 2);
-
-        println setVariableFrom(blockModel.getGroovysonModel(), 2, "3", "progress_size")
 
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
-        //println getVariableTo(blockModel.getGroovysonModel(), 2);
+        GroovysonVariableFaceUV g = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, "2.0", "progress_size");
     }
 }

@@ -17,12 +17,7 @@
 package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
-import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.experimental.variables.VariableFloat
-import com.thesledgehammer.groovymc.experimental.variables.VariableInteger
-import com.thesledgehammer.groovymc.experimental.variables.VariableLong
-import com.thesledgehammer.groovymc.experimental.variables.VariableObject
+import com.thesledgehammer.groovymc.experimental.variables.*
 import com.thesledgehammer.groovymc.utils.StringTools
 
 class GroovysonVariableModel extends GroovysonAbstractModel {

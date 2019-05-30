@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.energy
 
-import com.thesledgehammer.groovymc.energy.traits.ForgeEnergyTraits;
+import com.thesledgehammer.groovymc.energy.traits.ForgeEnergyTraits
 import net.minecraftforge.energy.EnergyStorage
 
 class ForgeEnergy extends EnergyStorage implements ForgeEnergyTraits {

@@ -9,7 +9,6 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 import javax.annotation.Nonnull
-import javax.annotation.Nullable
 
 class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage, ICapabilityProvider {
 
