@@ -54,7 +54,7 @@ class GroovysonVariableFaceUV {
         return uv;
     }
 
-    private static VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
+    static VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
         List<String> var = getVariableFrom(groovysonModel, modelIndex);
         VariableDouble[] from = new VariableDouble[3];
         for(int i = 0; i < 3; i++) {

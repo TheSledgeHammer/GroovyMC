@@ -17,11 +17,14 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableFaceUV
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
 import com.thesledgehammer.groovymc.experimental.multiblocks.IBlockHolder
 import com.thesledgehammer.groovymc.experimental.multiblocks.MultiBlock
+import com.thesledgehammer.groovymc.experimental.variables.VariableObject
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.block.Block
 import net.minecraft.util.EnumFacing
 
@@ -33,10 +36,9 @@ class JsonTest {
 
         //Model Elements
         blockModel.setModelElements("base");
-        //blockModel.setModelElements("base_moving");
+        blockModel.setModelElements("base_moving");
         blockModel.setModelElements("trunk");
         blockModel.setModelElements("chamber");
-
 
         //Model Textures
         blockModel.setModelTextures("#trunk_blue");
@@ -58,5 +60,9 @@ class JsonTest {
 
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
         GroovysonVariableFaceUV g = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, "2.0", "progress_size");
+        VariableObject<EnumFacing> nodeFrom = new VariableObject<>();
+        nodeFrom.setValue(EnumFacing.DOWN)
+        //println EnumFacing.valueOf("DOWN")
+        JsonRule.SetRules(blockModel.getGroovysonModel())
     }
 }

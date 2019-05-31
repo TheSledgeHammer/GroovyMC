@@ -25,13 +25,11 @@ class GroovyVariableModel {
     private GroovysonVariableModel GROOVY_MODEL;
     private GroovyDefinitionContext GDC;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
-    private JsonRule jsonRules;
     private JsonRule[] rules;
 
     GroovyVariableModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonVariableModel(resourceObject, fileName);
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
-        setRules();
     }
 
     GroovyVariableModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
@@ -42,19 +40,10 @@ class GroovyVariableModel {
     GroovyVariableModel(GroovysonVariableModel GROOVY_MODEL) {
         this.GROOVY_MODEL = GROOVY_MODEL;
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
-        setRules();
     }
 
     GroovysonVariableModel getGroovysonModel() {
         return GROOVY_MODEL;
-    }
-
-    private void setRules() {
-        this.jsonRules = new JsonRule(GROOVY_MODEL);
-    }
-
-    JsonRule getRules() {
-        return jsonRules;
     }
 
     void setRenderKeysDefintion(GroovysonVariableModel GROOVY_MODEL) {

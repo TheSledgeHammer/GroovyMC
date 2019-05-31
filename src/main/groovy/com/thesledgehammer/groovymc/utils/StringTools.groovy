@@ -61,6 +61,24 @@ class StringTools {
         return stringToRainbow(name, false);
     }
 
+    static String stringToEnum(String name, Class clazz) {
+        String lowerCase = name.toLowerCase();
+        for(int i = 0; i < clazz.enumConstants.size(); i++) {
+            if(lowerCase.contains(clazz.enumConstants[i].toString())) {
+                lowerCase = clazz.enumConstants[i].toString();
+                return lowerCase;
+            }
+        }
+        return null
+    }
+
+    static boolean contains(String contents, String name) {
+        if(contents.contains(name)) {
+            return true;
+        }
+        return false;
+    }
+
     static boolean containsDigit(String name) {
         for(int i = 0; i < name.length(); i++) {
             if(Character.isDigit(name.charAt(i))) {
