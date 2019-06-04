@@ -8,4 +8,4 @@ Long-Term:
 - GroovyMC Model inter compatible with Vanilla ModelBase
 - MultiBlocks
 - GuiBuilder
-- Improve on Modules
+- Improve Modules

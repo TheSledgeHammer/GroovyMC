@@ -74,9 +74,6 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
 
     void setRawModelParts(String partName) {
         groovysonObjectParts.add(new GroovysonObjectPart(this, partName));
-        for(GroovysonObjectPart part : groovysonObjectParts) {
-            setObjectCache(part);
-        }
     }
 
     //Returns all Model Elements in .json if applicable
