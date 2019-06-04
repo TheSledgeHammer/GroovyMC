@@ -1,0 +1,11 @@
+TODO:
+Short-Term: (Before 1.13/1.14 Port)
+- Complete Variable Model
+- BakedModel's
+
+Long-Term:
+- GroovyMC Model inter compatible with Forge's IModel API
+- GroovyMC Model inter compatible with Vanilla ModelBase
+- MultiBlocks
+- GuiBuilder
+- Improve on Modules

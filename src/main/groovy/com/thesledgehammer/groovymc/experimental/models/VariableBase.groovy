@@ -3,9 +3,11 @@ package com.thesledgehammer.groovymc.experimental.models
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableLong
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -21,13 +23,13 @@ abstract class VariableBase {
     static VariableLong light;
     static VariableLong colour;
 
-    VariableBase(GroovysonAbstractModel groovysonModel) {
-        from = new VariableDouble[groovysonModel.getObjectCache().From()];
-        to = new VariableDouble[groovysonModel.getObjectCache().To()];
-        shade = new VariableBoolean(groovysonModel.getObjectCache().Shade(true));
-        visible = new VariableBoolean(groovysonModel.getObjectCache().Visible())
-        light = new VariableLong(groovysonModel.getObjectCache().Light())
-        colour = new VariableLong(groovysonModel.getObjectCache().Colour());
+    VariableBase(GroovysonVariableModel groovysonModel, int index) {
+        from = new VariableDouble[groovysonModel.getRawModelPart(index).From()];
+        to = new VariableDouble[groovysonModel.getRawModelPart(index).To()];
+        shade = new VariableBoolean(groovysonModel.getRawModelPart(index).Shade());
+        visible = new VariableBoolean(groovysonModel.Visible());
+        light = new VariableLong(groovysonModel.Light());
+        colour = new VariableLong(groovysonModel.Colour());
     }
 
     static void addQuads(List<MutableQuad> addTo) {

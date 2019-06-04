@@ -26,7 +26,6 @@ import net.minecraft.util.EnumFacing
 abstract class GroovysonAbstractModel extends GroovysonObject {
 
     private String resourceObject;
-    private GroovysonObjectCache groovysonObjectCache;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
@@ -90,14 +89,6 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
         return groovysonObjectParts.get(index)
     }
 
-    private void setObjectCache(GroovysonObjectPart partName) {
-        groovysonObjectCache = new GroovysonObjectCache(this, partName);
-    }
-
-    GroovysonObjectCache getObjectCache() {
-        return groovysonObjectCache;
-    }
-
     //Get Element variables at index by face name
     HashMap<String, EnumFacing> FaceMap(int index) {
         HashMap<String, EnumFacing> arrMap = new HashMap<>();
@@ -105,5 +96,28 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
             arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
         }
         return arrMap;
+    }
+
+    boolean Shade(boolean fallback) {
+        if(GroovysonObject().getShade() == null) {
+            return fallback;
+        }
+        return GroovysonObject().getShade();
+    }
+
+    boolean AmbientOcclusion() {
+        return GroovysonObject().AmbientOcclusion();
+    }
+
+    boolean Visible() {
+        return false;
+    }
+
+    long Light() {
+        return 0;
+    }
+
+    long Colour() {
+        return 0;
     }
 }

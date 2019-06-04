@@ -8,12 +8,9 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableFaceUV
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableObject
-import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.MathHelper
@@ -101,6 +98,28 @@ abstract class JsonRule {
         } else {
             throw new Exception("Unknown built in rule type ${builtin}");
         }
+    }
+
+    JsonRule getRotateFacingRule(String when, String type, String from, String to, VariableDouble[] origin) {
+        when = getWhen();
+        type = getType();
+        from = getFrom();
+        to = getTo();
+        origin = getOrigin();
+
+        String fromValue = StringTools.stringToEnum(from, EnumFacing.class).toUpperCase();
+        VariableObject<EnumFacing> nodeFrom = new VariableObject<>();
+        nodeFrom.setValue(EnumFacing.valueOf(fromValue));
+
+        String toValue = StringTools.stringToEnum(to, EnumFacing.class).toUpperCase();
+        VariableObject<EnumFacing> nodeTo = new VariableObject<>();
+        nodeTo.setValue(EnumFacing.valueOf(toValue));
+
+        //Fix Origin is incomplete
+        if(origin == null) {
+           origin = RotateFacing.DEFAULT_ORIGIN;
+        }
+        return new RotateFacing(nodeWhen, nodeFrom, nodeTo, origin);
     }
 
     abstract void apply(List<MutableQuad> quads);

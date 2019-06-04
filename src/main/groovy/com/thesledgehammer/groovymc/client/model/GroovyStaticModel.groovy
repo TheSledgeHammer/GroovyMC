@@ -63,10 +63,6 @@ class GroovyStaticModel {
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
-    GroovysonObjectCache getObjectCache() {
-        return GROOVY_MODEL.getObjectCache()
-    }
-
     void setModelElements(String name) {
         GROOVY_MODEL.setRawModelParts(name);
     }

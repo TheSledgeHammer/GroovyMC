@@ -46,6 +46,31 @@ class GroovyVariableModel {
         return GROOVY_MODEL;
     }
 
+    void setModelElements(String name) {
+        GROOVY_MODEL.setRawModelParts(name);
+    }
+
+    void setModelTextures(String name) {
+        GROOVY_MODEL.setRawModelTextures(name);
+    }
+
+    GroovysonObjectPart getModelElements(int index) {
+        return GROOVY_MODEL.getRawModelPart(index);
+    }
+
+    ArrayList<GroovysonObjectPart> getModelElements() {
+        return GROOVY_MODEL.getRawModelParts();
+    }
+
+    String getModelTextures(String textureName) {
+        return GROOVY_MODEL.getRawModelTextures().get(textureName);
+    }
+
+    //Returns a Texture from x model element and face
+    String getModelElementTextures(int index, EnumFacing face) {
+        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
+    }
+
     void setRenderKeysDefintion(GroovysonVariableModel GROOVY_MODEL) {
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
@@ -125,30 +150,5 @@ class GroovyVariableModel {
 
     interface ITextureGetter {
         ModelUtil.TexturedFace get(String location);
-    }
-
-    void setModelElements(String name) {
-        GROOVY_MODEL.setRawModelParts(name);
-    }
-
-    void setModelTextures(String name) {
-        GROOVY_MODEL.setRawModelTextures(name);
-    }
-
-    GroovysonObjectPart getModelElements(int index) {
-        return GROOVY_MODEL.getRawModelPart(index);
-    }
-
-    ArrayList<GroovysonObjectPart> getModelElements() {
-        return GROOVY_MODEL.getRawModelParts();
-    }
-
-    String getModelTextures(String textureName) {
-        return GROOVY_MODEL.getRawModelTextures().get(textureName);
-    }
-
-    //Returns a Texture from x model element and face
-    String getModelElementTextures(int index, EnumFacing face) {
-        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
     }
 }
