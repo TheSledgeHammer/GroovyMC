@@ -69,21 +69,6 @@ class GroovysonObjectPart {
         return part.name;
     }
 
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String BlockRenderType() {
-        return part.render;
-    }
-
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    def BlockRenderType(String renderType) {
-        String render = renderType.toLowerCase();
-        if (part.render.get(render) == null) {
-            Log.logError("The element does not contain a render of: ${renderType}");
-            return null;
-        }
-        return part.render.get(render);
-    }
-
     ArrayList<Float> From() {
         ArrayList<Float> arrPart = new ArrayList<>();
         for(int i = 0; i < part.from.size; i++) {
@@ -183,5 +168,32 @@ class GroovysonObjectPart {
             return fallback;
         }
         return Facing(face).tintindex;
+    }
+
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    String BlockRenderType() {
+        return part.render;
+    }
+
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    def BlockRenderType(String renderType) {
+        String render = renderType.toLowerCase();
+        if (part.render.get(render) == null) {
+            Log.logError("The element does not contain a render of: ${renderType}");
+            return null;
+        }
+        return part.render.get(render);
+    }
+
+    def Light() {
+        return part.light;
+    }
+
+    def Colour() {
+        return part.colour;
+    }
+
+    def Visible() {
+        return part.visible;
     }
 }

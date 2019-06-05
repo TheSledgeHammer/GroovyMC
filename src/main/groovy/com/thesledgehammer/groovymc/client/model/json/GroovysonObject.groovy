@@ -99,7 +99,7 @@ class GroovysonObject {
     }
 
     def getVariableByName(String variableName) {
-        return getVariables()[variableName];
+        return getVariables().get(variableName);
     }
 
     def getRules() {
@@ -107,7 +107,7 @@ class GroovysonObject {
     }
 
     def getRulesByName(String ruleName) {
-        return getRules()[ruleName];
+        return getRules().get(ruleName);
     }
 
     def getValues() {

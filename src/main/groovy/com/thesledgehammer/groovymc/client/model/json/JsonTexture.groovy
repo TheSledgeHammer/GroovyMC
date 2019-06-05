@@ -59,6 +59,7 @@ class JsonTexture {
                 arr[i] = elem as double;
             } else if(MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
                 //TODO: if its a String, refer to MathTools/ StringTools for method implementation
+                //Look at BC subproject lib/expression
             }
         }
         faceData = new ModelUtil.UvFaceData();

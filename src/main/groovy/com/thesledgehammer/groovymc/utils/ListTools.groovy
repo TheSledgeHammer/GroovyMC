@@ -85,6 +85,14 @@ class ListTools {
         return arrToString;
     }
 
+    static ArrayList<String> EnumToStringList(Class<Enum> enumClass) {
+        ArrayList<String> enumToString = new ArrayList<>();
+        for(int i = 0; i < enumClass.enumConstants.length; i++) {
+            enumToString.add(enumClass.enumConstants[i].name());
+        }
+        return enumToString;
+    }
+
     private static int counter = 0;
     static boolean doesListContainDuplicates(List<Object> list) {
         int count = 0;

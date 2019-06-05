@@ -27,9 +27,9 @@ abstract class VariableBase {
         from = new VariableDouble[groovysonModel.getRawModelPart(index).From()];
         to = new VariableDouble[groovysonModel.getRawModelPart(index).To()];
         shade = new VariableBoolean(groovysonModel.getRawModelPart(index).Shade());
-        visible = new VariableBoolean(groovysonModel.Visible());
-        light = new VariableLong(groovysonModel.Light());
-        colour = new VariableLong(groovysonModel.Colour());
+        visible = new VariableBoolean(groovysonModel.getRawModelPart(index).Visible());
+        light = new VariableLong(groovysonModel.getRawModelPart(index).Light());
+        colour = new VariableLong(groovysonModel.getRawModelPart(index).Colour());
     }
 
     static void addQuads(List<MutableQuad> addTo) {
