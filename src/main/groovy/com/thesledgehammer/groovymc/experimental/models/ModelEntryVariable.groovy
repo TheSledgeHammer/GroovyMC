@@ -22,7 +22,7 @@ class ModelEntryVariable extends ModelEntryHolder  {
 
     @Override
     void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-        
+
     }
 
     @Override

@@ -17,9 +17,6 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 
@@ -94,74 +91,4 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
         }
         return arrMap;
     }
-
-    boolean Shade(boolean fallback) {
-        if(GroovysonObject().getShade() == null) {
-            return fallback;
-        }
-        return GroovysonObject().getShade();
-    }
-
-    boolean AmbientOcclusion() {
-        return GroovysonObject().AmbientOcclusion();
-    }
-
-    private String getVisible(int index) {
-        return getRawModelPart(index).Visible();
-    }
-
-    private String getLight(int index) {
-        return getRawModelPart(index).Light();
-    }
-
-    private String getColour(int index) {
-        return getRawModelPart(index).Colour();
-    }
-
-    String Visible(int index) {
-        String name = getVisible(index).toString();
-        if(isVariable(name)) {
-            return getVariable(name);
-        }
-        return getVisible(index);
-    }
-
-    String Light(int index) {
-        String name = getLight(index).toString()
-        if(isVariable(name)) {
-            return getVariable(name);
-        }
-        return getLight(index);
-    }
-
-    String Colour(int index) {
-        String name = getColour(index).toString()
-        if(isVariable(name)) {
-            return getVariable(name);
-        }
-        return getColour(index);
-    }
-
-    private boolean isVariable(String variableName) {
-        if(getVariableByName(variableName) != null) {
-            return true;
-        }
-        return false;
-    }
-
-    String getVariable(String variableName) {
-        if(isVariable(variableName)) {
-            return getVariableByName(variableName);
-        }
-        return null;
-    }
-/*
-    //Redo since updating above methods
-    Map<String, Long> LightFromVariable(String variableName, Class<Enum> enumClass) {
-        Map<String, Long> map = new HashMap<>();
-        for(int i = 0; i < enumClass.enumConstants.length; i++) {
-            map.put(enumClass.enumConstants[i].name(), getVariableByName(variableName).stage.get(enumClass.enumConstants[i].name().toLowerCase()));
-        }
-        return map;
-    }*/
 }

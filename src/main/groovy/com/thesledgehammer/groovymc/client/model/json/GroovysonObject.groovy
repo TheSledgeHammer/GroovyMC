@@ -107,7 +107,7 @@ class GroovysonObject {
     }
 
     def getRulesByName(String ruleName) {
-        return getRules().get(ruleName);
+        return getRules()[ruleName];
     }
 
     def getValues() {

@@ -26,7 +26,6 @@ class JsonTools {
         JsonQuads[] jQuads = new JsonQuads[modelParts.size()];
         for(int i = 0; i < modelParts.size(); i++) {
             jQuads[i] = new JsonQuads(modelParts.get(i), modelParts.get(i).From() as float[], modelParts.get(i).To() as float[], face);
-           // println "ModelPart " + modelParts.get(i).getPartName() + " Face " + face + " JsonQuads " + jQuads[i].face;
         }
         return jQuads;
     }

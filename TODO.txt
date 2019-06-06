@@ -1,5 +1,5 @@
 TODO:
-Short-Term: (Before 1.13/1.14 Port)
+Short-Term: (Before 1.13/1.14 Port Completion)
 - Complete Variable Model
 - BakedModel's
 

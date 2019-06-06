@@ -81,10 +81,12 @@ class GroovyVariableModel {
     MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts) {
         List<MutableQuad> list = new ArrayList<>();
         for (GroovysonObjectPart part : modelParts) {
-
+           //BC uses addQuads from VariableModelPart
         }
         for (JsonRule rule : rules) {
-
+            if(rule.getWhen().getValue()) {
+                rule.apply(list);
+            }
         }
         return list.toArray(new MutableQuad[list.size()]);
     }
@@ -147,8 +149,7 @@ class GroovyVariableModel {
         face.faceData = getJsonTexture(facing, index).faceData;
         return face;
     }
-
-    interface ITextureGetter {
-        ModelUtil.TexturedFace get(String location);
-    }
 }
+//VariableModelPart extends VariablePartCubiodBase, VariablePartContainer, VariablePartTextureExpand
+//VariableFaceUV used in VariablePartCuboid, VariablePartTextureExpand
+//Change BakePart & getQuads in GroovyVariableModel: needs to eventually bake for multiple Variable types

@@ -11,115 +11,137 @@ import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableObject
+import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.MathHelper
 
-//Work In Progress
+//Mostly Complete: Origin & To from rules
 abstract class JsonRule {
 
     private static GroovysonObject groovysonObject;
-    final VariableBoolean when;
+    private static VariableBoolean when;
 
     JsonRule(VariableBoolean when) {
+        setWhen(when);
+    }
+
+    private void setWhen(VariableBoolean when) {
         this.when = when;
     }
 
-    static def getRules() {
-        return groovysonObject.getRules();
+    VariableBoolean getWhen() {
+        return when;
     }
 
-    static def getWhen() {
+    private static def getRuleWhen() {
         return groovysonObject.getRulesByName("when");
     }
 
-    static def getType() {
+    private static def getRuleType() {
         return groovysonObject.getRulesByName("type");
     }
 
-    static def getFrom() {
+    private static def getRuleFrom() {
         return groovysonObject.getRulesByName("from");
     }
 
-    static def getTo() {
+    private static def getRuleTo() {
         return groovysonObject.getRulesByName("to");
     }
 
-    static def getOrigin() {
+    private static def getRuleOrigin() {
         return groovysonObject.getRulesByName("origin");
     }
 
-    static def getAngle() {
+    private static def getRuleAngle() {
         return groovysonObject.getRulesByName("angle");
     }
 
-    static def getScale() {
+    private static def getRuleScale() {
         return groovysonObject.getRulesByName("scale");
     }
 
     static JsonRule SetRules(GroovysonObject groovysonObject) {
         this.groovysonObject = groovysonObject;
 
-        String when = getWhen();
+        String when = getRuleWhen();
         VariableBoolean nodeWhen = new VariableBoolean(Boolean.valueOf(when));
 
-        String builtin = getType();
+        String builtin = getRuleType();
         if(StringTools.contains(builtin, "rotate_facing")) {
-            String from = getFrom();
+
+            String from = getRuleFrom();
             String fromValue = StringTools.stringToEnum(from, EnumFacing.class).toUpperCase();
             VariableObject<EnumFacing> nodeFrom = new VariableObject<>();
-            nodeFrom.setValue(EnumFacing.valueOf(fromValue));
+            if(StringTools.contains(from, fromValue)) {
+                nodeFrom.setValue(EnumFacing.valueOf(fromValue));
+            }
 
-            String to = getTo();
+            String to = getRuleTo();
             String toValue = StringTools.stringToEnum(to, EnumFacing.class).toUpperCase();
             VariableObject<EnumFacing> nodeTo = new VariableObject<>();
-            nodeTo.setValue(EnumFacing.valueOf(toValue));
+            if(StringTools.contains(to, toValue)) {
+                nodeTo.setValue(EnumFacing.valueOf(toValue));
+            }
 
-            //Fix Origin is incomplete
-            VariableDouble[] origin = RotateFacing.DEFAULT_ORIGIN;
-            return new RotateFacing(nodeWhen, nodeFrom, nodeTo, origin);
+            String origin = getRuleOrigin();
+            ArrayList<String> rotateFacingOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
 
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = RotateFacing.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
+            return new RotateFacing(nodeWhen, nodeFrom, nodeTo, nodeOrigin);
         } else if(StringTools.contains(builtin, "rotate")) {
 
-            //Fix Origin is incomplete
-            VariableDouble[] origin = Rotate.DEFAULT_ORIGIN
+            String origin = getRuleOrigin();
+            ArrayList<String> rotateOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
 
-            VariableDouble[] angle = new VariableDouble[getAngle()];
-            return new Rotate(nodeWhen, origin, angle);
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = Rotate.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
 
+            String angle = getRuleAngle();
+            VariableDouble[] nodeAngle = new VariableDouble[3];
+            ArrayList<String> alist = ListTools.StringToList(angle);
+            for (int i = 0; i < 3; i++) {
+                nodeAngle[i].setValue(Double.valueOf(alist.get(i)));
+            }
+            return new Rotate(nodeWhen, nodeOrigin, nodeAngle);
         } else if(StringTools.contains(builtin, "scale")) {
 
-            //Fix Origin is incomplete
-            VariableDouble[] origin = Scale.DEFAULT_ORIGIN
+            String origin = getRuleOrigin();
+            ArrayList<String> scaleOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
 
-            VariableDouble[] scale = new VariableDouble[getScale()];
-            return new Scale(nodeWhen, origin, scale);
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = Scale.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
 
+            String scale = getRuleScale();
+            ArrayList<String> sList = ListTools.StringToList(scale);
+            VariableDouble[] nodeScale = new VariableDouble[3];
+            for (int i = 0; i < 3; i++) {
+                nodeScale[i].setValue(Double.valueOf(sList.get(i)));
+            }
+            return new Scale(nodeWhen, nodeOrigin, nodeScale);
         } else {
             throw new Exception("Unknown built in rule type ${builtin}");
         }
-    }
-
-    JsonRule getRotateFacingRule(String when, String type, String from, String to, VariableDouble[] origin) {
-        when = getWhen();
-        type = getType();
-        from = getFrom();
-        to = getTo();
-        origin = getOrigin();
-
-        String fromValue = StringTools.stringToEnum(from, EnumFacing.class).toUpperCase();
-        VariableObject<EnumFacing> nodeFrom = new VariableObject<>();
-        nodeFrom.setValue(EnumFacing.valueOf(fromValue));
-
-        String toValue = StringTools.stringToEnum(to, EnumFacing.class).toUpperCase();
-        VariableObject<EnumFacing> nodeTo = new VariableObject<>();
-        nodeTo.setValue(EnumFacing.valueOf(toValue));
-
-        //Fix Origin is incomplete
-        if(origin == null) {
-           origin = RotateFacing.DEFAULT_ORIGIN;
-        }
-        return new RotateFacing(nodeWhen, nodeFrom, nodeTo, origin);
     }
 
     abstract void apply(List<MutableQuad> quads);
@@ -142,8 +164,8 @@ abstract class JsonRule {
 
         @Override
         void apply(List<MutableQuad> quads) {
-            EnumFacing faceFrom = from.getValue();//EnumFacing.valueOf(ListTools.removeBrackets(from));
-            EnumFacing faceTo = to.getValue();//EnumFacing.valueOf(ListTools.removeBrackets(to));
+            EnumFacing faceFrom = from.getValue();
+            EnumFacing faceTo = to.getValue();
 
             if(faceFrom == faceTo) {
                 return;
