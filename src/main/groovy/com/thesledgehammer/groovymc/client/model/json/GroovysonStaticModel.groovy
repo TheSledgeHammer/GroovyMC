@@ -25,4 +25,27 @@ class GroovysonStaticModel extends GroovysonAbstractModel {
     GroovysonStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         super(resourceDirectory, modID, resourceObject, fileName);
     }
+
+    Float From(int index, int axis) {
+        return getRawModelPart(index).From().get(axis)
+    }
+
+    Float To(int index, int axis) {
+        return getRawModelPart(index).To().get(axis)
+    }
+
+    Float RotationAngle(int index, int axis) {
+        return getRawModelPart(index).RotationAngle().get(axis);
+    }
+
+    Float RotationAxis(int index, int axis) {
+        if(getRawModelPart(index).RotationAxis() != null) {
+            return getRawModelPart(index).RotationAxis().get(axis);
+        }
+        return null;
+    }
+
+    Float RotationOrigin(int index, int axis) {
+        return getRawModelPart(index).RotationOrigin().get(axis);
+    }
 }

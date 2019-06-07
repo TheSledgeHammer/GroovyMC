@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.models.imodel
+package com.thesledgehammer.groovymc.experimental.models.forge
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.model.bakedmodel.BlankGroovyBakedModel

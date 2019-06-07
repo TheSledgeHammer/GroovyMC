@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.models.imodel
+package com.thesledgehammer.groovymc.experimental.models.forge
 
 import com.google.common.collect.ImmutableSet
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext

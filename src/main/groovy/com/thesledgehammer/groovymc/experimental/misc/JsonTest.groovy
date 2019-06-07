@@ -17,22 +17,23 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.config.Constants
 
-import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import com.thesledgehammer.groovymc.experimental.models.vanilla.GroovyModelBase
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
+        GroovyStaticModel blockModel = new GroovyStaticModel("block", "engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
-        blockModel.setModelElements("base_moving");
+        //blockModel.setModelElements("base_moving");
         blockModel.setModelElements("trunk");
-        blockModel.setModelElements("chamber");
+        //blockModel.setModelElements("chamber");
 
         //Model Textures
         blockModel.setModelTextures("#trunk_blue");
@@ -55,7 +56,8 @@ class JsonTest {
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
         //GroovysonVariableFaceUV g = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, "2.0", "progress_size");
 
-        println JsonRule.SetRules(blockModel.getGroovysonModel())
+        println JsonRule.SetRules(blockModel.getGroovysonModel());
+        GroovyModelBase mb = new GroovyModelBase(blockModel)
     }
 }
 //     Vanilla:
