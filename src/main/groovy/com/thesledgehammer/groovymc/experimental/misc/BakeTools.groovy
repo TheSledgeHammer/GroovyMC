@@ -15,10 +15,14 @@
  */
 package com.thesledgehammer.groovymc.experimental.misc
 
+import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObject
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
 import com.thesledgehammer.groovymc.utils.Log
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 class BakeTools {
@@ -40,5 +44,16 @@ class BakeTools {
             Log.logError("Expected between 1 and 6 faces, got an empty object");
         }
         return quads.toArray(new JsonQuads[quads.size()]);
+    }
+
+    ModelUtil.TexturedFace TexturedFaceLookup(GroovyVariableModel model, EnumFacing facing, int index) {
+        TextureAtlasSprite sprite;
+        String name = model.getGroovysonModel().getRawModelPart(index).TextureFace(facing);
+        String lookup = model.getJsonTexture(facing, index).location;
+        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
+        face.sprite = sprite;
+        face.faceData = model.getJsonTexture(facing, index).faceData;
+        return face;
     }
 }

@@ -124,4 +124,8 @@ class StringTools {
     static byte getByteFromString(String name) {
         return Byte.valueOf(getDigitFromString(name));
     }
+
+    static boolean getBooleanFromString(String name) {
+        return Boolean.valueOf(name);
+    }
 }

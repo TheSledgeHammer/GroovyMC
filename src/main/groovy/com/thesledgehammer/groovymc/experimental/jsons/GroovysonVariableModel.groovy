@@ -18,9 +18,12 @@ package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
 import com.thesledgehammer.groovymc.experimental.variables.*
+import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.utils.StringTools
+import net.minecraft.util.EnumFacing
 
-class GroovysonVariableModel extends GroovysonAbstractModel {
+class GroovysonVariableModel extends GroovysonAbstractModel implements VariableTraits {
 
     GroovysonVariableModel(String resourceObject, String fileName) {
         super(resourceObject, fileName)
@@ -30,64 +33,99 @@ class GroovysonVariableModel extends GroovysonAbstractModel {
         super(resourceDirectory, modID, resourceObject, fileName)
     }
 
-    boolean Shade(boolean fallback) {
-        if(GroovysonObject().getShade() == null) {
-            return fallback;
+    List<VariableDouble> VariableFrom(int modelIndex, String newValue, String variable) {
+        List<String> var = ListTools.FloatListToStringList(getRawModelPart(modelIndex).From());
+        List<VariableDouble> from = new ArrayList<VariableDouble>(3);
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                from.add(new VariableDouble(var.get(i).toDouble()));
+            } else {
+                from.add(AssignVariableDouble(newValue, var, i, variable));
+            }
         }
-        return GroovysonObject().getShade();
+        return from;
     }
 
-    boolean AmbientOcclusion() {
-        return GroovysonObject().AmbientOcclusion();
-    }
-
-    String Visible(int index) {
-        String name = getVisible(index).toString();
-        if(isVariable(name)) {
-            return getVariable(name);
+    List<VariableDouble> VariableTo(int modelIndex, String newValue, String variable) {
+        List<String> var = ListTools.FloatListToStringList(getRawModelPart(modelIndex).To());
+        List<VariableDouble> to = new ArrayList<VariableDouble>(3);
+        for(int i = 0; i < 3; i++) {
+            if(!var.get(i).contains(variable)) {
+                to.add(new VariableDouble(var.get(i).toDouble()));
+            } else {
+                to.add(AssignVariableDouble(newValue, var, i, variable));
+            }
         }
-        return getVisible(index);
+        return to;
     }
 
-    String Light(int index) {
-        String name = getLight(index).toString()
-        if(isVariable(name)) {
-            return getVariable(name);
+    List<VariableDouble> VariableUV(int modelIndex, String newValue, String variable) {
+        List<String> var = null
+        for (EnumFacing face : EnumFacing.VALUES) {
+            if (!getVariableUV(modelIndex).get(face).isEmpty()) {
+                var = getVariableUV(modelIndex).get(face);
+            }
         }
-        return getLight(index);
-    }
-
-    String Colour(int index) {
-        String name = getColour(index).toString()
-        if(isVariable(name)) {
-            return getVariable(name);
+        List<VariableDouble> uv = new ArrayList<VariableDouble>(4);//[4];
+        if (var.size() != 4) {
+            throw new Exception("Expected exactly 4 doubles, but got: ${var.toArray().toString()}")
+        } else {
+            for (int i = 0; i < 4; i++) {
+                if (!var.get(i).contains(variable)) {
+                    uv.add(new VariableDouble(var.get(i).toDouble()));
+                } else {
+                    uv.add(AssignVariableDouble(newValue, var, i, variable));
+                }
+            }
         }
-        return getColour(index);
+        return uv;
     }
 
-    String getVariable(String variableName) {
-        if(isVariable(variableName)) {
-            return getVariableByName(variableName);
+    VariableLong setVariableLight(int modelIndex, String newValue) {
+        String var = getRawModelPart(modelIndex).Light();
+        VariableLong light;
+        if(var != null) {
+            newValue = var;
+            light = new VariableLong(Long.valueOf(newValue));
+        } else {
+            light = new VariableLong(Long.valueOf(newValue));
         }
-        return null;
+        return light;
     }
 
-    private boolean isVariable(String variableName) {
-        if(getVariableByName(variableName) != null) {
-            return true;
+    VariableBoolean VariableVisible(int modelIndex, boolean newValue) {
+        String var = getRawModelPart(modelIndex).Visible();
+        VariableBoolean visible;
+        if(MathTools.isBoolean(var)) {
+            newValue = var;
+            visible = new VariableBoolean(newValue);
+        } else {
+            visible = AssignVariableBoolean(newValue, var);
         }
-        return false;
+        return visible;
     }
 
-    private String getVisible(int index) {
-        return getRawModelPart(index).Visible();
+    VariableLong VariableColour(int modelIndex, String newValue) {
+        String var = getRawModelPart(modelIndex).Colour();
+        VariableLong colour;
+        if(var != null) {
+            newValue = var;
+            colour = new VariableLong(Long.valueOf(newValue));
+        } else {
+            colour = new VariableLong(Long.valueOf(newValue));
+        }
+        return colour;
     }
 
-    private String getLight(int index) {
-        return getRawModelPart(index).Light();
-    }
-
-    private String getColour(int index) {
-        return getRawModelPart(index).Colour();
+    private Map<EnumFacing, List<String>> getVariableUV(int index) {
+        List<String> var = null;
+        HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            if(face != null) {
+                var = ListTools.FloatListToStringList(getRawModelPart(index).FacingUv(face));
+                variableMap.put(face, var)
+            }
+        }
+        return variableMap;
     }
 }

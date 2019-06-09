@@ -83,12 +83,4 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
         return groovysonObjectParts.get(index)
     }
 
-    //Get Element variables at index by face name
-    HashMap<String, EnumFacing> FaceMap(int index) {
-        HashMap<String, EnumFacing> arrMap = new HashMap<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            arrMap.put(face.getName(), getRawModelPart(index).Facing(face));
-        }
-        return arrMap;
-    }
 }

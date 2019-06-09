@@ -1,3 +1,19 @@
+/*
+ * Copyright [2018] [TheSledgeHammer]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.thesledgehammer.groovymc.experimental.models
 
 import com.google.common.collect.HashBasedTable
@@ -15,7 +31,6 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -26,6 +41,7 @@ class GroovyVariableModel {
     private GroovyDefinitionContext GDC;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private JsonRule[] rules;
+
 
     GroovyVariableModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonVariableModel(resourceObject, fileName);
@@ -78,19 +94,6 @@ class GroovyVariableModel {
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
-    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts) {
-        List<MutableQuad> list = new ArrayList<>();
-        for (GroovysonObjectPart part : modelParts) {
-           //BC uses addQuads from VariableModelPart
-        }
-        for (JsonRule rule : rules) {
-            if(rule.getWhen().getValue()) {
-                rule.apply(list);
-            }
-        }
-        return list.toArray(new MutableQuad[list.size()]);
-    }
-
     MutableQuad[] getCutoutQuads() {
         return bakePart(GDC.getCutoutKey().getCutoutModelElements());
     }
@@ -139,16 +142,46 @@ class GroovyVariableModel {
         }
     }
 
-    ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index) {
+    ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index, String lookup) {
+        JsonTextureMapping();
+        int attempts = 0;
+        JsonTexture texture = new JsonTexture(lookup);
         TextureAtlasSprite sprite;
-        String name = GROOVY_MODEL.getRawModelPart(index).TextureFace(facing);
-        String lookup = getJsonTexture(facing, index).location;
-        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        while (texture.location.startsWith("#") && attempts < 10) {
+            JsonTexture tex = getJsonTexture(facing, index);
+            if(tex == null) {
+                break;
+            } else {
+                texture = texture.inParent(tex);
+            }
+            attempts++;
+        }
+
+        lookup = texture.location;
+        //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
         ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
         face.sprite = sprite;
-        face.faceData = getJsonTexture(facing, index).faceData;
+        face.faceData = texture.faceData;
         return face;
     }
+
+
+    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts) {
+        List<MutableQuad> list = new ArrayList<>();
+        for (GroovysonObjectPart part : modelParts) {
+
+            //BC uses addQuads from VariableModelPart
+        }
+        for (JsonRule rule : rules) {
+            if(rule.getWhen().getValue()) {
+                rule.apply(list);
+            }
+        }
+        return list.toArray(new MutableQuad[list.size()]);
+    }
+
+
+
 }
 //VariableModelPart extends VariablePartCubiodBase, VariablePartContainer, VariablePartTextureExpand
 //VariableFaceUV used in VariablePartCuboid, VariablePartTextureExpand

@@ -5,9 +5,6 @@ import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableLong
 import com.thesledgehammer.groovymc.experimental.variables.VariableObject
-import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.MathTools
-import net.minecraft.util.EnumFacing
 
 //Based from BC8's JsonVariableFaceUV
 //TODO: Complete: textureRotation, Invert, BothSides & Texture
@@ -16,28 +13,45 @@ class GroovysonVariableFaceUV implements VariableTraits {
     private VariableDouble[] from;
     private VariableDouble[] to;
     private VariableDouble[] uv;
-    final VariableLong textureRotation;
+    private VariableLong textureRotation;
     private VariableBoolean visible;
-    final VariableBoolean invert;
-    final VariableBoolean bothSides;
-    final VariableObject<String> texture;
+    private VariableBoolean invert;
+    private VariableBoolean bothSides;
+    private VariableObject<String> texture;
     
     GroovysonVariableFaceUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
-        setFrom(setVariableFrom(model, modelIndex, newValue, variable));
-        setTo(setVariableTo(model, modelIndex, newValue, variable));
-        setUV(setVariableUV(model, modelIndex, newValue, variable));
-        setVisible(setVariableVisible(model, modelIndex, true));
+        setFrom(model.VariableFrom(modelIndex, newValue, variable));
+        setTo(model.VariableTo(modelIndex, newValue, variable));
+        setUV(model.VariableUV(modelIndex, newValue, variable));
+        setVisible(model.VariableVisible(modelIndex, true));
+        setInvert();
+        setBothSides();
+        setTexture();
+        setTextureRotation();
+    }
+
+    GroovysonVariableFaceUV(GroovysonVariableModel model, String newValue, String variable) {
+        for(int i = 0; i < model.getRawModelParts().size(); i++) {
+            setFrom(model.VariableFrom(i, newValue, variable));
+            setTo(model.VariableTo(i, newValue, variable));
+            setUV(model.VariableUV(i, newValue, variable));
+            setVisible(model.VariableVisible(i, true));
+            setInvert();
+            setBothSides();
+            setTexture();
+            setTextureRotation();
+        }
     }
     
-    private void setFrom(VariableDouble[] from) {
+    private void setFrom(List<VariableDouble> from) {
         this.from = from;
     }
 
-    private void setTo(VariableDouble[] to) {
+    private void setTo(List<VariableDouble> to) {
         this.to = to;
     }
 
-    private void setUV(VariableDouble[] uv) {
+    private void setUV(List<VariableDouble> uv) {
         this.uv = uv;
     }
 
@@ -45,129 +59,52 @@ class GroovysonVariableFaceUV implements VariableTraits {
         this.visible = visible;
     }
 
-    private void setColour(VariableLong colour) {
-        this.colour = colour;
+    private void setInvert(VariableBoolean invert) {
+        this.invert = invert;
     }
 
-    private void setLight(VariableLong light) {
-        this.light = light;
+    private void setBothSides(VariableBoolean bothSides) {
+        this.bothSides = bothSides;
     }
 
-    VariableDouble[] setVariableFrom(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableFrom(groovysonModel, modelIndex);
-        VariableDouble[] from = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                from[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                from[i] = AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
+    private void setTexture(VariableObject<String> texture) {
+        this.texture = texture;
+    }
+
+    private void setTextureRotation(VariableLong textureRotation) {
+        this.textureRotation = textureRotation;
+    }
+
+    VariableDouble[] getFrom() {
         return from;
     }
 
-    private VariableDouble[] setVariableTo(GroovysonVariableModel groovysonModel, int modelIndex, String newValue, String variable) {
-        List<String> var = getVariableTo(groovysonModel, modelIndex);
-        VariableDouble[] to = new VariableDouble[3];
-        for(int i = 0; i < 3; i++) {
-            if(!var.get(i).contains(variable)) {
-                to[i] = new VariableDouble(var.get(i).toDouble());
-            } else {
-                to[i] = AssignVariableDouble(newValue, var, i, variable);
-            }
-        }
+    VariableDouble[] getTo() {
         return to;
     }
 
-    private VariableDouble[] setVariableUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
-        List<String> var = null
-        for(EnumFacing face : EnumFacing.VALUES) {
-            if (!getVariableUV(model, modelIndex).get(face).isEmpty()) {
-                var = getVariableUV(model, modelIndex).get(face);
-            }
-        }
-        VariableDouble[] uv = new VariableDouble[4];
-        if(var.size() != 4) {
-            throw new Exception("Expected exactly 4 doubles, but got: ${var.toArray().toString()}")
-        } else {
-            for(int i = 0; i < 4; i++) {
-                if(!var.get(i).contains(variable)) {
-                    uv[i] = new VariableDouble(var.get(i).toDouble());
-                } else {
-                    uv[i] = AssignVariableDouble(newValue, var, i, variable);
-                }
-            }
-        }
+    VariableDouble[] getFaceUV() {
         return uv;
     }
 
-    private VariableBoolean setVariableVisible(GroovysonVariableModel model, int modelIndex, boolean newValue) {
-        String var = getVariableVisible(model, modelIndex);
-        VariableBoolean visible;
-        if(MathTools.isBoolean(var)) {
-            newValue = var;
-            visible = new VariableBoolean(newValue);
-        }
-        visible = AssignVariableBoolean(newValue, var);
+    VariableBoolean getVisible() {
         return visible;
     }
 
-    private VariableLong setVariableColour(GroovysonVariableModel model, int modelIndex, String newValue) {
-        String var = getVariableColour(model, modelIndex);
-        VariableLong colour;
-        if(var != null) {
-            newValue = var;
-            colour = new VariableLong(Long.valueOf(newValue));
-        } else {
-            colour = new VariableLong(Long.valueOf(newValue));
-        }
-        return colour;
+    VariableBoolean getInvert() {
+        return invert;
     }
 
-    private VariableLong setVariableLight(GroovysonVariableModel model, int modelIndex, String newValue) {
-        String var = getVariableLight(model, modelIndex);
-        VariableLong light;
-        if(var != null) {
-            newValue = var;
-            light = new VariableLong(Long.valueOf(newValue));
-        } else {
-            light = new VariableLong(Long.valueOf(newValue));
-        }
-        return light;
-    }
-    
-    private static List<String> getVariableFrom(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).From());
-        return var;
+    VariableBoolean getBothSides() {
+        return bothSides;
     }
 
-    private static List<String> getVariableTo(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).To());
-        return var;
+    VariableObject<String> getTexture() {
+        return texture;
     }
 
-    private static Map<EnumFacing, List<String>> getVariableUV(GroovysonVariableModel groovysonModel, int index) {
-        List<String> var = null;
-        HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
-        for(EnumFacing face : EnumFacing.VALUES) {
-            if(face != null) {
-                var = ListTools.FloatListToStringList(groovysonModel.getRawModelPart(index).FacingUv(face));
-                variableMap.put(face, var)
-            }
-        }
-        return variableMap;
-    }
-
-    private static String getVariableVisible(GroovysonVariableModel model, int index) {
-        return model.Visible(index);
-    }
-
-    private static String getVariableLight(GroovysonVariableModel model, int index) {
-        return model.Light(index);
-    }
-
-    private static String getVariableColour(GroovysonVariableModel model, int index) {
-        return model.Colour(index);
+    VariableLong getTextureRotation() {
+        return textureRotation;
     }
     
    VariableFaceData evaluate(ITextureGetter spriteLookup) {
