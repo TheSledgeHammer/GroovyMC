@@ -47,7 +47,7 @@ class JsonTest {
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
         //GroovysonVariableFaceUV g = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, "2.0", "progress_size");
 
-        GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0,  "2", "progress_size");
-        println faceUV.texture
+       // GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0,  "2", "progress_size");
+        //println faceUV.texture
     }
 }

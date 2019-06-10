@@ -59,13 +59,12 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return to;
     }
 
-    List<VariableDouble> VariableUV(int modelIndex, String newValue, String variable) {
-        List<String> var = null
-        for (EnumFacing face : EnumFacing.VALUES) {
-            if (!getVariableUV(modelIndex).get(face).isEmpty()) {
-                var = getVariableUV(modelIndex).get(face);
-            }
+    List<VariableDouble> VariableUV(int modelIndex, EnumFacing face, String newValue, String variable) {
+        List<String> var = null;
+        if (!getVariableUV(modelIndex).get(face).isEmpty()) {
+            var = getVariableUV(modelIndex).get(face);
         }
+
         List<VariableDouble> uv = new ArrayList<VariableDouble>(4);//[4];
         if (var.size() != 4) {
             throw new Exception("Expected exactly 4 doubles, but got: ${var.toArray().toString()}")
@@ -79,23 +78,6 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
             }
         }
         return uv;
-    }
-
-    VariableLong TextureRotation(int modelIndex, String newValue) {
-        String var = null;
-        for (EnumFacing face : EnumFacing.VALUES) {
-            if(!getVariableTextureRotation(modelIndex).isEmpty()) {
-                var = getVariableTextureRotation(modelIndex).get(face);
-            }
-        }
-        VariableLong textureRotation;
-        if(var != null) {
-            newValue = var;
-            textureRotation = new VariableLong(Long.valueOf(newValue));
-        } else {
-            textureRotation = new VariableLong(Long.valueOf(newValue));
-        }
-        return textureRotation;
     }
 
     VariableLong VariableLight(int modelIndex, String newValue) {
@@ -158,14 +140,26 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return bothSides;
     }
 
-    //May need to read by face
-    VariableObject<String> VariableTexture(int modelIndex) {
+    VariableLong TextureRotation(int modelIndex, EnumFacing face, String newValue) {
+        String var = null;
+        if(!getVariableTextureRotation(modelIndex).isEmpty()) {
+            var = getVariableTextureRotation(modelIndex).get(face);
+        }
+        VariableLong textureRotation;
+        if(var != null) {
+            newValue = var;
+            textureRotation = new VariableLong(Long.valueOf(newValue));
+        } else {
+            textureRotation = new VariableLong(Long.valueOf(newValue));
+        }
+        return textureRotation;
+    }
+
+    VariableObject<String> VariableTexture(int modelIndex, EnumFacing face) {
         String var = null;
         VariableObject<String> texture = new VariableObject<String>()
-        for (EnumFacing face : EnumFacing.VALUES) {
-            if(!getVariableTexture(modelIndex).isEmpty()) {
-                var = getVariableTexture(modelIndex).get(face);
-            }
+        if(!getVariableTexture(modelIndex).isEmpty()) {
+            var = getVariableTexture(modelIndex).get(face);
         }
         texture.setValue(var);
         return texture;
@@ -173,7 +167,7 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
 
     private Map<EnumFacing, List<String>> getVariableUV(int index) {
         List<String> var = null;
-        HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
+        EnumMap<EnumFacing, List<String>> variableMap = new EnumMap<>(EnumFacing.class);
         for(EnumFacing face : EnumFacing.VALUES) {
             if(face != null) {
                 var = ListTools.FloatListToStringList(getRawModelPart(index).FacingUv(face));
@@ -184,7 +178,7 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
     }
 
     private Map<EnumFacing, String> getVariableTextureRotation(int index) {
-        HashMap<EnumFacing, String> variableMap = new HashMap<>();
+        EnumMap<EnumFacing, String> variableMap = new EnumMap<>(EnumFacing.class);
         for(EnumFacing face : EnumFacing.VALUES) {
             if (face != null) {
                 variableMap.put(face, getRawModelPart(index).FacingRotation(face, 0).toString());
@@ -194,7 +188,7 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
     }
 
     private Map<EnumFacing, String> getVariableTexture(int index) {
-        HashMap<EnumFacing, String> variableMap = new HashMap<>();
+        EnumMap<EnumFacing, String> variableMap = new EnumMap<>(EnumFacing.class);
         for(EnumFacing face : EnumFacing.VALUES) {
             if (face != null) {
                 variableMap.put(face, getRawModelPart(index).TextureFace(face).toString());

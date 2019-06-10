@@ -5,11 +5,13 @@ import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
 import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.experimental.variables.VariableLong
 import com.thesledgehammer.groovymc.experimental.variables.VariableObject
+import net.minecraft.util.EnumFacing
 
 //Based from BC8's JsonVariableFaceUV
-//TODO: Complete: textureRotation, Invert, BothSides & Texture
 class GroovysonVariableFaceUV implements VariableTraits {
-    
+
+    private final GroovysonVariableModel model;
+    private final EnumFacing face;
     private VariableDouble[] from;
     private VariableDouble[] to;
     private VariableDouble[] uv;
@@ -19,15 +21,17 @@ class GroovysonVariableFaceUV implements VariableTraits {
     private VariableBoolean bothSides;
     private VariableObject<String> texture;
     
-    GroovysonVariableFaceUV(GroovysonVariableModel model, int modelIndex, String newValue, String variable) {
+    GroovysonVariableFaceUV(GroovysonVariableModel model, int modelIndex, EnumFacing face, String newValue, String variable) {
+        this.model = model
+        this.face = face;
         setFrom(model.VariableFrom(modelIndex, newValue, variable));
         setTo(model.VariableTo(modelIndex, newValue, variable));
-        setUV(model.VariableUV(modelIndex, newValue, variable));
+        setUV(model.VariableUV(modelIndex, face, newValue, variable));
         setVisible(model.VariableVisible(modelIndex, true));
         setInvert(model.VariableInvert(modelIndex, false));
         setBothSides(model.VariableBothSides(modelIndex, false));
-        setTexture(model.VariableTexture(modelIndex));
-        setTextureRotation(model.TextureRotation(modelIndex, "0"));
+        setTexture(model.VariableTexture(modelIndex, face));
+        setTextureRotation(model.TextureRotation(modelIndex, face, "0"));
     }
     
     private void setFrom(List<VariableDouble> from) {
@@ -92,6 +96,14 @@ class GroovysonVariableFaceUV implements VariableTraits {
 
     VariableLong getTextureRotation() {
         return textureRotation;
+    }
+
+    GroovysonVariableModel getModel() {
+        return model;
+    }
+
+    EnumFacing getFace() {
+        return face;
     }
     
    VariableFaceData evaluate(ITextureGetter spriteLookup) {
