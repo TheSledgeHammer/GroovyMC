@@ -81,7 +81,24 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return uv;
     }
 
-    VariableLong setVariableLight(int modelIndex, String newValue) {
+    VariableLong TextureRotation(int modelIndex, String newValue) {
+        String var = null;
+        for (EnumFacing face : EnumFacing.VALUES) {
+            if(!getVariableTextureRotation(modelIndex).isEmpty()) {
+                var = getVariableTextureRotation(modelIndex).get(face);
+            }
+        }
+        VariableLong textureRotation;
+        if(var != null) {
+            newValue = var;
+            textureRotation = new VariableLong(Long.valueOf(newValue));
+        } else {
+            textureRotation = new VariableLong(Long.valueOf(newValue));
+        }
+        return textureRotation;
+    }
+
+    VariableLong VariableLight(int modelIndex, String newValue) {
         String var = getRawModelPart(modelIndex).Light();
         VariableLong light;
         if(var != null) {
@@ -96,7 +113,7 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
     VariableBoolean VariableVisible(int modelIndex, boolean newValue) {
         String var = getRawModelPart(modelIndex).Visible();
         VariableBoolean visible;
-        if(MathTools.isBoolean(var)) {
+        if(var != null ) {
             newValue = var;
             visible = new VariableBoolean(newValue);
         } else {
@@ -117,6 +134,43 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return colour;
     }
 
+    VariableBoolean VariableInvert(int modelIndex, boolean newValue) {
+        String var = getRawModelPart(modelIndex).Invert();
+        VariableBoolean invert;
+        if(var != null) {
+            newValue = var;
+            invert = new VariableBoolean(newValue);
+        } else {
+            invert = AssignVariableBoolean(newValue, var);
+        }
+        return invert;
+    }
+
+    VariableBoolean VariableBothSides(int modelIndex, boolean newValue) {
+        String var = getRawModelPart(modelIndex).BothSides();
+        VariableBoolean bothSides;
+        if(var != null) {
+            newValue = var;
+            bothSides = new VariableBoolean(newValue);
+        } else {
+            bothSides = AssignVariableBoolean(newValue, var);
+        }
+        return bothSides;
+    }
+
+    //May need to read by face
+    VariableObject<String> VariableTexture(int modelIndex) {
+        String var = null;
+        VariableObject<String> texture = new VariableObject<String>()
+        for (EnumFacing face : EnumFacing.VALUES) {
+            if(!getVariableTexture(modelIndex).isEmpty()) {
+                var = getVariableTexture(modelIndex).get(face);
+            }
+        }
+        texture.setValue(var);
+        return texture;
+    }
+
     private Map<EnumFacing, List<String>> getVariableUV(int index) {
         List<String> var = null;
         HashMap<EnumFacing, List<String>> variableMap = new HashMap<>();
@@ -127,5 +181,25 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
             }
         }
         return variableMap;
+    }
+
+    private Map<EnumFacing, String> getVariableTextureRotation(int index) {
+        HashMap<EnumFacing, String> variableMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            if (face != null) {
+                variableMap.put(face, getRawModelPart(index).FacingRotation(face, 0).toString());
+            }
+        }
+        return variableMap
+    }
+
+    private Map<EnumFacing, String> getVariableTexture(int index) {
+        HashMap<EnumFacing, String> variableMap = new HashMap<>();
+        for(EnumFacing face : EnumFacing.VALUES) {
+            if (face != null) {
+                variableMap.put(face, getRawModelPart(index).TextureFace(face).toString());
+            }
+        }
+        return variableMap
     }
 }

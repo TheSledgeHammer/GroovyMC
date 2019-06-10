@@ -104,6 +104,11 @@ trait VariableTraits implements IVariable {
     //Incomplete
     VariableObject<String> AssignVariableString(String newValue, String inputVariable) {
         VariableObject<String> vString = new VariableObject<String>();
+        String oldVal = inputVariable;
+        if(oldVal != null) {
+            oldVal = newValue;
+        }
+        vString.setValue(newValue);
         return vString;
     }
 

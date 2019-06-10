@@ -24,23 +24,10 @@ class GroovysonVariableFaceUV implements VariableTraits {
         setTo(model.VariableTo(modelIndex, newValue, variable));
         setUV(model.VariableUV(modelIndex, newValue, variable));
         setVisible(model.VariableVisible(modelIndex, true));
-        setInvert();
-        setBothSides();
-        setTexture();
-        setTextureRotation();
-    }
-
-    GroovysonVariableFaceUV(GroovysonVariableModel model, String newValue, String variable) {
-        for(int i = 0; i < model.getRawModelParts().size(); i++) {
-            setFrom(model.VariableFrom(i, newValue, variable));
-            setTo(model.VariableTo(i, newValue, variable));
-            setUV(model.VariableUV(i, newValue, variable));
-            setVisible(model.VariableVisible(i, true));
-            setInvert();
-            setBothSides();
-            setTexture();
-            setTextureRotation();
-        }
+        setInvert(model.VariableInvert(modelIndex, false));
+        setBothSides(model.VariableBothSides(modelIndex, false));
+        setTexture(model.VariableTexture(modelIndex));
+        setTextureRotation(model.TextureRotation(modelIndex, "0"));
     }
     
     private void setFrom(List<VariableDouble> from) {

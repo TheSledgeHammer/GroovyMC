@@ -196,4 +196,12 @@ class GroovysonObjectPart {
     def Visible() {
         return part.visible;
     }
+
+    def Invert() {
+        return part.invert;
+    }
+
+    def BothSides() {
+        return part.bothsides;
+    }
 }

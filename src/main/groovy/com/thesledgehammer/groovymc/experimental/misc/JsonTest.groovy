@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableFaceUV
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
 class JsonTest {
 
@@ -46,7 +47,7 @@ class JsonTest {
         //println blockModel.getGroovysonModel().AssignVariableDouble("1", var, 1, "progress_size")
         //GroovysonVariableFaceUV g = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, "2.0", "progress_size");
 
-        //GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0,  "2", "progress_size");
-       // println faceUV.visible
+        GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0,  "2", "progress_size");
+        println faceUV.texture
     }
 }
