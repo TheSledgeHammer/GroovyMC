@@ -80,6 +80,18 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return uv;
     }
 
+    VariableBoolean VariableShade(int modelIndex, boolean newValue) {
+        String var = getRawModelPart(modelIndex).Shade();
+        VariableBoolean shade;
+        if(var != null ) {
+            newValue = var;
+            shade = new VariableBoolean(newValue);
+        } else {
+            shade = AssignVariableBoolean(newValue, var);
+        }
+        return shade;
+    }
+
     VariableLong VariableLight(int modelIndex, String newValue) {
         String var = getRawModelPart(modelIndex).Light();
         VariableLong light;
@@ -140,7 +152,7 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return bothSides;
     }
 
-    VariableLong TextureRotation(int modelIndex, EnumFacing face, String newValue) {
+    VariableLong VariableTextureRotation(int modelIndex, EnumFacing face, String newValue) {
         String var = null;
         if(!getVariableTextureRotation(modelIndex).isEmpty()) {
             var = getVariableTextureRotation(modelIndex).get(face);

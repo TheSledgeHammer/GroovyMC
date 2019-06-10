@@ -8,7 +8,7 @@ import com.thesledgehammer.groovymc.experimental.variables.VariableObject
 import net.minecraft.util.EnumFacing
 
 //Based from BC8's JsonVariableFaceUV
-class GroovysonVariableFaceUV implements VariableTraits {
+class GroovysonVariableFaceUV {
 
     private final GroovysonVariableModel model;
     private final EnumFacing face;
@@ -31,7 +31,7 @@ class GroovysonVariableFaceUV implements VariableTraits {
         setInvert(model.VariableInvert(modelIndex, false));
         setBothSides(model.VariableBothSides(modelIndex, false));
         setTexture(model.VariableTexture(modelIndex, face));
-        setTextureRotation(model.TextureRotation(modelIndex, face, "0"));
+        setTextureRotation(model.VariableTextureRotation(modelIndex, face, "0"));
     }
     
     private void setFrom(List<VariableDouble> from) {
