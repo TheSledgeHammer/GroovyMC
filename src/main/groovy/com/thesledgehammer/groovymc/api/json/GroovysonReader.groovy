@@ -50,4 +50,12 @@ class GroovysonReader {
 		def jsonObject = slurpinator.parseText(jsonFile);
 		return jsonObject
 	}
+
+	static boolean doesFileExist(String path, String modid, String resourceType, String fileName) {
+		return  new File(path + "/" + modid + "/" + resourceType + "/" + fileName).exists();
+	}
+
+	static boolean doesFileExist(String path, String modid, String resource, String resourceObject, String fileName) {
+		return new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).exists();
+	}
 }

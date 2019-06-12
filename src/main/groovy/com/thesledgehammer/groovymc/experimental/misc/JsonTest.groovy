@@ -18,17 +18,23 @@ package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.config.Constants
+
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
         GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
+        GroovyVariableModel itemModel = new GroovyVariableModel("item", "engine_base");
+        //itemEngineBase
+        //blockEngineBase
 
         //Model Elements
         blockModel.setModelElements("base");
-        //blockModel.setModelElements("base_moving");
+        blockModel.setModelElements("base_moving");
         blockModel.setModelElements("trunk");
         //blockModel.setModelElements("chamber");
 
@@ -44,8 +50,7 @@ class JsonTest {
         blockModel.setModelTextures("#side");
         //TextureEntry.Register.add("#back").build()
 
-        //GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0,  "2", "progress_size");
-        //CuboidBase cuboidBase = new CuboidBase(blockModel.getGroovysonModel(), 0, EnumFacing.DOWN, "2", "progress_size")
-        //println cuboidBase.variableDefinition.shade
+        //GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, EnumFacing.DOWN);
+        //GroovysonVariableCuboid cuboid = new GroovysonVariableCuboid(blockModel.getGroovysonModel(), 1);
     }
 }

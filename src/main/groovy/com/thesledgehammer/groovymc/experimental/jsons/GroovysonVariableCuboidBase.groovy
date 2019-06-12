@@ -1,45 +1,44 @@
+/*
+ * Copyright (c) 2017 SpaceToad and the BuildCraft team
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
+ * distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/
+ * Modified by TheSledgeHammer 2018: Several changes made for use in GroovyMC. Renamed from JsonVariableCuboidBase. Converted to .groovy
+ */
+
 package com.thesledgehammer.groovymc.experimental.jsons
 
-import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.experimental.variables.VariableLong
+import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.utils.MathTools
 import net.minecraft.util.EnumFacing
 
-class GroovysonVariableCuboidBase {
+import javax.vecmath.Vector3f
+//Defaults elements containing "progress_size" to 0 + float value if it exists.
+abstract class GroovysonVariableCuboidBase extends GroovysonVariables {
 
-    GroovyVariableDefinition variableDefinition;
-    private EnumFacing face;
-    private VariableDouble[] from;
-    private VariableDouble[] to;
-    private VariableBoolean visible;
-    private VariableBoolean shade;
-    private VariableLong colour
-    private VariableLong light
-
-    GroovysonVariableCuboidBase(GroovysonVariableModel model, int modelIndex, EnumFacing face, String newValue, String variable) {
-        this.variableDefinition = new GroovyVariableDefinition(model);
-        this.face = face;
-        variableDefinition.setFrom(model.VariableFrom(modelIndex, newValue, variable));
-        variableDefinition.setTo(model.VariableTo(modelIndex, newValue, variable));
-        variableDefinition.setShade(model.VariableShade(modelIndex, true));
-        variableDefinition.setVisible(model.VariableVisible(modelIndex, true));
-        variableDefinition.setLight(model.VariableLight(modelIndex, "0"))
-        variableDefinition.setColour(model.VariableColour(modelIndex, "-1"));
+    GroovysonVariableCuboidBase(GroovysonVariableModel model, int modelIndex) {
+        super(model);
+        setFrom(model.VariableFrom(modelIndex, "0"));
+        setTo(model.VariableTo(modelIndex, "0"));
+        setShade(model.VariableShade(modelIndex, true));
+        setVisible(model.VariableVisible(modelIndex, true));
+        setLight(model.VariableLight(modelIndex, "0"))
+        setColour(model.VariableColour(modelIndex, "-1"));
     }
-/*
+
     void addQuads(List<MutableQuad> addTo, ITextureGetter spriteLookup) {
-        if (visible.getValue()) {
-            float[] f = bakePosition(variableDefinition.getFrom());
-            float[] t = bakePosition(variableDefinition.getTo());
-            boolean s = shade.getValue();
-            int l = (int) (variableDefinition.getLight().getValue() & 15);
-            //int rgba = RenderUtil.swapARGBforABGR((int) colour.evaluate());
+        if (getVisible().getValue()) {
+            float[] from = bakePosition(getFrom());
+            float[] to = bakePosition(getTo());
+            boolean shade = getShade().getValue();
+            int l = (int) (getLight().getValue() & 15);
+            int rgba = MathTools.swapARGBforABGR((int) getColour().getValue());
             for (EnumFacing face : EnumFacing.VALUES) {
                 VariableFaceData data = getFaceData(face, spriteLookup);
                 if (data != null) {
-                    Vector3f radius = new Vector3f(t[0] - f[0] as float, t[1] - f[1] as float, t[2] - f[2] as float);
+                    Vector3f radius = new Vector3f(to[0] - from[0] as float, to[1] - from[1] as float, to[2] - from[2] as float);
                     radius.scale(0.5f);
-                    Vector3f center = new Vector3f(f);
+                    Vector3f center = new Vector3f(from);
                     center.add(radius);
                     MutableQuad quad = ModelUtil.createFace(face, center, radius, data.uvs);
                     quad.rotateTextureUp(data.rotations);
@@ -47,7 +46,7 @@ class GroovysonVariableCuboidBase {
                     quad.colouri(rgba);
                     quad.texFromSprite(data.sprite);
                     quad.setSprite(data.sprite);
-                    quad.setShade(s);
+                    quad.setShade(shade);
                     if (data.bothSides) {
                         addTo.add(quad.copyAndInvertNormal());
                     } else if (data.invertNormal) {
@@ -58,5 +57,6 @@ class GroovysonVariableCuboidBase {
             }
         }
     }
-*/
+
+    protected abstract VariableFaceData getFaceData(EnumFacing side, ITextureGetter spriteLookup);
 }

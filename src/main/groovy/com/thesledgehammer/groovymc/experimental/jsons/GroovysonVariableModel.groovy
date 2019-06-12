@@ -19,8 +19,6 @@ package com.thesledgehammer.groovymc.experimental.jsons
 import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
 import com.thesledgehammer.groovymc.experimental.variables.*
 import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.MathTools
-import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 
 class GroovysonVariableModel extends GroovysonAbstractModel implements VariableTraits {
@@ -30,10 +28,11 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
     }
 
     GroovysonVariableModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        super(resourceDirectory, modID, resourceObject, fileName)
+        super(resourceDirectory, modID, resourceObject, fileName);
     }
 
-    List<VariableDouble> VariableFrom(int modelIndex, String newValue, String variable) {
+    List<VariableDouble> VariableFrom(int modelIndex, String newValue) {
+        String variable = "progress_size"
         List<String> var = ListTools.FloatListToStringList(getRawModelPart(modelIndex).From());
         List<VariableDouble> from = new ArrayList<VariableDouble>(3);
         for(int i = 0; i < 3; i++) {
@@ -46,7 +45,8 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return from;
     }
 
-    List<VariableDouble> VariableTo(int modelIndex, String newValue, String variable) {
+    List<VariableDouble> VariableTo(int modelIndex, String newValue) {
+        String variable = "progress_size"
         List<String> var = ListTools.FloatListToStringList(getRawModelPart(modelIndex).To());
         List<VariableDouble> to = new ArrayList<VariableDouble>(3);
         for(int i = 0; i < 3; i++) {
@@ -59,7 +59,8 @@ class GroovysonVariableModel extends GroovysonAbstractModel implements VariableT
         return to;
     }
 
-    List<VariableDouble> VariableUV(int modelIndex, EnumFacing face, String newValue, String variable) {
+    List<VariableDouble> VariableUV(int modelIndex, EnumFacing face, String newValue) {
+        String variable = "progress_size"
         List<String> var = null;
         if (!getVariableUV(modelIndex).get(face).isEmpty()) {
             var = getVariableUV(modelIndex).get(face);

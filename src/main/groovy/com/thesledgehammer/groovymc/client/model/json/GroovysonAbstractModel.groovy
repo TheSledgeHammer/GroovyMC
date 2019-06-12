@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
-import net.minecraft.util.EnumFacing
 
 abstract class GroovysonAbstractModel extends GroovysonObject {
 
@@ -82,5 +81,4 @@ abstract class GroovysonAbstractModel extends GroovysonObject {
     GroovysonObjectPart getRawModelPart(int index) {
         return groovysonObjectParts.get(index)
     }
-
 }
