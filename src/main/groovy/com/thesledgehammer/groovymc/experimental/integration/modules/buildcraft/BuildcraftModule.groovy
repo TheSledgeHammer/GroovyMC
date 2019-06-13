@@ -1,6 +1,6 @@
 package com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft
 
-import com.thesledgehammer.groovymc.experimental.integration.api.BlankModule
+import com.thesledgehammer.groovymc.api.integration.BlankModule
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent

@@ -1,6 +1,8 @@
 TODO:
 Short-Term: (Before 1.13/1.14 Port Completion)
 - Complete Variable Model
+- To Fix:
+    - CuboidBase: VariableLight
 - BakedModel's
 
 Long-Term:

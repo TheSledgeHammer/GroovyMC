@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.experimental.integration.api
+package com.thesledgehammer.groovymc.api.integration
 
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent

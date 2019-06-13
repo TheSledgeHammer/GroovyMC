@@ -47,6 +47,10 @@ repositories {
 		name = "IC2"
 		url = "http://maven.ic2.player.to/"
 	}
+	maven {
+		name = "tterrag maven (TOP)"
+		url = "https://maven.tterrag.com/"
+	}
 }
 
 version = version_major + '.' + version_minor + '.' + version_patch
@@ -70,6 +74,7 @@ dependencies {
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 	compile "com.mod-buildcraft:buildcraft-api:+"
 	compile "net.industrial-craft:industrialcraft-2:+:api"
+	compile "mcjty.theoneprobe:TheOneProbe-1.12:+"
 }
 
 processResources {

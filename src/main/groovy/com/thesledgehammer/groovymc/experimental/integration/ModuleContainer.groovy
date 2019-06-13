@@ -1,8 +1,10 @@
 package com.thesledgehammer.groovymc.experimental.integration
 
-import com.thesledgehammer.groovymc.experimental.integration.api.BlankModule
+import com.thesledgehammer.groovymc.api.integration.BlankModule
 import com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft.BuildcraftModule
 import com.thesledgehammer.groovymc.experimental.integration.modules.industrialcraft.IndustrialcraftModule
+import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.TheOneProbeCompatibilityModule
+import mcjty.theoneprobe.TheOneProbe
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -51,5 +53,6 @@ class ModuleContainer {
     private static void preRegisteredModules() {
         BuildcraftModule BC = new BuildcraftModule();
         IndustrialcraftModule IC2 = new IndustrialcraftModule();
+        TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule(TheOneProbe.theOneProbeImp);
     }
 }
