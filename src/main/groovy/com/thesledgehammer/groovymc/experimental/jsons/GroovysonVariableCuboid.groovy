@@ -12,44 +12,45 @@ import net.minecraft.util.EnumFacing
 
 class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
 
-    protected Map<EnumFacing, GroovysonVariableFaceUV> faces = new HashMap<>();
+    protected Map<EnumFacing, GroovysonVariableFaceUV> facesGUV = new HashMap<>();
 
-    GroovysonVariableCuboid(GroovysonVariableModel model, int modelIndex) {
-        super(model, modelIndex);
+    GroovysonVariableCuboid(List<GroovysonObjectPart> objectParts) {
+        super(objectParts);
 
-        String invert = null;
-        if(model.getRawModelPart(modelIndex).Invert() != null) {
-           invert = model.getRawModelPart(modelIndex).Invert()
-        }
-
-        String bothSides = null;
-        if(model.getRawModelPart(modelIndex).BothSides() != null) {
-            bothSides = model.getRawModelPart(modelIndex).BothSides();
-        }
-
-        for(EnumFacing face : EnumFacing.VALUES) {
-            GroovysonObjectPart gFace = model.getRawModelPart(modelIndex);
-            if(gFace.Facing(face) != null) {
-                if(gFace.Invert() != null) {
-                    setInvert(model.VariableInvert(modelIndex, Boolean.valueOf(invert)));
-                }
-                if(gFace.BothSides() != null) {
-                    setBothSides(model.VariableBothSides(modelIndex, Boolean.valueOf(bothSides)));
-                }
-                faces.put(face, new GroovysonVariableFaceUV(model, modelIndex, face));
+        for(GroovysonObjectPart parts : objectParts) {
+            String invert = null;
+            if(VB.getInvert(parts) != null) {
+                invert = VB.getInvert(parts);
             }
-        }
-        if(faces.size() == 0) {
-            throw new Exception("Expected between 1 and 6 faces, got an empty object ${getFaces().name()}");
+
+            String bothSides = null;
+            if(VB.getBothSides(parts) != null) {
+                bothSides = VB.getBothSides(parts);
+            }
+
+            for(EnumFacing face : EnumFacing.VALUES) {
+                if(parts.Facing(face) != null) {
+                    if(VB.getInvert(parts) != null) {
+                        VB.setInvert(parts, invert);
+                    }
+                    if(VB.getBothSides(parts) != null) {
+                        VB.setBothSides(parts, bothSides);
+                    }
+                    facesGUV.put(face, new GroovysonVariableFaceUV(objectParts));
+                }
+            }
+            if(facesGUV.size() == 0) {
+                throw new Exception("Expected between 1 and 6 faces, got an empty object ${parts.Faces().toString()}");
+            }
         }
     }
 
     @Override
-    protected VariableFaceData getFaceData(EnumFacing side, ITextureGetter spriteLookup) {
-        GroovysonVariableFaceUV var = faces.get(side);
-        if(var == null || !var.getVisible().getValue()) {
+    protected VariableFaceData getFaceData(GroovysonObjectPart objectPart, EnumFacing side, ITextureGetter spriteLookup) {
+        GroovysonVariableFaceUV var = facesGUV.get(side);
+        if(var == null || !var.VB.getVisible(objectPart).getValue()) {
             return null;
         }
-        return var.evaluate(spriteLookup);
+        return var.evaluateFace(objectPart, side, spriteLookup);
     }
 }

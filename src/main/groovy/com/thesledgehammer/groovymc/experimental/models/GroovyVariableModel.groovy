@@ -30,7 +30,9 @@ import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
+import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -41,7 +43,6 @@ class GroovyVariableModel {
     private GroovyDefinitionContext GDC;
     private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
     private JsonRule[] rules;
-
 
     GroovyVariableModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonVariableModel(resourceObject, fileName);
@@ -92,22 +93,6 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
-    }
-
-    MutableQuad[] getCutoutQuads() {
-        return bakePart(GDC.getCutoutKey().getCutoutModelElements());
-    }
-
-    MutableQuad[] getTranslucentQuads() {
-        return bakePart(GDC.getTranslucentKey().getTranslucentModelElements());
-    }
-
-    MutableQuad[] getSolidQuads() {
-        return bakePart(GDC.getSolidKey().getSolidModelElements());
-    }
-
-    MutableQuad[] getCutoutMippedQuads() {
-        return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements());
     }
 
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
@@ -165,12 +150,11 @@ class GroovyVariableModel {
         return face;
     }
 
-
-    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts) {
+    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
         List<MutableQuad> list = new ArrayList<>();
+        GroovysonVariableCuboid gVariableCuboid = new GroovysonVariableCuboid(modelParts);
         for (GroovysonObjectPart part : modelParts) {
-
-            //BC uses addQuads from VariableModelPart
+            gVariableCuboid.addQuad(part, list, spriteLookup);
         }
         for (JsonRule rule : rules) {
             if(rule.getWhen().getValue()) {
@@ -180,9 +164,19 @@ class GroovyVariableModel {
         return list.toArray(new MutableQuad[list.size()]);
     }
 
+    MutableQuad[] getCutoutQuads() {
+        return bakePart(GDC.getCutoutKey().getCutoutModelElements(), this.&TexturedFaceLookup);
+    }
 
+    MutableQuad[] getTranslucentQuads() {
+        return bakePart(GDC.getTranslucentKey().getTranslucentModelElements(), this.&TexturedFaceLookup);
+    }
 
+    MutableQuad[] getSolidQuads() {
+        return bakePart(GDC.getSolidKey().getSolidModelElements(), this.&TexturedFaceLookup);
+    }
+
+    MutableQuad[] getCutoutMippedQuads() {
+        return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements(), this.&TexturedFaceLookup);
+    }
 }
-//VariableModelPart extends VariablePartCubiodBase, VariablePartContainer, VariablePartTextureExpand
-//VariableFaceUV used in VariablePartCuboid, VariablePartTextureExpand
-//Change BakePart & getQuads in GroovyVariableModel: needs to eventually bake for multiple Variable types

@@ -21,11 +21,21 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
+import com.thesledgehammer.groovymc.energy.ForgeEnergyTile
+import com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft.MinecraftJoulesTile
+import com.thesledgehammer.groovymc.experimental.integration.modules.industrialcraft.EnergyUnitTile
+import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.EnumColorType
+import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.ITheOneProbeInfoProvider
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
+import mcjty.theoneprobe.api.ElementAlignment
+import mcjty.theoneprobe.api.IProbeHitData
+import mcjty.theoneprobe.api.IProbeInfo
+import mcjty.theoneprobe.api.ProbeMode
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
@@ -34,6 +44,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
@@ -42,7 +53,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 //To Improve: registerTileEntity
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider, ITheOneProbeInfoProvider {
 
     private final boolean hasTESR;
     private final boolean hasFastTESR;
@@ -160,5 +171,50 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         MachinePropertyTraits definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
+    }
+
+    @Override
+    void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+        IProbeInfo horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
+        TileEntity te = world.getTileEntity(data.getPos());
+
+        if(te instanceof MinecraftJoulesTile) {
+            MinecraftJoulesTile mjTile = (MinecraftJoulesTile) te;
+            long energyStored = mjTile.getStored();
+            long capacity = mjTile.getCapacity();
+            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
+            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
+                    .suffix("/" + capacity + " MJ")
+                    .borderColor(EnumColorType.MJ.getBorderColor())
+                    .backgroundColor(EnumColorType.MJ.getBackgroundColor())
+                    .filledColor(EnumColorType.MJ.getFilledColor())
+                    .alternateFilledColor(EnumColorType.MJ.getAlternateFilledColor()));
+        }
+
+        if(te instanceof EnergyUnitTile) {
+            EnergyUnitTile euTile = (EnergyUnitTile) te;
+            long energyStored = euTile.getOfferedEnergy() as long;
+            long capacity = euTile.getMaxEnergyStored() as long;
+            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
+            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
+                    .suffix("/" + capacity + " EU")
+                    .borderColor(EnumColorType.EU.getBorderColor())
+                    .backgroundColor(EnumColorType.EU.getBackgroundColor())
+                    .filledColor(EnumColorType.EU.getFilledColor())
+                    .alternateFilledColor(EnumColorType.EU.getAlternateFilledColor()));
+        }
+
+        if(te instanceof ForgeEnergyTile) {
+            ForgeEnergyTile feTile = (ForgeEnergyTile) te;
+            int energyStored = feTile.getEnergyStored();
+            int capacity = feTile.getMaxEnergyStored();
+            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
+            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
+                    .suffix("/" + capacity + " FE")
+                    .borderColor(EnumColorType.FE.getBorderColor())
+                    .backgroundColor(EnumColorType.FE.getBackgroundColor())
+                    .filledColor(EnumColorType.FE.getFilledColor())
+                    .alternateFilledColor(EnumColorType.FE.getAlternateFilledColor()));
+        }
     }
 }

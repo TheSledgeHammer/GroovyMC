@@ -8,35 +8,32 @@
 package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import net.minecraft.util.EnumFacing
+
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
-class GroovysonVariableFaceUV extends GroovysonVariables {
-    
-    GroovysonVariableFaceUV(GroovysonVariableModel model, int modelIndex, EnumFacing face) {
-        super(model);
-        setFaces(face);
-        setFrom(model.VariableFrom(modelIndex, "0"));
-        setTo(model.VariableTo(modelIndex, "0"));
-        setUV(model.VariableUV(modelIndex, face, "0"));
-        setVisible(model.VariableVisible(modelIndex, true));
-        setInvert(model.VariableInvert(modelIndex, false));
-        setBothSides(model.VariableBothSides(modelIndex, false));
-        setTexture(model.VariableTexture(modelIndex, face));
-        setTextureRotation(model.VariableTextureRotation(modelIndex, face, "0"));
+class GroovysonVariableFaceUV {
+
+    protected GroovysonVariableContext VB = new GroovysonVariableContext();
+
+    GroovysonVariableFaceUV(List<GroovysonObjectPart> objectParts) {
+        for(GroovysonObjectPart parts : objectParts) {
+            VB.setGroovysonVariableFaceUV(parts);
+        }
     }
 
-    VariableFaceData evaluate(ITextureGetter spriteLookup) {
+    VariableFaceData evaluateFace(GroovysonObjectPart parts, EnumFacing facing, ITextureGetter spriteLookup) {
         VariableFaceData data = new VariableFaceData();
-        ModelUtil.TexturedFace face = spriteLookup.get(getTexture().getValue());
+        ModelUtil.TexturedFace face = spriteLookup.get(VB.getTexture(parts, facing).getValue());
         data.sprite = face.sprite;
-        data.rotations = (int) getTextureRotation().getValue();
-        data.uvs.minU = (float) (getFaceUV()[0].getValue() / 16.0);
-        data.uvs.minV = (float) (getFaceUV()[1].getValue() / 16.0);
-        data.uvs.maxU = (float) (getFaceUV()[2].getValue() / 16.0);
-        data.uvs.maxV = (float) (getFaceUV()[3].getValue() / 16.0);
+        data.rotations = (int) VB.getTextureRotation(parts, facing).getValue();
+        data.uvs.minU = (float) (VB.getFaceUV(parts, facing).get(0).getValue() / 16.0);
+        data.uvs.minV = (float) (VB.getFaceUV(parts, facing).get(1).getValue() / 16.0);
+        data.uvs.maxU = (float) (VB.getFaceUV(parts, facing).get(2).getValue() / 16.0);
+        data.uvs.maxV = (float) (VB.getFaceUV(parts, facing).get(3).getValue() / 16.0);
         data.uvs = data.uvs.inParent(face.faceData);
-        data.invertNormal = getInvert().getValue();
-        data.bothSides = getBothSides().getValue();
+        data.invertNormal = VB.getInvert(parts).getValue();
+        data.bothSides = VB.getBothSides(parts).getValue();
         return data;
     }
 }

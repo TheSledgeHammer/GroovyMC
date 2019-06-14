@@ -1,6 +1,25 @@
+/*
+ * Copyright [2018] [TheSledgeHammer]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft
 
 import buildcraft.api.mj.IMjConnector
+import buildcraft.api.mj.IMjPassiveProvider
+import buildcraft.api.mj.IMjReadable
+import buildcraft.api.mj.IMjReceiver
+import buildcraft.api.mj.IMjRedstoneReceiver
 import buildcraft.api.mj.MjAPI
 import com.thesledgehammer.groovymc.items.GroovyItem
 import net.minecraft.item.ItemStack
@@ -10,7 +29,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 import javax.annotation.Nonnull
 
-class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage, ICapabilityProvider {
+class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, ICapabilityProvider {
 
     private ItemStack container;
     protected MinecraftJoules MJ;
@@ -29,10 +48,9 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
         this.container = container;
     }
 
-    @Override
     boolean canExtract() {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.canExtract();
         }
         return false
@@ -40,8 +58,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     long extractPower(long min, long max, boolean simulate) {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.extractPower(min, max, simulate);
         }
         return 0
@@ -49,8 +67,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     long getStored() {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.getStored();
         }
         return 0
@@ -58,8 +76,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     long getCapacity() {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.getCapacity();
         }
         return 0
@@ -67,8 +85,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     long getPowerRequested() {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.getPowerRequested();
         }
         return 0
@@ -76,8 +94,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     long receivePower(long microJoules, boolean simulate) {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.receivePower(microJoules, simulate);
         }
         return 0
@@ -85,8 +103,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     boolean canReceive() {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.canReceive();
         }
         return false;
@@ -94,8 +112,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMinecraftJoulesStorage,
 
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
-        if(container instanceof IMinecraftJoulesStorage) {
-            IMinecraftJoulesStorage mjItem = container as IMinecraftJoulesStorage;
+        if(container instanceof MinecraftJoulesStorage) {
+            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
             return mjItem.canConnect(other);
         }
         return false

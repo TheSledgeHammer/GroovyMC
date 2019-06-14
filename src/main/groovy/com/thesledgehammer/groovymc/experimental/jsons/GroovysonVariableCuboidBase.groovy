@@ -9,32 +9,32 @@ package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.utils.MathTools
 import net.minecraft.util.EnumFacing
 
 import javax.vecmath.Vector3f
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
-abstract class GroovysonVariableCuboidBase extends GroovysonVariables {
+abstract class GroovysonVariableCuboidBase {
 
-    GroovysonVariableCuboidBase(GroovysonVariableModel model, int modelIndex) {
-        super(model);
-        setFrom(model.VariableFrom(modelIndex, "0"));
-        setTo(model.VariableTo(modelIndex, "0"));
-        setShade(model.VariableShade(modelIndex, true));
-        setVisible(model.VariableVisible(modelIndex, true));
-        setLight(model.VariableLight(modelIndex, "0"))
-        setColour(model.VariableColour(modelIndex, "-1"));
+    protected GroovysonVariableContext VB = new GroovysonVariableContext();
+
+    GroovysonVariableCuboidBase(List<GroovysonObjectPart> objectParts) {
+        for(GroovysonObjectPart parts : objectParts) {
+            VB.setGroovysonVariableCuboidBase(parts);
+        }
     }
 
-    void addQuads(List<MutableQuad> addTo, ITextureGetter spriteLookup) {
-        if (getVisible().getValue()) {
-            float[] from = bakePosition(getFrom());
-            float[] to = bakePosition(getTo());
-            boolean shade = getShade().getValue();
-            int l = (int) (getLight().getValue() & 15);
-            int rgba = MathTools.swapARGBforABGR((int) getColour().getValue());
+    void addQuad(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
+        if (VB.getVisible(parts).getValue()) {
+            float[] from = bakePosition(VB.getFrom(parts));
+            float[] to = bakePosition(VB.getTo(parts));
+            boolean shade = VB.getShade(parts).getValue();
+            int l = (int) (VB.getLight(parts).getValue() & 15);
+            int rgba = MathTools.swapARGBforABGR((int) VB.getColour(parts).getValue());
             for (EnumFacing face : EnumFacing.VALUES) {
-                VariableFaceData data = getFaceData(face, spriteLookup);
+                VariableFaceData data = getFaceData(parts, face, spriteLookup);
                 if (data != null) {
                     Vector3f radius = new Vector3f(to[0] - from[0] as float, to[1] - from[1] as float, to[2] - from[2] as float);
                     radius.scale(0.5f);
@@ -58,5 +58,13 @@ abstract class GroovysonVariableCuboidBase extends GroovysonVariables {
         }
     }
 
-    protected abstract VariableFaceData getFaceData(EnumFacing side, ITextureGetter spriteLookup);
+    private static float[] bakePosition(List<VariableDouble> vIn) {
+        float x = (float) (vIn.get(0).getValue() / 16f);
+        float y = (float) (vIn.get(1).getValue() / 16f);
+        float z = (float) (vIn.get(2).getValue() / 16f);
+        return [x, y, z];
+    }
+
+    protected abstract VariableFaceData getFaceData(GroovysonObjectPart objectPart, EnumFacing side, ITextureGetter spriteLookup);
 }
+

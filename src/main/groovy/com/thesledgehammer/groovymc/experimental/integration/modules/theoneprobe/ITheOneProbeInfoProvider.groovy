@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.integration.modules.industrialcraft
+package com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe
 
-class EnergyUnits extends EnergyUnitStorage {
+import mcjty.theoneprobe.api.IProbeHitData
+import mcjty.theoneprobe.api.IProbeInfo
+import mcjty.theoneprobe.api.ProbeMode
+import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.world.World
 
-    EnergyUnits(double capacity, int sourceTier, int sinkTier) {
-        super(capacity, sourceTier, sinkTier)
-    }
+interface ITheOneProbeInfoProvider {
 
-    EnergyUnits(double capacity, double maxTransfer, int sourceTier, int sinkTier) {
-        super(capacity, maxTransfer, sourceTier, sinkTier)
-    }
-
-    EnergyUnits(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier) {
-        super(capacity, maxReceive, maxExtract, sourceTier, sinkTier)
-    }
+    void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data);
 }

@@ -72,7 +72,7 @@ dependencies {
 	//compile "javax.xml.bind:jaxb-api:+"
 	compile "org.apache:apache:+"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
-	compile "com.mod-buildcraft:buildcraft-api:+"
+	compile "com.mod-buildcraft:buildcraft-api:${buildcraft_version}"
 	compile "net.industrial-craft:industrialcraft-2:+:api"
 	compile "mcjty.theoneprobe:TheOneProbe-1.12:+"
 }

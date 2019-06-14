@@ -17,11 +17,15 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
+import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
+import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
@@ -34,8 +38,8 @@ class JsonTest {
 
         //Model Elements
         blockModel.setModelElements("base");
-        blockModel.setModelElements("base_moving");
-        blockModel.setModelElements("trunk");
+        //blockModel.setModelElements("base_moving");
+        //blockModel.setModelElements("trunk");
         //blockModel.setModelElements("chamber");
 
         //Model Textures
@@ -48,9 +52,27 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        //TextureEntry.Register.add("#back").build()
+        TextureEntry.Register.add("#back").add("#side").build()
 
-        //GroovysonVariableFaceUV faceUV = new GroovysonVariableFaceUV(blockModel.getGroovysonModel(), 0, EnumFacing.DOWN);
-        //GroovysonVariableCuboid cuboid = new GroovysonVariableCuboid(blockModel.getGroovysonModel(), 1);
+
+        GroovysonVariableCuboid vb = new GroovysonVariableCuboid(blockModel.getGroovysonModel().getRawModelParts());
+
+        //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
+        //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
+        println vb.toString()
+    }
+
+    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
+        List<MutableQuad> list = new ArrayList<>();
+        GroovysonVariableCuboid gVariableCuboid = new GroovysonVariableCuboid(modelParts);
+        for (GroovysonObjectPart part : modelParts) {
+            gVariableCuboid.addQuad(part, list, spriteLookup);
+        }
+        for (JsonRule rule : rules) {
+            if(rule.getWhen().getValue()) {
+                rule.apply(list);
+            }
+        }
+        return list.toArray(new MutableQuad[list.size()]);
     }
 }
