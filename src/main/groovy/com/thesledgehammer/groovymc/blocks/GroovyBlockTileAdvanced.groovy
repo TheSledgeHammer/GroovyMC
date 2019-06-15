@@ -53,7 +53,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
 //To Improve: registerTileEntity
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider, ITheOneProbeInfoProvider {
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
     private final boolean hasTESR;
     private final boolean hasFastTESR;
@@ -171,50 +171,5 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         MachinePropertyTraits definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
-    }
-
-    @Override
-    void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-        IProbeInfo horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
-        TileEntity te = world.getTileEntity(data.getPos());
-
-        if(te instanceof MinecraftJoulesTile) {
-            MinecraftJoulesTile mjTile = (MinecraftJoulesTile) te;
-            long energyStored = mjTile.getStored();
-            long capacity = mjTile.getCapacity();
-            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
-            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
-                    .suffix("/" + capacity + " MJ")
-                    .borderColor(EnumColorType.MJ.getBorderColor())
-                    .backgroundColor(EnumColorType.MJ.getBackgroundColor())
-                    .filledColor(EnumColorType.MJ.getFilledColor())
-                    .alternateFilledColor(EnumColorType.MJ.getAlternateFilledColor()));
-        }
-
-        if(te instanceof EnergyUnitTile) {
-            EnergyUnitTile euTile = (EnergyUnitTile) te;
-            long energyStored = euTile.getOfferedEnergy() as long;
-            long capacity = euTile.getMaxEnergyStored() as long;
-            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
-            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
-                    .suffix("/" + capacity + " EU")
-                    .borderColor(EnumColorType.EU.getBorderColor())
-                    .backgroundColor(EnumColorType.EU.getBackgroundColor())
-                    .filledColor(EnumColorType.EU.getFilledColor())
-                    .alternateFilledColor(EnumColorType.EU.getAlternateFilledColor()));
-        }
-
-        if(te instanceof ForgeEnergyTile) {
-            ForgeEnergyTile feTile = (ForgeEnergyTile) te;
-            int energyStored = feTile.getEnergyStored();
-            int capacity = feTile.getMaxEnergyStored();
-            horizontalPane.text(TextFormatting.GREEN + "Energy Stored: " + capacity);
-            horizontalPane.progress(energyStored, capacity, probeInfo.defaultProgressStyle()
-                    .suffix("/" + capacity + " FE")
-                    .borderColor(EnumColorType.FE.getBorderColor())
-                    .backgroundColor(EnumColorType.FE.getBackgroundColor())
-                    .filledColor(EnumColorType.FE.getFilledColor())
-                    .alternateFilledColor(EnumColorType.FE.getAlternateFilledColor()));
-        }
     }
 }

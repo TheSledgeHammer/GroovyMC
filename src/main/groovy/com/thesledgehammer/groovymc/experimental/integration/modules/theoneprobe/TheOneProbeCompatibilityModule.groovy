@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.experimental.integration.modules.theoneprob
 import com.google.common.base.Function
 import com.thesledgehammer.groovymc.api.integration.BlankModule
 import com.thesledgehammer.groovymc.utils.Log
+import mcjty.theoneprobe.TheOneProbe
 import mcjty.theoneprobe.api.IProbeHitData
 import mcjty.theoneprobe.api.IProbeInfo
 import mcjty.theoneprobe.api.IProbeInfoProvider
@@ -55,6 +56,7 @@ class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITh
     @Override
     void preInit(FMLPreInitializationEvent event) {
         Log.log(Level.INFO, "Enabled support for The One Probe");
+        TheOneProbe.theOneProbeImp.registerProvider(new EnergyProbeInfoProvider());
     }
 
     @Override

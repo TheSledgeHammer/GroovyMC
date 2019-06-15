@@ -20,7 +20,6 @@ import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
 import net.minecraft.util.EnumFacing
 
-//IEnergyConductor
 class EnergyUnitStorage implements IEnergyUnitStorage {
 
     private double energy;
@@ -152,7 +151,6 @@ class EnergyUnitStorage implements IEnergyUnitStorage {
         energy += toDraw;
         amount = toDraw;
     }
-
 
     @Override
     double getOfferedEnergy() {

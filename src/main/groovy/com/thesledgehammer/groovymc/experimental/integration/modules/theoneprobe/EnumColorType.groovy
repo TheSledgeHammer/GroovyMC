@@ -20,9 +20,10 @@ import net.minecraft.util.IStringSerializable
 import java.awt.Color
 
 enum EnumColorType implements IStringSerializable {
-    FE(new Color(0x000000), new Color(0x000000), new Color(0xEE2C2C), new Color(0xEE2C2C)),
-    EU(new Color(0x000000), new Color(0x000000), new Color(0xFFFF00), new Color(0xFFFF00)),
-    MJ(new Color(0x000000), new Color(0x000000), new Color(0x00CD66), new Color(0x00CD66));
+    FE(new Color(0xff555555), new Color(0x000000), new Color(0xEE2C2C), new Color(0xff4300)),
+    EU(new Color(0xff555555), new Color(0x000000), new Color(0xFFFF00), new Color(0xCCCC00)),
+    MJ(new Color(0xff555555), new Color(0x000000), new Color(0x00CD66), new Color(0x009A33)),
+    EMC(new Color(0xff555555), new Color(0x000000), new Color(0x00CD66), new Color(0x009A33));
 
     static final EnumColorType[] VALUES = values();
 
