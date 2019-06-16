@@ -88,6 +88,10 @@ class GroovyStaticModel {
         return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
     }
 
+    Map<String, String> getModelTextures() {
+        return GROOVY_MODEL.getRawModelTextures();
+    }
+
     void createTextureLookup() {
         this.textureLookup = GROOVY_MODEL.getRawModelTextures();
     }

@@ -25,15 +25,10 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
-import com.thesledgehammer.groovymc.client.model.ModelUtil
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
-import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
 //Work In Progress
@@ -82,6 +77,10 @@ class GroovyVariableModel {
     String getModelTextures(String textureName) {
         return GROOVY_MODEL.getRawModelTextures().get(textureName);
     }
+    
+    Map<String, String> getModelTextures() {
+        return GROOVY_MODEL.getRawModelTextures();
+    }
 
     //Returns a Texture from x model element and face
     String getModelElementTextures(int index, EnumFacing face) {
@@ -94,7 +93,7 @@ class GroovyVariableModel {
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
-
+/*
     HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
         return JSON_TEXTABLE;
     }
@@ -179,4 +178,5 @@ class GroovyVariableModel {
     MutableQuad[] getCutoutMippedQuads() {
         return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements(), this.&TexturedFaceLookup);
     }
+    */
 }

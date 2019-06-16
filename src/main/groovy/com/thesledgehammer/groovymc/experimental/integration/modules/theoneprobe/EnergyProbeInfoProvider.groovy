@@ -42,9 +42,9 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
         }
     }
 
-    private void addMJInfo(IProbeInfo probeInfo, long energy, long capacity) {
+    private static void addMJInfo(IProbeInfo probeInfo, long energy, long capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix(" MJ")
+                .suffix("MJ")
                 .filledColor(EnumColorType.MJ.getFilledColor())
                 .alternateFilledColor(EnumColorType.MJ.getAlternateFilledColor())
                 .borderColor(EnumColorType.MJ.getBorderColor())
@@ -53,9 +53,9 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
         );
     }
 
-    private void addEUInfo(IProbeInfo probeInfo, long energy, long capacity) {
+    private static void addEUInfo(IProbeInfo probeInfo, long energy, long capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix(" EU")
+                .suffix("EU")
                 .filledColor(EnumColorType.EU.getFilledColor())
                 .alternateFilledColor(EnumColorType.EU.getAlternateFilledColor())
                 .borderColor(EnumColorType.EU.getBorderColor())
@@ -64,9 +64,9 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
         );
     }
 
-    private void addFEInfo(IProbeInfo probeInfo, int energy, int capacity) {
+    private static void addFEInfo(IProbeInfo probeInfo, int energy, int capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix(" FE")
+                .suffix("FE")
                 .filledColor(EnumColorType.FE.getFilledColor())
                 .alternateFilledColor(EnumColorType.FE.getAlternateFilledColor())
                 .borderColor(EnumColorType.FE.getBorderColor())

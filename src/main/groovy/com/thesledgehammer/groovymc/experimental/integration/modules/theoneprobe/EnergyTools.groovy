@@ -1,6 +1,7 @@
 package com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe
 
 import buildcraft.api.mj.IMjReadable
+import buildcraft.api.mj.MjAPI
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.energy.IEnergyStorage
 
@@ -8,16 +9,20 @@ class EnergyTools {
 
     static long getMjStored(TileEntity te) {
         IMjReadable handler = (IMjReadable) te;
-        return handler.getStored();
+        return formatMjDisplay(handler.getStored());
     }
 
     static long getMjCapacity(TileEntity te) {
         IMjReadable handler = (IMjReadable) te;
-        return handler.getCapacity();
+        return formatMjDisplay(handler.getCapacity());
     }
 
     static boolean isMjEnergyHandler(TileEntity te) {
         return te instanceof IMjReadable;
+    }
+
+    private static long formatMjDisplay(long microMj) {
+        return (microMj / MjAPI.MJ);
     }
 
     static long getEuStored(TileEntity te) {

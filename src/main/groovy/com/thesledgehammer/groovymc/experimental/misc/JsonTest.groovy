@@ -33,14 +33,12 @@ class JsonTest {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
         GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
         GroovyVariableModel itemModel = new GroovyVariableModel("item", "engine_base");
-        //itemEngineBase
-        //blockEngineBase
 
         //Model Elements
         blockModel.setModelElements("base");
-        //blockModel.setModelElements("base_moving");
-        //blockModel.setModelElements("trunk");
-        //blockModel.setModelElements("chamber");
+        blockModel.setModelElements("base_moving");
+        blockModel.setModelElements("trunk");
+        blockModel.setModelElements("chamber");
 
         //Model Textures
         blockModel.setModelTextures("#trunk_blue");
@@ -52,14 +50,19 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        TextureEntry.Register.add("#back").add("#side").build()
+        //TextureEntry.Register.add("#back").add("#side").build()
 
 
-        GroovysonVariableCuboid vb = new GroovysonVariableCuboid(blockModel.getGroovysonModel().getRawModelParts());
+        //GroovysonVariableCuboid vb = new GroovysonVariableCuboid(blockModel.getGroovysonModel().getRawModelParts());
 
         //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
         //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
-        println vb.toString()
+
+
+        for(Map.Entry<String, String> entry : blockModel.getGroovysonModel().getRawModelTextures().entrySet()) {
+            TextureEntry.Register.add(entry.getValue()).build();
+        }
+        println TextureEntry.Instance().getResourceLocations().size();
     }
 
     MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
