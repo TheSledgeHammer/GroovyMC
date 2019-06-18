@@ -67,7 +67,6 @@ class ModelEntryVariable extends ModelEntryHolder  {
             }
             attempts++;
         }
-
         lookup = texture.location;
         sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
         ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();

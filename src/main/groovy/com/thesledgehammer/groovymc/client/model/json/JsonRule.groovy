@@ -176,8 +176,7 @@ abstract class JsonRule {
             float oz = origin[2].getValue() / 16f as float;
 
             for(MutableQuad q : quads) {
-                print q.rotate(faceFrom, faceTo, ox, oy, oz);
-
+                q.rotate(faceFrom, faceTo, ox, oy, oz);
             }
         }
     }

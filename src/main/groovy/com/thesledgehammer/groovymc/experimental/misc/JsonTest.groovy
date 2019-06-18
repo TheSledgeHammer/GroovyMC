@@ -17,17 +17,9 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
-import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.client.model.json.JsonRule
-import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.config.Constants
 
-import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
-import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
@@ -52,12 +44,9 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-       // TextureEntry.Register.add("#back").add("#side").build()
-
-        //GroovysonVariableCuboid vb = new GroovysonVariableCuboid(blockModel.getGroovysonModel().getRawModelParts());
+        //TextureEntry.Register.add("#back").add("#side").build()
 
         //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
         //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
-
     }
 }

@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.experimental.models
 
-import com.google.common.collect.HashBasedTable
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
@@ -33,6 +32,7 @@ import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
 import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
+import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -126,28 +126,6 @@ class GroovyVariableModel {
         }
     }
 
-    ModelUtil.TexturedFace TexturedLookup(String lookup) {
-        int attempts = 0;
-        JsonTexture texture = new JsonTexture(lookup);
-        TextureAtlasSprite sprite;
-        while (texture.location.startsWith("#") && attempts < 10) {
-            JsonTexture tex = getJsonTexture(lookup);
-            if(tex == null) {
-                break;
-            } else {
-                texture = texture.inParent(tex);
-            }
-            attempts++;
-        }
-
-        lookup = texture.location;
-        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
-        ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
-        face.sprite = sprite;
-        face.faceData = texture.faceData;
-        return face;
-    }
-
     MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
         List<MutableQuad> list = new ArrayList<>();
         GroovysonVariableCuboid cuboid = new GroovysonVariableCuboid(modelParts);
@@ -162,19 +140,13 @@ class GroovyVariableModel {
         return list.toArray(new MutableQuad[list.size()]);
     }
 
-    MutableQuad[] getCutoutQuads() {
-        return bakePart(GDC.getCutoutKey().getCutoutModelElements(), this.&TexturedLookup);
-    }
-
-    MutableQuad[] getTranslucentQuads() {
-        return bakePart(GDC.getTranslucentKey().getTranslucentModelElements(), this.&TexturedLookup);
-    }
-
-    MutableQuad[] getSolidQuads() {
-        return bakePart(GDC.getSolidKey().getSolidModelElements(), this.&TexturedLookup);
-    }
-
-    MutableQuad[] getCutoutMippedQuads() {
-        return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements(), this.&TexturedLookup);
+    //Gets rules as a list of strings not as jsonrules
+    private List<String> JsonRules() {
+        List<String> temp = ListTools.StringToList(GROOVY_MODEL.getRules().toString().substring(1));
+        List<String> rulesP = new ArrayList<>();
+        for(int i = 0; i < temp.size(); i++) {
+            rulesP.add(ListTools.removeBrackets(temp.get(i)));
+        }
+        return rulesP;
     }
 }
