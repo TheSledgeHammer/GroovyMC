@@ -25,18 +25,25 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
+import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
+import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableModel
+import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.ResourceLocation
 
-//Work In Progress
+//Work In Progress: JsonRule[] rules To be completed
 class GroovyVariableModel {
 
     private GroovysonVariableModel GROOVY_MODEL;
     private GroovyDefinitionContext GDC;
-    private HashBasedTable<EnumFacing, Integer, JsonTexture> JSON_TEXTABLE = HashBasedTable.create();
+    private Map<String, JsonTexture> textureMap = new HashMap<>();
     private JsonRule[] rules;
 
     GroovyVariableModel(String resourceObject, String fileName) {
@@ -82,9 +89,12 @@ class GroovyVariableModel {
         return GROOVY_MODEL.getRawModelTextures();
     }
 
-    //Returns a Texture from x model element and face
     String getModelElementTextures(int index, EnumFacing face) {
         return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
+    }
+
+    JsonTexture getJsonTexture(String lookup) {
+        return textureMap.get(lookup);
     }
 
     void setRenderKeysDefintion(GroovysonVariableModel GROOVY_MODEL) {
@@ -93,46 +103,35 @@ class GroovyVariableModel {
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
-/*
-    HashBasedTable<EnumFacing, Integer, JsonTexture> getJsonTextureMappings() {
-        return JSON_TEXTABLE;
-    }
 
-    JsonTexture getJsonTexture(EnumFacing face, int index) {
-        return JSON_TEXTABLE.get(face, index);
-    }
+    private void JsonTextureMap() {
+        String[] name = getModelTextures().keySet().toArray();
+        String[] location = getModelTextures().values().toArray();
 
-    private void JsonTextureMapping() {
-        ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
-        ArrayList<String> textureName = GROOVY_MODEL.getRawModelTextures().keySet().toArray() as ArrayList<String>;
-        String textureLocation = "";
-
-        //Model Elements (Model Parts)
-        for (int i = 0; i < GROOVY_MODEL.getRawModelParts().size(); i++) {
-            modelPartTexture.add(GROOVY_MODEL.getRawModelParts().get(i));
+        for(int i = 0; i < getModelTextures().size(); i++) {
+            textureMap.put(name[i], new JsonTexture(location[i]));
         }
+    }
 
-        //JsonTexTable: Defines JsonTextures by face and model part
-        for (EnumFacing face : EnumFacing.VALUES) {
-            for (int j = 0; j < modelPartTexture.size(); j++) {
-                if (modelPartTexture.get(j).Facing(face) != null) {
-                    for (int k = 0; k < textureName.size(); k++) {
-                        textureLocation = GROOVY_MODEL.getRawModelTextures().get(textureName.get(k));
-                    }
-                    JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
-                    JSON_TEXTABLE.put(face, j, texture);
-                }
+    void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
+        JsonTextureMap();
+        for (Map.Entry<String, JsonTexture> entry : textureMap.entrySet()) {
+            JsonTexture lookup = entry.getValue();
+            String location = lookup.location;
+            if (location.startsWith("#") || location.startsWith("~")) {
+                continue;
             }
+            ResourceLocation textureLoc = new ResourceLocation(location);
+            toRegisterSprites.add(textureLoc);
         }
     }
 
-    ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index, String lookup) {
-        JsonTextureMapping();
+    ModelUtil.TexturedFace TexturedLookup(String lookup) {
         int attempts = 0;
         JsonTexture texture = new JsonTexture(lookup);
         TextureAtlasSprite sprite;
         while (texture.location.startsWith("#") && attempts < 10) {
-            JsonTexture tex = getJsonTexture(facing, index);
+            JsonTexture tex = getJsonTexture(lookup);
             if(tex == null) {
                 break;
             } else {
@@ -142,7 +141,7 @@ class GroovyVariableModel {
         }
 
         lookup = texture.location;
-        //sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
         ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
         face.sprite = sprite;
         face.faceData = texture.faceData;
@@ -151,9 +150,9 @@ class GroovyVariableModel {
 
     MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
         List<MutableQuad> list = new ArrayList<>();
-        GroovysonVariableCuboid gVariableCuboid = new GroovysonVariableCuboid(modelParts);
+        GroovysonVariableCuboid cuboid = new GroovysonVariableCuboid(modelParts);
         for (GroovysonObjectPart part : modelParts) {
-            gVariableCuboid.addQuad(part, list, spriteLookup);
+            cuboid.addQuad(part, list, spriteLookup);
         }
         for (JsonRule rule : rules) {
             if(rule.getWhen().getValue()) {
@@ -164,19 +163,18 @@ class GroovyVariableModel {
     }
 
     MutableQuad[] getCutoutQuads() {
-        return bakePart(GDC.getCutoutKey().getCutoutModelElements(), this.&TexturedFaceLookup);
+        return bakePart(GDC.getCutoutKey().getCutoutModelElements(), this.&TexturedLookup);
     }
 
     MutableQuad[] getTranslucentQuads() {
-        return bakePart(GDC.getTranslucentKey().getTranslucentModelElements(), this.&TexturedFaceLookup);
+        return bakePart(GDC.getTranslucentKey().getTranslucentModelElements(), this.&TexturedLookup);
     }
 
     MutableQuad[] getSolidQuads() {
-        return bakePart(GDC.getSolidKey().getSolidModelElements(), this.&TexturedFaceLookup);
+        return bakePart(GDC.getSolidKey().getSolidModelElements(), this.&TexturedLookup);
     }
 
     MutableQuad[] getCutoutMippedQuads() {
-        return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements(), this.&TexturedFaceLookup);
+        return bakePart(GDC.getCutoutMippedKey().getCutoutMippedModelElements(), this.&TexturedLookup);
     }
-    */
 }

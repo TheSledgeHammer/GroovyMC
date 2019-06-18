@@ -21,11 +21,13 @@ import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonRule
+import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.experimental.jsons.GroovysonVariableCuboid
 import com.thesledgehammer.groovymc.experimental.jsons.ITextureGetter
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import net.minecraft.util.EnumFacing
 
 class JsonTest {
 
@@ -50,32 +52,12 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        //TextureEntry.Register.add("#back").add("#side").build()
-
+       // TextureEntry.Register.add("#back").add("#side").build()
 
         //GroovysonVariableCuboid vb = new GroovysonVariableCuboid(blockModel.getGroovysonModel().getRawModelParts());
 
         //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
         //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
 
-
-        for(Map.Entry<String, String> entry : blockModel.getGroovysonModel().getRawModelTextures().entrySet()) {
-            TextureEntry.Register.add(entry.getValue()).build();
-        }
-        println TextureEntry.Instance().getResourceLocations().size();
-    }
-
-    MutableQuad[] bakePart(ArrayList<GroovysonObjectPart> modelParts, ITextureGetter spriteLookup) {
-        List<MutableQuad> list = new ArrayList<>();
-        GroovysonVariableCuboid gVariableCuboid = new GroovysonVariableCuboid(modelParts);
-        for (GroovysonObjectPart part : modelParts) {
-            gVariableCuboid.addQuad(part, list, spriteLookup);
-        }
-        for (JsonRule rule : rules) {
-            if(rule.getWhen().getValue()) {
-                rule.apply(list);
-            }
-        }
-        return list.toArray(new MutableQuad[list.size()]);
     }
 }

@@ -56,4 +56,53 @@ class BakeTools {
         face.faceData = model.getJsonTexture(facing, index).faceData;
         return face;
     }
+
+
+    /*
+    private ModelUtil.TexturedFace TexturedFaceLookup(EnumFacing facing, int index, String lookup) {
+        //JsonTextureMapping();
+        int attempts = 0;
+        JsonTexture texture = new JsonTexture(lookup);
+        TextureAtlasSprite sprite;
+        while (texture.location.startsWith("#") && attempts < 10) {
+            JsonTexture tex = JSON_TEXTABLE.get(facing, index);
+            if(tex == null) {
+                break;
+            } else {
+                texture = texture.inParent(tex);
+            }
+            attempts++;
+        }
+
+        lookup = texture.location;
+        sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+        ModelUtil.TexturedFace face = new ModelUtil.TexturedFace();
+        face.sprite = sprite;
+        face.faceData = texture.faceData;
+        return face;
+    }
+
+    private void JsonTextureMapping() {
+        ArrayList<GroovysonObjectPart> modelPartTexture = new ArrayList<>();
+        ArrayList<String> textureName = groovyVariableModel.getModelTextures().keySet().toArray() as ArrayList<String>;
+        String textureLocation = "";
+
+        //Model Elements (Model Parts)
+        for (int i = 0; i < groovyVariableModel.getModelElements().size(); i++) {
+            modelPartTexture.add(groovyVariableModel.getModelElements().get(i));
+        }
+
+        //JsonTexTable: Defines JsonTextures by face and model part
+        for (EnumFacing face : EnumFacing.VALUES) {
+            for (int j = 0; j < modelPartTexture.size(); j++) {
+                if (modelPartTexture.get(j).Facing(face) != null) {
+                    for (int k = 0; k < textureName.size(); k++) {
+                        textureLocation = groovyVariableModel.getModelTextures(textureName.get(k));
+                    }
+                    JsonTexture texture = new JsonTexture(modelPartTexture.get(j), textureLocation, face);
+                    JSON_TEXTABLE.put(face, j, texture);
+                }
+            }
+        }
+    }*/
 }
