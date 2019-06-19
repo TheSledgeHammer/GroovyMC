@@ -104,7 +104,7 @@ class GroovyVariableModel {
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
-    private void JsonTextureMap() {
+    void JsonTextureMap() {
         String[] name = getModelTextures().keySet().toArray();
         String[] location = getModelTextures().values().toArray();
 

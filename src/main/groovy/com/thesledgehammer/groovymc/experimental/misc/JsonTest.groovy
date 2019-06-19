@@ -17,9 +17,15 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderRegistry
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import com.thesledgehammer.groovymc.experimental.models.ModelEntryVariable
+import com.thesledgehammer.groovymc.experimental.models.groovymc.ModelEntryStaticBlock
+import com.thesledgehammer.groovymc.experimental.models.groovymc.ModelEntryVariableBlock
 
 class JsonTest {
 
@@ -44,9 +50,16 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        //TextureEntry.Register.add("#back").add("#side").build()
+        TextureEntry.Register.add("#back").add("#side").build()
 
         //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
         //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
+        ModelEntryVariable Engine = new ModelEntryVariable(blockModel);
+
+        ModelEntryVariableBlock test = new ModelEntryVariableBlock("engine_base", "groovymc:models/block/engine_base", "groovymc:models/item/engine_base.json");
+
+        ModelEntry.Register.add(blockModel.getGroovysonModel().getModelResourceLocation()).build();
+
+       println test.getGroovyVariableItemModel()
     }
 }

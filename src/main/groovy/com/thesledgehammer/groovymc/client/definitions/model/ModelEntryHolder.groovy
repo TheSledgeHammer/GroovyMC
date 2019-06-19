@@ -18,20 +18,9 @@ package com.thesledgehammer.groovymc.client.definitions.model
 
 abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
-    private ModelEntry modelEntry;
-    private TextureEntry textureEntry;
-
     ModelEntryHolder() {
-        modelEntry = ModelEntry.Instance();
-        textureEntry = TextureEntry.Instance();
+        ModelEntry.Instance();
+        TextureEntry.Instance();
         ModelEntryHolderRegistry.ENTRY_HOLDERS().add(this);
-    }
-
-    ModelEntry ModelEntry() {
-        return modelEntry;
-    }
-
-    TextureEntry TextureEntry() {
-        return textureEntry;
     }
 }

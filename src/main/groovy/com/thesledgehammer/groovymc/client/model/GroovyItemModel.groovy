@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
+@Deprecated
 class GroovyItemModel extends GroovyStaticModel {
 
     GroovyItemModel(String fileName) {

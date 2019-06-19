@@ -13,32 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.thesledgehammer.groovymc.client.model
+package com.thesledgehammer.groovymc.experimental.models.groovymc
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
+import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
+import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.model.IBakedModel
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
-@Deprecated //Likely be replaced with AbstractModelEntryStatic in experimental/models/groovymc
-class ModelEntryStatic extends ModelEntryHolder {
+abstract class AbstractModelEntryStatic extends ModelEntryHolder {
 
-    private GroovyStaticModel groovyStaticModel;
+    protected GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
     private boolean unseen = true;
-
-    ModelEntryStatic(GroovyStaticModel groovyStaticModel) {
-        this.groovyStaticModel = groovyStaticModel;
-        groovyStaticModel.setRenderKeysDefintion(groovyStaticModel.getGroovysonModel());
-        groovyStaticModel.createTextureLookup();
-    }
 
     @Override
     boolean hasBakedQuads() {

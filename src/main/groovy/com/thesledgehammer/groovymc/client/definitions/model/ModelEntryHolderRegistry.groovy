@@ -51,7 +51,7 @@ class ModelEntryHolderRegistry {
         Set<ResourceLocation> toStitch = new HashSet<>();
         for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
             holder.onTextureStitchPre(toStitch);
-            TextureEntry textureEntry = holder.TextureEntry();
+            TextureEntry textureEntry = TextureEntry.Instance();
 
             for(TextureAtlasSprite sprite : textureEntry.getTextureAtlasSprites()) {
                 if(textureEntry.getTextureAtlasSprite(sprite) instanceof ISprite) {
@@ -70,7 +70,7 @@ class ModelEntryHolderRegistry {
         IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
         for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
             holder.onModelBake();
-            ModelEntry modelEntry = holder.ModelEntry();
+            ModelEntry modelEntry = ModelEntry.Instance();
 
             for(ModelResourceLocation modelResource : modelEntry.getModelResourceLocations()) {
                 for(IBakedModel bakedModel : modelEntry.getIBakedModels()) {

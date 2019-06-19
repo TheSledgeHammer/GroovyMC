@@ -28,6 +28,7 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.utils.JsonTools
+import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 
@@ -107,5 +108,23 @@ class GroovyStaticModel {
             mutableQuads[i] = JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite);
         }
         return mutableQuads;
+    }
+
+    List<BakedQuad> addBakedQuadsToItem(EnumFacing face, TextureAtlasSprite sprite) {
+        int size = getGroovysonModel().getRawModelTextures().size();
+        List<BakedQuad> bakedQuads = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedItem());
+        }
+        return bakedQuads;
+    }
+
+    List<BakedQuad> addBakedQuadsToBlock(EnumFacing face, TextureAtlasSprite sprite) {
+        int size = getGroovysonModel().getRawModelTextures().size();
+        List<BakedQuad> bakedQuads = new ArrayList<>();
+        for(int i = 0; i < size; i++) {
+            bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedBlock());
+        }
+        return bakedQuads;
     }
 }
