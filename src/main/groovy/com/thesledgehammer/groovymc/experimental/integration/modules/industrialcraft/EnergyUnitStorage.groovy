@@ -20,6 +20,7 @@ import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
 import ic2.api.energy.tile.IEnergySink
 import ic2.api.energy.tile.IEnergySource
+import ic2.api.energy.tile.IEnergyTile
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.fml.common.Optional
 
@@ -38,35 +39,25 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
     private int sourceTier;
     private int sinkTier;
 
-    private EnergyUnitAcceptor euAcceptor;
-    private EnergyUnitEmitter euEmitter;
-
     EnergyUnitStorage(double capacity, int sourceTier, int sinkTier) {
-        setCapacity(capacity);
-        setSourceTier(sourceTier);
-        setSinkTier(sinkTier);
-        this.euAcceptor = new EnergyUnitAcceptor();
-        this.euEmitter = new EnergyUnitEmitter();
+        this(capacity, capacity, capacity, sourceTier, sinkTier, 0);
     }
 
     EnergyUnitStorage(double capacity, double maxTransfer, int sourceTier, int sinkTier) {
-        setCapacity(capacity);
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
-        setSourceTier(sourceTier);
-        setSinkTier(sinkTier);
-        this.euAcceptor = new EnergyUnitAcceptor();
-        this.euEmitter = new EnergyUnitEmitter();
+        this(capacity, maxTransfer, maxTransfer, sourceTier, sinkTier, 0);
     }
 
     EnergyUnitStorage(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier) {
+        this(capacity, maxReceive, maxExtract, sourceTier, sinkTier, 0);
+    }
+
+    EnergyUnitStorage(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier, double euEnergy) {
         setCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
         setSourceTier(sourceTier);
         setSinkTier(sinkTier);
-        this.euAcceptor = new EnergyUnitAcceptor();
-        this.euEmitter = new EnergyUnitEmitter();
+        setEnergyStored(euEnergy);
     }
 
     void setEnergyStored(double euEnergy) {
@@ -83,14 +74,6 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
 
     void setMaxExtract(double maxExtract) {
         this.maxExtract = maxExtract;
-    }
-
-    EnergyUnitAcceptor EnergyAcceptor() {
-        return euAcceptor;
-    }
-
-    EnergyUnitEmitter EnergyEmitter() {
-        return euEmitter;
     }
 
     void setSinkTier(int sinkTier) {
@@ -125,8 +108,8 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
         return capacity;
     }
 
-    void modifyPowerStored(double euEnergy) {
-        this.euEnergy = energy;
+    void modifyEnergyStored(double euEnergy) {
+        this.euEnergy = euEnergy;
         if(euEnergy > this.capacity) {
             this.euEnergy = this.capacity;
         } else if(this.euEnergy < 0) {
@@ -141,9 +124,6 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
 
     @Override
     double injectEnergy(EnumFacing enumFacing, double amount, double voltage) {
-        if(!euAcceptor.acceptsEnergyFrom(this, enumFacing)) {
-            return 0
-        }
         double toInject = Math.min(euEnergy, Math.min(this.maxExtract, amount));
         euEnergy -= toInject;
         return toInject;
@@ -151,11 +131,6 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
 
     @Override
     void drawEnergy(double amount) {
-        for(EnumFacing face : EnumFacing.VALUES) {
-            if(!euEmitter.emitsEnergyTo(this, face)) {
-                amount = 0;
-            }
-        }
         double toDraw = Math.min(capacity - euEnergy, Math.min(this.maxReceive, amount));
         euEnergy += toDraw;
         amount = toDraw;
@@ -178,13 +153,17 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
 
     @Override
     boolean emitsEnergyTo(IEnergyAcceptor iEnergyAcceptor, EnumFacing enumFacing) {
-        iEnergyAcceptor = euEmitter.getEnergyUnitAcceptor();
-        return euEmitter.emitsEnergyTo(iEnergyAcceptor, enumFacing);
+        if(iEnergyAcceptor != null) {
+            return true
+        }
+        return false;
     }
 
     @Override
     boolean acceptsEnergyFrom(IEnergyEmitter iEnergyEmitter, EnumFacing enumFacing) {
-        iEnergyEmitter = euAcceptor.getEnergyUnitEmitter();
-        return euAcceptor.acceptsEnergyFrom(iEnergyEmitter, enumFacing);
+        if(iEnergyEmitter != null) {
+            return true
+        }
+        return false;
     }
 }

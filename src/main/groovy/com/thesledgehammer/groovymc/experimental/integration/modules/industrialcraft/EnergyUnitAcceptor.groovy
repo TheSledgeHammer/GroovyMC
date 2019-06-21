@@ -27,26 +27,12 @@ import net.minecraftforge.fml.common.Optional
 )
 class EnergyUnitAcceptor implements IEnergyAcceptor {
 
-    private EnergyUnitEmitter emitter;
-
     EnergyUnitAcceptor() {
-        emitter = new EnergyUnitEmitter(this);
-    }
 
-    EnergyUnitAcceptor(EnergyUnitEmitter emitter) {
-        this.emitter = emitter;
-    }
-
-    EnergyUnitEmitter getEnergyUnitEmitter() {
-        return emitter;
     }
 
     @Override
     boolean acceptsEnergyFrom(IEnergyEmitter iEnergyEmitter, EnumFacing face) {
-        if(emitter instanceof IEnergyEmitter) {
-            iEnergyEmitter = emitter;
-            return emitter.emitsEnergyTo(this, face);
-        }
-        return false
+        return iEnergyEmitter != null;
     }
 }

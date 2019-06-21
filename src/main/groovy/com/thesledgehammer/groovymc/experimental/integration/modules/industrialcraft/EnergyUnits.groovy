@@ -28,4 +28,8 @@ class EnergyUnits extends EnergyUnitStorage {
     EnergyUnits(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier) {
         super(capacity, maxReceive, maxExtract, sourceTier, sinkTier)
     }
+
+    EnergyUnits(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier, double euEnergy) {
+        super(capacity, maxReceive, maxExtract, sourceTier, sinkTier, euEnergy)
+    }
 }

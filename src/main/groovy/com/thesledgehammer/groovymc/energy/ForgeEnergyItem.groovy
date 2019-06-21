@@ -29,17 +29,20 @@ class ForgeEnergyItem extends GroovyItem implements IEnergyStorage, ICapabilityP
     private ItemStack container;
     protected ForgeEnergy FE;
 
+    ForgeEnergyItem(ItemStack container, int capacity) {
+        this(container, capacity, capacity, capacity, 0);
+    }
+
     ForgeEnergyItem(ItemStack container, int capacity, int maxTransfer) {
-        setItemContainer(container);
-        FE = new ForgeEnergy(capacity, maxTransfer);
+        this(container, capacity, maxTransfer, maxTransfer, 0);
     }
 
-    ForgeEnergyItem(int capacity, int maxTransfer) {
-        setItemContainer(container);
-        FE = new ForgeEnergy(capacity, maxTransfer);
+    ForgeEnergyItem(ItemStack container, int capacity, int maxReceive, int maxExtract) {
+        this(container, capacity, maxReceive, maxExtract, 0);
     }
 
-    private void setItemContainer(ItemStack container) {
+    ForgeEnergyItem(ItemStack container, int capacity, int maxReceive, int maxExtract, int feEnergy) {
+        FE = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy);
         this.container = container;
     }
 

@@ -35,19 +35,22 @@ class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
     private long maxExtract;
 
     TeslaStorage(long capacity) {
-        setMaxCapacity(capacity);
+        this(capacity, capacity, capacity, 0);
     }
 
     TeslaStorage(long capacity, long maxTransfer) {
-        setMaxCapacity(capacity);
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
+        this(capacity, maxTransfer, maxTransfer, 0);
     }
 
     TeslaStorage(long capacity, long maxReceive, long maxExtract) {
+        this(capacity, maxReceive, maxExtract, 0);
+    }
+
+    TeslaStorage(long capacity, long maxReceive, long maxExtract,  long teslaEnergy) {
         setMaxCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
+        setEnergyStored(teslaEnergy);
     }
 
     void setEnergyStored(long teslaEnergy) {

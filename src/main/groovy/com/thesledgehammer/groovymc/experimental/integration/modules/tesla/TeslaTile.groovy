@@ -31,14 +31,22 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
     private long power;
     private String tileName;
 
-    TeslaTile(String tileName, int capacity, int maxTransfer) {
-        tesla = new Tesla(capacity, maxTransfer);
-        this.tileName = tileName;
+    TeslaTile(long capacity) {
+        this(capacity, capacity, capacity, 0);
     }
 
-    TeslaTile(String tileName, int capacity, int maxReceive, int maxExtract) {
-        tesla = new Tesla(capacity, maxReceive, maxExtract);
+    TeslaTile(long capacity, long maxTransfer) {
+        this(capacity, maxTransfer, maxTransfer, 0);
+    }
+
+    TeslaTile(long capacity, long maxReceive, long maxExtract) {
+        this(capacity, maxReceive, maxExtract, 0);
+    }
+
+    TeslaTile(long capacity, long maxReceive, long maxExtract,  long teslaEnergy) {
+        tesla = new Tesla(capacity, maxReceive, maxExtract, teslaEnergy);
         this.tileName = tileName;
+        this.power = teslaEnergy;
     }
 
     @Override

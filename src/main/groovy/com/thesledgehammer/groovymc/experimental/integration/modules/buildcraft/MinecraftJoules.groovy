@@ -28,4 +28,8 @@ class MinecraftJoules extends MinecraftJoulesStorage {
     MinecraftJoules(long capacity, long maxReceive, long maxExtract) {
         super(capacity, maxReceive, maxExtract);
     }
+
+    MinecraftJoules(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
+        super(capacity, maxReceive, maxExtract, mjEnergy);
+    }
 }

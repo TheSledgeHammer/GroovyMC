@@ -30,17 +30,20 @@ class TeslaItem extends GroovyItem implements ITeslaConsumer, ITeslaProducer, IT
     private ItemStack container;
     protected Tesla tesla;
 
+    TeslaItem(ItemStack container, long capacity) {
+        this(container, capacity, capacity, capacity, 0);
+    }
+
     TeslaItem(ItemStack container, long capacity, long maxTransfer) {
-        setItemContainer(container);
-        tesla = new Tesla(capacity, maxTransfer);
+        this(container, capacity, maxTransfer, maxTransfer, 0);
     }
 
-    TeslaItem(long capacity, long maxTransfer) {
-        setItemContainer(container);
-        tesla = new Tesla(capacity, maxTransfer);
+    TeslaItem(ItemStack container, long capacity, long maxReceive, long maxExtract) {
+        this(container, capacity, maxReceive, maxExtract, 0);
     }
 
-    private void setItemContainer(ItemStack container) {
+    TeslaItem(ItemStack container, long capacity, long maxReceive, long maxExtract,  long teslaEnergy) {
+        tesla = new Tesla(capacity, maxReceive, maxExtract, teslaEnergy);
         this.container = container;
     }
 

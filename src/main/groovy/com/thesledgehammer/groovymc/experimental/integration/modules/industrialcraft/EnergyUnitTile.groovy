@@ -30,14 +30,22 @@ class EnergyUnitTile extends GroovyTileBasic implements IEnergySource, IEnergySi
     private double energy;
     private String tileName; //Needed For Tile NBT Only
 
+    EnergyUnitTile(String tileName, double capacity, int sourceTier, int sinkTier) {
+        this(tileName, capacity, capacity, capacity, sourceTier, sinkTier, 0);
+    }
+
     EnergyUnitTile(String tileName, double capacity, double maxTransfer, int sourceTier, int sinkTier) {
-        eu = new EnergyUnits(capacity, maxTransfer, sourceTier, sinkTier);
-        this.tileName = tileName;
+        this(tileName, capacity, maxTransfer, maxTransfer, sourceTier, sinkTier, 0);
     }
 
     EnergyUnitTile(String tileName, double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier) {
-        eu = new EnergyUnits(capacity, maxReceive, maxExtract, sourceTier, sinkTier);
+        this(tileName, capacity, maxReceive, maxExtract, sourceTier, sinkTier, 0);
+    }
+
+    EnergyUnitTile(String tileName, double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier, double euEnergy) {
+        eu = new EnergyUnits(capacity, maxReceive, maxExtract, sourceTier, sinkTier, euEnergy);
         this.tileName = tileName;
+        this.energy = euEnergy;
     }
 
     @Override

@@ -34,17 +34,20 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
     private ItemStack container;
     protected MinecraftJoules MJ;
 
+    MinecraftJoulesItem(ItemStack container, long capacity) {
+        this(container, capacity, capacity, capacity, 0);
+    }
+
     MinecraftJoulesItem(ItemStack container, long capacity, long maxTransfer) {
-        setItemContainer(container);
-        MJ = new MinecraftJoules(capacity, maxTransfer);
+        this(container, capacity, maxTransfer, maxTransfer, 0);
     }
 
-    MinecraftJoulesItem(long capacity, long maxTransfer) {
-        setItemContainer(container);
-        MJ = new MinecraftJoules(capacity, maxTransfer);
+    MinecraftJoulesItem(ItemStack container, long capacity, long maxReceive, long maxExtract) {
+        this(container, capacity, maxReceive, maxExtract, 0);
     }
 
-    private void setItemContainer(ItemStack container) {
+    MinecraftJoulesItem(ItemStack container, long capacity, long maxReceive, long maxExtract, long mjEnergy) {
+        MJ = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
         this.container = container;
     }
 

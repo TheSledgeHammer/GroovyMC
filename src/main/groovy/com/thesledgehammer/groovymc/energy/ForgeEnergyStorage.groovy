@@ -1,45 +1,46 @@
-/*
- * Copyright [2018] [TheSledgeHammer]
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * Base of MinecraftForge's EnergyStorage
- */
-
-package com.thesledgehammer.groovymc.energy.traits;
+package com.thesledgehammer.groovymc.energy
 
 import net.minecraftforge.energy.IEnergyStorage
 
-trait ForgeEnergyTraits implements IEnergyStorage {
+class ForgeEnergyStorage implements IEnergyStorage{
 
-    int feEnergy;
-    int capacity;
-    int maxReceive;
-    int maxExtract;
+    private int feEnergy;
+    private int capacity;
+    private int maxReceive;
+    private int maxExtract;
 
-    void setEnergyStoredFETrait(int feEnergy) {
-      this.feEnergy = feEnergy;
+    ForgeEnergyStorage(int capacity) {
+        this(capacity, capacity, capacity, 0);
     }
 
-    void setMaxCapacityFETrait(int capacity) {
+    ForgeEnergyStorage(int capacity, int maxTransfer) {
+        this(capacity, maxTransfer, maxTransfer, 0);
+    }
+
+    ForgeEnergyStorage(int capacity, int maxReceive, int maxExtract) {
+        this(capacity, maxReceive, maxExtract, 0);
+    }
+
+    ForgeEnergyStorage(int capacity, int maxReceive, int maxExtract, int feEnergy) {
+        setMaxCapacity(capacity);
+        setMaxReceive(maxReceive);
+        setMaxExtract(maxExtract);
+        setEnergyStored(feEnergy);
+    }
+
+    void setEnergyStored(int feEnergy) {
+        this.feEnergy = feEnergy;
+    }
+
+    void setMaxCapacity(int capacity) {
         this.capacity = capacity;
     }
 
-    void setMaxReceiveFETrait(int maxReceive) {
+    void setMaxReceive(int maxReceive) {
         this.maxReceive = maxReceive;
     }
 
-    void setMaxExtractFETrait(int maxExtract) {
+    void setMaxExtract(int maxExtract) {
         this.maxExtract = maxExtract;
     }
 

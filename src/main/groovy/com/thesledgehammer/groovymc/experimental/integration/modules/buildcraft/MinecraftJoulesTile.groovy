@@ -34,14 +34,22 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjConnector, IMjRe
     private long power;
     private String tileName; //Needed For Tile NBT Only
 
+    MinecraftJoulesTile(String tileName, long capacity) {
+        this(tileName, capacity, capacity, capacity, 0);
+    }
+
     MinecraftJoulesTile(String tileName, long capacity, long maxTransfer) {
-        mj = new MinecraftJoules(capacity, maxTransfer);
-        this.tileName = tileName;
+        this(tileName, capacity, maxTransfer, maxTransfer, 0);
     }
 
     MinecraftJoulesTile(String tileName, long capacity, long maxReceive, long maxExtract) {
-        mj = new MinecraftJoules(capacity, maxReceive, maxExtract);
+        this(tileName, capacity, maxReceive, maxExtract, 0);
+    }
+
+    MinecraftJoulesTile(String tileName, long capacity, long maxReceive, long maxExtract, long mjEnergy) {
+        mj = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
         this.tileName = tileName;
+        this.power = mjEnergy;
     }
 
     @Override

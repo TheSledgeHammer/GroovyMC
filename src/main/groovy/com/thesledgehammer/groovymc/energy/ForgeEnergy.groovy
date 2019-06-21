@@ -16,27 +16,21 @@
 
 package com.thesledgehammer.groovymc.energy
 
-import com.thesledgehammer.groovymc.energy.traits.ForgeEnergyTraits
-import net.minecraftforge.energy.EnergyStorage
-
-class ForgeEnergy extends EnergyStorage implements ForgeEnergyTraits {
+class ForgeEnergy extends ForgeEnergyStorage {
 
     ForgeEnergy(int capacity) {
-        super(capacity);
-        setMaxCapacityFETrait(capacity);
+        super(capacity)
     }
 
     ForgeEnergy(int capacity, int maxTransfer) {
-        super(capacity, maxTransfer);
-        setMaxCapacityFETrait(capacity);
-        setMaxReceiveFETrait(maxTransfer);
-        setMaxExtractFETrait(maxTransfer);
+        super(capacity, maxTransfer)
     }
 
     ForgeEnergy(int capacity, int maxReceive, int maxExtract) {
-        super(capacity, maxReceive, maxExtract);
-        setMaxCapacityFETrait(capacity);
-        setMaxReceiveFETrait(maxReceive);
-        setMaxExtractFETrait(maxExtract);
+        super(capacity, maxReceive, maxExtract)
+    }
+
+    ForgeEnergy(int capacity, int maxReceive, int maxExtract, int feEnergy) {
+        super(capacity, maxReceive, maxExtract, feEnergy)
     }
 }

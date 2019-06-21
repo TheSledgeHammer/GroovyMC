@@ -56,11 +56,6 @@ class GroovyVariableModel {
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
-    GroovyVariableModel(GroovysonVariableModel GROOVY_MODEL) {
-        this.GROOVY_MODEL = GROOVY_MODEL;
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
-    }
-
     GroovysonVariableModel getGroovysonModel() {
         return GROOVY_MODEL;
     }

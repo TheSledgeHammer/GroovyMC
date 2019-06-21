@@ -18,14 +18,18 @@ package com.thesledgehammer.groovymc.experimental.integration.modules.tesla
 class Tesla extends TeslaStorage {
 
     Tesla(long capacity) {
-        super(capacity);
+        super(capacity)
     }
 
     Tesla(long capacity, long maxTransfer) {
-        super(capacity, maxTransfer);
+        super(capacity, maxTransfer)
     }
 
     Tesla(long capacity, long maxReceive, long maxExtract) {
-        super(capacity, maxReceive, maxExtract);
+        super(capacity, maxReceive, maxExtract)
+    }
+
+    Tesla(long capacity, long maxReceive, long maxExtract, long teslaEnergy) {
+        super(capacity, maxReceive, maxExtract, teslaEnergy)
     }
 }

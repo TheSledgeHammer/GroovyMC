@@ -41,19 +41,22 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
     private long maxExtract;
 
     MinecraftJoulesStorage(long capacity) {
-        setMaxCapacity(capacity);
+        this(capacity, capacity, capacity, 0);
     }
 
     MinecraftJoulesStorage(long capacity, long maxTransfer) {
-        setMaxCapacity(capacity);
-        setMaxReceive(maxTransfer);
-        setMaxExtract(maxTransfer);
+        this(capacity, maxTransfer, maxTransfer, 0);
     }
 
     MinecraftJoulesStorage(long capacity, long maxReceive, long maxExtract) {
+        this(capacity, maxReceive, maxExtract, 0);
+    }
+
+    MinecraftJoulesStorage(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
         setMaxCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
+        setPowerStored(mjEnergy);
     }
 
     void setPowerStored(long mjEnergy) {

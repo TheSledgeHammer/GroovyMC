@@ -29,14 +29,22 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     private int energy;
     private String tileName; //Needed For Tile NBT Only
 
+    ForgeEnergyTile(String tileName, int capacity) {
+        this(tileName, capacity, capacity, capacity, 0);
+    }
+
     ForgeEnergyTile(String tileName, int capacity, int maxTransfer) {
-        fe = new ForgeEnergy(capacity, maxTransfer);
-        this.tileName = tileName;
+        this(tileName, capacity, maxTransfer, maxTransfer, 0);
     }
 
     ForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract) {
-        fe = new ForgeEnergy(capacity, maxReceive, maxExtract);
+        this(tileName, capacity, maxReceive, maxExtract, 0);
+    }
+
+    ForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract, int feEnergy) {
+        fe = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy);
         this.tileName = tileName;
+        this.energy = feEnergy;
     }
 
     @Override
