@@ -18,11 +18,20 @@ package com.thesledgehammer.groovymc.experimental.integration.modules.industrial
 import ic2.api.energy.EnergyNet
 import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
+import ic2.api.energy.tile.IEnergySink
+import ic2.api.energy.tile.IEnergySource
 import net.minecraft.util.EnumFacing
+import net.minecraftforge.fml.common.Optional
 
-class EnergyUnitStorage implements IEnergyUnitStorage {
+@Optional.InterfaceList(
+        value = [
+                @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "industrialcraft"),
+                @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "industrialcraft")
+        ]
+)
+class EnergyUnitStorage implements IEnergySource, IEnergySink {
 
-    private double energy;
+    private double euEnergy;
     private double capacity;
     private double maxReceive;
     private double maxExtract;
@@ -60,8 +69,8 @@ class EnergyUnitStorage implements IEnergyUnitStorage {
         this.euEmitter = new EnergyUnitEmitter();
     }
 
-    void setEnergyStored(double energy) {
-        this.energy = energy;
+    void setEnergyStored(double euEnergy) {
+        this.euEnergy = euEnergy;
     }
 
     void setCapacity(double capacity) {
@@ -116,18 +125,18 @@ class EnergyUnitStorage implements IEnergyUnitStorage {
         return capacity;
     }
 
-    void modifyPowerStored(double energy) {
-        this.energy = energy;
-        if(energy > this.capacity) {
-            this.energy = this.capacity;
-        } else if(this.energy < 0) {
-            this.energy = 0;
+    void modifyPowerStored(double euEnergy) {
+        this.euEnergy = energy;
+        if(euEnergy > this.capacity) {
+            this.euEnergy = this.capacity;
+        } else if(this.euEnergy < 0) {
+            this.euEnergy = 0;
         }
     }
 
     @Override
     double getDemandedEnergy() {
-        return Math.max(0.0, capacity - energy);
+        return Math.max(0.0, capacity - euEnergy);
     }
 
     @Override
@@ -135,8 +144,8 @@ class EnergyUnitStorage implements IEnergyUnitStorage {
         if(!euAcceptor.acceptsEnergyFrom(this, enumFacing)) {
             return 0
         }
-        double toInject = Math.min(energy, Math.min(this.maxExtract, amount));
-        energy -= toInject;
+        double toInject = Math.min(euEnergy, Math.min(this.maxExtract, amount));
+        euEnergy -= toInject;
         return toInject;
     }
 
@@ -147,14 +156,14 @@ class EnergyUnitStorage implements IEnergyUnitStorage {
                 amount = 0;
             }
         }
-        double toDraw = Math.min(capacity - energy, Math.min(this.maxReceive, amount));
-        energy += toDraw;
+        double toDraw = Math.min(capacity - euEnergy, Math.min(this.maxReceive, amount));
+        euEnergy += toDraw;
         amount = toDraw;
     }
 
     @Override
     double getOfferedEnergy() {
-        return energy;
+        return euEnergy;
     }
 
     @Override

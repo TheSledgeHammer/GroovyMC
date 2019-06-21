@@ -58,8 +58,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     long extractPower(long min, long max, boolean simulate) {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjPassiveProvider) {
+            IMjPassiveProvider mjItem = container as IMjPassiveProvider;
             return mjItem.extractPower(min, max, simulate);
         }
         return 0
@@ -67,8 +67,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     long getStored() {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjReadable) {
+            IMjReadable mjItem = container as IMjReadable;
             return mjItem.getStored();
         }
         return 0
@@ -76,8 +76,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     long getCapacity() {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjReadable) {
+            IMjReadable mjItem = container as IMjReadable;
             return mjItem.getCapacity();
         }
         return 0
@@ -85,8 +85,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     long getPowerRequested() {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjReceiver) {
+            IMjReceiver mjItem = container as IMjReceiver;
             return mjItem.getPowerRequested();
         }
         return 0
@@ -94,8 +94,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     long receivePower(long microJoules, boolean simulate) {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjReceiver) {
+            IMjReceiver mjItem = container as IMjReceiver;
             return mjItem.receivePower(microJoules, simulate);
         }
         return 0
@@ -112,8 +112,8 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
-        if(container instanceof MinecraftJoulesStorage) {
-            MinecraftJoulesStorage mjItem = container as MinecraftJoulesStorage;
+        if(container instanceof IMjConnector) {
+            IMjConnector mjItem = container as IMjConnector;
             return mjItem.canConnect(other);
         }
         return false
@@ -141,20 +141,22 @@ class MinecraftJoulesItem extends GroovyItem implements IMjConnector, IMjReceive
 
     @Override
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if(capability == MjAPI.CAP_CONNECTOR) {
-            return MjAPI.CAP_CONNECTOR.cast(this);
-        }
-        if(capability == MjAPI.CAP_RECEIVER) {
-            return MjAPI.CAP_RECEIVER.cast(this);
-        }
-        if(capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-            return MjAPI.CAP_PASSIVE_PROVIDER.cast(this);
-        }
-        if(capability == MjAPI.CAP_READABLE) {
-            return MjAPI.CAP_READABLE.cast(this);
-        }
-        if(capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-            return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
+        if(BuildcraftModule.hasMjCapability(capability)) {
+            if (capability == MjAPI.CAP_CONNECTOR) {
+                return MjAPI.CAP_CONNECTOR.cast(this);
+            }
+            if (capability == MjAPI.CAP_RECEIVER) {
+                return MjAPI.CAP_RECEIVER.cast(this);
+            }
+            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
+                return MjAPI.CAP_PASSIVE_PROVIDER.cast(this);
+            }
+            if (capability == MjAPI.CAP_READABLE) {
+                return MjAPI.CAP_READABLE.cast(this);
+            }
+            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
+                return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
+            }
         }
         return null;
     }

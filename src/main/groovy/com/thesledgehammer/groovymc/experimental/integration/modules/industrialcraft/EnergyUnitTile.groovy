@@ -18,11 +18,13 @@ package com.thesledgehammer.groovymc.experimental.integration.modules.industrial
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
+import ic2.api.energy.tile.IEnergySink
+import ic2.api.energy.tile.IEnergySource
 import ic2.api.energy.tile.IEnergyTile
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 
-class EnergyUnitTile extends GroovyTileBasic implements IEnergyUnitStorage, IEnergyTile {
+class EnergyUnitTile extends GroovyTileBasic implements IEnergySource, IEnergySink, IEnergyTile {
 
     protected EnergyUnits eu;
     private double energy;
@@ -63,7 +65,6 @@ class EnergyUnitTile extends GroovyTileBasic implements IEnergyUnitStorage, IEne
         return eu.getOfferedEnergy();
     }
 
-    @Override
     double getMaxEnergyStored() {
         return eu.getMaxEnergyStored();
     }
@@ -87,7 +88,7 @@ class EnergyUnitTile extends GroovyTileBasic implements IEnergyUnitStorage, IEne
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
-            energy = tagCompound.getCompoundTag(tileName).getDouble("energy");
+            energy = tagCompound.getCompoundTag(tileName).getDouble("euEnergy");
         }
     }
 
@@ -96,7 +97,7 @@ class EnergyUnitTile extends GroovyTileBasic implements IEnergyUnitStorage, IEne
         super.writeToNBT(tagCompound);
         if (energy > 0) {
             NBTTagCompound data = new NBTTagCompound();
-            data.setDouble("energy", getOfferedEnergy());
+            data.setDouble("euEnergy", getOfferedEnergy());
             tagCompound.setTag(tileName, data);
         }
         return tagCompound;

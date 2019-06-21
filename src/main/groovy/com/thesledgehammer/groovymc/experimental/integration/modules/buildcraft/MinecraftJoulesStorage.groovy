@@ -35,7 +35,7 @@ import javax.annotation.Nonnull
 )
 class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
 
-    private long power;
+    private long mjEnergy;
     private long capacity;
     private long maxReceive;
     private long maxExtract;
@@ -56,8 +56,8 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
         setMaxExtract(maxExtract);
     }
 
-    void setPowerStored(long power) {
-        this.power = power;
+    void setPowerStored(long mjEnergy) {
+        this.mjEnergy = mjEnergy;
     }
 
     void setMaxCapacity(long capacity) {
@@ -80,12 +80,12 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
         return maxExtract;
     }
 
-    void modifyPowerStored(long power) {
-        this.power = power;
-        if(power > this.capacity) {
-            this.power = this.capacity;
-        } else if(this.power < 0) {
-            this.power = 0;
+    void modifyPowerStored(long mjEnergy) {
+        this.mjEnergy = mjEnergy;
+        if(mjEnergy > this.capacity) {
+            this.mjEnergy = this.capacity;
+        } else if(this.mjEnergy < 0) {
+            this.mjEnergy = 0;
         }
     }
 
@@ -94,16 +94,16 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
         if (!canExtract()) {
             return 0;
         }
-        long powerExtracted = Math.min(power, Math.min(this.maxExtract, (max - min)));
+        long powerExtracted = Math.min(mjEnergy, Math.min(this.maxExtract, (max - min)));
         if (!simulate) {
-            power -= powerExtracted;
+            mjEnergy -= powerExtracted;
         }
         return powerExtracted;
     }
 
     @Override
     long getStored() {
-        return power;
+        return mjEnergy;
     }
 
     @Override
@@ -113,7 +113,7 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
 
     @Override
     long getPowerRequested() {
-        long powerRequest = Math.min(power, Math.min(maxExtract, maxReceive));
+        long powerRequest = Math.min(mjEnergy, Math.min(maxExtract, maxReceive));
         return powerRequest;
     }
 
@@ -123,9 +123,9 @@ class MinecraftJoulesStorage implements IMjConnector, IMjReceiver, IMjPassivePro
             return 0;
         }
 
-        long powerReceived = Math.min(capacity - power, Math.min(this.maxReceive, microJoules));
+        long powerReceived = Math.min(capacity - mjEnergy, Math.min(this.maxReceive, microJoules));
         if (!simulate) {
-            power += powerReceived;
+            mjEnergy += powerReceived;
         }
         return powerReceived;
     }

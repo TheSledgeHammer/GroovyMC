@@ -11,7 +11,7 @@ abstract class BlankModule implements IModule {
 
     BlankModule(String modID) {
         setModID(modID);
-        ModuleContainer.CONTAINER.add(this);
+        ModuleContainer.MODULES_CONTAINER().add(this);
     }
 
     private void setModID(String modID) {
@@ -23,11 +23,5 @@ abstract class BlankModule implements IModule {
     }
 
     @Override
-    abstract void preInit(FMLPreInitializationEvent event);
-
-    @Override
-    abstract void init(FMLInitializationEvent event);
-
-    @Override
-    abstract void postInit(FMLPostInitializationEvent event);
+    abstract void init();
 }

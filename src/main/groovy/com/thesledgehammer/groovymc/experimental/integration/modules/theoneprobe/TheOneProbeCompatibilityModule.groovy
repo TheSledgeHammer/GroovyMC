@@ -54,19 +54,9 @@ class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITh
     }
 
     @Override
-    void preInit(FMLPreInitializationEvent event) {
+    void init() {
         Log.log(Level.INFO, "Enabled support for The One Probe");
         TheOneProbe.theOneProbeImp.registerProvider(new EnergyProbeInfoProvider());
-    }
-
-    @Override
-    void init(FMLInitializationEvent event) {
-
-    }
-
-    @Override
-    void postInit(FMLPostInitializationEvent event) {
-
     }
 
     @Nullable

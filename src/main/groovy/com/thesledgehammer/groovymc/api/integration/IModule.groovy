@@ -7,6 +7,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 interface IModule {
 
+    void init();
+
+    /*
     @Mod.EventHandler
     void preInit(FMLPreInitializationEvent event);
 
@@ -15,5 +18,5 @@ interface IModule {
 
     @Mod.EventHandler
     void postInit(FMLPostInitializationEvent event);
-
+*/
 }

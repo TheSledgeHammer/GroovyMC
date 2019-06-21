@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.Optional
 
 @Optional.InterfaceList(
         value = [
-                @Optional.Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = "industrialcraft", striprefs = true)
+                @Optional.Interface(iface = "ic2.api.energy.tile.IEnergyAcceptor", modid = "industrialcraft")
         ]
 )
 class EnergyUnitAcceptor implements IEnergyAcceptor {

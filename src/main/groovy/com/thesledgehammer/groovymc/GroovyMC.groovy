@@ -38,18 +38,17 @@ class GroovyMC {
 	@Mod.EventHandler
 	static void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
-		ModuleContainer.preInit(event);
+		ModuleContainer.init();
 	}
 
 	@Mod.EventHandler
 	static void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new InputHandler());
-		ModuleContainer.init(event);
 	}
 
 	@Mod.EventHandler
 	static void postInit(FMLPostInitializationEvent event) {
-		ModuleContainer.postInit(event);
+
 	}
 
 	/*

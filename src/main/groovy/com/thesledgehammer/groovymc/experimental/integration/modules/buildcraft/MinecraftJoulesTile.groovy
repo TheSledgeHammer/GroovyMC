@@ -87,7 +87,7 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjConnector, IMjRe
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
-            power = tagCompound.getCompoundTag(tileName).getLong("power");
+            power = tagCompound.getCompoundTag(tileName).getLong("mjEnergy");
         }
     }
 
@@ -96,7 +96,7 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjConnector, IMjRe
         super.writeToNBT(tagCompound);
         if (power > 0) {
             NBTTagCompound data = new NBTTagCompound();
-            data.setLong("power", getStored());
+            data.setLong("mjEnergy", getStored());
             tagCompound.setTag(tileName, data);
         }
         return tagCompound;

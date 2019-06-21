@@ -37,17 +37,7 @@ class IndustrialcraftModule extends BlankModule {
     }
 
     @Override
-    void preInit(FMLPreInitializationEvent event) {
-
-    }
-
-    @Override
-    void init(FMLInitializationEvent event) {
-
-    }
-
-    @Override
-    void postInit(FMLPostInitializationEvent event) {
+    void init() {
 
     }
 }

@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft
+package com.thesledgehammer.groovymc.experimental.integration.modules.tesla
 
-import buildcraft.api.mj.MjAPI
 import com.thesledgehammer.groovymc.api.integration.BlankModule
+import net.darkhax.tesla.capability.TeslaCapabilities
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
-class BuildcraftModule extends BlankModule {
+class TeslaModule extends BlankModule {
 
-    private static BuildcraftModule instance;
+    private static TeslaModule instance;
 
-    BuildcraftModule() {
-        super("buildcraft");
+    TeslaModule() {
+        super("tesla");
         instance = this;
     }
 
-    static BuildcraftModule Instance() {
+    static TeslaModule Instance() {
         if(instance != null) {
             return instance;
         }
@@ -44,26 +44,20 @@ class BuildcraftModule extends BlankModule {
     }
 
     static boolean isLoaded() {
-        return MjAPI.CAP_CONNECTOR != null && MjAPI.CAP_RECEIVER != null && MjAPI.CAP_PASSIVE_PROVIDER != null && MjAPI.CAP_READABLE != null && MjAPI.CAP_REDSTONE_RECEIVER != null;
+        return TeslaCapabilities.CAPABILITY_CONSUMER != null && TeslaCapabilities.CAPABILITY_PRODUCER != null && TeslaCapabilities.CAPABILITY_HOLDER != null;
     }
 
-    static boolean hasMjCapability(Capability<?> capability) {
+    static boolean hasTeslaCapability(Capability<?> capability) {
         if(!isLoaded()) {
             return false;
         }
-        if(capability == MjAPI.CAP_CONNECTOR) {
+        if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) {
             return true;
         }
-        if(capability == MjAPI.CAP_RECEIVER) {
+        if(capability == TeslaCapabilities.CAPABILITY_PRODUCER) {
             return true;
         }
-        if(capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-            return true;
-        }
-        if(capability == MjAPI.CAP_READABLE) {
-            return true;
-        }
-        if(capability == MjAPI.CAP_REDSTONE_RECEIVER) {
+        if(capability == TeslaCapabilities.CAPABILITY_HOLDER) {
             return true;
         }
         return false;

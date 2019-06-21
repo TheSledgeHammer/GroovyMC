@@ -22,13 +22,13 @@ import net.minecraftforge.energy.IEnergyStorage
 
 trait ForgeEnergyTraits implements IEnergyStorage {
 
-    int energy;
+    int feEnergy;
     int capacity;
     int maxReceive;
     int maxExtract;
 
-    void setEnergyStoredFETrait(int energy) {
-      this.energy = energy;
+    void setEnergyStoredFETrait(int feEnergy) {
+      this.feEnergy = feEnergy;
     }
 
     void setMaxCapacityFETrait(int capacity) {
@@ -51,12 +51,12 @@ trait ForgeEnergyTraits implements IEnergyStorage {
         return maxExtract;
     }
 
-    void modifyEnergyStored(int energy) {
-        this.energy = energy;
-        if(energy > this.capacity) {
-            this.energy = this.capacity;
-        } else if(this.energy < 0) {
-            this.energy = 0;
+    void modifyEnergyStored(int feEnergy) {
+        this.feEnergy = feEnergy;
+        if(feEnergy > this.capacity) {
+            this.feEnergy = this.capacity;
+        } else if(this.feEnergy < 0) {
+            this.feEnergy = 0;
         }
     }
 
@@ -66,9 +66,9 @@ trait ForgeEnergyTraits implements IEnergyStorage {
             return 0;
         }
 
-        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
+        int energyReceived = Math.min(capacity - feEnergy, Math.min(this.maxReceive, maxReceive));
         if (!simulate) {
-            energy += energyReceived;
+            feEnergy += energyReceived;
         }
         return energyReceived;
     }
@@ -79,16 +79,16 @@ trait ForgeEnergyTraits implements IEnergyStorage {
             return 0;
         }
 
-        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
+        int energyExtracted = Math.min(feEnergy, Math.min(this.maxExtract, maxExtract));
         if (!simulate) {
-            energy -= energyExtracted;
+            feEnergy -= energyExtracted;
         }
         return energyExtracted;
     }
 
     @Override
     int getEnergyStored() {
-        return energy;
+        return feEnergy;
     }
 
     @Override

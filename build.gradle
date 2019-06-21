@@ -29,7 +29,7 @@ repositories {
 	maven {
 		name = "Apache Groovy"
 		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
-		url = "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all"
+		//url = "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all"
 	}
 	maven {
 		name = "JAXB"
@@ -51,6 +51,10 @@ repositories {
 		name = "tterrag maven (TOP)"
 		url = "https://maven.tterrag.com/"
 	}
+	maven {
+		name = "Darkhax (Tesla)"
+		url = 'http://maven.mcmoddev.com'
+	}
 }
 
 version = version_major + '.' + version_minor + '.' + version_patch
@@ -70,11 +74,11 @@ archivesBaseName = "GroovyMC_" + mcversion
 dependencies {
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
-	compile "org.apache:apache:+"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
 	compile "com.mod-buildcraft:buildcraft-api:${buildcraft_version}"
 	compile "net.industrial-craft:industrialcraft-2:+:api"
 	compile "mcjty.theoneprobe:TheOneProbe-1.12:+"
+	compile "net.darkhax.tesla:Tesla-1.12:${tesla_version}"
 }
 
 processResources {

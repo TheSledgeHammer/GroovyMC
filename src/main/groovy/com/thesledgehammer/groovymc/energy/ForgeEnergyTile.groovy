@@ -39,8 +39,6 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
         this.tileName = tileName;
     }
 
-    //TODO: SetEnergyValue, getEnergyValue or make public
-
     @Override
     int receiveEnergy(int maxReceive, boolean simulate) {
         return fe.receiveEnergy(maxReceive, simulate);
@@ -75,7 +73,7 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
-            energy = tagCompound.getCompoundTag(tileName).getInteger("energy");
+            energy = tagCompound.getCompoundTag(tileName).getInteger("feEnergy");
         }
     }
 
@@ -84,7 +82,7 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
         super.writeToNBT(tagCompound);
         if (energy > 0) {
             NBTTagCompound data = new NBTTagCompound();
-            data.setInteger("energy", getEnergyStored());
+            data.setInteger("feEnergy", getEnergyStored());
             tagCompound.setTag(tileName, data);
         }
         return tagCompound;
@@ -103,6 +101,6 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
         if (capability == CapabilityEnergy.ENERGY) {
             return CapabilityEnergy.ENERGY.cast(this);
         }
-        return super.getCapability(capability, facing);
+        return null;
     }
 }
