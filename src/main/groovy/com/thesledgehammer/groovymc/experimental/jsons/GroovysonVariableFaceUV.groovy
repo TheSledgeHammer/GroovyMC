@@ -14,26 +14,26 @@ import net.minecraft.util.EnumFacing
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
 class GroovysonVariableFaceUV {
 
-    protected GroovysonVariableContext VB = new GroovysonVariableContext();
+    protected GroovysonVariableContext GVC = new GroovysonVariableContext();
 
     GroovysonVariableFaceUV(List<GroovysonObjectPart> objectParts) {
         for(GroovysonObjectPart parts : objectParts) {
-            VB.setGroovysonVariableFaceUV(parts);
+            GVC.setGroovysonVariableFaceUV(parts);
         }
     }
 
     VariableFaceData evaluateFace(GroovysonObjectPart parts, EnumFacing facing, ITextureGetter spriteLookup) {
         VariableFaceData data = new VariableFaceData();
-        ModelUtil.TexturedFace face = spriteLookup.get(VB.getTexture(parts, facing).getValue());
+        ModelUtil.TexturedFace face = spriteLookup.get(GVC.getTexture(parts, facing).getValue());
         data.sprite = face.sprite;
         data.rotations = (int) VB.getTextureRotation(parts, facing).getValue();
-        data.uvs.minU = (float) (VB.getFaceUV(parts, facing).get(0).getValue() / 16.0);
-        data.uvs.minV = (float) (VB.getFaceUV(parts, facing).get(1).getValue() / 16.0);
-        data.uvs.maxU = (float) (VB.getFaceUV(parts, facing).get(2).getValue() / 16.0);
-        data.uvs.maxV = (float) (VB.getFaceUV(parts, facing).get(3).getValue() / 16.0);
+        data.uvs.minU = (float) (GVC.getFaceUV(parts, facing).get(0).getValue() / 16.0);
+        data.uvs.minV = (float) (GVC.getFaceUV(parts, facing).get(1).getValue() / 16.0);
+        data.uvs.maxU = (float) (GVC.getFaceUV(parts, facing).get(2).getValue() / 16.0);
+        data.uvs.maxV = (float) (GVC.getFaceUV(parts, facing).get(3).getValue() / 16.0);
         data.uvs = data.uvs.inParent(face.faceData);
-        data.invertNormal = VB.getInvert(parts).getValue();
-        data.bothSides = VB.getBothSides(parts).getValue();
+        data.invertNormal = GVC.getInvert(parts).getValue();
+        data.bothSides = GVC.getBothSides(parts).getValue();
         return data;
     }
 }

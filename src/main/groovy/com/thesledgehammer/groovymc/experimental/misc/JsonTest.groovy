@@ -21,16 +21,14 @@ import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-import com.thesledgehammer.groovymc.experimental.models.ModelEntryVariable
-import com.thesledgehammer.groovymc.experimental.models.groovymc.variant2.GroovyVariableModels
+
 import com.thesledgehammer.groovymc.experimental.models.groovymc.variant1.ModelEntryVariableBlock
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
-        GroovyVariableModel itemModel = new GroovyVariableModel("item", "engine_base");
+        GroovyVariableModel blockModel = new GroovyVariableModel("block","engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
@@ -54,12 +52,6 @@ class JsonTest {
         //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
 
         ModelEntryVariableBlock test = new ModelEntryVariableBlock("engine_base", "groovymc:models/block/engine_base", "groovymc:models/item/engine_base.json");
-
-        ModelEntry.Register.add(blockModel.getGroovysonModel().getModelResourceLocation()).build();
-        println test.getGroovyVariableItemModel()
-
-        GroovyVariableModels engine_model = new GroovyVariableModels("engine_base");
-
 
     }
 }

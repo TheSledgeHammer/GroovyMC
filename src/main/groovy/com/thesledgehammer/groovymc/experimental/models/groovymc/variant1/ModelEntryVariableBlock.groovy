@@ -47,12 +47,4 @@ class ModelEntryVariableBlock extends AbstractModelEntryVariable {
         this.groovyVariableItemModel = new GroovyVariableModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);
     }
-
-    GroovyVariableModel getGroovyVariableBlockModel() {
-        return groovyVariableModel;
-    }
-
-    GroovyVariableModel getGroovyVariableItemModel() {
-        return groovyVariableItemModel;
-    }
 }

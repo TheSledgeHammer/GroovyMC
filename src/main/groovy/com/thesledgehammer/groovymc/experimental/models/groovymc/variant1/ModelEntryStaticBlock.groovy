@@ -47,12 +47,4 @@ class ModelEntryStaticBlock extends AbstractModelEntryStatic {
         this.groovyStaticItemModel = new GroovyStaticModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);
     }
-
-    GroovyStaticModel getGroovyStaticBlockModel() {
-        return groovyStaticModel;
-    }
-
-    GroovyStaticModel getGroovyStaticItemModel() {
-        return groovyStaticItemModel;
-    }
 }

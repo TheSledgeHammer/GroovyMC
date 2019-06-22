@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import net.minecraft.util.EnumFacing
 
+//Methods will be moved to GroovysonStaticContext
 class GroovysonStaticModel extends GroovysonAbstractModel {
 
     GroovysonStaticModel(String resourceObject, String fileName) {

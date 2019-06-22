@@ -24,7 +24,6 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectCache
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import com.thesledgehammer.groovymc.utils.JsonTools
@@ -45,11 +44,6 @@ class GroovyStaticModel {
 
     GroovyStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonStaticModel(resourceDirectory, modID, resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
-    }
-
-    GroovyStaticModel(GroovysonStaticModel GROOVY_MODEL) {
-        this.GROOVY_MODEL = GROOVY_MODEL;
         GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
     }
 
