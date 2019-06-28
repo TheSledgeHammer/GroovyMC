@@ -1,10 +1,5 @@
 package com.thesledgehammer.groovymc.api.integration
 
-import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-
 interface IModule {
 
     void init();

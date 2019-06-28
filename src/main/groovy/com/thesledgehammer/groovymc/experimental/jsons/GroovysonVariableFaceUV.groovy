@@ -14,26 +14,26 @@ import net.minecraft.util.EnumFacing
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
 class GroovysonVariableFaceUV {
 
-    protected GroovysonVariableContext GVC = new GroovysonVariableContext();
+    protected GroovysonVariableDefinition GVD = new GroovysonVariableDefinition();
 
     GroovysonVariableFaceUV(List<GroovysonObjectPart> objectParts) {
         for(GroovysonObjectPart parts : objectParts) {
-            GVC.setGroovysonVariableFaceUV(parts);
+            GVD.setGroovysonVariableFaceUV(parts);
         }
     }
 
     VariableFaceData evaluateFace(GroovysonObjectPart parts, EnumFacing facing, ITextureGetter spriteLookup) {
         VariableFaceData data = new VariableFaceData();
-        ModelUtil.TexturedFace face = spriteLookup.get(GVC.getTexture(parts, facing).getValue());
+        ModelUtil.TexturedFace face = spriteLookup.get(GVD.getTexture(parts, facing).getValue());
         data.sprite = face.sprite;
-        data.rotations = (int) VB.getTextureRotation(parts, facing).getValue();
-        data.uvs.minU = (float) (GVC.getFaceUV(parts, facing).get(0).getValue() / 16.0);
-        data.uvs.minV = (float) (GVC.getFaceUV(parts, facing).get(1).getValue() / 16.0);
-        data.uvs.maxU = (float) (GVC.getFaceUV(parts, facing).get(2).getValue() / 16.0);
-        data.uvs.maxV = (float) (GVC.getFaceUV(parts, facing).get(3).getValue() / 16.0);
+        data.rotations = (int) GVD.getTextureRotation(parts, facing).getValue();
+        data.uvs.minU = (float) (GVD.getFaceUV(parts, facing).get(0).getValue() / 16.0);
+        data.uvs.minV = (float) (GVD.getFaceUV(parts, facing).get(1).getValue() / 16.0);
+        data.uvs.maxU = (float) (GVD.getFaceUV(parts, facing).get(2).getValue() / 16.0);
+        data.uvs.maxV = (float) (GVD.getFaceUV(parts, facing).get(3).getValue() / 16.0);
         data.uvs = data.uvs.inParent(face.faceData);
-        data.invertNormal = GVC.getInvert(parts).getValue();
-        data.bothSides = GVC.getBothSides(parts).getValue();
+        data.invertNormal = GVD.getInvert(parts).getValue();
+        data.bothSides = GVD.getBothSides(parts).getValue();
         return data;
     }
 }

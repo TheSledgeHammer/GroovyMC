@@ -20,31 +20,33 @@ import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 
+import javax.annotation.Nullable
+
 class ModelEntryVariableBlock extends AbstractModelEntryVariable {
 
     private GroovyVariableModel groovyVariableItemModel;
 
-    ModelEntryVariableBlock(String modelName, ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation) {
+    ModelEntryVariableBlock(String modelName, @Nullable ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation) {
         this.groovyVariableModel = new GroovyVariableModel("block", modelName);
         this.groovyVariableItemModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation);
+        ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation).build();
     }
 
-    ModelEntryVariableBlock(String modelName, String blockModelResourceLocation, String itemModelResourceLocation) {
+    ModelEntryVariableBlock(String modelName, @Nullable String blockModelResourceLocation, String itemModelResourceLocation) {
         this.groovyVariableModel = new GroovyVariableModel("block", modelName);
         this.groovyVariableItemModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation);
+        ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation).build();
     }
 
-    ModelEntryVariableBlock(String modelName, String blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
+    ModelEntryVariableBlock(String modelName, @Nullable String blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
         this.groovyVariableModel = new GroovyVariableModel("block", modelName);
         this.groovyVariableItemModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);
+        ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation).build();
     }
 
-    ModelEntryVariableBlock(String modelName, ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
+    ModelEntryVariableBlock(String modelName, @Nullable ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
         this.groovyVariableModel = new GroovyVariableModel("block", modelName);
         this.groovyVariableItemModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);
+        ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation).build();
     }
 }

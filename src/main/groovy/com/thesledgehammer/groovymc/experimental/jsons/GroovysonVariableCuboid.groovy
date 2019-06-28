@@ -19,22 +19,22 @@ class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
 
         for(GroovysonObjectPart parts : objectParts) {
             String invert = null;
-            if(GVC.getInvert(parts) != null) {
-                invert = GVC.getInvert(parts);
+            if(GVD.getInvert(parts) != null) {
+                invert = GVD.getInvert(parts);
             }
 
             String bothSides = null;
-            if(GVC.getBothSides(parts) != null) {
-                bothSides = GVC.getBothSides(parts);
+            if(GVD.getBothSides(parts) != null) {
+                bothSides = GVD.getBothSides(parts);
             }
 
             for(EnumFacing face : EnumFacing.VALUES) {
                 if(parts.Facing(face) != null) {
-                    if(GVC.getInvert(parts) != null) {
-                        GVC.setInvert(parts, invert);
+                    if(GVD.getInvert(parts) != null) {
+                        GVD.setInvert(parts, invert);
                     }
-                    if(GVC.getBothSides(parts) != null) {
-                        GVC.setBothSides(parts, bothSides);
+                    if(GVD.getBothSides(parts) != null) {
+                        GVD.setBothSides(parts, bothSides);
                     }
                     facesGUV.put(face, new GroovysonVariableFaceUV(objectParts));
                 }
@@ -48,7 +48,7 @@ class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
     @Override
     protected VariableFaceData getFaceData(GroovysonObjectPart objectPart, EnumFacing side, ITextureGetter spriteLookup) {
         GroovysonVariableFaceUV var = facesGUV.get(side);
-        if(var == null || !var.GVC.getVisible(objectPart).getValue()) {
+        if(var == null || !var.GVD.getVisible(objectPart).getValue()) {
             return null;
         }
         return var.evaluateFace(objectPart, side, spriteLookup);

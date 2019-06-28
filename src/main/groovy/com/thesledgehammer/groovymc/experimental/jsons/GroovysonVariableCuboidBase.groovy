@@ -18,21 +18,21 @@ import javax.vecmath.Vector3f
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
 abstract class GroovysonVariableCuboidBase {
 
-    protected GroovysonVariableContext GVC = new GroovysonVariableContext();
+    protected GroovysonVariableDefinition GVD = new GroovysonVariableDefinition();
 
     GroovysonVariableCuboidBase(List<GroovysonObjectPart> objectParts) {
         for(GroovysonObjectPart parts : objectParts) {
-            GVC.setGroovysonVariableCuboidBase(parts);
+            GVD.setGroovysonVariableCuboidBase(parts);
         }
     }
 
     void addQuad(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
-        if (GVC.getVisible(parts).getValue()) {
-            float[] from = bakePosition(GVC.getFrom(parts));
-            float[] to = bakePosition(GVC.getTo(parts));
-            boolean shade = GVC.getShade(parts).getValue();
-            int l = (int) (GVC.getLight(parts).getValue() & 15);
-            int rgba = MathTools.swapARGBforABGR((int) VB.getColour(parts).getValue());
+        if (GVD.getVisible(parts).getValue()) {
+            float[] from = bakePosition(GVD.getFrom(parts));
+            float[] to = bakePosition(GVD.getTo(parts));
+            boolean shade = GVD.getShade(parts).getValue();
+            int l = (int) (GVD.getLight(parts).getValue() & 15);
+            int rgba = MathTools.swapARGBforABGR((int) GVD.getColour(parts).getValue());
             for (EnumFacing face : EnumFacing.VALUES) {
                 VariableFaceData data = getFaceData(parts, face, spriteLookup);
                 if (data != null) {

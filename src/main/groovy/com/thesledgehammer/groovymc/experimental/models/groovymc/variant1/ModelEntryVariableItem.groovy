@@ -24,21 +24,21 @@ class ModelEntryVariableItem extends AbstractModelEntryVariable {
 
     ModelEntryVariableItem(String modelName, ModelResourceLocation modelResourceLocation) {
         this.groovyVariableModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(modelResourceLocation)
+        ModelEntry.Register.add(modelResourceLocation).build()
     }
 
     ModelEntryVariableItem(String modelName, String modelResourceLocation) {
         this.groovyVariableModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(modelResourceLocation)
+        ModelEntry.Register.add(modelResourceLocation).build()
     }
 
     ModelEntryVariableItem(String modelName, String modelResourceLocation, IBakedModel bakedModel) {
         this.groovyVariableModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(modelResourceLocation, bakedModel)
+        ModelEntry.Register.add(modelResourceLocation, bakedModel).build()
     }
 
     ModelEntryVariableItem(String modelName, ModelResourceLocation modelResourceLocation, IBakedModel bakedModel) {
         this.groovyVariableModel = new GroovyVariableModel("item", modelName);
-        ModelEntry.Register.add(modelResourceLocation, bakedModel)
+        ModelEntry.Register.add(modelResourceLocation, bakedModel).build()
     }
 }

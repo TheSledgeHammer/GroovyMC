@@ -21,21 +21,11 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.energy.ForgeEnergyTile
-import com.thesledgehammer.groovymc.experimental.integration.modules.buildcraft.MinecraftJoulesTile
-import com.thesledgehammer.groovymc.experimental.integration.modules.industrialcraft.EnergyUnitTile
-import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.EnumColorType
-import com.thesledgehammer.groovymc.experimental.integration.modules.theoneprobe.ITheOneProbeInfoProvider
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
-import mcjty.theoneprobe.api.ElementAlignment
-import mcjty.theoneprobe.api.IProbeHitData
-import mcjty.theoneprobe.api.IProbeInfo
-import mcjty.theoneprobe.api.ProbeMode
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
@@ -44,7 +34,6 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
-import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
@@ -52,6 +41,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 import javax.annotation.Nullable
+
 //To Improve: registerTileEntity
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
 
@@ -148,6 +138,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         registerStateMapper();
     }
 
+    @SideOnly(Side.CLIENT)
     void registerStateMapper() {
         ModelLoader.setCustomStateMapper(this, new GroovyMachineStateMapper<>(blockType));
     }

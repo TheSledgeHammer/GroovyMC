@@ -50,8 +50,8 @@ class ModelEntry extends ModelEntryConsumer {
                 return modelLoc
             }
         }
-        Log.logDebug("No ModelResourceLocation was found at ${modelResourceLocation}")
-        return null;
+        throw new NullPointerException("No ModelResourceLocation was found at ${modelResourceLocation}");
+        //return null;
     }
 
     IBakedModel getIBakedModel(IBakedModel bakedModel) {
@@ -60,8 +60,8 @@ class ModelEntry extends ModelEntryConsumer {
                 return baked
             }
         }
-        Log.logDebug("No IBakedModel was found named ${bakedModel}")
-        return null;
+        throw new NullPointerException("No IBakedModel was found named ${bakedModel}");
+        //return null;
     }
 
     static class Register {

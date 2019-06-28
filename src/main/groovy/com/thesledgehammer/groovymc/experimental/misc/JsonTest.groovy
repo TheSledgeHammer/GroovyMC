@@ -21,8 +21,9 @@ import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-
 import com.thesledgehammer.groovymc.experimental.models.groovymc.variant1.ModelEntryVariableBlock
+import com.thesledgehammer.groovymc.experimental.models.groovyobjectmodelbased.GroovysonObjectModel
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 
 class JsonTest {
 
@@ -46,12 +47,6 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        TextureEntry.Register.add("#back").add("#side").build()
-
-        //VB.setFrom(blockModel.getGroovysonModel().getRawModelPart(0), "0");
-        //println blockModel.getGroovysonModel().VariableTexture(blockModel.getGroovysonModel().getRawModelPart(0), EnumFacing.DOWN)
-
-        ModelEntryVariableBlock test = new ModelEntryVariableBlock("engine_base", "groovymc:models/block/engine_base", "groovymc:models/item/engine_base.json");
 
     }
 }

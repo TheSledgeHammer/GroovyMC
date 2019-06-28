@@ -32,7 +32,9 @@ class ModelEntryHolderRegistry {
     private static final List<ModelEntryHolder> HOLDERS = new ArrayList<>();
 
     static void preInit() {
-        MinecraftForge.EVENT_BUS.register(ModelEntryHolderRegistry.class);
+        if(!HOLDERS.isEmpty() || HOLDERS.size() != 0) {
+            MinecraftForge.EVENT_BUS.register(ModelEntryHolderRegistry.class);
+        }
     }
 
     static void init() {
@@ -55,7 +57,7 @@ class ModelEntryHolderRegistry {
 
             for(TextureAtlasSprite sprite : textureEntry.getTextureAtlasSprites()) {
                 if(textureEntry.getTextureAtlasSprite(sprite) instanceof ISprite) {
-                    textureEntry.GroovyDefinitionContext().onTextureStitchPre(map);
+                    textureEntry.onTextureStitchPre(map);
                 }
                 map.setTextureEntry(textureEntry.getTextureAtlasSprite(sprite));
             }

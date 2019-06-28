@@ -20,7 +20,6 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -56,10 +55,6 @@ class GroovyDefinitionContext {
         return models.getIBakedModel();
     }
 
-    GroovysonStaticModel getGroovysonModel() {
-        return models.getGroovysonModel();
-    }
-
     IModel getIModel() {
         return models.getIModel();
     }
@@ -88,10 +83,6 @@ class GroovyDefinitionContext {
         return models.getIModelParts();
     }
 
-    List<GroovysonStaticModel> getGroovysonModels() {
-        return models.getGroovysonModels();
-    }
-
     void setIBakedModel(IBakedModel bakedModel) {
         models.setIBakedModel(bakedModel);
     }
@@ -106,10 +97,6 @@ class GroovyDefinitionContext {
 
     void setIModelPart(IModelPart iModelPart) {
         models.setIModelPart(iModelPart);
-    }
-
-    void setGroovysonModel(GroovysonStaticModel groovyModel) {
-        models.setGroovysonModel(groovyModel);
     }
 
     /**GroovyResourceDefinition**/

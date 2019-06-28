@@ -16,8 +16,6 @@
 
 package com.thesledgehammer.groovymc.gui.container
 
-import com.thesledgehammer.groovymc.experimental.gui.builder.GuiBackground
-import com.thesledgehammer.groovymc.experimental.gui.builder.GuiSlot
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.inventory.Container
 
@@ -25,9 +23,6 @@ class GuiGroovy<C extends Container> extends GuiContainer {
 	
 	static final int WIDTH = 200
 	static final int HEIGHT = 200
-
-	private final GuiSlot guiSlot = new GuiSlot();
-	private final GuiBackground guiBackground = new GuiBackground();
 	
 	GuiGroovy(C container) {
 		super(container)
@@ -37,14 +32,12 @@ class GuiGroovy<C extends Container> extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		int xOffset = xSize - (xSize - 19);
-		int yOffset = (ySize - 22);
-		guiSlot.drawSlotGrid(xOffset, yOffset, 18, 18, 9, 1);
+
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		guiBackground.draw(guiLeft, guiTop,  xSize, ySize);
+
 	}
 
 	@Override

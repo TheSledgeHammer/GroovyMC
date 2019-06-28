@@ -16,8 +16,7 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonAbstractModel
-import com.thesledgehammer.groovymc.client.model.json.GroovysonStaticModel
+
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraftforge.client.model.IModel
 import net.minecraftforge.common.model.IModelPart
@@ -26,7 +25,6 @@ import net.minecraftforge.common.model.IModelState
 class GroovyModelDefinition {
 
     private IBakedModel bakedModel;
-    private GroovysonAbstractModel groovyModel;
     private IModel iModel;
     private IModelState iModelState;
     private IModelPart iModelPart;
@@ -34,14 +32,9 @@ class GroovyModelDefinition {
     private List<IModel> iModelList = new LinkedList<>();
     private List<IModelState> iModelStateList = new LinkedList<>();
     private List<IModelPart> iModelPartList = new LinkedList<>();
-    private List<GroovysonAbstractModel> groovyModelList = new LinkedList<>();
 
     IBakedModel getIBakedModel() {
         return bakedModel;
-    }
-
-    GroovysonAbstractModel getGroovysonModel() {
-        return groovyModel;
     }
 
     IModel getIModel() {
@@ -72,10 +65,6 @@ class GroovyModelDefinition {
         return iModelPartList;
     }
 
-    List<GroovysonAbstractModel> getGroovysonModels() {
-        return groovyModelList;
-    }
-
     void setIBakedModel(IBakedModel bakedModel) {
         this.bakedModel = bakedModel;
         bakedModelList.add(this.bakedModel);
@@ -95,82 +84,4 @@ class GroovyModelDefinition {
         this.iModelPart = iModelPart;
         iModelPartList.add(this.iModelPart);
     }
-
-    void setGroovysonModel(GroovysonAbstractModel groovyModel) {
-        this.groovyModel = groovyModel;
-        groovyModelList.add(this.groovyModel);
-    }
 }
-/*
-void setMutableIBakedModel(MutableQuad[]... quads) {
-    this.bakedModel = new MutableGroovyModel(quads);
-}
-
-void setIBakedModelFromMutableGroovyModel(MutableGroovyModel mutableGroovyModel) {
-    this.bakedModel = new IBakedModel() {
-        @Override
-        List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-            return mutableGroovyModel.getQuads(state, side, rand);
-        }
-
-        @Override
-        boolean isAmbientOcclusion() {
-            return mutableGroovyModel.isAmbientOcclusion();
-        }
-
-        @Override
-        boolean isGui3d() {
-            return mutableGroovyModel.isGui3d();
-        }
-
-        @Override
-        boolean isBuiltInRenderer() {
-            return mutableGroovyModel.isBuiltInRenderer();
-        }
-
-        @Override
-        TextureAtlasSprite getParticleTexture() {
-            return mutableGroovyModel.getParticleTexture();
-        }
-
-        @Override
-        ItemOverrideList getOverrides() {
-            return mutableGroovyModel.getOverrides();
-        }
-    }
-}
-
-void setIBakedModelFromBlankGroovyModel(BlankGroovyModel blankGroovyModel) {
-    this.bakedModel = new IBakedModel() {
-        @Override
-        List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-            return blankGroovyModel.getQuads(state, side, rand);
-        }
-
-        @Override
-        boolean isAmbientOcclusion() {
-            return blankGroovyModel.isAmbientOcclusion();
-        }
-
-        @Override
-        boolean isGui3d() {
-            return blankGroovyModel.isGui3d();
-        }
-
-        @Override
-        boolean isBuiltInRenderer() {
-            return blankGroovyModel.isBuiltInRenderer();
-        }
-
-        @Override
-        TextureAtlasSprite getParticleTexture() {
-            return blankGroovyModel.getParticleTexture();
-        }
-
-        @Override
-        ItemOverrideList getOverrides() {
-            return blankGroovyModel.getOverrides();
-        }
-    }
-}
-*/

@@ -63,7 +63,9 @@ class GroovyResourceDefinition {
     }
 
     void setModelResourceLocation(ModelResourceLocation modelResourceLocation) {
-        this.modelResourceLocation = modelResourceLocation;
+        if(modelResourceLocation != null) {
+            this.modelResourceLocation = modelResourceLocation;
+        }
         modelResourceLocationList.add(this.modelResourceLocation);
     }
 
@@ -83,7 +85,9 @@ class GroovyResourceDefinition {
     }
 
     void setModelResourceLocation(String modelLocation) {
-        this.modelResourceLocation = new ModelResourceLocation(modelLocation, "inventory")
+        if(modelLocation != null) {
+            this.modelResourceLocation = new ModelResourceLocation(modelLocation, "inventory")
+        }
         modelResourceLocationList.add(this.modelResourceLocation);
     }
 

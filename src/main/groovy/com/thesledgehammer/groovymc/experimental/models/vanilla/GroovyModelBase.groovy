@@ -20,7 +20,6 @@ import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelRenderer
-import net.minecraft.entity.Entity
 
 class GroovyModelBase extends ModelBase {
 

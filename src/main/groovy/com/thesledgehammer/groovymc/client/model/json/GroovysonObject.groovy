@@ -86,7 +86,7 @@ class GroovysonObject {
     }
 
     def getItemTextureLayer(int index) {
-        return obj.textures.get("layer ${index}");
+        return obj.textures.getAt("layer${index}");
     }
 
     def getElements() {

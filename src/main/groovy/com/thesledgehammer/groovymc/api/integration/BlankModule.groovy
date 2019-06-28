@@ -1,9 +1,6 @@
 package com.thesledgehammer.groovymc.api.integration
 
-import com.thesledgehammer.groovymc.experimental.integration.ModuleContainer
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import com.thesledgehammer.groovymc.integration.ModuleContainer
 
 abstract class BlankModule implements IModule {
 

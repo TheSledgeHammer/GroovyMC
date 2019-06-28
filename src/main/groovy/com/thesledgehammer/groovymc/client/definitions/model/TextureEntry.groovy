@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.definitions.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 
 class TextureEntry extends ModelEntryConsumer {
@@ -62,6 +63,10 @@ class TextureEntry extends ModelEntryConsumer {
         }
         Log.logDebug("No TextureAtlasSprite was found named ${atlasSprite}")
         return null;
+    }
+
+    void onTextureStitchPre(TextureMap map) {
+        GroovyDefinitionContext().onTextureStitchPre(map);
     }
 
     static class Register {

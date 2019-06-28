@@ -23,7 +23,7 @@ class GroovysonReader {
 	//Return absolute file path of resource assets file (.json)
 	//Generic hooks to a (.Json) File;
 	static String AssetsFilePath(String path, String modid, String resourceType, String fileName) {
-		String assetsPath = new File(path + "/" + modid + "/" + resourceType + "/" + fileName).absolutePath;
+		String assetsPath = new File(path + "/" + modid + "/" + resourceType + "/" + fileName).canonicalPath;
 		return assetsPath;
 	}
 
@@ -34,7 +34,7 @@ class GroovysonReader {
 	}
 
 	static String AssetsFilePath(String path, String modid, String resource, String resourceObject, String fileName) {
-		String assetsPath = new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).absolutePath;
+		String assetsPath = new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).canonicalPath;
 		return assetsPath;
 	}
 
