@@ -5,9 +5,9 @@
  * Modified by TheSledgeHammer 2018: Several changes made for use in GroovyMC. Renamed from JsonVariableCuboid. Converted to .groovy
  */
 
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+
 import net.minecraft.util.EnumFacing
 
 class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
@@ -19,22 +19,22 @@ class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
 
         for(GroovysonObjectPart parts : objectParts) {
             String invert = null;
-            if(GVD.getInvert(parts) != null) {
-                invert = GVD.getInvert(parts);
+            if(GDC.getVariableInvert(parts) != null) {
+                invert = GDC.getVariableInvert(parts);
             }
 
             String bothSides = null;
-            if(GVD.getBothSides(parts) != null) {
-                bothSides = GVD.getBothSides(parts);
+            if(GDC.getVariableBothSides(parts) != null) {
+                bothSides = GDC.getVariableBothSides(parts);
             }
 
             for(EnumFacing face : EnumFacing.VALUES) {
                 if(parts.Facing(face) != null) {
-                    if(GVD.getInvert(parts) != null) {
-                        GVD.setInvert(parts, invert);
+                    if(GDC.getVariableInvert(parts) != null) {
+                        GDC.setVariableInvert(parts, invert);
                     }
-                    if(GVD.getBothSides(parts) != null) {
-                        GVD.setBothSides(parts, bothSides);
+                    if(GDC.getVariableBothSides(parts) != null) {
+                        GDC.setVariableBothSides(parts, bothSides);
                     }
                     facesGUV.put(face, new GroovysonVariableFaceUV(objectParts));
                 }
@@ -48,7 +48,7 @@ class GroovysonVariableCuboid extends GroovysonVariableCuboidBase {
     @Override
     protected VariableFaceData getFaceData(GroovysonObjectPart objectPart, EnumFacing side, ITextureGetter spriteLookup) {
         GroovysonVariableFaceUV var = facesGUV.get(side);
-        if(var == null || !var.GVD.getVisible(objectPart).getValue()) {
+        if(var == null || !var.GDC.getVariableVisible(objectPart).getValue()) {
             return null;
         }
         return var.evaluateFace(objectPart, side, spriteLookup);

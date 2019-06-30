@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
 import org.apache.commons.lang3.mutable.MutableLong
 

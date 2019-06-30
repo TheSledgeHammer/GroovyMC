@@ -5,7 +5,7 @@
  * Modified by TheSledgeHammer 2018: Converted to .groovy
  */
 
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 

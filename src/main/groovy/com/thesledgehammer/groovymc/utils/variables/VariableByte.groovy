@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.MutableInt
+import org.apache.commons.lang3.mutable.MutableByte
 
-class VariableInteger extends MutableInt {
+class VariableByte extends MutableByte {
 
-    VariableInteger() {
+    VariableByte() {
         super();
     }
 
-    VariableInteger(Integer value) {
+    VariableByte(byte value) {
         super(value);
     }
 }

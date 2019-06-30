@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.MutableFloat
+import org.apache.commons.lang3.mutable.MutableObject
 
-class VariableFloat extends MutableFloat {
+class VariableObject<T> extends MutableObject<T> {
 
-    VariableFloat() {
+    private T value;
+
+    VariableObject() {
         super();
     }
 
-    VariableFloat(float value) {
-        super(value);
+    VariableObject(final T value) {
+        super();
+        this.value = value;
     }
-
 }

@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.tuple.MutableTriple
+import org.apache.commons.lang3.mutable.MutableInt
 
-class VariableTriple<L, M, R> extends MutableTriple<L, M, R> {
+class VariableInteger extends MutableInt {
 
-    private L left;
-    private M middle;
-    private R right;
-
-    VariableTriple() {
+    VariableInteger() {
         super();
     }
 
-    VariableTriple(final L left, final M middle, final R right) {
-        super();
-        this.left = left;
-        this.middle = middle;
-        this.right = right;
+    VariableInteger(Integer value) {
+        super(value);
     }
 }

@@ -1,6 +1,23 @@
 #GroovyMC Changelog
 
 ## [Unreleased]
+### Added
+- Added GroovysonModelDefinition with Static & Variable Keys for model mapping
+- Added Modules: For inter mod compatability
+- Added Buildcraft, IC2 & Tesla Energy Modules
+- Added Independent variation of MinecraftJoules from Buildcraft with full compatibility with capabilities
+- Added New classes inner workings of Variable Models
+- Added GroovysonObjectState: An Object version of a blockstate json. In similar design to GroovysonObject & GroovysonObjectPart 
+### Changes
+- GroovysonAbstractModel refactor to GroovysonObjectModel with minor changes
+- JsonRule
+- IModelGroovyBakedModel: More in line with other GroovyMC BakedModel implementations
+- Energy refactored to forgeenergy and moved to intergration
+### Fixed
+- ModelEntryHolderRegistry unable to be loaded in preInit due to a null pointer exception when no models are initalized.
+### Removed
+- Input Handling
+- Keybindings
 
 ## [1.1.0] - 2019-05-10
 ### Added

@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.MutableShort
+import org.apache.commons.lang3.tuple.MutablePair
 
-class VariableShort extends MutableShort {
+class VariablePair<L, R> extends MutablePair<L, R> {
 
-    VariableShort() {
+    private L left;
+    private R right;
+
+    VariablePair() {
         super();
     }
 
-    VariableShort(short value) {
-        super(value);
+    VariablePair(final L left, final R right) {
+        super();
+        this.left = left;
+        this.right = right;
     }
 }

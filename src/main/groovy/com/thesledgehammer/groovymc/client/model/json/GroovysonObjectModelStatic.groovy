@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-class GroovysonObjectModelStatic extends GroovysonObjectModel {
+class GroovysonObjectModelStatic extends GroovysonObjectModel  {
 
     GroovysonObjectModelStatic(String resourceObject, String fileName) {
         super(resourceObject, fileName);

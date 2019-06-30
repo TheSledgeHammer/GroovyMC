@@ -14,17 +14,29 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.MutableDouble
+import org.apache.commons.lang3.mutable.Mutable
 
-class VariableDouble extends MutableDouble {
+class Variable<T> implements Mutable<T> {
 
-    VariableDouble() {
-        super();
+    private T value;
+
+    Variable() {
+        this.value = null;
     }
 
-    VariableDouble(double value) {
-        super(value);
+    Variable(final T value) {
+        this.value = value;
+    }
+
+    @Override
+    T getValue() {
+        return value;
+    }
+
+    @Override
+    void setValue(T value) {
+        this.value = value;
     }
 }

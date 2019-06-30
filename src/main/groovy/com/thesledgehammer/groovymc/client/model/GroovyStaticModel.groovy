@@ -20,6 +20,7 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovysonModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
@@ -27,6 +28,7 @@ import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModelStatic
+
 import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -40,23 +42,18 @@ class GroovyStaticModel {
 
     GroovyStaticModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        setRenderKeysDefintion(GROOVY_MODEL);
     }
 
     GroovyStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceDirectory, modID, resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL));
+        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        setRenderKeysDefintion(GROOVY_MODEL);
     }
 
     GroovysonObjectModelStatic getGroovysonModel() {
         return GROOVY_MODEL;
-    }
-
-    void setRenderKeysDefintion(GroovysonObjectModelStatic GROOVY_MODEL) {
-        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
     void setModelElements(String name) {
@@ -100,7 +97,7 @@ class GroovyStaticModel {
     MutableQuad[] getMutableQuads(EnumFacing face, TextureAtlasSprite sprite) {
         int size = getModelElements().size();
         MutableQuad[] mutableQuads = new MutableQuad[size];
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             mutableQuads[i] = JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite);
         }
         return mutableQuads;
@@ -109,7 +106,7 @@ class GroovyStaticModel {
     List<BakedQuad> addBakedQuadsToItem(EnumFacing face, TextureAtlasSprite sprite) {
         int size = getGroovysonModel().getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedItem());
         }
         return bakedQuads;
@@ -118,9 +115,16 @@ class GroovyStaticModel {
     List<BakedQuad> addBakedQuadsToBlock(EnumFacing face, TextureAtlasSprite sprite) {
         int size = getGroovysonModel().getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedBlock());
         }
         return bakedQuads;
+    }
+
+    private void setRenderKeysDefintion(GroovysonObjectModelStatic GROOVY_MODEL) {
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 }

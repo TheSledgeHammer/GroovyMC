@@ -5,34 +5,41 @@
  * Modified by TheSledgeHammer 2018: Several changes made for use in GroovyMC. Renamed from JsonVariableCuboidBase. Converted to .groovy
  */
 
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.model.json
 
+import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
 import com.thesledgehammer.groovymc.utils.MathTools
+import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import net.minecraft.util.EnumFacing
 
 import javax.vecmath.Vector3f
 //Defaults elements containing "progress_size" to 0 + float value if it exists.
 abstract class GroovysonVariableCuboidBase {
 
-    protected GroovysonVariableDefinition GVD = new GroovysonVariableDefinition();
+    protected GroovyDefinitionContext GDC = GroovyDefinitionContext.Instance();
 
     GroovysonVariableCuboidBase(List<GroovysonObjectPart> objectParts) {
         for(GroovysonObjectPart parts : objectParts) {
-            GVD.setGroovysonVariableCuboidBase(parts);
+            if(parts != null) {
+                GDC.setVariableFrom(parts, "0");
+                GDC.setVariableTo(parts, "0");
+                GDC.setVariableShade(parts, "true");
+                GDC.setVariableVisible(parts, "true");
+                GDC.setVariableLight(parts, "0");
+                GDC.setVariableColour(parts, "-1");
+            }
         }
     }
 
     void addQuad(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
-        if (GVD.getVisible(parts).getValue()) {
-            float[] from = bakePosition(GVD.getFrom(parts));
-            float[] to = bakePosition(GVD.getTo(parts));
-            boolean shade = GVD.getShade(parts).getValue();
-            int l = (int) (GVD.getLight(parts).getValue() & 15);
-            int rgba = MathTools.swapARGBforABGR((int) GVD.getColour(parts).getValue());
+        if (GDC.getVariableVisible(parts).getValue()) {
+            float[] from = bakePosition(GDC.getVariableFrom(parts));
+            float[] to = bakePosition(GDC.getVariableTo(parts));
+            boolean shade = GDC.getVariableShade(parts).getValue();
+            int l = (int) (GDC.getVariableLight(parts).getValue() & 15);
+            int rgba = MathTools.swapARGBforABGR((int) GDC.getVariableColour(parts).getValue());
             for (EnumFacing face : EnumFacing.VALUES) {
                 VariableFaceData data = getFaceData(parts, face, spriteLookup);
                 if (data != null) {

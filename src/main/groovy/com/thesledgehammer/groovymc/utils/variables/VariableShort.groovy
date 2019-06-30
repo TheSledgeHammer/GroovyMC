@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.MutableBoolean
+import org.apache.commons.lang3.mutable.MutableShort
 
-class VariableBoolean extends MutableBoolean {
+class VariableShort extends MutableShort {
 
-    VariableBoolean() {
+    VariableShort() {
         super();
     }
 
-    VariableBoolean(boolean value) {
+    VariableShort(short value) {
         super(value);
     }
 }

@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.models.forge
+package com.thesledgehammer.groovymc.client.model.bakedmodel
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
+import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import com.thesledgehammer.groovymc.client.model.bakedmodel.BlankGroovyBakedModel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
@@ -30,16 +31,17 @@ import net.minecraftforge.common.model.IModelState
 
 import javax.annotation.Nullable
 import java.util.function.Function
-
-class GroovyBakedIModel implements IBakedModel {
+//Work in Progress:
+class IModelGroovyBakedModel implements IBakedModel {
 
     private BlankGroovyBakedModel model;
     private VertexFormat format;
-    private TextureAtlasSprite sprite;
 
-    GroovyBakedIModel(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    IModelGroovyBakedModel(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         this.format = format;
-        this.sprite = bakedTextureGetter.apply(GroovyDefinitionContext.Instance().getResourceLocation());
+        for(ResourceLocation location : TextureEntry.Instance().getResourceLocations()) {
+            bakedTextureGetter.apply(location);
+        }
     }
 
     @Override

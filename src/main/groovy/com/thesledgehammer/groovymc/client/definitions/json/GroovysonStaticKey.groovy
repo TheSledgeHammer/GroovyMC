@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.definitions.json
 
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.Table
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.experimental.variables.VariableLong
-import com.thesledgehammer.groovymc.experimental.variables.VariableObject
 import net.minecraft.util.EnumFacing
 
-//Work in Progress: Map Static Models
-class GroovysonStaticDefinition {
+class GroovysonStaticKey implements IStaticKey {
 
     private final Map<GroovysonObjectPart, List<Double>> from = new HashMap<>();
     private final Map<GroovysonObjectPart, List<Double>> to = new HashMap<>();
@@ -38,18 +33,21 @@ class GroovysonStaticDefinition {
     private final Map<GroovysonObjectPart, Boolean> bothSides = new HashMap<>();
     private final Table<GroovysonObjectPart, EnumFacing, Long> textureRotation = HashBasedTable.create();
     private final Table<GroovysonObjectPart, EnumFacing, String> texture = HashBasedTable.create();
+    private final Map<GroovysonObjectPart, List<Double>> rotationAngle = new HashMap<>();
+    private final Map<GroovysonObjectPart, List<Double>> rotationAxis = new HashMap<>();
+    private final Map<GroovysonObjectPart, List<Double>> rotationOrigin = new HashMap<>();
 
-    GroovysonStaticDefinition() {
-
-    }
-
+    @Override
     void setFrom(GroovysonObjectPart part) {
         this.from.put(part, From(part));
     }
 
+    @Override
     void setTo(GroovysonObjectPart part) {
         this.to.put(part, To(part));
     }
+
+    @Override
     void setUV(GroovysonObjectPart part) {
         for(EnumFacing face : EnumFacing.VALUES) {
             if(part.Facing(face) != null) {
@@ -58,22 +56,27 @@ class GroovysonStaticDefinition {
         }
     }
 
+    @Override
     void setShade(GroovysonObjectPart part) {
         this.shade.put(part, Shade(part));
     }
 
+    @Override
     void setVisible(GroovysonObjectPart part) {
         this.visible.put(part, Visible(part));
     }
 
+    @Override
     void setColour(GroovysonObjectPart part) {
         this.colour.put(part, Long.valueOf(Colour(part)));
     }
 
+    @Override
     void setLight(GroovysonObjectPart part) {
         this.light.put(part, Long.valueOf(Light(part)));
     }
 
+    @Override
     void setTexture(GroovysonObjectPart part) {
         for(EnumFacing face : EnumFacing.VALUES) {
             if (face != null) {
@@ -81,125 +84,144 @@ class GroovysonStaticDefinition {
             }
         }
     }
-/*
-    void setTextureRotation(GroovysonObjectPart part, String newValue) {
-        for(EnumFacing face : EnumFacing.VALUES) {
-            if (face != null) {
-                this.textureRotation.put(part, face, Te);
-            }
-        }
+
+    @Override
+    void setRotationAngle(GroovysonObjectPart part) {
+        this.rotationAxis.put(part, RotationAngle(part));
     }
-*/
+
+    @Override
+    void setRotationAxis(GroovysonObjectPart part) {
+        this.rotationAxis.put(part, RotationAxis(part));
+    }
+
+    @Override
+    void setRotationOrigin(GroovysonObjectPart part) {
+        this.rotationAxis.put(part, RotationOrigin(part));
+    }
+
+    @Override
     List<Double> getFrom(GroovysonObjectPart part) {
         return from.get(part);
     }
 
+    @Override
     List<Double> getTo(GroovysonObjectPart part) {
         return to.get(part);
     }
 
+    @Override
     List<Double> getFaceUV(GroovysonObjectPart part, EnumFacing face) {
         return uv.get(part, face);
     }
 
+    @Override
     Boolean getShade(GroovysonObjectPart part) {
         return shade.get(part);
     }
 
+    @Override
     Boolean getVisible(GroovysonObjectPart part) {
         return visible.get(part);
     }
 
+    @Override
     Long getColour(GroovysonObjectPart part) {
         return colour.get(part);
     }
 
+    @Override
     Long getLight(GroovysonObjectPart part) {
         return light.get(part);
     }
 
+    @Override
     Boolean getInvert(GroovysonObjectPart part) {
         return invert.get(part);
     }
 
+    @Override
     Boolean getBothSides(GroovysonObjectPart part) {
         return bothSides.get(part);
     }
 
+    @Override
     String getTexture(GroovysonObjectPart part, EnumFacing face) {
         return texture.get(part, face);
     }
-/*
-    Long getTextureRotation(GroovysonObjectPart part, EnumFacing face) {
-        return textureRotation.get(part, face);
-    }*/
 
-    private List<Double> From(GroovysonObjectPart part) {
+    @Override
+    List<Double> getRotationAngle(GroovysonObjectPart part) {
+        return rotationAngle.get(part);
+    }
+
+    @Override
+    List<Double> getRotationAxis(GroovysonObjectPart part) {
+        return rotationAxis.get(part);
+    }
+
+    @Override
+    List<Double> getRotationOrigin(GroovysonObjectPart part) {
+        return rotationOrigin.get(part);
+    }
+
+    private static List<Double> From(GroovysonObjectPart part) {
         return part.From();
     }
 
-    private List<Double> To(GroovysonObjectPart part) {
+    private static List<Double> To(GroovysonObjectPart part) {
         return part.To();
     }
 
-    private List<Double> FaceUV(GroovysonObjectPart part, EnumFacing face) {
+    private static List<Double> FaceUV(GroovysonObjectPart part, EnumFacing face) {
         return part.FacingUv(face);
     }
 
-    private Float RotationAngle(GroovysonObjectPart part, int axis) {
-        if(part.RotationAxis() != null) {
-            return part.RotationAxis().get(axis);
-        }
-        return null;
+    private static List<Double> RotationAngle(GroovysonObjectPart part) {
+        return part.RotationAngle();;
     }
 
-    private Float RotationAxis(GroovysonObjectPart part, int axis) {
-        if(part.RotationAxis() != null) {
-            return part.RotationAxis().get(axis);
-        }
-        return null;
+    private static List<Double> RotationAxis(GroovysonObjectPart part) {
+        return part.RotationAxis();
     }
 
-    private Float RotationOrigin(GroovysonObjectPart part, int axis) {
-        if(part.RotationOrigin() != null) {
-            return part.RotationOrigin().get(axis);
-        }
-        return null;
+    private static List<Double> RotationOrigin(GroovysonObjectPart part) {
+        return part.RotationOrigin();
     }
 
-    private float FaceTint(GroovysonObjectPart part, EnumFacing face, int fallback) {
+    private static float FaceTint(GroovysonObjectPart part, EnumFacing face, int fallback) {
         return part.FacingTint(face, fallback);
     }
 
-    private float FaceRotation(GroovysonObjectPart part, EnumFacing face, int fallback) {
+    private static float FaceRotation(GroovysonObjectPart part, EnumFacing face, int fallback) {
         return part.FacingRotation(face, fallback);
     }
 
-    private String TextureFace(GroovysonObjectPart part, EnumFacing face) {
+    private static String TextureFace(GroovysonObjectPart part, EnumFacing face) {
         return part.TextureFace(face);
     }
 
-    private boolean Shade(GroovysonObjectPart part) {
+    private static boolean Shade(GroovysonObjectPart part) {
         return part.Shade()
     }
 
-    private boolean RotationRescale(GroovysonObjectPart part) {
+    private static boolean RotationRescale(GroovysonObjectPart part) {
         return part.RotationRescale();
     }
 
-    private String CullFace(GroovysonObjectPart part, EnumFacing face) {
+    private static String CullFace(GroovysonObjectPart part, EnumFacing face) {
         return part.CullFaceFace(face);
     }
 
-    private String Light(GroovysonObjectPart part) {
+    private static String Light(GroovysonObjectPart part) {
         return part.Light()
     }
 
-    private boolean Visible(GroovysonObjectPart part) {
+    private static boolean Visible(GroovysonObjectPart part) {
         return part.Visible();
     }
 
-    private String Colour(GroovysonObjectPart part) {
+    private static String Colour(GroovysonObjectPart part) {
         return part.Colour();
     }
 }

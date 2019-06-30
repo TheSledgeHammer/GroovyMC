@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc.variant1
+package com.thesledgehammer.groovymc.experimental.models.groovymc
 
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.model.GroovyStaticModel

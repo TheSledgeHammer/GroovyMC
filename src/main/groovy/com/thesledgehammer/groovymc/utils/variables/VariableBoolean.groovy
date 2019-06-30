@@ -14,29 +14,17 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.mutable.Mutable
+import org.apache.commons.lang3.mutable.MutableBoolean
 
-class Variable<T> implements Mutable<T> {
+class VariableBoolean extends MutableBoolean {
 
-    private T value;
-
-    Variable() {
-        this.value = null;
+    VariableBoolean() {
+        super();
     }
 
-    Variable(final T value) {
-        this.value = value;
-    }
-
-    @Override
-    T getValue() {
-        return value;
-    }
-
-    @Override
-    void setValue(T value) {
-        this.value = value;
+    VariableBoolean(boolean value) {
+        super(value);
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc.variant1
+package com.thesledgehammer.groovymc.experimental.models.groovymc
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
@@ -120,7 +120,7 @@ abstract class AbstractModelEntryStatic extends ModelEntryHolder {
         if(quads == null) {
             if(unseen) {
                 unseen = false;
-                Log.logWarn("Tried to use the model ${groovyStaticModel.getGroovysonModel().getName()} before it was baked")
+                Log.logWarn("Tried to use the model ${groovyStaticModel.getGroovysonModel().getName()} before it was baked");
             }
             return [MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY];
         }

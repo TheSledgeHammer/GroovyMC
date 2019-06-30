@@ -16,8 +16,7 @@
 
 package com.thesledgehammer.groovymc.experimental.models.forge
 
-import com.google.common.collect.ImmutableSet
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.client.model.bakedmodel.IModelGroovyBakedModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.vertex.VertexFormat
@@ -27,12 +26,16 @@ import net.minecraftforge.common.model.IModelState
 import net.minecraftforge.common.model.TRSRTransformation
 
 import java.util.function.Function
-
+//Work in Progess
 class GroovyIModel implements IModel {
+
+    GroovyIModel() {
+
+    }
 
     @Override
     IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        return new GroovyBakedIModel(state, format, bakedTextureGetter);
+        return new IModelGroovyBakedModel(state, format, bakedTextureGetter);
     }
 
     @Override
@@ -42,7 +45,7 @@ class GroovyIModel implements IModel {
 
     @Override
     Collection<ResourceLocation> getTextures() {
-        return ImmutableSet.of(GroovyDefinitionContext.Instance().getResourceLocation());
+        return Collections.emptySet();
     }
 
     @Override

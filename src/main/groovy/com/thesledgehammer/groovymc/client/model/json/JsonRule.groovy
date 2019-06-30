@@ -8,11 +8,11 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.MutableQuad
-import com.thesledgehammer.groovymc.experimental.variables.VariableBoolean
-import com.thesledgehammer.groovymc.experimental.variables.VariableDouble
-import com.thesledgehammer.groovymc.experimental.variables.VariableObject
 import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
+import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
+import com.thesledgehammer.groovymc.utils.variables.VariableDouble
+import com.thesledgehammer.groovymc.utils.variables.VariableObject
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.MathHelper
 

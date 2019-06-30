@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.variables
+package com.thesledgehammer.groovymc.utils.variables
 
-import org.apache.commons.lang3.tuple.MutablePair
+import org.apache.commons.lang3.mutable.MutableFloat
 
-class VariablePair<L, R> extends MutablePair<L, R> {
+class VariableFloat extends MutableFloat {
 
-    private L left;
-    private R right;
-
-    VariablePair() {
+    VariableFloat() {
         super();
     }
 
-    VariablePair(final L left, final R right) {
-        super();
-        this.left = left;
-        this.right = right;
+    VariableFloat(float value) {
+        super(value);
     }
+
 }

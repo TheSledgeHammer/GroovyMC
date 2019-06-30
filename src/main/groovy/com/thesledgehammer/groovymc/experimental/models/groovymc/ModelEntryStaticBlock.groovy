@@ -13,36 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc.variant1
+package com.thesledgehammer.groovymc.experimental.models.groovymc
 
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 
+import javax.annotation.Nullable
+
 class ModelEntryStaticBlock extends AbstractModelEntryStatic {
 
     private GroovyStaticModel groovyStaticItemModel;
 
-    ModelEntryStaticBlock(String modelName, ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation) {
+    ModelEntryStaticBlock(String modelName, @Nullable ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation) {
         this.groovyStaticModel = new GroovyStaticModel("block", modelName);
         this.groovyStaticItemModel = new GroovyStaticModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation);
     }
 
-    ModelEntryStaticBlock(String modelName, String blockModelResourceLocation, String itemModelResourceLocation) {
+    ModelEntryStaticBlock(String modelName, @Nullable String blockModelResourceLocation, String itemModelResourceLocation) {
         this.groovyStaticModel = new GroovyStaticModel("block", modelName);
         this.groovyStaticItemModel = new GroovyStaticModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation).add(itemModelResourceLocation);
     }
 
-    ModelEntryStaticBlock(String modelName, String blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
+    ModelEntryStaticBlock(String modelName, @Nullable String blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
         this.groovyStaticModel = new GroovyStaticModel("block", modelName);
         this.groovyStaticItemModel = new GroovyStaticModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);
     }
 
-    ModelEntryStaticBlock(String modelName, ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
+    ModelEntryStaticBlock(String modelName, @Nullable ModelResourceLocation blockModelResourceLocation, ModelResourceLocation itemModelResourceLocation, IBakedModel bakedModel) {
         this.groovyStaticModel = new GroovyStaticModel("block", modelName);
         this.groovyStaticItemModel = new GroovyStaticModel("item", modelName);
         ModelEntry.Register.add(blockModelResourceLocation, bakedModel).add(itemModelResourceLocation);

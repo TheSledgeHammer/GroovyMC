@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc.variant1
+package com.thesledgehammer.groovymc.experimental.models.groovymc
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
-import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
+import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation

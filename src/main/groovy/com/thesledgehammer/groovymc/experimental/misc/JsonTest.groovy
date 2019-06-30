@@ -17,13 +17,9 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.models.GroovyVariableModel
-import com.thesledgehammer.groovymc.experimental.models.groovymc.variant1.ModelEntryVariableBlock
-import com.thesledgehammer.groovymc.experimental.models.groovyobjectmodelbased.GroovysonObjectModel
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
+
+import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
 
 class JsonTest {
 
@@ -47,6 +43,7 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
+
 
     }
 }

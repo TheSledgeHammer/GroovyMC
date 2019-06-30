@@ -19,12 +19,12 @@ package com.thesledgehammer.groovymc.client.model.json
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 
-abstract class GroovysonObjectModel {
+abstract class GroovysonObjectModel extends GroovysonObject {
 
-    private GroovysonObject jsonObject;
+    //private GroovysonObject jsonObject;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
-
+/*
     GroovysonObjectModel(String resourceObject, String fileName) {
         setRawModel(resourceObject, fileName);
     }
@@ -32,7 +32,15 @@ abstract class GroovysonObjectModel {
     GroovysonObjectModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         setRawModel(resourceDirectory, modID, resourceObject, fileName);
     }
+*/
+    GroovysonObjectModel(String resourceObject, String fileName) {
+        super(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
+    }
 
+    GroovysonObjectModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
+        super(resourceDirectory, modID, "models", resourceObject, fileName);
+    }
+/*
     private void setRawModel(String resourceObject, String fileName) {
         this.jsonObject = new GroovysonObject(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName)
     }
@@ -41,9 +49,17 @@ abstract class GroovysonObjectModel {
         this.jsonObject = new GroovysonObject(resourceDirectory, modID, "models", resourceObject, fileName)
     }
 
+    String getName() {
+        return jsonObject.getName();
+    }
+
+    String getParent() {
+        return jsonObject.getParent();
+    }
+*/
     //Texture Name & Location
     void setRawModelTextures(String textureName) {
-        String texLocation = jsonObject.getTexturesByName(textureName);
+        String texLocation = getTexturesByName(textureName);
         for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
             rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
         }
@@ -51,7 +67,7 @@ abstract class GroovysonObjectModel {
     }
 
     void setRawModelTextures(String textureName, int textureLayer) {
-        String texLocation = jsonObject.getItemTextureLayer(textureLayer);
+        String texLocation = getItemTextureLayer(textureLayer);
         for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
             rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
         }
@@ -67,7 +83,7 @@ abstract class GroovysonObjectModel {
     }
 
     void setRawModelParts(String partName) {
-        groovysonObjectParts.add(new GroovysonObjectPart(jsonObject, partName));
+        groovysonObjectParts.add(new GroovysonObjectPart(this, partName));
     }
 
     //Returns all Model Elements in .json if applicable
