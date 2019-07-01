@@ -37,19 +37,26 @@ import net.minecraft.util.EnumFacing
 class GroovyStaticModel {
 
     private GroovysonObjectModelStatic GROOVY_MODEL;
-    private GroovyDefinitionContext GDC;
     private Map<String, String> textureLookup;
 
     GroovyStaticModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
-        setRenderKeysDefintion(GROOVY_MODEL);
+
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
     GroovyStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceDirectory, modID, resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
-        setRenderKeysDefintion(GROOVY_MODEL);
+
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
     GroovysonObjectModelStatic getGroovysonModel() {
@@ -119,12 +126,5 @@ class GroovyStaticModel {
             bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedBlock());
         }
         return bakedQuads;
-    }
-
-    private void setRenderKeysDefintion(GroovysonObjectModelStatic GROOVY_MODEL) {
-        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 }

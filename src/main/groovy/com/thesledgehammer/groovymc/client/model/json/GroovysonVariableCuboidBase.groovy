@@ -15,7 +15,7 @@ import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import net.minecraft.util.EnumFacing
 
 import javax.vecmath.Vector3f
-//Defaults elements containing "progress_size" to 0 + float value if it exists.
+
 abstract class GroovysonVariableCuboidBase {
 
     protected GroovyDefinitionContext GDC = GroovyDefinitionContext.Instance();
@@ -33,7 +33,7 @@ abstract class GroovysonVariableCuboidBase {
         }
     }
 
-    void addQuad(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
+    void addQuads(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
         if (GDC.getVariableVisible(parts).getValue()) {
             float[] from = bakePosition(GDC.getVariableFrom(parts));
             float[] to = bakePosition(GDC.getVariableTo(parts));

@@ -26,11 +26,11 @@ abstract class JsonRule {
         setWhen(when);
     }
 
-    private void setWhen(VariableBoolean when) {
+    private static void setWhen(VariableBoolean when) {
         this.when = when;
     }
 
-    VariableBoolean getWhen() {
+    static VariableBoolean getWhen() {
         return when;
     }
 
@@ -179,6 +179,11 @@ abstract class JsonRule {
                 q.rotate(faceFrom, faceTo, ox, oy, oz);
             }
         }
+
+        @Override
+        String toString() {
+            return "when: ${when}, from: ${from}, to: ${to}, origin: ${origin}"
+        }
     }
 
     static class Rotate extends JsonRule {
@@ -231,6 +236,11 @@ abstract class JsonRule {
                 q.translatef(ox, oy, oz);
             }
         }
+
+        @Override
+        String toString() {
+            return "when: ${when}, origin: ${origin}, angle: ${angle}"
+        }
     }
 
     static class Scale extends JsonRule {
@@ -266,6 +276,11 @@ abstract class JsonRule {
                 q.scalef(sx, sy, sz);
                 q.translatef(ox, oy, oz);
             }
+        }
+
+        @Override
+        String toString() {
+            return "when: ${when}, origin: ${origin}, scale: ${scale}"
         }
     }
 }

@@ -36,24 +36,47 @@ import com.thesledgehammer.groovymc.utils.ListTools
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
-//Work In Progress: JsonRule[] rules To be completed
+//Work In Progress: JsonRule
 class GroovyVariableModel {
 
     private GroovysonObjectModelVariable GROOVY_MODEL;
-    private GroovyDefinitionContext GDC;
     private Map<String, JsonTexture> textureMap = new HashMap<>();
     private JsonRule[] rules;
 
     GroovyVariableModel(String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
-        setRenderKeysDefintion(GROOVY_MODEL);
+
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+
+        List<JsonRule> rulesP = new ArrayList<>()
+        for(int i = 0; i < JsonRules().size(); i++) {
+            if(GROOVY_MODEL.getRules() != null) {
+                //rulesP.add(JsonRule.SetRules(GROOVY_MODEL));
+            }
+        }
+        this.rules = rulesP.toArray(new JsonRule[rulesP.size()]);
     }
 
     GroovyVariableModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceDirectory, modID, resourceObject, fileName);
-        GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
-        setRenderKeysDefintion(GROOVY_MODEL);
+
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
+        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
+        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+
+        List<JsonRule> rulesP = new ArrayList<>()
+        for(int i = 0; i < JsonRules().size(); i++) {
+            if(GROOVY_MODEL.getRules() != null) {
+                //rulesP.add(JsonRule.SetRules(GROOVY_MODEL));
+            }
+        }
+        this.rules = rulesP.toArray(new JsonRule[rulesP.size()]);
     }
 
     GroovysonObjectModelVariable getGroovysonModel() {
@@ -119,28 +142,21 @@ class GroovyVariableModel {
         List<MutableQuad> list = new ArrayList<>();
         GroovysonVariableCuboid cuboid = new GroovysonVariableCuboid(modelParts);
         for (GroovysonObjectPart part : modelParts) {
-            cuboid.addQuad(part, list, spriteLookup);
+            cuboid.addQuads(part, list, spriteLookup);
         }
         for (JsonRule rule : rules) {
-            if(rule.getWhen().getValue()) {
+            if (rule.getWhen().getValue()) {
                 rule.apply(list);
             }
         }
         return list.toArray(new MutableQuad[list.size()]);
     }
 
-    private void setRenderKeysDefintion(GroovysonObjectModelVariable GROOVY_MODEL) {
-        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
-    }
-
-    //Gets rules as a list of strings not as jsonrules
+    //Gets rules as a list of Strings, to determine number of rules
     private List<String> JsonRules() {
         List<String> temp = ListTools.StringToList(GROOVY_MODEL.getRules().toString().substring(1));
         List<String> rulesP = new ArrayList<>();
-        for(int i = 0; i < temp.size(); i++) {
+        for (int i = 0; i < temp.size(); i++) {
             rulesP.add(ListTools.removeBrackets(temp.get(i)));
         }
         return rulesP;

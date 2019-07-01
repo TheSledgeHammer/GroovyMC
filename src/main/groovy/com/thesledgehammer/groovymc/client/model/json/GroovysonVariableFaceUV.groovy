@@ -11,7 +11,6 @@ import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import net.minecraft.util.EnumFacing
 
-//Defaults elements containing "progress_size" to 0 + float value if it exists.
 class GroovysonVariableFaceUV {
 
     protected GroovyDefinitionContext GDC = GroovyDefinitionContext.Instance();
