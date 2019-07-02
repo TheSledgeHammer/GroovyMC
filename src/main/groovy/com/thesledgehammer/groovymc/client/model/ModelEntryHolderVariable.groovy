@@ -13,23 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc
+package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
-import com.thesledgehammer.groovymc.client.model.ModelUtil
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
-import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
-//Work In Progress: JsonRules
-abstract class AbstractModelEntryVariable extends ModelEntryHolder {
+class ModelEntryHolderVariable extends ModelEntryHolder {
 
-    protected GroovyVariableModel groovyVariableModel;
+    private ModelBuilderEntry.Variable MBEVariable;
+    private GroovyVariableModel groovyVariableModel;
     private boolean unseen = true;
+
+    ModelEntryHolderVariable(String fileName, String blockModelResourceLocation, String itemModelResourceLocation) {
+        this(fileName, blockModelResourceLocation, itemModelResourceLocation, null);
+    }
+
+    ModelEntryHolderVariable(String fileName, String blockModelResourceLocation, String itemModelResourceLocation, IBakedModel bakedModel) {
+        this.MBEVariable = new ModelBuilderEntry.Variable(fileName);
+        this.groovyVariableModel = MBEVariable.BlockModel();
+
+        ModelBuilderEntry.setModelResourceLocation(blockModelResourceLocation, itemModelResourceLocation, bakedModel);
+    }
 
     @Override
     boolean hasBakedQuads() {

@@ -17,9 +17,11 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.config.Constants
 
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
+import com.thesledgehammer.groovymc.client.model.ModelEntryHolderStatic
 
 class JsonTest {
 
@@ -43,7 +45,7 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-
-
+        ModelEntryHolderStatic MBEStatic = new ModelEntryHolderStatic("engine_base", "groovymc:models/item/engine_base", "groovymc:models/block/engine_base")
+        println ModelEntry.Instance().getModelResourceLocations()
     }
 }

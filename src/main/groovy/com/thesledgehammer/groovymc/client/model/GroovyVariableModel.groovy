@@ -90,6 +90,7 @@ class GroovyVariableModel {
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
         TextureEntry.Register.add(name).build();
+        JsonTextureMap();
     }
 
     GroovysonObjectPart getModelElements(int index) {
@@ -116,17 +117,7 @@ class GroovyVariableModel {
         return textureMap.get(lookup);
     }
 
-    void JsonTextureMap() {
-        String[] name = getModelTextures().keySet().toArray();
-        String[] location = getModelTextures().values().toArray();
-
-        for(int i = 0; i < getModelTextures().size(); i++) {
-            textureMap.put(name[i], new JsonTexture(location[i]));
-        }
-    }
-
     void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites) {
-        JsonTextureMap();
         for (Map.Entry<String, JsonTexture> entry : textureMap.entrySet()) {
             JsonTexture lookup = entry.getValue();
             String location = lookup.location;
@@ -160,5 +151,14 @@ class GroovyVariableModel {
             rulesP.add(ListTools.removeBrackets(temp.get(i)));
         }
         return rulesP;
+    }
+
+    private void JsonTextureMap() {
+        String[] name = getModelTextures().keySet().toArray();
+        String[] location = getModelTextures().values().toArray();
+
+        for(int i = 0; i < getModelTextures().size(); i++) {
+            textureMap.put(name[i], new JsonTexture(location[i]));
+        }
     }
 }

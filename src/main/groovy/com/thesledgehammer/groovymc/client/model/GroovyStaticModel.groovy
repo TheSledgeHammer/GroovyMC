@@ -70,6 +70,7 @@ class GroovyStaticModel {
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
         TextureEntry.Register.add(name).build();
+        createTextureLookup();
     }
 
     GroovysonObjectPart getModelElements(int index) {
@@ -91,10 +92,6 @@ class GroovyStaticModel {
 
     Map<String, String> getModelTextures() {
         return GROOVY_MODEL.getRawModelTextures();
-    }
-
-    void createTextureLookup() {
-        this.textureLookup = GROOVY_MODEL.getRawModelTextures();
     }
 
     Map<String, String> TextureLookup() {
@@ -126,5 +123,9 @@ class GroovyStaticModel {
             bakedQuads.add(JsonTools.QuadAFace(getModelElements(), face, i).toQuad(sprite).toBakedBlock());
         }
         return bakedQuads;
+    }
+
+    private void createTextureLookup() {
+        this.textureLookup = GROOVY_MODEL.getRawModelTextures();
     }
 }

@@ -64,7 +64,7 @@ class PacketSendKey implements IMessage {
 		return null;
 		}
 		
-		private void Handle(PacketSendKey message, MessageContext ctx) {
+		private static void Handle(PacketSendKey message, MessageContext ctx) {
 			EntityPlayerMP playerEntity = ctx.getServerHandler().player;
 			World world = playerEntity.world;
 			Block block = world.getBlockState(message.blockPos).getBlock();

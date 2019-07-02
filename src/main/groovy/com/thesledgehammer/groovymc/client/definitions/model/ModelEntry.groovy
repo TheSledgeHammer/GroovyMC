@@ -80,21 +80,13 @@ class ModelEntry extends ModelEntryConsumer {
             return new Register();
         }
 
-        static Register add(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
-            GroovyDefinitionContext.Instance().setModelResourceLocation(modelLocation);
+        static Register add(IBakedModel bakedModel) {
             GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
             return new Register();
         }
 
-        static Register add(String modelLocation, IBakedModel bakedModel) {
-            GroovyDefinitionContext.Instance().setModelResourceLocation(modelLocation);
-            GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
-            return new Register();
-        }
-
-        static Register add(String type, String modelLocation, IBakedModel bakedModel) {
+        static Register add(String type, String modelLocation) {
             GroovyDefinitionContext.Instance().setCustomModelResourceLocation(type, modelLocation);
-            GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
             return new Register();
         }
 

@@ -13,26 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.experimental.models.groovymc
+package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
-import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
-abstract class AbstractModelEntryStatic extends ModelEntryHolder {
+class ModelEntryHolderStatic extends ModelEntryHolder {
 
-    protected GroovyStaticModel groovyStaticModel;
+    private ModelBuilderEntry.Static MBEStatic;
+    private GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
     private boolean unseen = true;
+
+    ModelEntryHolderStatic(String fileName, String blockModelResourceLocation, String itemModelResourceLocation) {
+        this(fileName, blockModelResourceLocation, itemModelResourceLocation, null);
+    }
+
+    ModelEntryHolderStatic(String fileName, String blockModelResourceLocation, String itemModelResourceLocation, IBakedModel bakedModel) {
+        this.MBEStatic = new ModelBuilderEntry.Static(fileName);
+        this.groovyStaticModel = MBEStatic.BlockModel();
+
+        ModelBuilderEntry.setModelResourceLocation(blockModelResourceLocation, itemModelResourceLocation, bakedModel);
+    }
 
     @Override
     boolean hasBakedQuads() {
