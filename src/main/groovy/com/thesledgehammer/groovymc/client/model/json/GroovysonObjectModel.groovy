@@ -24,15 +24,7 @@ abstract class GroovysonObjectModel extends GroovysonObject {
     //private GroovysonObject jsonObject;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
-/*
-    GroovysonObjectModel(String resourceObject, String fileName) {
-        setRawModel(resourceObject, fileName);
-    }
 
-    GroovysonObjectModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        setRawModel(resourceDirectory, modID, resourceObject, fileName);
-    }
-*/
     GroovysonObjectModel(String resourceObject, String fileName) {
         super(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
     }
@@ -40,23 +32,7 @@ abstract class GroovysonObjectModel extends GroovysonObject {
     GroovysonObjectModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
         super(resourceDirectory, modID, "models", resourceObject, fileName);
     }
-/*
-    private void setRawModel(String resourceObject, String fileName) {
-        this.jsonObject = new GroovysonObject(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName)
-    }
 
-    private void setRawModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        this.jsonObject = new GroovysonObject(resourceDirectory, modID, "models", resourceObject, fileName)
-    }
-
-    String getName() {
-        return jsonObject.getName();
-    }
-
-    String getParent() {
-        return jsonObject.getParent();
-    }
-*/
     //Texture Name & Location
     void setRawModelTextures(String textureName) {
         String texLocation = getTexturesByName(textureName);

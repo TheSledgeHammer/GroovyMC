@@ -23,7 +23,6 @@ class GroovysonObject {
 
     private def obj; //raw Json Model file
     private String name;
-    private String modelResourceLocation;
 
     GroovysonObject() {
 
@@ -41,7 +40,6 @@ class GroovysonObject {
         setName(fileName)
         def file = GroovysonReader.JsonFile(path, modid, resourceType, name);
         def obj = GroovysonReader.JsonSlurpy(file);
-        this.modelResourceLocation = GroovysonReader.AssetsFilePath(path, modid, resourceType, name);
         this.obj = obj;
     }
 
@@ -49,7 +47,6 @@ class GroovysonObject {
         setName(fileName);
         def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, name);
         def obj = GroovysonReader.JsonSlurpy(file);
-        this.modelResourceLocation = GroovysonReader.AssetsFilePath(path, modid, resource, resourceObject, name);
         this.obj = obj;
     }
 
@@ -59,10 +56,6 @@ class GroovysonObject {
 
     private void setName(String name) {
         this.name = name;
-    }
-
-    String getModelResourceLocation() {
-        return modelResourceLocation;
     }
 
     def getJsonObject() {

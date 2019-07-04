@@ -22,32 +22,43 @@ class GroovysonReader {
 	
 	//Return absolute file path of resource assets file (.json)
 	//Generic hooks to a (.Json) File;
-	static String AssetsFilePath(String path, String modid, String resourceType, String fileName) {
-		String assetsPath = new File(path + "/" + modid + "/" + resourceType + "/" + fileName).canonicalPath;
+	static String AssetsFilePath(String path) {
+		String assetsPath = path
 		return assetsPath;
+	}
+
+	static String AssetsFilePath(String path, String modid, String resourceType, String fileName) {
+		String assetsPath = path + "/" + modid + "/" + resourceType + "/" + fileName;
+		return assetsPath;
+	}
+
+	static String AssetsFilePath(String path, String modid, String resource, String resourceObject, String fileName) {
+		String assetsPath = path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName;
+		return assetsPath;
+	}
+
+	static String JsonFile(String path) {
+		String filePath = AssetsFilePath(path);
+		String fileContents = filePath + ".json";
+		return fileContents;
 	}
 
 	static String JsonFile(String path, String modid, String resourceType, String fileName) {
 		String filePath = AssetsFilePath(path, modid, resourceType, fileName);
-		String fileContents = new File(filePath + ".json").getText('UTF-8');
+		String fileContents = filePath + ".json";
 		return fileContents;
-	}
-
-	static String AssetsFilePath(String path, String modid, String resource, String resourceObject, String fileName) {
-		String assetsPath = new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).canonicalPath;
-		return assetsPath;
 	}
 
 	static String JsonFile(String path, String modid, String resource, String resourceObject, String fileName) {
 		String filePath = AssetsFilePath(path, modid, resource, resourceObject, fileName);
-		String fileContents = new File(filePath + ".json").getText('UTF-8');
+		String fileContents = filePath + ".json";
 		return fileContents;
 	}
-	
+
 	//Converts Json File to a readable JsonObject
 	static def JsonSlurpy(String jsonFile) {
 		def slurpinator = new JsonSlurper();
-		def jsonObject = slurpinator.parseText(jsonFile);
+		def jsonObject = slurpinator.parse(new FileReader(jsonFile));
 		return jsonObject
 	}
 
@@ -59,3 +70,4 @@ class GroovysonReader {
 		return new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).exists();
 	}
 }
+

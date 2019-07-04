@@ -1,12 +1,11 @@
 package com.thesledgehammer.groovymc.integration.modules.industrialcraft
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 import net.minecraft.util.EnumFacing
 
-class TieredEnergyUnitTile extends EnergyUnitTile {
-
-    private EnumVoltage voltage;
-
+class TieredEnergyUnitTile extends EnergyUnitTile implements IVoltageTier {
+    
     TieredEnergyUnitTile(String tileName, double capacity, int sourceTier, int sinkTier, EnumVoltage voltage) {
         this(tileName, capacity, capacity, capacity, sourceTier, sinkTier, 0.0, voltage);
     }
@@ -21,15 +20,22 @@ class TieredEnergyUnitTile extends EnergyUnitTile {
 
     TieredEnergyUnitTile(String tileName, double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier, double euEnergy, EnumVoltage voltage) {
         super(tileName, capacity, maxReceive, maxExtract, sourceTier, sinkTier, euEnergy)
-        this.voltage = voltage
+        setVoltageTier(voltage);
     }
 
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        eu.setVoltageTier(voltage);
+    }
+
+    @Override
     EnumVoltage getVoltageTier() {
-        return voltage;
+        return eu.getVoltageTier();
     }
 
+    @Override
     long getVoltage() {
-        return voltage.getVoltage();
+        return eu.getVoltage();
     }
 
     @Override

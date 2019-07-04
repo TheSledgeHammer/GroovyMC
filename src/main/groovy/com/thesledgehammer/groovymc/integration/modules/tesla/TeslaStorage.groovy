@@ -15,6 +15,8 @@
  */
 package com.thesledgehammer.groovymc.integration.modules.tesla
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 import net.darkhax.tesla.api.ITeslaConsumer
 import net.darkhax.tesla.api.ITeslaHolder
 import net.darkhax.tesla.api.ITeslaProducer
@@ -27,12 +29,13 @@ import net.minecraftforge.fml.common.Optional
                 @Optional.Interface(iface = "tesla.api.ITeslaHolder", modid = "tesla")
         ]
 )
-class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
+class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder, IVoltageTier {
 
     private long teslaEnergy;
     private long capacity;
     private long maxReceive;
     private long maxExtract;
+    private EnumVoltage voltage;
 
     TeslaStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -112,5 +115,20 @@ class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
             teslaEnergy -= powerExtracted;
         }
         return powerExtracted;
+    }
+
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        this.voltage = voltage;
+    }
+
+    @Override
+    EnumVoltage getVoltageTier() {
+        return voltage;
+    }
+
+    @Override
+    long getVoltage() {
+        return voltage.getVoltage();
     }
 }

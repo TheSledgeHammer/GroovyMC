@@ -16,11 +16,10 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 
-class TieredMinecraftJoulesTile extends MinecraftJoulesTile {
-
-    private EnumVoltage voltage;
+class TieredMinecraftJoulesTile extends MinecraftJoulesTile implements IVoltageTier {
 
     TieredMinecraftJoulesTile(String tileName, long capacity, EnumVoltage voltage) {
         this(tileName, capacity, capacity, capacity, 0, voltage);
@@ -36,22 +35,29 @@ class TieredMinecraftJoulesTile extends MinecraftJoulesTile {
 
     TieredMinecraftJoulesTile(String tileName, long capacity, long maxReceive, long maxExtract, long power, EnumVoltage voltage) {
         super(tileName, capacity, maxReceive, maxExtract, power);
-        this.voltage = voltage;
+        setVoltageTier(voltage);
     }
 
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+       mj.setVoltageTier(voltage)
+    }
+
+    @Override
     EnumVoltage getVoltageTier() {
-        return voltage;
+        return mj.getVoltageTier();
     }
 
+    @Override
     long getVoltage() {
-        return voltage.getVoltage();
+        return mj.getVoltage();
     }
 
     @Override
     long extractPower(long min, long max, boolean simulate) {
         long extracted = mj.extractPower(min, max, simulate);
-        if(extracted >= maxMjIO(voltage)) {
-            return maxMjIO(voltage);
+        if(extracted >= getVoltage() * MjTools.MJ) {
+            return getVoltage() * MjTools.MJ;
         }
         return extracted;
     }
@@ -59,14 +65,9 @@ class TieredMinecraftJoulesTile extends MinecraftJoulesTile {
     @Override
     long receivePower(long microJoules, boolean simulate) {
         long received = mj.receivePower(microJoules, simulate);
-        if(received >= maxMjIO(voltage)) {
-            return maxMjIO(voltage);
+        if(received >= getVoltage() * MjTools.MJ) {
+            return getVoltage() * MjTools.MJ;
         }
         return received;
-    }
-
-    private static long maxMjIO(EnumVoltage voltage) {
-        long volts = voltage.getVoltage();
-        return (volts * MjTools.MJ);
     }
 }

@@ -1,13 +1,16 @@
 package com.thesledgehammer.groovymc.integration.forgeenergy
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 import net.minecraftforge.energy.IEnergyStorage
 
-class ForgeEnergyStorage implements IEnergyStorage{
+class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
 
     private int feEnergy;
     private int capacity;
     private int maxReceive;
     private int maxExtract;
+    private EnumVoltage voltage;
 
     ForgeEnergyStorage(int capacity) {
         this(capacity, capacity, capacity, 0);
@@ -105,5 +108,20 @@ class ForgeEnergyStorage implements IEnergyStorage{
     @Override
     boolean canReceive() {
         return this.maxReceive > 0;
+    }
+
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        this.voltage = voltage;
+    }
+
+    @Override
+    EnumVoltage getVoltageTier() {
+        return voltage;
+    }
+
+    @Override
+    long getVoltage() {
+        return voltage.getVoltage();
     }
 }

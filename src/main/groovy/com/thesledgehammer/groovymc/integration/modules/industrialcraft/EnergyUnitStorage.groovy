@@ -15,6 +15,8 @@
  */
 package com.thesledgehammer.groovymc.integration.modules.industrialcraft
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 import ic2.api.energy.EnergyNet
 import ic2.api.energy.tile.IEnergyAcceptor
 import ic2.api.energy.tile.IEnergyEmitter
@@ -29,7 +31,7 @@ import net.minecraftforge.fml.common.Optional
                 @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "industrialcraft")
         ]
 )
-class EnergyUnitStorage implements IEnergySource, IEnergySink {
+class EnergyUnitStorage implements IEnergySource, IEnergySink, IVoltageTier {
 
     private double euEnergy;
     private double capacity;
@@ -37,6 +39,7 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
     private double maxExtract;
     private int sourceTier;
     private int sinkTier;
+    private EnumVoltage voltage;
 
     EnergyUnitStorage(double capacity, int sourceTier, int sinkTier) {
         this(capacity, capacity, capacity, sourceTier, sinkTier, 0);
@@ -164,5 +167,20 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink {
             return true
         }
         return false;
+    }
+
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        this.voltage = voltage;
+    }
+
+    @Override
+    EnumVoltage getVoltageTier() {
+        return voltage;
+    }
+
+    @Override
+    long getVoltage() {
+        return voltage.getVoltage();
     }
 }

@@ -16,10 +16,9 @@
 package com.thesledgehammer.groovymc.integration.forgeenergy
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 
-class TieredForgeEnergyTile extends ForgeEnergyTile {
-
-    private EnumVoltage voltage
+class TieredForgeEnergyTile extends ForgeEnergyTile implements IVoltageTier {
 
     TieredForgeEnergyTile(String tileName, int capacity, EnumVoltage voltage) {
         this(tileName, capacity, 0, voltage)
@@ -35,22 +34,29 @@ class TieredForgeEnergyTile extends ForgeEnergyTile {
 
     TieredForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract, int feEnergy, EnumVoltage voltage) {
         super(tileName, capacity, maxReceive, maxExtract, feEnergy);
-        this.voltage = voltage;
+        setVoltageTier(voltage);
     }
 
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        fe.setVoltageTier(voltage);
+    }
+
+    @Override
     EnumVoltage getVoltageTier() {
-        return voltage;
+        return fe.getVoltageTier();
     }
 
+    @Override
     long getVoltage() {
-        return voltage.getVoltage() * 32;
+        return fe.getVoltage();
     }
 
     @Override
     int receiveEnergy(int maxReceive, boolean simulate) {
         int receive = fe.receiveEnergy(maxReceive, simulate);
-        if(receive >= maxFEIO(voltage)) {
-            return maxFEIO(voltage);
+        if(receive >= getVoltage() * 32) {
+            return getVoltage() * 32;
         }
         return receive;
     }
@@ -58,14 +64,9 @@ class TieredForgeEnergyTile extends ForgeEnergyTile {
     @Override
     int extractEnergy(int maxExtract, boolean simulate) {
         int extract = fe.extractEnergy(maxExtract, simulate);
-        if(extract >= maxFEIO(voltage)) {
-            return maxFEIO(voltage);
+        if(extract >= getVoltage() * 32) {
+            return getVoltage() * 32;
         }
         return extract;
-    }
-
-    private static long maxFEIO(EnumVoltage voltage) {
-        long volts = voltage.getVoltage();
-        return (volts * 32);
     }
 }

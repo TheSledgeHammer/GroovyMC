@@ -16,7 +16,10 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import buildcraft.api.mj.*
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
+import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
+import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
@@ -30,12 +33,13 @@ import javax.annotation.Nonnull
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )
-class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
+class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IVoltageTier {
 
     private long mjEnergy;
     private long capacity;
     private long maxReceive;
     private long maxExtract;
+    private EnumVoltage voltage;
 
     MinecraftJoulesStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -152,5 +156,20 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
             return true;
         }
         return false;
+    }
+
+    @Override
+    void setVoltageTier(EnumVoltage voltage) {
+        this.voltage = voltage;
+    }
+
+    @Override
+    EnumVoltage getVoltageTier() {
+        return voltage
+    }
+
+    @Override
+    long getVoltage() {
+        return voltage.getVoltage();
     }
 }
