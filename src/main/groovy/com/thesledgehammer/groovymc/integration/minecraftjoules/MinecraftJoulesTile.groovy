@@ -95,8 +95,8 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     }
 
     @Override
-    boolean canConnect(@Nonnull IMjStorage other) {
-        return mj.canConnect(other);
+    boolean canConnectToStorage(@Nonnull IMjStorage other) {
+        return mj.canConnectToStorage(other);
     }
 
     @Override
@@ -128,7 +128,19 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
         if (capability == CapabilityMj.MJ_STORAGE) {
             return true;
         }
-        if (BuildcraftModule.hasMjCapability(capability)) {
+        if (capability == MjAPI.CAP_CONNECTOR) {
+            return true;
+        }
+        if (capability == MjAPI.CAP_RECEIVER) {
+            return true;
+        }
+        if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
+            return true;
+        }
+        if (capability == MjAPI.CAP_READABLE) {
+            return true;
+        }
+        if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
             return true;
         }
         return super.hasCapability(capability, facing);

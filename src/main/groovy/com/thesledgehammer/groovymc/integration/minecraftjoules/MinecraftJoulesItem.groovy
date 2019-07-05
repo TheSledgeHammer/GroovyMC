@@ -147,7 +147,7 @@ class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector
     }
 
     @Override
-    boolean canConnect(@Nonnull IMjStorage other) {
+    boolean canConnectToStorage(@Nonnull IMjStorage other) {
         if(container instanceof IMjStorage) {
             IMjStorage mjItem = container as IMjStorage;
             return mjItem.canConnect(other);

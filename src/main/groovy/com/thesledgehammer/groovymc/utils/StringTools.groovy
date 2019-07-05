@@ -61,6 +61,31 @@ class StringTools {
         return stringToRainbow(name, false);
     }
 
+    static String regex(String name, String toSearch, String replacement) {
+        if(name.contains(toSearch)) {
+            String replace = name.replace(toSearch, replacement);
+            return replace
+        }
+        return null;
+    }
+
+    static String regexFirst(String name, String toSearch, String replacement) {
+        if(name.contains(toSearch)) {
+            String replace = name.replaceFirst(toSearch, replacement);
+            return replace
+        }
+        return null;
+    }
+
+    static String SubString(String name, String to) {
+        String newName = "";
+        if(name.contains(to)) {
+            int idx = name.indexOf(to);
+            newName = name.substring(idx);
+        }
+        return newName;
+    }
+
     static String stringToEnum(String name, Class clazz) {
         String lowerCase = name.toLowerCase();
         for(int i = 0; i < clazz.enumConstants.size(); i++) {

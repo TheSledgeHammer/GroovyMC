@@ -33,5 +33,5 @@ interface IMjStorage {
 
     boolean canReceive();
 
-    boolean canConnect(@Nonnull IMjStorage other);
+    boolean canConnectToStorage(@Nonnull IMjStorage other);
 }

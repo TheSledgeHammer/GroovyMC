@@ -18,11 +18,14 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.Log
+import net.minecraft.util.ResourceLocation
 
 class GroovysonObject {
 
     private def obj; //raw Json Model file
     private String name;
+
+    private ResourceLocation location;
 
     GroovysonObject() {
 
@@ -38,14 +41,14 @@ class GroovysonObject {
 
     void setJsonObject(String path, String modid, String resourceType, String fileName) {
         setName(fileName)
-        def file = GroovysonReader.JsonFile(path, modid, resourceType, name);
+        def file = GroovysonReader.JsonFile(path, modid, resourceType, fileName);
         def obj = GroovysonReader.JsonSlurpy(file);
         this.obj = obj;
     }
 
     void setJsonObject(String path, String modid, String resource, String resourceObject, String fileName) {
         setName(fileName);
-        def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, name);
+        def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, fileName);
         def obj = GroovysonReader.JsonSlurpy(file);
         this.obj = obj;
     }
@@ -56,6 +59,10 @@ class GroovysonObject {
 
     private void setName(String name) {
         this.name = name;
+    }
+
+    ResourceLocation getResourceLocation() {
+        return location;
     }
 
     def getJsonObject() {

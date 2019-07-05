@@ -61,6 +61,7 @@ class ModelEntryHolderRegistry {
                 }
                 map.setTextureEntry(textureEntry.getTextureAtlasSprite(sprite));
             }
+
             for(ResourceLocation location : textureEntry.getResourceLocations()) {
                 map.registerSprite(textureEntry.getResourceLocation(location));
             }

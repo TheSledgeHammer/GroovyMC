@@ -17,11 +17,13 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
-import com.thesledgehammer.groovymc.config.Constants
-
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
-import com.thesledgehammer.groovymc.client.model.ModelEntryHolderStatic
+import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.utils.StringTools
+import net.minecraft.client.renderer.block.model.BakedQuad
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.util.ResourceLocation
 
 class JsonTest {
 
@@ -45,7 +47,42 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        ModelEntryHolderStatic MBEStatic = new ModelEntryHolderStatic("engine_base", "groovymc:models/item/engine_base", "groovymc:models/block/engine_base")
-        println ModelEntry.Instance().getModelResourceLocations()
+
+        ResourceLocation loc = new ResourceLocation(ResourceLocation(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "engine_base"))
+        //InputStreamReader
+        ModelResourceLocation mloc = new ModelResourceLocation(loc, "inventory")
+        println mloc
+    }
+
+    static String ResourceLocation(String path, String modid, String resourceType, String fileName) {
+        String assetsPath = path + "/" + modid + "/" + resourceType + "/" + fileName;
+        String subPath = StringTools.SubString(assetsPath, modid);
+        String resourceLoc = StringTools.regexFirst(subPath, "/", ":");
+        return resourceLoc;
+    }
+
+    static String ResourceLocation(String path, String modid, String resourceType, String resourceObject, String fileName) {
+        String assetsPath = path + "/" + modid + "/" + resourceType + "/" + resourceObject + "/" + fileName;
+        String subPath = StringTools.SubString(assetsPath, modid);
+        String resourceLoc = StringTools.regexFirst(subPath, "/", ":");
+        return resourceLoc;
+    }
+
+    static List<BakedQuad> BakedQuadsItem(MutableQuad[] mutableQuads) {
+        List<BakedQuad> list = new LinkedList<>();
+        for(int i = 0; i < mutableQuads.length; i++) {
+            list.add(mutableQuads[i].toBakedItem());
+        }
+        return list;
+    }
+
+    static List<BakedQuad> BakedQuadsBlock(MutableQuad[] mutableQuads) {
+        List<BakedQuad> list = new LinkedList<>();
+        for(int i = 0; i < mutableQuads.length; i++) {
+            list.add(mutableQuads[i].toBakedBlock());
+        }
+        return list;
     }
 }
+
+//Needs getTextureMapBlocks

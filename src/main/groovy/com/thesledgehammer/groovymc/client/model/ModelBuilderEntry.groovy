@@ -26,6 +26,7 @@ import javax.annotation.Nullable
 /**
  * Todo: If block model is null, use item model. Allow nullable models
  * A Model Helper class for creating Item & Block Models in both Static & Variable formats.
+ * Doesn't work properly in practice
  */
 class ModelBuilderEntry {
 
@@ -35,7 +36,7 @@ class ModelBuilderEntry {
         private GroovyStaticModel blockModel;
 
         Static(String fileName) {
-            this.itemModel = new GroovyStaticModel("item", fileName);
+           // this.itemModel = new GroovyStaticModel("item", fileName);
             this.blockModel = new GroovyStaticModel("block", fileName);
         }
 
@@ -54,7 +55,7 @@ class ModelBuilderEntry {
         private GroovyVariableModel blockModel;
 
         Variable(String fileName) {
-            this.itemModel = new GroovyVariableModel("item", fileName);
+           // this.itemModel = new GroovyVariableModel("item", fileName);
             this.blockModel = new GroovyVariableModel("block", fileName);
         }
 

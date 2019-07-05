@@ -29,21 +29,9 @@ import net.minecraft.util.ResourceLocation
 
 class ModelEntryHolderStatic extends ModelEntryHolder {
 
-    private ModelBuilderEntry.Static MBEStatic;
     private GroovyStaticModel groovyStaticModel;
     private MutableQuad[][] quads;
     private boolean unseen = true;
-
-    ModelEntryHolderStatic(String fileName, String blockModelResourceLocation, String itemModelResourceLocation) {
-        this(fileName, blockModelResourceLocation, itemModelResourceLocation, null);
-    }
-
-    ModelEntryHolderStatic(String fileName, String blockModelResourceLocation, String itemModelResourceLocation, IBakedModel bakedModel) {
-        this.MBEStatic = new ModelBuilderEntry.Static(fileName);
-        this.groovyStaticModel = MBEStatic.BlockModel();
-
-        ModelBuilderEntry.setModelResourceLocation(blockModelResourceLocation, itemModelResourceLocation, bakedModel);
-    }
 
     @Override
     boolean hasBakedQuads() {
@@ -112,11 +100,7 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
                 }
                 TextureAtlasSprite sprite = null;
                 if (lookup.startsWith("#") || lookup.startsWith("~")) {
-                    /*if (allowTextureFallthrough) {
-                        sprite = null;
-                    } else {
-                        sprite = missingSprite;
-                    }*/
+                    sprite = missingSprite;
                 } else {
                     sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
                 }

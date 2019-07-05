@@ -25,20 +25,7 @@ import net.minecraft.util.ResourceLocation
 
 class ModelEntryHolderVariable extends ModelEntryHolder {
 
-    private ModelBuilderEntry.Variable MBEVariable;
     private GroovyVariableModel groovyVariableModel;
-    private boolean unseen = true;
-
-    ModelEntryHolderVariable(String fileName, String blockModelResourceLocation, String itemModelResourceLocation) {
-        this(fileName, blockModelResourceLocation, itemModelResourceLocation, null);
-    }
-
-    ModelEntryHolderVariable(String fileName, String blockModelResourceLocation, String itemModelResourceLocation, IBakedModel bakedModel) {
-        this.MBEVariable = new ModelBuilderEntry.Variable(fileName);
-        this.groovyVariableModel = MBEVariable.BlockModel();
-
-        ModelBuilderEntry.setModelResourceLocation(blockModelResourceLocation, itemModelResourceLocation, bakedModel);
-    }
 
     @Override
     boolean hasBakedQuads() {

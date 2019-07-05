@@ -143,19 +143,13 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
     }
 
     @Override
-    boolean canConnect(@Nonnull IMjStorage other) {
-        if(other != null && other instanceof IMjStorage) {
-            return true;
-        }
-        return false;
+    boolean canConnectToStorage(@Nonnull IMjStorage other) {
+        return true;
     }
 
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
-        if(other != null && other instanceof IMjConnector) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
