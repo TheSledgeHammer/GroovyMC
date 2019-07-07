@@ -18,18 +18,15 @@ package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
-import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.models.GroovyResourceLocation
 import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.client.renderer.block.model.BakedQuad
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.util.ResourceLocation
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        GroovyVariableModel blockModel = new GroovyVariableModel("block","engine_base");
+        GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
@@ -47,11 +44,8 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-
-        ResourceLocation loc = new ResourceLocation(ResourceLocation(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "engine_base"))
-        //InputStreamReader
-        ModelResourceLocation mloc = new ModelResourceLocation(loc, "inventory")
-        println mloc
+        GroovyResourceLocation path = new GroovyResourceLocation(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "engine_base");
+        println path.getResourceLocation()
     }
 
     static String ResourceLocation(String path, String modid, String resourceType, String fileName) {
@@ -66,22 +60,6 @@ class JsonTest {
         String subPath = StringTools.SubString(assetsPath, modid);
         String resourceLoc = StringTools.regexFirst(subPath, "/", ":");
         return resourceLoc;
-    }
-
-    static List<BakedQuad> BakedQuadsItem(MutableQuad[] mutableQuads) {
-        List<BakedQuad> list = new LinkedList<>();
-        for(int i = 0; i < mutableQuads.length; i++) {
-            list.add(mutableQuads[i].toBakedItem());
-        }
-        return list;
-    }
-
-    static List<BakedQuad> BakedQuadsBlock(MutableQuad[] mutableQuads) {
-        List<BakedQuad> list = new LinkedList<>();
-        for(int i = 0; i < mutableQuads.length; i++) {
-            list.add(mutableQuads[i].toBakedBlock());
-        }
-        return list;
     }
 }
 

@@ -22,35 +22,35 @@ class GroovysonReader {
 	
 	//Return absolute file path of resource assets file (.json)
 	//Generic hooks to a (.Json) File;
-	static String AssetsFilePath(String path) {
+	static String ResourcePath(String path) {
 		String assetsPath = path
 		return assetsPath;
 	}
 
-	static String AssetsFilePath(String path, String modid, String resourceType, String fileName) {
+	static String ResourcePath(String path, String modid, String resourceType, String fileName) {
 		String assetsPath = path + "/" + modid + "/" + resourceType + "/" + fileName;
 		return assetsPath;
 	}
 
-	static String AssetsFilePath(String path, String modid, String resource, String resourceObject, String fileName) {
+	static String ResourcePath(String path, String modid, String resource, String resourceObject, String fileName) {
 		String assetsPath = path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName;
 		return assetsPath;
 	}
 
 	static String JsonFile(String path) {
-		String filePath = AssetsFilePath(path);
+		String filePath = ResourcePath(path);
 		String fileContents = filePath + ".json";
 		return fileContents;
 	}
 
 	static String JsonFile(String path, String modid, String resourceType, String fileName) {
-		String filePath = AssetsFilePath(path, modid, resourceType, fileName);
+		String filePath = ResourcePath(path, modid, resourceType, fileName);
 		String fileContents = filePath + ".json";
 		return fileContents;
 	}
 
 	static String JsonFile(String path, String modid, String resource, String resourceObject, String fileName) {
-		String filePath = AssetsFilePath(path, modid, resource, resourceObject, fileName);
+		String filePath = ResourcePath(path, modid, resource, resourceObject, fileName);
 		String fileContents = filePath + ".json";
 		return fileContents;
 	}
@@ -60,14 +60,6 @@ class GroovysonReader {
 		def slurpinator = new JsonSlurper();
 		def jsonObject = slurpinator.parse(new FileReader(jsonFile));
 		return jsonObject
-	}
-
-	static boolean doesFileExist(String path, String modid, String resourceType, String fileName) {
-		return  new File(path + "/" + modid + "/" + resourceType + "/" + fileName).exists();
-	}
-
-	static boolean doesFileExist(String path, String modid, String resource, String resourceObject, String fileName) {
-		return new File(path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName).exists();
 	}
 }
 

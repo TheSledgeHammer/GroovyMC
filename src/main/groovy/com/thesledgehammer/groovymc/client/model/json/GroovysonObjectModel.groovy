@@ -19,9 +19,8 @@ package com.thesledgehammer.groovymc.client.model.json
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
 
-abstract class GroovysonObjectModel extends GroovysonObject {
+class GroovysonObjectModel extends GroovysonObject {
 
-    //private GroovysonObject jsonObject;
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
