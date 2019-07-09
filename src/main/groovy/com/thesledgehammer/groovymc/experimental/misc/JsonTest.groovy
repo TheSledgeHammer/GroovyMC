@@ -20,7 +20,6 @@ import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.experimental.models.GroovyResourceLocation
-import com.thesledgehammer.groovymc.utils.StringTools
 
 class JsonTest {
 
@@ -44,22 +43,9 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-        GroovyResourceLocation path = new GroovyResourceLocation(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", "block", "engine_base");
-        println path.getResourceLocation()
-    }
 
-    static String ResourceLocation(String path, String modid, String resourceType, String fileName) {
-        String assetsPath = path + "/" + modid + "/" + resourceType + "/" + fileName;
-        String subPath = StringTools.SubString(assetsPath, modid);
-        String resourceLoc = StringTools.regexFirst(subPath, "/", ":");
-        return resourceLoc;
-    }
-
-    static String ResourceLocation(String path, String modid, String resourceType, String resourceObject, String fileName) {
-        String assetsPath = path + "/" + modid + "/" + resourceType + "/" + resourceObject + "/" + fileName;
-        String subPath = StringTools.SubString(assetsPath, modid);
-        String resourceLoc = StringTools.regexFirst(subPath, "/", ":");
-        return resourceLoc;
+        GroovyResourceLocation path = new GroovyResourceLocation("block", "engine_base");
+        println path.getResourcePath()
     }
 }
 

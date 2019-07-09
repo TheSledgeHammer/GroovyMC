@@ -16,43 +16,73 @@
 
 package com.thesledgehammer.groovymc.experimental.models
 
+import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.api.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.ResourceLocation
 
 /**
- * A ResourceLocation conversion class. Which Allows for converting files read from GroovysonReader to Minecraft's ResourceLocation file.
- * It Borrows from the Minecraft ResourceLocation class, but maintains GroovysonReader compatability. Providing methods relavent to GroovysonObject & GroovysonReader
+ * GroovyResourceLocation Extends the Minecraft ResourceLocation class, by adding constructors to hook into GroovysonReader and by extension GroovysonObject.
  * Is initalized from within a GroovysonObject.
  */
-class GroovyResourceLocation {
+class GroovyResourceLocation extends ResourceLocation {
 
-    private List<String> groovyResource;
+    //private List<String> groovyResource;
     private def file;
     private def obj;
 
+    protected GroovyResourceLocation(int unused, String... resourceName) {
+        super(unused, resourceName);
+    }
+
+    GroovyResourceLocation(String resourceObject, String fileName) {
+        this(0, Split(GroovyLoader.Instance().getModID(),
+                StringTools.regexFirst(StringTools.SubString(GroovysonReader.ResourcePath(GroovyLoader.Instance().getModResourceDirectory(),
+                        GroovyLoader.Instance().getModID(), "models", resourceObject, fileName),
+                        GroovyLoader.Instance().getModID()), "/", ":")));
+
+        /*
+        String assetsPath = GroovysonReader.ResourcePath(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
+        String subPath = StringTools.SubString(assetsPath, GroovyLoader.Instance().getModID());
+        String GRP = StringTools.regexFirst(subPath, "/", ":");
+        this.groovyResource = Split(GroovyLoader.Instance().getModID(), GRP);
+        */
+
+        def file = GroovysonReader.JsonFile(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
+        def obj = GroovysonReader.JsonSlurpy(file);
+        this.obj = obj;
+    }
+
     GroovyResourceLocation(String path, String modid, String resourceType, String fileName) {
+        this(0, Split(modid, StringTools.regexFirst(StringTools.SubString(GroovysonReader.ResourcePath(path, modid, resourceType, fileName), modid), "/", ":")));
+
+        /*
         String assetsPath = GroovysonReader.ResourcePath(path, modid, resourceType, fileName);
         String subPath = StringTools.SubString(assetsPath, modid);
         String GRP = StringTools.regexFirst(subPath, "/", ":");
         this.groovyResource = Split(modid, GRP);
+        */
 
         def file = GroovysonReader.JsonFile(path, modid, resourceType, fileName);
-        obj = GroovysonReader.JsonSlurpy(file);
+        def obj = GroovysonReader.JsonSlurpy(file);
         this.obj = obj;
     }
 
     GroovyResourceLocation(String path, String modid, String resource, String resourceObject, String fileName) {
+        this(0, Split(modid, StringTools.regexFirst(StringTools.SubString(GroovysonReader.ResourcePath(path, modid, resource, resourceObject, fileName), modid), "/", ":")));
+
+        /*
         String assetsPath = GroovysonReader.ResourcePath(path, modid, resource, resourceObject, fileName);
         String subPath = StringTools.SubString(assetsPath, modid);
         String GRP = StringTools.regexFirst(subPath, "/", ":");
         this.groovyResource = Split(modid, GRP);
+        */
 
         def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, fileName);
-        obj = GroovysonReader.JsonSlurpy(file);
+        def obj = GroovysonReader.JsonSlurpy(file);
         this.obj = obj;
     }
-
+/*
     String getResourceDomain() {
         return groovyResource[0];
     }
@@ -60,6 +90,7 @@ class GroovyResourceLocation {
     String getResourcePath() {
         return groovyResource[1];
     }
+    */
 
     ResourceLocation getResourceLocation() {
         return new ResourceLocation(getResourceDomain(), getResourcePath());
