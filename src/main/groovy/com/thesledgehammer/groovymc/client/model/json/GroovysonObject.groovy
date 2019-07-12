@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.json.GroovysonReader
-import com.thesledgehammer.groovymc.experimental.models.GroovyResourceLocation
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.util.ResourceLocation
 
@@ -30,32 +29,20 @@ class GroovysonObject {
 
     }
 
-    GroovysonObject(String path, String modid, String resourceType, String fileName) {
-        setJsonObject(path, modid, resourceType, fileName);
+    GroovysonObject(String path, ResourceLocation resourceLocation) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
-    GroovysonObject(String path, String modid, String resource, String resourceObject, String fileName) {
-        setJsonObject(path, modid, resource, resourceObject, fileName);
-    }
-
-    void setJsonObject(String path, String modid, String resourceType, String fileName) {
-        setName(fileName)
-        GroovyResourceLocation GRL = new GroovyResourceLocation(path, modid, resourceType, fileName)
-        this.obj = GRL.getJsonObject();
-    }
-
-    void setJsonObject(String path, String modid, String resource, String resourceObject, String fileName) {
-        setName(fileName);
-        GroovyResourceLocation GRL = new GroovyResourceLocation(path, modid, resource, resourceObject, fileName);
-        this.obj = GRL.getJsonObject();
+    GroovysonObject(String path, String resourceDomain, String resourcePath) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
     String getName() {
         return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     def getJsonObject() {

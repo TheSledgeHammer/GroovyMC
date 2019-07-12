@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
+
 import net.minecraft.util.ResourceLocation
 
 abstract class ModelEntryBakery<M extends ModelEntry, T extends TextureEntry> extends ModelEntryConsumer {

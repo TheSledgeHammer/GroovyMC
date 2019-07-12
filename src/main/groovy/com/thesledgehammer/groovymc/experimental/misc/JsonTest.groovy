@@ -18,14 +18,14 @@ package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
+
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.experimental.models.GroovyResourceLocation
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-        GroovyVariableModel blockModel = new GroovyVariableModel("block", "engine_base");
+        GroovyVariableModel blockModel = new GroovyVariableModel("groovymc", "models/block/engine_base");
 
         //Model Elements
         blockModel.setModelElements("base");
@@ -44,8 +44,7 @@ class JsonTest {
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
 
-        GroovyResourceLocation path = new GroovyResourceLocation("block", "engine_base");
-        println path.getResourcePath()
+        println blockModel.getGroovysonModel().getTextures()
     }
 }
 

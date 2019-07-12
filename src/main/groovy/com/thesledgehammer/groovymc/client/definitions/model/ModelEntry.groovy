@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.client.definitions.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 

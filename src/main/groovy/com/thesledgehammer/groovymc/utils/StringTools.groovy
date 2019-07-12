@@ -61,6 +61,11 @@ class StringTools {
         return stringToRainbow(name, false);
     }
 
+    static String[] split(String name, String regex) {
+        String[] arr = name.split(regex);
+        return arr;
+    }
+
     static String regex(String name, String toSearch, String replacement) {
         if(name.contains(toSearch)) {
             String replace = name.replace(toSearch, replacement);

@@ -20,12 +20,7 @@ import com.google.common.collect.Table
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
-import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
-import com.thesledgehammer.groovymc.utils.variables.VariableDouble
-import com.thesledgehammer.groovymc.utils.variables.VariableFloat
-import com.thesledgehammer.groovymc.utils.variables.VariableInteger
-import com.thesledgehammer.groovymc.utils.variables.VariableLong
-import com.thesledgehammer.groovymc.utils.variables.VariableObject
+import com.thesledgehammer.groovymc.utils.variables.*
 import net.minecraft.util.EnumFacing
 
 class GroovysonVariableKey implements IVariableKey {

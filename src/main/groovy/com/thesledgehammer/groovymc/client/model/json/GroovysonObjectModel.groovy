@@ -18,18 +18,19 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
+import net.minecraft.util.ResourceLocation
 
 class GroovysonObjectModel extends GroovysonObject {
 
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
     private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
 
-    GroovysonObjectModel(String resourceObject, String fileName) {
-        super(GroovyLoader.Instance().getModResourceDirectory(), GroovyLoader.Instance().getModID(), "models", resourceObject, fileName);
+    GroovysonObjectModel(ResourceLocation resourceLocation) {
+        super(GroovyLoader.Instance().getModResourceDirectory(), resourceLocation);
     }
 
-    GroovysonObjectModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        super(resourceDirectory, modID, "models", resourceObject, fileName);
+    GroovysonObjectModel(String resourceDomain, String resourcePath) {
+        super(GroovyLoader.Instance().getModResourceDirectory(), resourceDomain, resourcePath);
     }
 
     //Texture Name & Location

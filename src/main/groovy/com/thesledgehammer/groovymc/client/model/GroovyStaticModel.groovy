@@ -16,31 +16,27 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.client.definitions.GroovyModelDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovyResourceDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovysonModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.*
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModelStatic
-
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.JsonTools
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.ResourceLocation
 
 class GroovyStaticModel {
 
     private GroovysonObjectModelStatic GROOVY_MODEL;
     private Map<String, String> textureLookup;
 
-    GroovyStaticModel(String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceObject, fileName);
+    GroovyStaticModel(ResourceLocation resourceLocation) {
+        this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceLocation);
 
         GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
@@ -49,8 +45,8 @@ class GroovyStaticModel {
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
     }
 
-    GroovyStaticModel(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceDirectory, modID, resourceObject, fileName);
+    GroovyStaticModel(String resourceDomain, String resourcePath) {
+        this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceDomain, resourcePath);
 
         GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));

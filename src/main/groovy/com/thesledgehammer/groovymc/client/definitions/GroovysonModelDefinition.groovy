@@ -15,9 +15,9 @@
  */
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.definitions.json.GroovysonStaticKey
 import com.thesledgehammer.groovymc.client.definitions.json.GroovysonVariableKey
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
 import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import com.thesledgehammer.groovymc.utils.variables.VariableLong

@@ -77,34 +77,4 @@ class GroovyModelLoader implements ICustomGroovyModelLoader {
         };
         return model;
     }
-
-    GroovysonObjectModel loadModel(String resourceObject, String fileName) throws Exception {
-        GroovyResourceLocation modelLocation = new GroovyResourceLocation(resourceObject, fileName);
-        ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
-        if (!cache.containsKey(file)) {
-            IResource resource = null;
-            try {
-                try {
-                    resource = manager.getResource(file);
-                } catch (FileNotFoundException e) {
-                    if (modelLocation.getResourcePath().startsWith("models/block/")) {
-                        resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
-                    } else if (modelLocation.getResourcePath().startsWith("models/item/")) {
-                        resource = manager.getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
-                    } else {
-                        throw e;
-                    }
-                    GroovysonObjectModelParser parser = new GroovysonObjectModelParser(resource, manager);
-                    GroovysonObjectModel model = null;
-                }
-            } finally {
-                // cache.put(modelLocation, model);
-            }
-        }
-        GroovysonObjectModel model = cache.get(file);
-        if (model == null) {
-            throw new ModelLoaderRegistry.LoaderException("Error loading model previously: " + file, errors.get(modelLocation))
-        };
-        return model;
-    }
 }

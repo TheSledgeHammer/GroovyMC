@@ -16,50 +16,79 @@
 
 package com.thesledgehammer.groovymc.api.json
 
+import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.utils.StringTools
 import groovy.json.JsonSlurper
+import net.minecraft.util.ResourceLocation
 
+/**
+ * Allows for reading of resource in either .json or .xml format.
+ */
 class GroovysonReader {
-	
-	//Return absolute file path of resource assets file (.json)
-	//Generic hooks to a (.Json) File;
-	static String ResourcePath(String path) {
-		String assetsPath = path
+
+	private static String path;
+	private static ResourceLocation resourceLocation;
+	private static String resourceDomain;
+	private static String resourcePath;
+	private static String fileName;
+
+	static String getPath() {
+		return path;
+	}
+
+	static ResourceLocation getResourceLocation() {
+		return resourceLocation;
+	}
+
+	static String getFileName() {
+		return fileName;
+	}
+
+	static String ResourcePath(String path, ResourceLocation resourceLocation) {
+		setPath(path);
+		setResourceLocation(resourceLocation);
+		String assetsPath = path + "/" + resourceLocation.getResourceDomain().toString() + "/" + resourceLocation.getResourcePath().toString();
 		return assetsPath;
 	}
 
-	static String ResourcePath(String path, String modid, String resourceType, String fileName) {
-		String assetsPath = path + "/" + modid + "/" + resourceType + "/" + fileName;
+	static String ResourcePath(String path, String resourceDomain, String resourcePath) {
+		setPath(path);
+		setResourceLocation(new ResourceLocation(resourceDomain, resourcePath));
+		String assetsPath = path + "/" + resourceLocation.getResourceDomain().toString() + "/" + resourceLocation.getResourcePath().toString();
 		return assetsPath;
 	}
 
-	static String ResourcePath(String path, String modid, String resource, String resourceObject, String fileName) {
-		String assetsPath = path + "/" + modid + "/" + resource + "/" + resourceObject + "/" + fileName;
-		return assetsPath;
+	private static void setPath(String path) {
+		if(path == null) {
+			this.path = GroovyLoader.Instance().getModResourceDirectory();
+		} else {
+			this.path = path;
+		}
 	}
 
-	static String JsonFile(String path) {
-		String filePath = ResourcePath(path);
-		String fileContents = filePath + ".json";
-		return fileContents;
+	private static void setResourceLocation(ResourceLocation resourceLocation) {
+		this.resourceLocation = resourceLocation;
+
+		if(resourceLocation != null) {
+			resourceDomain = resourceLocation.getResourceDomain().toString();
+			resourcePath = resourceLocation.getResourcePath().toString();
+		}
+
+		String[] name = StringTools.split(resourceLocation.getResourcePath().toString(), "/");
+		fileName = name[name.length - 1];
 	}
 
-	static String JsonFile(String path, String modid, String resourceType, String fileName) {
-		String filePath = ResourcePath(path, modid, resourceType, fileName);
-		String fileContents = filePath + ".json";
-		return fileContents;
-	}
-
-	static String JsonFile(String path, String modid, String resource, String resourceObject, String fileName) {
-		String filePath = ResourcePath(path, modid, resource, resourceObject, fileName);
-		String fileContents = filePath + ".json";
-		return fileContents;
-	}
-
-	//Converts Json File to a readable JsonObject
+	//Converts an Json File to a readable JsonObject
 	static def JsonSlurpy(String jsonFile) {
 		def slurpinator = new JsonSlurper();
-		def jsonObject = slurpinator.parse(new FileReader(jsonFile));
+		def jsonObject = slurpinator.parse(new FileReader(jsonFile + ".json"));
 		return jsonObject
 	}
-}
 
+	//Converts an Xml File to a readable XmlObject
+	static def XmlSlurpy(String xmlFile) {
+		def slurpinator = new XmlSlurper();
+		def xmlObject = slurpinator.parse(new FileReader(xmlFile + ".xml"))
+		return xmlObject;
+	}
+}

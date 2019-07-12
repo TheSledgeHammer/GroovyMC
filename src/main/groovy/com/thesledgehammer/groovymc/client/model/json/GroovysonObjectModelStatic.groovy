@@ -16,13 +16,15 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
+import net.minecraft.util.ResourceLocation
+
 class GroovysonObjectModelStatic extends GroovysonObjectModel  {
 
-    GroovysonObjectModelStatic(String resourceObject, String fileName) {
-        super(resourceObject, fileName);
+    GroovysonObjectModelStatic(ResourceLocation resourceLocation) {
+        super(resourceLocation);
     }
 
-    GroovysonObjectModelStatic(String resourceDirectory, String modID, String resourceObject, String fileName) {
-        super(resourceDirectory, modID, resourceObject, fileName);
+    GroovysonObjectModelStatic(String resourceDomain, String resourcePath) {
+        super(resourceDomain, resourcePath);
     }
 }
