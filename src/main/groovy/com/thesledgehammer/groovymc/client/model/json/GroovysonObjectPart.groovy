@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.utils.Log
+import groovy.json.JsonException
 import net.minecraft.util.EnumFacing
 
 class GroovysonObjectPart {
@@ -61,7 +62,7 @@ class GroovysonObjectPart {
             }
         }
         if(!name.equals(groovysonObject.getElementPart(idx).name)) {
-            Log.logError("${groovysonObject.getName()} model does not contain an element named: ${name}");
+            throw new JsonException("${groovysonObject.getName()} model does not contain an element named: ${name}");
         }
     }
 
@@ -179,8 +180,7 @@ class GroovysonObjectPart {
     def BlockRenderType(String renderType) {
         String render = renderType.toLowerCase();
         if (part.render.get(render) == null) {
-            Log.logError("The element does not contain a render of: ${renderType}");
-            return null;
+            throw new JsonException("The element does not contain a render of: ${renderType}");
         }
         return part.render.get(render);
     }

@@ -16,15 +16,33 @@
 package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
 class ModelEntryHolderVariable extends ModelEntryHolder {
 
     private GroovyVariableModel groovyVariableModel;
+
+    ModelEntryHolderVariable(ResourceLocation modelLocation) {
+        super(modelLocation);
+        this.groovyVariableModel = new GroovyVariableModel(modelLocation);
+        ModelEntry.Register.add(new ModelResourceLocation(modelLocation, "inventory")).build();
+    }
+
+    ModelEntryHolderVariable(String resourceDomain, String resourcePath) {
+        super(resourceDomain, resourcePath);
+        this.groovyVariableModel = new GroovyVariableModel(resourceDomain, resourcePath);
+        ModelEntry.Register.add(new ModelResourceLocation(new ResourceLocation(resourceDomain, resourcePath), "inventory")).build();
+    }
+
+    GroovyVariableModel getGroovyVariableModel() {
+        return groovyVariableModel;
+    }
 
     @Override
     boolean hasBakedQuads() {

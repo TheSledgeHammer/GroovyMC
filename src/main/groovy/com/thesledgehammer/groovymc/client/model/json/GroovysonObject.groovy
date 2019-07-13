@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.json.GroovysonReader
-import com.thesledgehammer.groovymc.utils.Log
+import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation
 
 class GroovysonObject {
@@ -51,8 +51,7 @@ class GroovysonObject {
 
     def getParent() {
         if(obj.parent == null) {
-            Log.logError("${obj.parent} Isn't defined in ${getName()}");
-            return null;
+            return new JsonException("Parent isn't defined in ${getName()}")
         }
         return obj.parent;
     }
@@ -116,8 +115,7 @@ class GroovysonObject {
 
     def DisplayName(String name) {
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            return new JsonException("${name} is incorrect...!");
         }
         return obj.display.get(name);
     }
@@ -125,12 +123,12 @@ class GroovysonObject {
     ArrayList<Float> Translation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!")
+            //return null;
         }
         if(obj.display.get(name).translation == null) {
-            Log.logError("${name} does not contain Translation...!");
-            return null;
+            throw new JsonException("${name} does not contain Translation...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).translation.size; i++) {
             arrObj.add(i, obj.display.get(name).translation.get(i));
@@ -141,12 +139,12 @@ class GroovysonObject {
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!");
+            //return null;
         }
         if(obj.display.get(name).rotation == null) {
-            Log.logError("${name} does not contain Rotation...!");
-            return null;
+            throw new JsonException("${name} does not contain Rotation...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).rotation.size; i++) {
             arrObj.add(i, obj.display.get(name).rotation.get(i));
@@ -157,12 +155,12 @@ class GroovysonObject {
     ArrayList<Float> Scale(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!");
+            //return null;
         }
         if(obj.display.get(name).scale == null) {
-            Log.logError("${name} does not contain Scale...!");
-            return null;
+            throw new JsonException("${name} does not contain Scale...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).scale.size; i++) {
             arrObj.add(i, obj.display.get(name).scale.get(i));
