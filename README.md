@@ -10,18 +10,10 @@ A mod library used in my other mods both existing and upcoming.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
-NOTICE: 1.13.2 IS CURRENTLY IN PRE-ALPHA AND DOES NOT WORK.
+NOTICE: 1.14.x IS CURRENTLY IN PRE-ALPHA. FILES IN ITS CURRENT STATE ARE SUBJECT TO CHANGE WITHOUT NOTICE.
+ALONG WITH LIMITED CONTENT. USE AT YOUR OWN RISK!!
 
 ### Getting Started:
-GroovyMC also provides a built-in Groovy Language Adapter.
-To use GroovyMC's Language Adapter add the following to @Mod in your main class
-```
-@Mod(modLanguageAdapter = "com.thesledgehammer.groovymc.api.GroovyLanguageAdapter")
-class modclass {
-    //Your mod class info
-}
-```
-
 Please initialize the "GroovyLoader" in your main class or common proxy class.
 ```
 GroovyLoader groovyLoader = new GroovyLoader(modPath, modResourcePath, jvm, url, modID);
@@ -45,7 +37,7 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.13.2:+:universal"
+	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.14.x:+:universal"
 }
 ```
 
