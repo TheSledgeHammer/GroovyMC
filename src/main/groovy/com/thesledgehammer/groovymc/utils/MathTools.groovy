@@ -113,6 +113,14 @@ class MathTools {
     /**Below is Copied from BuildCraft
      * Please refer to the Copyright Header Above for Licencing
      **/
+    static int swapARGBforABGR(int argb) {
+        int a = (argb >>> 24) & 255;
+        int r = (argb >> 16) & 255;
+        int g = (argb >> 8) & 255;
+        int b = (argb >> 0) & 255;
+        return (a << 24) | (b << 16) | (g << 8) | r;
+    }
+
     static int clamp(int toClamp, int min, int max) {
         return Math.max(Math.min(toClamp, max), min);
     }

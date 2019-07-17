@@ -149,8 +149,8 @@ class GroovyLoader {
                 .toHashCode();
     }
 
-    final boolean equals(Object obj) {
-        GroovyLoader other = (GroovyLoader) obj;
+    final boolean equals(GroovyLoader obj) {
+        GroovyLoader other = obj;
         return new EqualsBuilder()
                 .append(this.modPath, other.modPath)
                 .append(this.modResourcePath, other.modResourcePath)

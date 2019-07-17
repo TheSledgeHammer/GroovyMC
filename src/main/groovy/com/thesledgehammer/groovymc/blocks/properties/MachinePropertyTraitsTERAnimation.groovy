@@ -16,9 +16,14 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.block.Block
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.animation.TileEntityRendererAnimation
+import net.minecraftforge.fml.client.registry.ClientRegistry
 
 import javax.annotation.Nullable
 
@@ -44,5 +49,34 @@ trait MachinePropertyTraitsTERAnimation<T extends GroovyTileBasic> extends Machi
     @Override
     String getParticleTextureLocation() {
         return particleTextureLocation;
+    }
+
+
+    @Override
+    void registerTileEntity() {
+        super.registerTileEntity();
+        Block block = this.getBlock();
+        if(Dist.CLIENT && rendererAnimation != null && block != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererAnimation);
+            Item item = Item.BLOCK_TO_ITEM.get(block);
+            if(item != Items.AIR) {
+                ItemStackTileEntityRenderer TEISR = item.getTileEntityItemStackRenderer();
+                TEISR.renderByItem(new ItemStack(item));
+            }
+        }
+    }
+
+    @Override
+    void registerTileEntity(String modID) {
+        super.registerTileEntity(modID);
+        Block block = this.getBlock();
+        if(Dist.CLIENT && rendererAnimation != null && block != null) {
+            ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererAnimation);
+            Item item = Item.BLOCK_TO_ITEM.get(block);
+            if (item != Items.AIR) {
+                ItemStackTileEntityRenderer TEISR = item.getTileEntityItemStackRenderer();
+                TEISR.renderByItem(new ItemStack(item));
+            }
+        }
     }
 }

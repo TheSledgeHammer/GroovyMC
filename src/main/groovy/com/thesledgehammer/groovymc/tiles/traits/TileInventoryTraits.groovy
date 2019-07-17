@@ -17,13 +17,12 @@
 package com.thesledgehammer.groovymc.tiles.traits
 
 import com.thesledgehammer.groovymc.gui.inventory.IInventoryAdaptor
-import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 
 trait TileInventoryTraits implements IInventory, ISidedInventory {
 
@@ -77,17 +76,17 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
     }
 
     @Override
-    boolean isUsableByPlayer(EntityPlayer player) {
+    boolean isUsableByPlayer(PlayerEntity player) {
         return inventoryAdapter.isUsableByPlayer(player);
     }
 
     @Override
-    void openInventory(EntityPlayer player) {
+    void openInventory(PlayerEntity player) {
         inventoryAdapter.openInventory(player);
     }
 
     @Override
-    void closeInventory(EntityPlayer player) {
+    void closeInventory(PlayerEntity player) {
         inventoryAdapter.closeInventory(player);
     }
 
@@ -97,37 +96,22 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
     }
 
     @Override
-    int getField(int id) {
-        return 0;
-    }
-
-    @Override
-    void setField(int id, int value) {
-
-    }
-
-    @Override
-    int getFieldCount() {
-        return 0;
-    }
-
-    @Override
     void clear() {
 
     }
 
     @Override
-    int[] getSlotsForFace(EnumFacing side) {
+    int[] getSlotsForFace(Direction side) {
         return inventoryAdapter.getSlotsForFace(side);
     }
 
     @Override
-    boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return inventoryAdapter.canInsertItem(index, itemStackIn, direction);
     }
 
     @Override
-    boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         return inventoryAdapter.canExtractItem(index, stack, direction);
     }
 
@@ -136,10 +120,6 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
         return inventoryAdapter.isEmpty();
     }
 
-    @Override
-    boolean hasCustomName() {
-        return inventoryAdapter.hasCustomName();
-    }
 
     //Todo: Fix getName()
     /*

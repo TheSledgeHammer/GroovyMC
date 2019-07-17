@@ -17,8 +17,8 @@
 package com.thesledgehammer.groovymc.tiles
 
 import com.thesledgehammer.groovymc.tiles.traits.TileTraits
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.network.play.server.SPacketUpdateTileEntity
+import net.minecraft.nbt.CompoundNBT
+import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
 
@@ -26,24 +26,25 @@ import javax.annotation.Nullable
 
 abstract class GroovyTileBasic extends TileEntity implements TileTraits {
 
-    GroovyTileBasic(TileEntityType<?> tileEntityTypeIn) {
+    GroovyTileBasic(TileEntityType tileEntityTypeIn) {
         super(tileEntityTypeIn)
     }
-
+/*
     @Override
-    NBTTagCompound getUpdateTag() {
-        NBTTagCompound updateTag = super.getUpdateTag();
+    CompoundNBT getUpdateTag() {
+        CompoundNBT updateTag = super.getUpdateTag();
         write(updateTag);
         return updateTag;
     }
 
     @Override
     @Nullable
-    SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
+    SUpdateTileEntityPacket  getUpdatePacket() {
+        CompoundNBT nbtTag = new CompoundNBT();
         write(nbtTag);
-        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+        return new SUpdateTileEntityPacket(getPos(), 1, nbtTag);
     }
+    */
 
     boolean isRedstoneActivated() {
         return world.getRedstonePowerFromNeighbors(getPos()) > 0;

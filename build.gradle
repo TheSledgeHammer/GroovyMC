@@ -74,6 +74,5 @@ minecraft {
 dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.14.2:+:universal"
 	//compile "javax.xml.bind:jaxb-api:+"
 }

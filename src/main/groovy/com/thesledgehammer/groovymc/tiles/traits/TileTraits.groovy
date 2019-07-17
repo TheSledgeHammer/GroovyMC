@@ -16,28 +16,27 @@
 
 package com.thesledgehammer.groovymc.tiles.traits
 
-
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 
 trait TileTraits {
 
-    boolean isGroovyTile(TileEntity other, EnumFacing face) {
+    boolean isGroovyTile(TileEntity other, Direction face) {
         if(other.getPos().offset(face) instanceof GroovyTileBasic) {
             return true;
         }
         return false;
     }
 
-    boolean isTileEntity(TileEntity other, EnumFacing face) {
+    boolean isTileEntity(TileEntity other, Direction face) {
         if(other.getPos().offset(face) instanceof TileEntity) {
             return true;
         }
         return false;
     }
 
-    TileEntity getNeighbouringTileEntity(TileEntity other, EnumFacing face) {
+    TileEntity getNeighbouringTileEntity(TileEntity other, Direction face) {
         if(isGroovyTile(other, face) || isTileEntity(other, face)){
             return other;
         }

@@ -21,8 +21,7 @@ import com.thesledgehammer.groovymc.tiles.traits.TileInventoryTraits
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.tileentity.TileEntityType
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.text.ITextComponent
+import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
@@ -37,24 +36,16 @@ class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits 
     private IItemHandler itemHandler;
     private IItemHandler itemHandlerSided;
 
-    GroovyTileAdvanced(TileEntityType<?> tileEntityTypeIn) {
+    GroovyTileAdvanced(TileEntityType tileEntityTypeIn) {
         super(tileEntityTypeIn)
         setTileEntity(this);
         setIInventory(new InventoryAdaptor());
     }
-/*
-    @Override
-    boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
-    }*/
 
     @Override
     <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            for(EnumFacing facing : EnumFacing.values()) {
+            for(Direction facing : Direction.values()) {
                 if (facing == null) {
                     if (itemHandler == null) {
                         itemHandler = new InvWrapper((IInventory) this);
@@ -69,20 +60,5 @@ class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits 
             }
         }
         return super.getCapability(capability)
-    }
-
-    @Override
-    ITextComponent getName() {
-        return this.getName()
-    }
-
-    @Override
-    ITextComponent getDisplayName() {
-        return this.getDisplayName()
-    }
-
-    @Override
-    ITextComponent getCustomName() {
-        return this.getCustomName();
     }
 }

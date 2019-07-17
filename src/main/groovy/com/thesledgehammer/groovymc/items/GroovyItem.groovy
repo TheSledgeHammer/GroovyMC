@@ -16,13 +16,18 @@
 
 package com.thesledgehammer.groovymc.items
 
-import com.thesledgehammer.groovymc.items.traits.ItemTraits
-import net.minecraft.item.Item
 
-class GroovyItem extends Item implements ItemTraits {
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+
+class GroovyItem extends Item {
 
     GroovyItem(Properties properties) {
         super(properties);
-        setItem(this);
+    }
+
+    //TODO: No OreDictionary WildCard
+    ItemStack getWildcard() {
+        return new ItemStack(item, 1);
     }
 }

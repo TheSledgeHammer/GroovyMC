@@ -16,9 +16,15 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.block.Block
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.model.animation.TileEntityRendererFast
+import net.minecraftforge.fml.client.registry.ClientRegistry
 
 import javax.annotation.Nullable
 
@@ -45,16 +51,16 @@ trait MachinePropertyTraitsTERFast<T extends GroovyTileBasic> extends MachinePro
     String getParticleTextureLocation() {
         return particleTextureLocation;
     }
-/*
+
     @Override
     void registerTileEntity() {
         super.registerTileEntity();
         Block block = this.getBlock();
-        if(FMLCommonHandler.instance().getSide() == Dist.CLIENT && rendererFast != null && block != null) {
+        if(Dist.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.BLOCK_TO_ITEM.get(block);
-            if (item != Items.AIR) {
-                TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
+            if(item != Items.AIR) {
+                ItemStackTileEntityRenderer TEISR = item.getTileEntityItemStackRenderer();
                 TEISR.renderByItem(new ItemStack(item));
             }
         }
@@ -64,14 +70,13 @@ trait MachinePropertyTraitsTERFast<T extends GroovyTileBasic> extends MachinePro
     void registerTileEntity(String modID) {
         super.registerTileEntity(modID);
         Block block = this.getBlock();
-        if(FMLCommonHandler.instance().getSide() == Side.CLIENT && rendererFast != null && block != null) {
+        if(Dist.CLIENT && rendererFast != null && block != null) {
             ClientRegistry.bindTileEntitySpecialRenderer(getTeClass(), rendererFast);
             Item item = Item.BLOCK_TO_ITEM.get(block);
             if (item != Items.AIR) {
-                TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
+                ItemStackTileEntityRenderer TEISR = item.getTileEntityItemStackRenderer();
                 TEISR.renderByItem(new ItemStack(item));
             }
         }
     }
- */
 }

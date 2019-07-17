@@ -1,6 +1,6 @@
 package com.thesledgehammer.groovymc
 
-import net.minecraftforge.common.MinecraftForge
+
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -9,9 +9,6 @@ import org.apache.logging.log4j.Logger
 class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
-	static final String MOD_NAME = "GroovyMC";
-	static final String VERSION = "1.3.0";
-	static final String MCVERSION = "1.13.2";
 
 	static GroovyMC instance;
 
@@ -19,7 +16,8 @@ class GroovyMC {
 
 	GroovyMC() {
 		instance = this;
-		MinecraftForge.EVENT_BUS.register(this);
+		//MinecraftForge.EVENT_BUS.register(this);
+		Registry.init();
 	}
 
 	/*

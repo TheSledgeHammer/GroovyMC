@@ -17,13 +17,16 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
+import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.IBlockReader
+import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
@@ -91,33 +94,19 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    boolean isFullCube(IBlockState state) {
+    boolean isFullCube(BlockState state) {
         return true;
     }
 
     @Override
-    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec) {
-        return new AxisAlignedBB(startVec, endVec);
+    AxisAlignedBB getBoundingBox(IBlockReader world, BlockPos pos, BlockState state) {
+        return boundingBox;
     }
 
     @Override
-    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos) {
-        return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX(), maxPos.getY(), maxPos.getZ());
-    }
-/*
-    @Override
     @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec) {
-        return rayTrace(pos, startVec, endVec, new AxisAlignedBB());
-    }
-    */
-
-    @Nullable
-    private RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
-        Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        RayTraceResult rayTrace = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return rayTrace == null ? null : new RayTraceResult(rayTrace.hitVec.add((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), rayTrace.sideHit, pos);
+    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vec3d startVec, Vec3d endVec) {
+        return VoxelShapeTools.rayTrace(pos, startVec, endVec, boundingBox);
     }
 
     @Override
@@ -127,7 +116,22 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    TileEntity CreateTileEntity() {
+    void registerTileEntity() {
+
+    }
+
+    @Override
+    void registerTileEntity(String modID) {
+
+    }
+
+    @Override
+    boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Override
+    TileEntity createNewTileEntity() {
         try {
             return teClass.getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {

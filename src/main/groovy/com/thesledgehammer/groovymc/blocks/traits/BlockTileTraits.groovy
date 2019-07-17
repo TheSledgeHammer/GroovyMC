@@ -17,29 +17,25 @@
 package com.thesledgehammer.groovymc.blocks.traits
 
 import com.thesledgehammer.groovymc.blocks.properties.IBlockRotation
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
-import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.player.EntityPlayer
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.block.BlockState
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.state.EnumProperty
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.NonNullList
+import net.minecraft.util.Direction
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 
-trait BlockTileTraits extends BlockTraits implements IBlockRotation {
+trait BlockTileTraits implements IBlockRotation {
 
-    static final EnumProperty<EnumFacing> FACING = EnumProperty.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
+    static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
     //TODO: Find equivalent method or replace
-    void breakBlock(World world, BlockPos pos, IBlockState state) {
+    void breakBlock(World world, BlockPos pos, BlockState state) {
         if (world.isRemote) {
             return;
         }
@@ -53,46 +49,31 @@ trait BlockTileTraits extends BlockTraits implements IBlockRotation {
             groovyTile.onRemoval();
         }
         world.removeTileEntity(pos);
-        super.breakBlock(world, pos, state);
     }
 
     @Override
-    void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
-        IBlockState state = world.getBlockState(pos);
-        EnumFacing facing = getPlacementRotation(player, world, pos, side);
+    void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {
+        BlockState state = world.getBlockState(pos);
+        Direction facing = getPlacementRotation(player, world, pos, side);
         world.setBlockState(pos, state.with(FACING, facing));
     }
 
-    EnumFacing getPlacementRotation(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
+    Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
         int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
         if (l == 1) {
-            return EnumFacing.EAST;
+            return Direction.EAST;
         }
         if (l == 2) {
-            return EnumFacing.SOUTH;
+            return Direction.SOUTH;
         }
         if (l == 3) {
-            return EnumFacing.WEST;
+            return Direction.WEST;
         }
-        return EnumFacing.NORTH;
+        return Direction.NORTH;
     }
 
-    IBlockState withRotation(IBlockState state, Rotation rot) {
-        EnumFacing facing = state.get(FACING);
+    BlockState withRotation(BlockState state, Rotation rot) {
+        Direction facing = state.get(FACING);
         return state.with(FACING, rot.rotate(facing));
-    }
-
-    //TODO: Incomplete
-    void getDrops(NonNullList<ItemStack> drops, World world, BlockPos pos, IBlockState metadata, int fortune) {
-        TileEntity tile = world.getTileEntity(pos);
-        if(tile instanceof GroovyTileBasic) {
-            GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
-            ItemStack stack = new ItemStack(Item.BLOCK_TO_ITEM.get(tile.getBlockState().getBlock()));
-            NBTTagCompound nbt = new NBTTagCompound();
-            groovyTile.write(nbt);
-            stack.setTag(nbt);
-            groovyTile.addDrops(drops, fortune);
-        }
-        super.getDrops(drops, world, pos, metadata, fortune);
     }
 }

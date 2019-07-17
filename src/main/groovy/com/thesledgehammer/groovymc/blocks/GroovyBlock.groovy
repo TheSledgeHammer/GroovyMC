@@ -17,25 +17,45 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.api.IInitModel
-import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
 import net.minecraft.block.Block
+import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
-import net.minecraft.block.state.BlockState
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.model.ModelResourceLocation
-import net.minecraft.item.Item
-import net.minecraft.state.StateContainer
+import net.minecraft.entity.LivingEntity
+import net.minecraft.item.ItemStack
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.ModelLoader
 
-class GroovyBlock extends Block implements BlockTraits, IInitModel {
+import javax.annotation.Nullable
 
-    protected StateContainer.Builder<Block, IBlockState> builder = new StateContainer.Builder<>(this);
+/**
+ * To Note: Must use full reference: "Block.Properties". Causes Game Crash (Throws null or constructor invalid).
+ */
 
-    GroovyBlock(Properties properties) {
+class GroovyBlock extends Block implements IInitModel {
+
+    GroovyBlock() {
+        super(Block.Properties.create(Material.IRON)
+                .hardnessAndResistance(1.5F)
+        );
+    }
+
+    GroovyBlock(Material material) {
+        super(Block.Properties.create(material)
+                .hardnessAndResistance(1.5F)
+        );
+    }
+
+    GroovyBlock(Block.Properties properties) {
         super(properties);
-        properties.hardnessAndResistance(1.5F);
+    }
+
+    @Override
+    void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (world.isRemote) {
+            return;
+        }
     }
 
     @Override

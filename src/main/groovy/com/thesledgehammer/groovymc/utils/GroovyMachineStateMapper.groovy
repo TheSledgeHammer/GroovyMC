@@ -12,50 +12,33 @@
 
 package com.thesledgehammer.groovymc.utils
 /*
-import com.google.common.collect.Maps
-import com.thesledgehammer.groovymc.blocks.GroovyBlockTileAdvanced
-import com.thesledgehammer.groovymc.blocks.GroovyBlockTileBasic
-import com.thesledgehammer.groovymc.blocks.properties.IBlockType
-import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
-import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.statemap.IStateMapper
-import net.minecraft.client.renderer.model.ModelResourceLocation
-import net.minecraft.state.IProperty
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.IStringSerializable
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-
 @OnlyIn(Dist.CLIENT)
-class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
+class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateContainer {
 
     private final T type;
-    protected final Map<IBlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
+    protected final Map<BlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
 
     GroovyMachineStateMapper(T type) {
         this.type = type;
     }
 
     @Override
-    Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block block) {
+    Map<BlockState, ModelResourceLocation> putStateModelLocations(Block block) {
         if (!(type.getGroovyMachineProperties() instanceof MachinePropertyTraits)) {
-            for (EnumFacing facing : EnumFacing.values()) {
-                if (facing == EnumFacing.DOWN || facing == EnumFacing.UP) {
+            for (Direction facing : Direction.values()) {
+                if (facing == Direction.DOWN || facing == Direction.UP) {
                     continue;
                 }
-                IBlockState state;
+                BlockState state;
                 if(block instanceof GroovyBlockTileBasic) {
-                  state = block.getDefaultState().withProperty(GroovyBlockTileBasic.FACING, facing);
+                  state = block.getDefaultState().with(GroovyBlockTileBasic.FACING, facing);
                 }
                 if(block instanceof GroovyBlockTileAdvanced) {
-                  state = block.getDefaultState().has(GroovyBlockTileAdvanced.FACING, facing);
+                  state = block.getDefaultState().with(GroovyBlockTileAdvanced.FACING, facing);
                 }
-                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(state);
-                ResourceLocation blockLocation = Block.REGISTRY.getNameForObject(block);
-                String s = String.format("%s:%s", blockLocation.getResourceDomain(), blockLocation.getResourcePath());
+                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap();
+                ResourceLocation blockLocation = Block.getStateId()  REGISTRY.getNameForObject(block);
+                String s = String.format("%s:%s", blockLocation .getResourceDomain(), blockLocation.getResourcePath());
                 mapStateModelLocations.put(state, new ModelResourceLocation(s, getPropertyString(linkedhashmap)));
             }
         }

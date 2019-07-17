@@ -16,18 +16,35 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import net.minecraft.block.ITileEntityProvider
+import net.minecraft.block.Block
+import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.world.IBlockReader
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
+import javax.annotation.Nonnull
 
-    GroovyBlockTileBasic(Properties properties) {
-        super(properties);
-    }
+//Todo: Efficient Way to create Tile Entities: Setting hasTileEntity to true, would make this like ITileEntityProvider
+abstract class GroovyBlockTileBasic extends GroovyBlock {
 
     GroovyBlockTileBasic() {
         super();
-        setMaterial(Material.IRON);
+    }
+
+    GroovyBlockTileBasic(Material material) {
+        super(material)
+    }
+
+    GroovyBlockTileBasic(Block.Properties properties) {
+        super(properties);
+    }
+
+    @Nonnull
+    @Override
+    abstract TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world);
+
+    @Override
+    boolean hasTileEntity(BlockState state) {
+        return true;
     }
 }

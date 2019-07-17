@@ -16,48 +16,80 @@
 
 package com.thesledgehammer.groovymc.blocks
 
+import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
-import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERFast
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERFast
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import net.minecraft.block.ITileEntityProvider
-import net.minecraft.block.state.IBlockState
-import net.minecraft.state.properties.BlockStateProperties
+import net.minecraft.block.Block
+import net.minecraft.block.BlockState
+import net.minecraft.block.material.Material
+import net.minecraft.state.StateContainer
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumBlockRenderType
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
-import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.world.IBlockReader
+import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, ITileEntityProvider {
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
+
+/**Todo:
+ * - Efficient Way to create/ register Tile Entities: Using MachineProperties
+ * - Setting hasTileEntity to true: would make this akin ITileEntityProvider (aka a block base for TileEntities)
+ */
+
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, IInitModel {
 
     private boolean hasTER;
     private boolean hasTERFast;
 
-    final P blockType
+    final P blockType;
 
-    GroovyBlockTileAdvanced(P blockType, Properties properties) {
+    GroovyBlockTileAdvanced(P blockType) {
+        super();
+        this.blockType = blockType;
+        blockType.getGroovyMachineProperties().setBlock(this);
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
+        Block.Properties.create(Material.IRON)
+                .hardnessAndResistance(1.5F)
+                .lightValue(!hasTERFast && !hasTER ? 255 : 0);
+
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+
+    GroovyBlockTileAdvanced(P blockType, Material material) {
+        super(material);
+        this.blockType = blockType;
+        blockType.getGroovyMachineProperties().setBlock(this);
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
+        Block.Properties.create(material)
+                .hardnessAndResistance(1.5F)
+                .lightValue(!hasTERFast && !hasTER ? 255 : 0);
+
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+    GroovyBlockTileAdvanced(P blockType, Block.Properties properties) {
         super(properties);
-
         this.blockType = blockType;
         blockType.getGroovyMachineProperties().setBlock(this);
 
         this.hasTER = blockType instanceof IBlockTypeTER;
         this.hasTERFast = blockType instanceof IBlockTypeTERFast;
         properties.lightValue(!hasTERFast && !hasTER ? 255 : 0);
-        this.setDefaultState(getStateContainer().getBaseState().with(BlockStateProperties.FACING, EnumFacing.NORTH));
-    }
 
-    GroovyBlockTileAdvanced(P blockType) {
-        super();
-        this.blockType = blockType;
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
     private MachinePropertyTraits getDefinition() {
@@ -69,76 +101,49 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return !hasTERFast && !hasTER;
     }
 
+    @Nonnull
     @Override
-    boolean isNormalCube(IBlockState state) {
-        return !hasTERFast && !hasTER;
+    TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+        return getDefinition().createNewTileEntity();
     }
 
     @Override
-    boolean isBlockNormalCube(IBlockState blockState) {
-        return isNormalCube(blockState);
-    }
-
-    @Override
-    boolean isFullCube(IBlockState state) {
-        MachinePropertyTraits definition = getDefinition();
-        return definition.isFullCube(state);
-    }
-
-    @Override
-    EnumBlockRenderType getRenderType(IBlockState state) {
-        if(hasTERFast || hasTER) {
-            return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-        } else {
-            return EnumBlockRenderType.MODEL;
-        }
-    }
-
-    @Override
-    TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return getDefinition().CreateTileEntity();
+    boolean hasTileEntity(BlockState state) {
+        return getDefinition().hasTileEntity(state);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     void initModel() {
-        blockType.getGroovyMachineProperties().initModel();
-        VoxelShape
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec) {
         MachinePropertyTraits definition = getDefinition();
-        return definition.getBoundingBox(startVec, endVec);
+        definition.initModel();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos) {
+    void registerAdvancedTileEntity() {
         MachinePropertyTraits definition = getDefinition();
-        return definition.getBoundingBox(minPos, maxPos);
+        definition.registerTileEntity();
     }
 
-//VoxelShape: Relates to boundingboxes
-/*
-    @Nullable
     @Override
-    AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    StateContainer<Block, BlockState> getStateContainer() {
+        return this.stateContainer;
+    }
+
+    @Nullable
+    AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
         MachinePropertyTraits definition = getDefinition();
         return definition.getBoundingBox(worldIn, pos, blockState);
     }
 
-    @Override
     @OnlyIn(Dist.CLIENT)
-    AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+    AxisAlignedBB getSelectedBoundingBox(BlockState state, World worldIn, BlockPos pos) {
         MachinePropertyTraits definition = getDefinition();
         return definition.getBoundingBox(worldIn, pos, state).offset(pos);
     }
 
-    @Override
     @OnlyIn(Dist.CLIENT)
-    RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+    RayTraceResult collisionRayTrace(BlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         MachinePropertyTraits definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
     }
-    */
 }

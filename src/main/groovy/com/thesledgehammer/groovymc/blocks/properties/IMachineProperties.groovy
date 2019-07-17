@@ -14,13 +14,14 @@ package com.thesledgehammer.groovymc.blocks.properties
 import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
+import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
@@ -50,22 +51,22 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     boolean getIsFullCube();
 
-    boolean isFullCube(IBlockState state);
+    boolean isFullCube(BlockState state);
 
-    AxisAlignedBB getBoundingBox(Vec3d startVec, Vec3d endVec);
+    AxisAlignedBB getBoundingBox(IBlockReader world, BlockPos pos, BlockState state);
 
-    AxisAlignedBB getBoundingBox(BlockPos minPos, BlockPos maxPos);
-
-    //@Nullable
-    //RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);
+    @Nullable
+    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vec3d startVec, Vec3d endVec);
 
     @Override
     @OnlyIn(Dist.CLIENT)
     void initModel();
 
-    //void registerTileEntity();
+    void registerTileEntity();
 
-    //void registerTileEntity(String modID);
+    void registerTileEntity(String modID);
 
-    TileEntity CreateTileEntity();
+    boolean hasTileEntity(BlockState state)
+
+    TileEntity createNewTileEntity();
 }
