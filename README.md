@@ -10,7 +10,7 @@ A mod library used in my other mods both existing and upcoming.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
-NOTICE: 1.14.x IS CURRENTLY IN PRE-ALPHA. FILES IN ITS CURRENT STATE ARE SUBJECT TO CHANGE WITHOUT NOTICE.
+NOTICE: 1.14.x IS CURRENTLY IN PRE-ALPHA. FILES IN THERE CURRENT STATE ARE SUBJECT TO CHANGE WITHOUT NOTICE.
 ALONG WITH LIMITED CONTENT. USE AT YOUR OWN RISK!!
 
 ### Getting Started:
