@@ -16,11 +16,14 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
+import com.google.common.base.Supplier
+import com.thesledgehammer.groovymc.TileA
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
@@ -42,9 +45,13 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     private RayTraceResult rayTraceResult;
     private boolean isFullCube;
 
+    @Nullable
+    private Block.Properties blockProperties;
+
     @Override
-    void setBlock(Block block) {
+    void setBlock(Block block, Block.Properties blockProperties) {
         this.block = block;
+        this.blockProperties = blockProperties;
     }
 
     @Override

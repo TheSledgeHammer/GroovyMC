@@ -22,6 +22,8 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.state.EnumProperty
+import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
@@ -33,22 +35,24 @@ import javax.annotation.Nullable
  * To Note: Must use full reference: "Block.Properties". Causes Game Crash (Throws null or constructor invalid).
  */
 
-class GroovyBlock extends Block implements IInitModel {
+class GroovyBlock extends Block implements IBlockProperties, IInitModel {
 
-    GroovyBlock() {
-        super(Block.Properties.create(Material.IRON)
-                .hardnessAndResistance(1.5F)
-        );
-    }
-
-    GroovyBlock(Material material) {
-        super(Block.Properties.create(material)
-                .hardnessAndResistance(1.5F)
-        );
-    }
+    private Block.Properties blockProperties;
+    protected static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
     GroovyBlock(Block.Properties properties) {
         super(properties);
+        setBlockProperties(properties)
+    }
+
+    @Override
+    Block.Properties getBlockProperties() {
+        return blockProperties
+    }
+
+    @Override
+    void setBlockProperties(Block.Properties blockProperties) {
+        this.blockProperties = blockProperties
     }
 
     @Override

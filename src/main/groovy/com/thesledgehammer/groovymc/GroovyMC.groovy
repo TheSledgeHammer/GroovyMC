@@ -1,6 +1,6 @@
 package com.thesledgehammer.groovymc
 
-
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,7 +16,8 @@ class GroovyMC {
 
 	GroovyMC() {
 		instance = this;
-		//MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(this);
+	//	CapabilityMj.register();
 		Registry.init();
 	}
 

@@ -16,27 +16,31 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.api.IInitModel
+
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERFast
 import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
-import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.state.StateContainer
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
+import net.minecraft.util.Rotation
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.event.RegistryEvent
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -46,7 +50,7 @@ import javax.annotation.Nullable
  * - Setting hasTileEntity to true: would make this akin ITileEntityProvider (aka a block base for TileEntities)
  */
 
-class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements BlockTileTraits, IInitModel {
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements IBlockRotation {
 
     private boolean hasTER;
     private boolean hasTERFast;
@@ -54,41 +58,17 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     final P blockType;
 
     GroovyBlockTileAdvanced(P blockType) {
-        super();
+        super(Block.Properties.create(Material.IRON)
+                .hardnessAndResistance(1.5)
+        );
+
         this.blockType = blockType;
-        blockType.getGroovyMachineProperties().setBlock(this);
         this.hasTER = blockType instanceof IBlockTypeTER;
         this.hasTERFast = blockType instanceof IBlockTypeTERFast;
-        Block.Properties.create(Material.IRON)
-                .hardnessAndResistance(1.5F)
-                .lightValue(!hasTERFast && !hasTER ? 255 : 0);
 
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
-    }
-
-
-    GroovyBlockTileAdvanced(P blockType, Material material) {
-        super(material);
-        this.blockType = blockType;
-        blockType.getGroovyMachineProperties().setBlock(this);
-        this.hasTER = blockType instanceof IBlockTypeTER;
-        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
-        Block.Properties.create(material)
-                .hardnessAndResistance(1.5F)
-                .lightValue(!hasTERFast && !hasTER ? 255 : 0);
-
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
-    }
-
-    GroovyBlockTileAdvanced(P blockType, Block.Properties properties) {
-        super(properties);
-        this.blockType = blockType;
-        blockType.getGroovyMachineProperties().setBlock(this);
-
-        this.hasTER = blockType instanceof IBlockTypeTER;
-        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
-        properties.lightValue(!hasTERFast && !hasTER ? 255 : 0);
-
+        blockType.getGroovyMachineProperties().setBlock(this, getBlockProperties()
+                .lightValue(!hasTERFast && !hasTER ? 255 : 0)
+        );
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
@@ -121,12 +101,33 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     void registerAdvancedTileEntity() {
         MachinePropertyTraits definition = getDefinition();
-        definition.registerTileEntity();
     }
 
+
     @Override
-    StateContainer<Block, BlockState> getStateContainer() {
-        return this.stateContainer;
+    void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {
+        BlockState state = world.getBlockState(pos);
+        Direction facing = getPlacementRotation(player, world, pos, side);
+        world.setBlockState(pos, state.with(FACING, facing));
+    }
+
+    Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
+        int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
+        if (l == 1) {
+            return Direction.EAST;
+        }
+        if (l == 2) {
+            return Direction.SOUTH;
+        }
+        if (l == 3) {
+            return Direction.WEST;
+        }
+        return Direction.NORTH;
+    }
+
+    BlockState withRotation(BlockState state, Rotation rot) {
+        Direction facing = state.get(FACING);
+        return state.with(FACING, rot.rotate(facing));
     }
 
     @Nullable

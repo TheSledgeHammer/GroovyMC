@@ -16,6 +16,7 @@ import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
@@ -32,7 +33,7 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     void setTeClass(Class<T> teClass);
 
-    void setBlock(Block block);
+    void setBlock(Block block, Block.Properties blockProperties);
 
     void setName(String name);
 

@@ -17,12 +17,8 @@
 package com.thesledgehammer.groovymc.tiles
 
 import com.thesledgehammer.groovymc.tiles.traits.TileTraits
-import net.minecraft.nbt.CompoundNBT
-import net.minecraft.network.play.server.SUpdateTileEntityPacket
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
-
-import javax.annotation.Nullable
 
 abstract class GroovyTileBasic extends TileEntity implements TileTraits {
 
