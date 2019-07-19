@@ -16,7 +16,6 @@ import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos

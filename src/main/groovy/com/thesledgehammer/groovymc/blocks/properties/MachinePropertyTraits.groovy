@@ -16,14 +16,12 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import com.google.common.base.Supplier
-import com.thesledgehammer.groovymc.TileA
+
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult

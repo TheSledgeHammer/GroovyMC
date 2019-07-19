@@ -16,31 +16,20 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-
-import com.thesledgehammer.groovymc.blocks.properties.IBlockType
-import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
-import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERFast
-import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
+import com.thesledgehammer.groovymc.blocks.properties.*
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.state.StateContainer
+import net.minecraft.state.EnumProperty
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.Rotation
-import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.*
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.event.RegistryEvent
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
@@ -52,19 +41,21 @@ import javax.annotation.Nullable
 
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements IBlockRotation {
 
+    protected static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
+
     private boolean hasTER;
     private boolean hasTERFast;
+    private boolean hasTERAnimation;
 
     final P blockType;
 
-    GroovyBlockTileAdvanced(P blockType) {
-        super(Block.Properties.create(Material.IRON)
-                .hardnessAndResistance(1.5)
-        );
+    GroovyBlockTileAdvanced(P blockType, Block.Properties blockProperties) {
+        super(blockProperties);
 
         this.blockType = blockType;
         this.hasTER = blockType instanceof IBlockTypeTER;
         this.hasTERFast = blockType instanceof IBlockTypeTERFast;
+        this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
 
         blockType.getGroovyMachineProperties().setBlock(this, getBlockProperties()
                 .lightValue(!hasTERFast && !hasTER ? 255 : 0)
@@ -78,7 +69,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     @Override
     boolean isVariableOpacity() {
-        return !hasTERFast && !hasTER;
+        return !hasTERFast && !hasTER && !hasTERAnimation;
     }
 
     @Nonnull
@@ -102,7 +93,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     void registerAdvancedTileEntity() {
         MachinePropertyTraits definition = getDefinition();
     }
-
 
     @Override
     void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {

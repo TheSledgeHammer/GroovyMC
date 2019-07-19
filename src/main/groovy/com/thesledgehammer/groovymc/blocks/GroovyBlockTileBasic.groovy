@@ -22,6 +22,7 @@ import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.inventory.IInventory
+import net.minecraft.state.EnumProperty
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
 import net.minecraft.util.Rotation
@@ -35,17 +36,10 @@ import javax.annotation.Nonnull
 //Todo: Efficient Way to create Tile Entities: Setting hasTileEntity to true, would make this like ITileEntityProvider
 abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotation {
 
+    protected static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
+
     GroovyBlockTileBasic(Block.Properties properties) {
         super(properties);
-    }
-
-    @Nonnull
-    @Override
-    abstract TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world);
-
-    @Override
-    boolean hasTileEntity(BlockState state) {
-        return true;
     }
 
     @Override
@@ -88,5 +82,14 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotatio
             groovyTile.onRemoval();
         }
         world.removeTileEntity(pos);
+    }
+
+    @Nonnull
+    @Override
+    abstract TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world);
+
+    @Override
+    boolean hasTileEntity(BlockState state) {
+        return true;
     }
 }

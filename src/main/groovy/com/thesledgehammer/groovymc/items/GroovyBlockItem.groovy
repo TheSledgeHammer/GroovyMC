@@ -28,9 +28,9 @@ class GroovyBlockItem<B extends Block> extends BlockItem {
         super(block, builder);
     }
 
-    GroovyBlockItem(B block) {
+    GroovyBlockItem(B block, ItemGroup itemGroup) {
         super(block, new Item.Properties()
-                .group(ItemGroup.MISC)
+                .group(itemGroup)
         );
     }
 

@@ -19,11 +19,8 @@ package com.thesledgehammer.groovymc.blocks
 import com.thesledgehammer.groovymc.api.IInitModel
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.block.material.Material
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.state.EnumProperty
-import net.minecraft.util.Direction
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
@@ -38,7 +35,6 @@ import javax.annotation.Nullable
 class GroovyBlock extends Block implements IBlockProperties, IInitModel {
 
     private Block.Properties blockProperties;
-    protected static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
     GroovyBlock(Block.Properties properties) {
         super(properties);

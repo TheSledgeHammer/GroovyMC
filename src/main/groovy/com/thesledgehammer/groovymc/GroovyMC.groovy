@@ -17,7 +17,6 @@ class GroovyMC {
 	GroovyMC() {
 		instance = this;
 		MinecraftForge.EVENT_BUS.register(this);
-	//	CapabilityMj.register();
 		Registry.init();
 	}
 

@@ -16,23 +16,21 @@
 
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
-import javax.annotation.Nonnull
+class MinecraftJoules extends MinecraftJoulesStorage {
 
-interface IMjStorage {
+    MinecraftJoules(long capacity) {
+        super(capacity);
+    }
 
-    long getPowerRequested();
+    MinecraftJoules(long capacity, long maxTransfer) {
+        super(capacity, maxTransfer);
+    }
 
-    long extractPower(long min, long max, boolean simulate);
+    MinecraftJoules(long capacity, long maxReceive, long maxExtract) {
+        super(capacity, maxReceive, maxExtract);
+    }
 
-    long receivePower(long microJoules, boolean simulate);
-
-    long getStored();
-
-    long getCapacity();
-
-    boolean canExtract();
-
-    boolean canReceive();
-
-    boolean canConnectToMjStorage(@Nonnull IMjStorage other);
+    MinecraftJoules(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
+        super(capacity, maxReceive, maxExtract, mjEnergy);
+    }
 }
