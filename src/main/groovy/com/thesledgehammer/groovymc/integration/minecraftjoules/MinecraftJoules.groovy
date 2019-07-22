@@ -15,21 +15,54 @@
  */
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+
 class MinecraftJoules extends MinecraftJoulesStorage {
 
     MinecraftJoules(long capacity) {
-        super(capacity);
+        super(capacity)
     }
 
     MinecraftJoules(long capacity, long maxTransfer) {
-        super(capacity, maxTransfer);
+        super(capacity, maxTransfer)
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract) {
-        super(capacity, maxReceive, maxExtract);
+        super(capacity, maxReceive, maxExtract)
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
-        super(capacity, maxReceive, maxExtract, mjEnergy);
+        super(capacity, maxReceive, maxExtract, mjEnergy)
+    }
+
+    void drainPower(long amount) {
+        modifyPowerStored(mjEnergy - amount)
+    }
+
+    void generatePower(long amount) {
+        modifyPowerStored(mjEnergy + amount);
+    }
+
+    void drainPower(long amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage()) {
+            amount = voltage.getVoltage();
+        }
+        modifyPowerStored(mjEnergy - amount);
+    }
+
+    void generatePower(long amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage()) {
+            amount = voltage.getVoltage();
+        }
+        modifyPowerStored(mjEnergy + amount);
+    }
+
+    private void modifyPowerStored(long mjEnergy) {
+        this.mjEnergy = mjEnergy;
+        if(mjEnergy > getCapacity()) {
+            this.mjEnergy = getCapacity();
+        } else if(this.mjEnergy < 0) {
+            this.mjEnergy = 0;
+        }
     }
 }

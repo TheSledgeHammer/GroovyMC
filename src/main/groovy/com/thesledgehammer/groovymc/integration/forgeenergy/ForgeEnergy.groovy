@@ -16,6 +16,8 @@
 
 package com.thesledgehammer.groovymc.integration.forgeenergy
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+
 class ForgeEnergy extends ForgeEnergyStorage {
 
     ForgeEnergy(int capacity) {
@@ -32,5 +34,36 @@ class ForgeEnergy extends ForgeEnergyStorage {
 
     ForgeEnergy(int capacity, int maxReceive, int maxExtract, int feEnergy) {
         super(capacity, maxReceive, maxExtract, feEnergy)
+    }
+
+    void drainEnergy(int amount) {
+        modifyEnergyStored(feEnergy - amount)
+    }
+
+    void generateEnergy(int amount) {
+        modifyEnergyStored(feEnergy + amount);
+    }
+
+    void drainEnergy(int amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = (int) voltage.getVoltage() * 32;
+        }
+        modifyEnergyStored(feEnergy - amount);
+    }
+
+    void generateEnergy(int amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = (int) voltage.getVoltage() * 32;
+        }
+        modifyEnergyStored(feEnergy + amount);
+    }
+
+    private void modifyEnergyStored(int feEnergy) {
+        this.feEnergy = feEnergy;
+        if(feEnergy > getMaxEnergyStored()) {
+            this.feEnergy = getMaxEnergyStored();
+        } else if(this.feEnergy < 0) {
+            this.feEnergy = 0;
+        }
     }
 }

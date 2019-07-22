@@ -15,6 +15,8 @@
  */
 package com.thesledgehammer.groovymc.integration.modules.tesla
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+
 class Tesla extends TeslaStorage {
 
     Tesla(long capacity) {
@@ -31,5 +33,36 @@ class Tesla extends TeslaStorage {
 
     Tesla(long capacity, long maxReceive, long maxExtract, long teslaEnergy) {
         super(capacity, maxReceive, maxExtract, teslaEnergy)
+    }
+
+    void drainPower(long amount) {
+        modifyPowerStored(teslaEnergy - amount)
+    }
+
+    void generatePower(long amount) {
+        modifyPowerStored(teslaEnergy + amount);
+    }
+
+    void drainPower(long amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = voltage.getVoltage() * 32;
+        }
+        modifyPowerStored(teslaEnergy - amount);
+    }
+
+    void generatePower(long amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = voltage.getVoltage() * 32;
+        }
+        modifyPowerStored(teslaEnergy + amount);
+    }
+
+    private void modifyPowerStored(long teslaEnergy) {
+        this.teslaEnergy = teslaEnergy;
+        if(teslaEnergy > getCapacity()) {
+            this.teslaEnergy = getCapacity();
+        } else if(this.teslaEnergy < 0) {
+            this.teslaEnergy = 0;
+        }
     }
 }

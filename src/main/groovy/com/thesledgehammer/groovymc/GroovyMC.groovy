@@ -2,7 +2,6 @@ package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderRegistry
-
 import com.thesledgehammer.groovymc.integration.ModuleContainer
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent

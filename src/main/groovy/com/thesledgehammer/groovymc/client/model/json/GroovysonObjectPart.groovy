@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.utils.Log
+
 import groovy.json.JsonException
 import net.minecraft.util.EnumFacing
 
@@ -129,8 +129,7 @@ class GroovysonObjectPart {
     def Facing(EnumFacing face) {
         String faces = face.getName().toLowerCase();
         if(part.faces.get(faces) == null) {
-           // Log.logError("Current Face does not exist...!");
-            return null;
+            throw new JsonException("Current Face does not exist...!");
         }
         return part.faces.get(faces);
     }

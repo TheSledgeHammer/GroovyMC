@@ -39,7 +39,7 @@ import javax.annotation.Nonnull
 class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
 
     protected MinecraftJoules mj;
-    private long power;
+    private long power; //change to protected
     private String tileName; //Needed For Tile NBT Only
 
     MinecraftJoulesTile(String tileName, long capacity) {
@@ -66,6 +66,11 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     }
 
     @Override
+    long receivePower(long microJoules, boolean simulate) {
+        return mj.receivePower(microJoules, simulate);
+    }
+
+    @Override
     long getStored() {
         return mj.getStored();
     }
@@ -78,11 +83,6 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     @Override
     long getPowerRequested() {
         return mj.getPowerRequested();
-    }
-
-    @Override
-    long receivePower(long microJoules, boolean simulate) {
-        return mj.receivePower(microJoules, simulate);
     }
 
     @Override
@@ -103,6 +103,7 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     boolean canConnect(@Nonnull IMjConnector other) {
         return mj.canConnect(other);
     }
+
 
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
@@ -168,6 +169,6 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
                 return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
             }
         }
-        return null;
+        return super.getCapability(capability, facing);
     }
 }

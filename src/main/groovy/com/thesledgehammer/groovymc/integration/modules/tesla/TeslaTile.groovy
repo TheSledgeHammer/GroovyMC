@@ -27,7 +27,7 @@ import net.minecraftforge.common.capabilities.Capability
 class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
 
     protected Tesla tesla;
-    private long power;
+    protected long power;
     private String tileName;
 
     TeslaTile(long capacity) {
@@ -114,6 +114,6 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
                 return TeslaCapabilities.CAPABILITY_HOLDER.cast(this);
             }
         }
-        return null;
+        return super.getCapability(capability, facing);
     }
 }

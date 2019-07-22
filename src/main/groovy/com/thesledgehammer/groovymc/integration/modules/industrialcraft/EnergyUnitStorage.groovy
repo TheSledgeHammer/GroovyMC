@@ -25,6 +25,8 @@ import ic2.api.energy.tile.IEnergySource
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.fml.common.Optional
 
+import javax.annotation.Nullable
+
 @Optional.InterfaceList(
         value = [
                 @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "industrialcraft"),
@@ -33,20 +35,20 @@ import net.minecraftforge.fml.common.Optional
 )
 class EnergyUnitStorage implements IEnergySource, IEnergySink, IVoltageTier {
 
-    private double euEnergy;
+    protected double euEnergy;
     private double capacity;
     private double maxReceive;
     private double maxExtract;
     private int sourceTier;
     private int sinkTier;
-    private EnumVoltage voltage;
+    protected EnumVoltage voltage;
 
     EnergyUnitStorage(double capacity, int sourceTier, int sinkTier) {
         this(capacity, capacity, capacity, sourceTier, sinkTier, 0);
     }
 
     EnergyUnitStorage(double capacity, double maxTransfer, int sourceTier, int sinkTier) {
-        this(capacity, maxTransfer, maxTransfer, sourceTier, sinkTier, 0);
+        this(capacity, maxTransfer, maxTransfer, sourceTier, sinkTier, 0,);
     }
 
     EnergyUnitStorage(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier) {
@@ -110,15 +112,6 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink, IVoltageTier {
         return capacity;
     }
 
-    void modifyEnergyStored(double euEnergy) {
-        this.euEnergy = euEnergy;
-        if(euEnergy > this.capacity) {
-            this.euEnergy = this.capacity;
-        } else if(this.euEnergy < 0) {
-            this.euEnergy = 0;
-        }
-    }
-
     @Override
     double getDemandedEnergy() {
         return Math.max(0.0, capacity - euEnergy);
@@ -170,7 +163,7 @@ class EnergyUnitStorage implements IEnergySource, IEnergySink, IVoltageTier {
     }
 
     @Override
-    void setVoltageTier(EnumVoltage voltage) {
+    void setVoltageTier(@Nullable EnumVoltage voltage) {
         this.voltage = voltage;
     }
 

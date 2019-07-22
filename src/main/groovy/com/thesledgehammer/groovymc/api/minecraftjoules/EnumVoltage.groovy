@@ -22,8 +22,10 @@ enum EnumVoltage implements IStringSerializable {
     LOW(32L),
     MEDIUM(128L),
     HIGH(512L),
-    EXTREME(2048L),
-    INSANE(8192L),
+    ULTRA(2048L),
+    SUPER(8192L),
+    EXTREME(32768L),
+    INSANE(131072L),
     INFINITE(Long.MAX_VALUE);
 
     static final EnumVoltage[] VALUES = values();

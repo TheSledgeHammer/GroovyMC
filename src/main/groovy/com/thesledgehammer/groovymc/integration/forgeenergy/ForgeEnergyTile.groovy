@@ -23,10 +23,12 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
+import javax.annotation.Nullable
+
 class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
     protected ForgeEnergy fe;
-    private int energy;
+    private int energy; //change to protected
     private String tileName; //Needed For Tile NBT Only
 
     ForgeEnergyTile(String tileName, int capacity) {
@@ -101,10 +103,11 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
         if(capability == CapabilityEnergy.ENERGY) {
             return true;
         }
-        return super.hasCapability(capability, facing);
+        return false;
     }
 
     @Override
+    @Nullable
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY) {
             return CapabilityEnergy.ENERGY.cast(this);

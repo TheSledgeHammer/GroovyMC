@@ -18,6 +18,8 @@ package com.thesledgehammer.groovymc.experimental.jsons
 
 import com.thesledgehammer.groovymc.api.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.Log
+import groovy.json.JsonException
+import net.minecraft.util.ResourceLocation
 
 //Work In Progress
 //turns blockstate .jsons into readable objects
@@ -30,26 +32,16 @@ class GroovysonObjectState {
 
     }
 
-    GroovysonObjectState(String path, String modid, String resourceType, String fileName) {
-        setJsonObject(path, modid, resourceType, fileName);
+    GroovysonObjectState(String path, ResourceLocation resourceLocation) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
-    GroovysonObjectState(String path, String modid, String resource, String resourceObject, String fileName) {
-        setJsonObject(path, modid, resource, resourceObject, fileName);
-    }
-
-    void setJsonObject(String path, String modid, String resourceType, String fileName) {
-        setName(fileName)
-        def file = GroovysonReader.JsonFile(path, modid, resourceType, name);
-        def obj = GroovysonReader.JsonSlurpy(file);
-        this.obj = obj;
-    }
-
-    void setJsonObject(String path, String modid, String resource, String resourceObject, String fileName) {
-        setName(fileName);
-        def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, name);
-        def obj = GroovysonReader.JsonSlurpy(file);
-        this.obj = obj;
+    GroovysonObjectState(String path, String resourceDomain, String resourcePath) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
     String getName() {
@@ -66,8 +58,7 @@ class GroovysonObjectState {
 
     def getVariants() {
         if(obj.variants == null) {
-            Log.logError("${obj.variants} Isn't defined in ${getName()}");
-            return null;
+            return new JsonException("${obj.variants} Isn't defined in ${getName()}");
         }
         return obj.variants;
     }
@@ -83,8 +74,7 @@ class GroovysonObjectState {
     ArrayList<String> getVariantsFromName(String name) {
         ArrayList<String> arrObj = new ArrayList<>();
         if(obj.variants.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!");
         }
         for(int i = 0; i < obj.variants.get(name).size; i++) {
             arrObj.add(obj.variants.get(name).get(i));
@@ -130,8 +120,7 @@ class GroovysonObjectState {
 
     def getMultipart() {
         if(obj.multipart == null) {
-            Log.logError("${obj.multipart} Isn't defined in ${getName()}");
-            return null;
+            return new JsonException("${obj.multipart} Isn't defined in ${getName()}");
         }
         return obj.multipart;
     }

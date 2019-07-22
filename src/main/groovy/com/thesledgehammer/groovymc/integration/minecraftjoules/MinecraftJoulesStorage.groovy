@@ -19,9 +19,11 @@ import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
+import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 @Optional.InterfaceList(
         value = [
@@ -34,11 +36,11 @@ import javax.annotation.Nonnull
 )
 class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IVoltageTier {
 
-    private long mjEnergy;
+    protected long mjEnergy;
     private long capacity;
     private long maxReceive;
     private long maxExtract;
-    private EnumVoltage voltage;
+    protected EnumVoltage voltage;
 
     MinecraftJoulesStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -83,15 +85,6 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
         return maxExtract;
     }
 
-    void modifyPowerStored(long mjEnergy) {
-        this.mjEnergy = mjEnergy;
-        if(mjEnergy > this.capacity) {
-            this.mjEnergy = this.capacity;
-        } else if(this.mjEnergy < 0) {
-            this.mjEnergy = 0;
-        }
-    }
-
     @Override
     long extractPower(long min, long max, boolean simulate) {
         if (!canExtract()) {
@@ -116,7 +109,7 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
 
     @Override
     long getPowerRequested() {
-        return Math.min(mjEnergy, Math.min(maxExtract, maxReceive));;
+        return Math.min(mjEnergy, Math.min(maxExtract, maxReceive));
     }
 
     @Override
@@ -152,7 +145,7 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
     }
 
     @Override
-    void setVoltageTier(EnumVoltage voltage) {
+    void setVoltageTier(@Nullable EnumVoltage voltage) {
         this.voltage = voltage;
     }
 

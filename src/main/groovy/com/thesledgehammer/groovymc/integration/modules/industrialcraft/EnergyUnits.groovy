@@ -15,7 +15,10 @@
  */
 package com.thesledgehammer.groovymc.integration.modules.industrialcraft
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+
 class EnergyUnits extends EnergyUnitStorage {
+
 
     EnergyUnits(double capacity, int sourceTier, int sinkTier) {
         super(capacity, sourceTier, sinkTier)
@@ -31,5 +34,38 @@ class EnergyUnits extends EnergyUnitStorage {
 
     EnergyUnits(double capacity, double maxReceive, double maxExtract, int sourceTier, int sinkTier, double euEnergy) {
         super(capacity, maxReceive, maxExtract, sourceTier, sinkTier, euEnergy)
+    }
+
+    void drainEnergy(double amount) {
+        modifyEnergyStored(euEnergy - amount)
+    }
+
+    void generateEnergy(double amount) {
+        modifyEnergyStored(euEnergy + amount);
+    }
+
+    /*
+    void drainEnergy(double amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = voltage.getVoltage() * 32;
+        }
+        modifyEnergyStored(euEnergy - amount);
+    }
+
+    void generateEnergy(double amount, EnumVoltage voltage) {
+        if(amount >= voltage.getVoltage() * 32) {
+            amount = voltage.getVoltage() * 32;
+        }
+        modifyEnergyStored(euEnergy + amount);
+    }
+    */
+
+    private void modifyEnergyStored(double euEnergy) {
+        this.euEnergy = euEnergy;
+        if(euEnergy > getMaxEnergyStored()) {
+            this.euEnergy = getMaxEnergyStored();
+        } else if(this.euEnergy < 0) {
+            this.euEnergy = 0;
+        }
     }
 }

@@ -6,11 +6,11 @@ import net.minecraftforge.energy.IEnergyStorage
 
 class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
 
-    private int feEnergy;
+    protected int feEnergy;
     private int capacity;
     private int maxReceive;
     private int maxExtract;
-    private EnumVoltage voltage;
+    protected EnumVoltage voltage;
 
     ForgeEnergyStorage(int capacity) {
         this(capacity, capacity, capacity, 0);
@@ -53,15 +53,6 @@ class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
 
     int getMaxExtract() {
         return maxExtract;
-    }
-
-    void modifyEnergyStored(int feEnergy) {
-        this.feEnergy = feEnergy;
-        if(feEnergy > this.capacity) {
-            this.feEnergy = this.capacity;
-        } else if(this.feEnergy < 0) {
-            this.feEnergy = 0;
-        }
     }
 
     @Override
@@ -112,7 +103,10 @@ class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
 
     @Override
     void setVoltageTier(EnumVoltage voltage) {
-        this.voltage = voltage;
+        if(voltage != null) {
+            this.voltage = voltage;
+        }
+        this.voltage = null;
     }
 
     @Override

@@ -22,6 +22,8 @@ import net.darkhax.tesla.api.ITeslaHolder
 import net.darkhax.tesla.api.ITeslaProducer
 import net.minecraftforge.fml.common.Optional
 
+import javax.annotation.Nullable
+
 @Optional.InterfaceList(
         value = [
                 @Optional.Interface(iface = "tesla.api.ITeslaConsumer", modid = "tesla"),
@@ -31,11 +33,11 @@ import net.minecraftforge.fml.common.Optional
 )
 class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder, IVoltageTier {
 
-    private long teslaEnergy;
+    protected long teslaEnergy;
     private long capacity;
     private long maxReceive;
     private long maxExtract;
-    private EnumVoltage voltage;
+    protected EnumVoltage voltage;
 
     TeslaStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -80,15 +82,6 @@ class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder, IVol
         return maxExtract;
     }
 
-    void modifyPowerStored(long teslaEnergy) {
-        this.teslaEnergy = teslaEnergy;
-        if(teslaEnergy > this.capacity) {
-            this.teslaEnergy = this.capacity;
-        } else if(this.teslaEnergy < 0) {
-            this.teslaEnergy = 0;
-        }
-    }
-
     @Override
     long givePower(long power, boolean simulated) {
         long powerReceived = Math.min(capacity - power, Math.min(this.maxReceive, maxReceive));
@@ -118,8 +111,11 @@ class TeslaStorage implements ITeslaConsumer, ITeslaProducer, ITeslaHolder, IVol
     }
 
     @Override
-    void setVoltageTier(EnumVoltage voltage) {
-        this.voltage = voltage;
+    void setVoltageTier(@Nullable EnumVoltage voltage) {
+        if(voltage != null) {
+            this.voltage = voltage;
+        }
+        this.voltage = null;
     }
 
     @Override
