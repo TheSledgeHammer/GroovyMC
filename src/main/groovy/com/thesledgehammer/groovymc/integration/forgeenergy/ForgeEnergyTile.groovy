@@ -20,7 +20,6 @@ import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
 import javax.annotation.Nullable
@@ -28,7 +27,7 @@ import javax.annotation.Nullable
 class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
     protected ForgeEnergy fe;
-    private int energy; //change to protected
+    private int energy;
     private String tileName; //Needed For Tile NBT Only
 
     ForgeEnergyTile(String tileName, int capacity) {
@@ -82,6 +81,7 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        fe.deserializeNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
             energy = tagCompound.getCompoundTag(tileName).getInteger("feEnergy");
         }
@@ -90,6 +90,7 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
+        fe.serializeNBT();
         if (energy > 0) {
             NBTTagCompound data = new NBTTagCompound();
             data.setInteger("feEnergy", getEnergyStored());
@@ -100,18 +101,16 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if(capability == CapabilityEnergy.ENERGY) {
-            return true;
-        }
-        return false;
+        return fe.hasCapability(capability, facing) || super.hasCapability(capability, facing);
     }
 
     @Override
     @Nullable
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityEnergy.ENERGY) {
-            return CapabilityEnergy.ENERGY.cast(this);
+        T feCapability = fe.getCapability(capability, facing);
+        if(feCapability != null) {
+            return feCapability;
         }
-        return null;
+        return super.getCapability(capability, facing);
     }
 }

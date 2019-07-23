@@ -16,9 +16,7 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import buildcraft.api.mj.*
-import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-import com.thesledgehammer.groovymc.integration.modules.buildcraft.BuildcraftModule
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -26,6 +24,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 @Optional.InterfaceList(
         value = [
@@ -39,7 +38,7 @@ import javax.annotation.Nonnull
 class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
 
     protected MinecraftJoules mj;
-    private long power; //change to protected
+    private long power;
     private String tileName; //Needed For Tile NBT Only
 
     MinecraftJoulesTile(String tileName, long capacity) {
@@ -104,10 +103,10 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
         return mj.canConnect(other);
     }
 
-
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        mj.deserializeNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
             power = tagCompound.getCompoundTag(tileName).getLong("mjEnergy");
         }
@@ -116,6 +115,7 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
+        mj.serializeNBT();
         if (power > 0) {
             NBTTagCompound data = new NBTTagCompound();
             data.setLong("mjEnergy", getStored());
@@ -126,48 +126,15 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
 
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityMj.MJ_STORAGE) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_CONNECTOR) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_RECEIVER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_READABLE) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+        return mj.hasCapability(capability, facing) || super.hasCapability(capability, facing);
     }
 
     @Override
+    @Nullable
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityMj.MJ_STORAGE) {
-            return CapabilityMj.MJ_STORAGE.cast(this);
-        }
-        if (BuildcraftModule.hasMjCapability(capability)) {
-            if (capability == MjAPI.CAP_CONNECTOR) {
-                return MjAPI.CAP_CONNECTOR.cast(this);
-            }
-            if (capability == MjAPI.CAP_RECEIVER) {
-                return MjAPI.CAP_RECEIVER.cast(this);
-            }
-            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-                return MjAPI.CAP_PASSIVE_PROVIDER.cast(this);
-            }
-            if (capability == MjAPI.CAP_READABLE) {
-                return MjAPI.CAP_READABLE.cast(this);
-            }
-            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-                return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
-            }
+        T mjCapability = mj.getCapability(capability, facing);
+        if(mjCapability != null) {
+            return mjCapability;
         }
         return super.getCapability(capability, facing);
     }

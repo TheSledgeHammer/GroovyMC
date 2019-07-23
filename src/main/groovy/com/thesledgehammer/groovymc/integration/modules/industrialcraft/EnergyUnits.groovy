@@ -44,21 +44,25 @@ class EnergyUnits extends EnergyUnitStorage {
         modifyEnergyStored(euEnergy + amount);
     }
 
-    /*
     void drainEnergy(double amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = voltage.getVoltage() * 32;
+        double volts = (double) voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyEnergyStored(euEnergy - amount);
+        double drain = Math.min(euEnergy, volts);
+        double maxDrain =- Math.max(drain, amount);
+        modifyEnergyStored(maxDrain);
     }
 
     void generateEnergy(double amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = voltage.getVoltage() * 32;
+        double volts = (double) voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyEnergyStored(euEnergy + amount);
+        double generate = Math.min(euEnergy, volts);
+        double maxGenerate =+ Math.max(generate, amount);
+        modifyEnergyStored(maxGenerate);
     }
-    */
 
     private void modifyEnergyStored(double euEnergy) {
         this.euEnergy = euEnergy;

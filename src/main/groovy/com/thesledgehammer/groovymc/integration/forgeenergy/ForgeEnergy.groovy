@@ -17,8 +17,18 @@
 package com.thesledgehammer.groovymc.integration.forgeenergy
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import net.minecraft.nbt.NBTBase
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.INBTSerializable
+import net.minecraftforge.energy.CapabilityEnergy
 
-class ForgeEnergy extends ForgeEnergyStorage {
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
+
+class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INBTSerializable<NBTTagCompound> {
 
     ForgeEnergy(int capacity) {
         super(capacity)
@@ -45,17 +55,23 @@ class ForgeEnergy extends ForgeEnergyStorage {
     }
 
     void drainEnergy(int amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = (int) voltage.getVoltage() * 32;
+        int volts = (int) voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyEnergyStored(feEnergy - amount);
+        int drain = Math.min(feEnergy, volts);
+        int maxDrain =- Math.max(drain, amount);
+        modifyEnergyStored(maxDrain);
     }
 
     void generateEnergy(int amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = (int) voltage.getVoltage() * 32;
+        int volts = (int) voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyEnergyStored(feEnergy + amount);
+        int generate = Math.min(feEnergy, volts);
+        int maxGenerate =+ Math.max(generate, amount);
+        modifyEnergyStored(maxGenerate);
     }
 
     private void modifyEnergyStored(int feEnergy) {
@@ -65,5 +81,35 @@ class ForgeEnergy extends ForgeEnergyStorage {
         } else if(this.feEnergy < 0) {
             this.feEnergy = 0;
         }
+    }
+
+    @Override
+    NBTTagCompound serializeNBT() {
+        final NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setInteger("feEnergy", feEnergy);
+        return nbt;
+    }
+
+    @Override
+    void deserializeNBT(NBTTagCompound nbt) {
+        if(nbt.hasKey("feEnergy")) {
+            final int tempEnergy = nbt.getInteger("feEnergy");
+        }
+    }
+
+    @Override
+    boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+        if(capability == CapabilityEnergy.ENERGY) {
+            return true;
+        }
+        return false
+    }
+
+    @Override
+    def <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+        if(capability == CapabilityEnergy.ENERGY) {
+            return CapabilityEnergy.ENERGY.cast(this);
+        }
+        return null
     }
 }

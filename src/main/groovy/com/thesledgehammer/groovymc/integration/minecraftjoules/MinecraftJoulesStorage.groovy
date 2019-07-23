@@ -19,7 +19,6 @@ import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
-import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull

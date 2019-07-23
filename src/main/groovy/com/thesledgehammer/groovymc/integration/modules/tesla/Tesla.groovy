@@ -44,17 +44,23 @@ class Tesla extends TeslaStorage {
     }
 
     void drainPower(long amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = voltage.getVoltage() * 32;
+        long volts = voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyPowerStored(teslaEnergy - amount);
+        long drain = Math.min(teslaEnergy, volts);
+        long maxDrain =- Math.max(drain, amount);
+        modifyPowerStored(maxDrain);
     }
 
     void generatePower(long amount, EnumVoltage voltage) {
-        if(amount >= voltage.getVoltage() * 32) {
-            amount = voltage.getVoltage() * 32;
+        long volts = voltage.getVoltage() * 32;
+        if(amount >= volts) {
+            amount = volts;
         }
-        modifyPowerStored(teslaEnergy + amount);
+        long generate = Math.min(teslaEnergy, volts);
+        long maxGenerate =+ Math.max(generate, amount);
+        modifyPowerStored(maxGenerate);
     }
 
     private void modifyPowerStored(long teslaEnergy) {
