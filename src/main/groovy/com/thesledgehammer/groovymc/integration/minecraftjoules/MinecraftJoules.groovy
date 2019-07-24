@@ -21,6 +21,7 @@ import buildcraft.api.mj.IMjReadable
 import buildcraft.api.mj.IMjReceiver
 import buildcraft.api.mj.IMjRedstoneReceiver
 import buildcraft.api.mj.MjAPI
+import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
@@ -34,7 +35,7 @@ import net.minecraftforge.common.util.INBTSerializable
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
-class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvider, INBTSerializable<NBTTagCompound> {
+class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvider, INBTCompound {
 
     MinecraftJoules(long capacity) {
         super(capacity)
@@ -90,16 +91,19 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
     }
 
     @Override
-    NBTTagCompound serializeNBT() {
-        final NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setLong("mjEnergy", mjEnergy);
-        return nbt;
+    NBTTagCompound writeToNBT(NBTTagCompound tag) {
+        if(mjEnergy < 0) {
+            mjEnergy = 0;
+        }
+        tag.setLong("mjEnergy", mjEnergy);
+        return tag;
     }
 
     @Override
-    void deserializeNBT(NBTTagCompound nbt) {
-        if(nbt.hasKey("mjEnergy")) {
-            final long tempEnergy = nbt.getLong("mjEnergy");
+    void readFromNBT(NBTTagCompound tag) {
+        this.mjEnergy = tag.getLong("mjEnergy");
+        if(mjEnergy > capacity) {
+            mjEnergy = capacity;
         }
     }
 

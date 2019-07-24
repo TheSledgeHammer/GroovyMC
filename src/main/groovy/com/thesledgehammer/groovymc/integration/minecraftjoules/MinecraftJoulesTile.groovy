@@ -16,6 +16,7 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import buildcraft.api.mj.*
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjInfo
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound
@@ -35,10 +36,10 @@ import javax.annotation.Nullable
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )
-class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
+class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IMjInfo {
 
     protected MinecraftJoules mj;
-    private long power;
+    protected long power;
     private String tileName; //Needed For Tile NBT Only
 
     MinecraftJoulesTile(String tileName, long capacity) {
@@ -104,24 +105,40 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConn
     }
 
     @Override
+    long getInfoMjPerTick() {
+        return 0
+    }
+
+    @Override
+    long getInfoMaxMjPerTick() {
+        return 0
+    }
+
+    @Override
+    long getInfoMjCapacity() {
+        return mj.getCapacity();
+    }
+
+    @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        mj.deserializeNBT(tagCompound);
+        NBTTagCompound tag = mj.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
             power = tagCompound.getCompoundTag(tileName).getLong("mjEnergy");
+        } else {
+            power = tag.getCompoundTag(tileName).getLong("mjEnergy")
         }
     }
 
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        mj.serializeNBT();
         if (power > 0) {
             NBTTagCompound data = new NBTTagCompound();
             data.setLong("mjEnergy", getStored());
             tagCompound.setTag(tileName, data);
         }
-        return tagCompound;
+        return mj.writeToNBT(tagCompound);
     }
 
     @Override

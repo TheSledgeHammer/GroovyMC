@@ -24,6 +24,8 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 
+import javax.annotation.Nullable
+
 class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
 
     protected Tesla tesla;
@@ -71,8 +73,11 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
+        NBTTagCompound tag = tesla.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
             power = tagCompound.getCompoundTag(tileName).getLong("teslaEnergy");
+        } else {
+            power = tag.getCompoundTag(tileName).getLong("teslaEnergy")
         }
     }
 
@@ -84,35 +89,20 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
             data.setLong("teslaEnergy", getStoredPower());
             tagCompound.setTag(tileName, data);
         }
-        return tagCompound;
+        return tesla.writeToNBT(tagCompound);
     }
 
     @Override
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) {
-            return true;
-        }
-        if(capability == TeslaCapabilities.CAPABILITY_PRODUCER) {
-            return true;
-        }
-        if(capability == TeslaCapabilities.CAPABILITY_HOLDER) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+        return tesla.hasCapability(capability, facing) || super.hasCapability(capability, facing);
     }
 
     @Override
+    @Nullable
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if(TeslaModule.hasTeslaCapability(capability)) {
-            if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) {
-                return TeslaCapabilities.CAPABILITY_CONSUMER.cast(this);
-            }
-            if(capability == TeslaCapabilities.CAPABILITY_PRODUCER) {
-                return TeslaCapabilities.CAPABILITY_PRODUCER.cast(this);
-            }
-            if(capability == TeslaCapabilities.CAPABILITY_HOLDER) {
-                return TeslaCapabilities.CAPABILITY_HOLDER.cast(this);
-            }
+        T teslaCapability = tesla.getCapability(capability, facing);
+        if(teslaCapability != null) {
+            return teslaCapability;
         }
         return super.getCapability(capability, facing);
     }

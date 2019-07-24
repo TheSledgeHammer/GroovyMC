@@ -33,7 +33,7 @@ import javax.annotation.Nullable
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )
-class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IVoltageTier {
+class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
 
     protected long mjEnergy;
     private long capacity;
@@ -141,20 +141,5 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
         return true;
-    }
-
-    @Override
-    void setVoltageTier(@Nullable EnumVoltage voltage) {
-        this.voltage = voltage;
-    }
-
-    @Override
-    EnumVoltage getVoltageTier() {
-        return voltage
-    }
-
-    @Override
-    long getVoltage() {
-        return voltage.getVoltage();
     }
 }

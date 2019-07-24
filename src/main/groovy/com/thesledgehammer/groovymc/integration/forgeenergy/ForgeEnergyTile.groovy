@@ -81,22 +81,23 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        fe.deserializeNBT(tagCompound);
+        NBTTagCompound tag = fe.readFromNBT(tagCompound);
         if (tagCompound.hasKey(tileName)) {
             energy = tagCompound.getCompoundTag(tileName).getInteger("feEnergy");
+        } else {
+            energy = tag.getCompoundTag(tileName).getInteger("feEnergy")
         }
     }
 
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        fe.serializeNBT();
         if (energy > 0) {
             NBTTagCompound data = new NBTTagCompound();
             data.setInteger("feEnergy", getEnergyStored());
             tagCompound.setTag(tileName, data);
         }
-        return tagCompound;
+        return fe.writeToNBT(tagCompound);
     }
 
     @Override

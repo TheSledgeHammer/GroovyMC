@@ -88,7 +88,7 @@ class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
 
     @Override
     int getMaxEnergyStored() {
-        return capacity;
+        return getCapacity();
     }
 
     @Override
@@ -99,6 +99,10 @@ class ForgeEnergyStorage implements IEnergyStorage, IVoltageTier {
     @Override
     boolean canReceive() {
         return this.maxReceive > 0;
+    }
+
+    protected int getCapacity() {
+        return capacity;
     }
 
     @Override

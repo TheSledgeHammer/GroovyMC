@@ -15,9 +15,21 @@
  */
 package com.thesledgehammer.groovymc.integration.modules.tesla
 
+import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import net.darkhax.tesla.api.ITeslaConsumer
+import net.darkhax.tesla.api.ITeslaHolder
+import net.darkhax.tesla.api.ITeslaProducer
+import net.darkhax.tesla.capability.TeslaCapabilities
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.INBTSerializable
 
-class Tesla extends TeslaStorage {
+import javax.annotation.Nullable
+
+class Tesla extends TeslaStorage implements ICapabilityProvider, INBTCompound {
 
     Tesla(long capacity) {
         super(capacity)
@@ -70,5 +82,77 @@ class Tesla extends TeslaStorage {
         } else if(this.teslaEnergy < 0) {
             this.teslaEnergy = 0;
         }
+    }
+
+    @Override
+    NBTTagCompound writeToNBT(NBTTagCompound tag) {
+        if(teslaEnergy < 0) {
+            teslaEnergy = 0;
+        }
+        tag.setLong("teslaEnergy", teslaEnergy);
+        return tag;
+    }
+
+    @Override
+    void readFromNBT(NBTTagCompound tag) {
+        this.teslaEnergy = tag.getLong("teslaEnergy");
+        if(teslaEnergy > capacity) {
+            teslaEnergy = capacity;
+        }
+    }
+
+    @Override
+    boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) {
+            return true;
+        }
+        if(capability == TeslaCapabilities.CAPABILITY_PRODUCER) {
+            return true;
+        }
+        if(capability == TeslaCapabilities.CAPABILITY_HOLDER) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    @Nullable
+    def <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if(TeslaModule.hasTeslaCapability(capability)) {
+            Tesla TESLA = new Tesla(capacity, maxReceive, maxExtract, teslaEnergy);
+            if(capability == TeslaCapabilities.CAPABILITY_CONSUMER) {
+                ITeslaConsumer consumer = new ITeslaConsumer() {
+                    @Override
+                    long givePower(long power, boolean simulated) {
+                        return TESLA.givePower(power, simulated);
+                    }
+                }
+                return TeslaCapabilities.CAPABILITY_CONSUMER.cast(consumer);
+            }
+            if(capability == TeslaCapabilities.CAPABILITY_PRODUCER) {
+                ITeslaProducer producer = new ITeslaProducer() {
+                    @Override
+                    long takePower(long power, boolean simulated) {
+                        return TESLA.takePower(power, simulated);
+                    }
+                }
+                return TeslaCapabilities.CAPABILITY_PRODUCER.cast(producer);
+            }
+            if(capability == TeslaCapabilities.CAPABILITY_HOLDER) {
+                ITeslaHolder holder = new ITeslaHolder() {
+                    @Override
+                    long getStoredPower() {
+                        return TESLA.getStoredPower();
+                    }
+
+                    @Override
+                    long getCapacity() {
+                        return TESLA.getCapacity();
+                    }
+                }
+                return TeslaCapabilities.CAPABILITY_HOLDER.cast(holder);
+            }
+        }
+        return null;
     }
 }

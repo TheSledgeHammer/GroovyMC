@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.integration.forgeenergy
 
+import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import net.minecraft.nbt.NBTBase
 import net.minecraft.nbt.NBTTagCompound
@@ -24,11 +25,12 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.common.util.INBTSerializable
 import net.minecraftforge.energy.CapabilityEnergy
+import net.minecraftforge.energy.IEnergyStorage
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
-class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INBTSerializable<NBTTagCompound> {
+class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INBTCompound {
 
     ForgeEnergy(int capacity) {
         super(capacity)
@@ -84,16 +86,19 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
     }
 
     @Override
-    NBTTagCompound serializeNBT() {
-        final NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("feEnergy", feEnergy);
-        return nbt;
+    NBTTagCompound writeToNBT(NBTTagCompound tag) {
+        if(feEnergy < 0) {
+            feEnergy = 0;
+        }
+        tag.setInteger("feEnergy", feEnergy);
+        return tag;
     }
 
     @Override
-    void deserializeNBT(NBTTagCompound nbt) {
-        if(nbt.hasKey("feEnergy")) {
-            final int tempEnergy = nbt.getInteger("feEnergy");
+    void readFromNBT(NBTTagCompound tag) {
+        this.feEnergy = tag.getInteger("feEnergy");
+        if(feEnergy > capacity) {
+            feEnergy = capacity;
         }
     }
 
@@ -108,7 +113,39 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
     @Override
     def <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if(capability == CapabilityEnergy.ENERGY) {
-            return CapabilityEnergy.ENERGY.cast(this);
+            ForgeEnergy FE = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy)
+            IEnergyStorage storage = new IEnergyStorage() {
+                @Override
+                int receiveEnergy(int maxReceive, boolean simulate) {
+                    return FE.receiveEnergy(maxReceive, simulate);
+                }
+
+                @Override
+                int extractEnergy(int maxExtract, boolean simulate) {
+                    return FE.extractEnergy(maxExtract, simulate);
+                }
+
+                @Override
+                int getEnergyStored() {
+                    return FE.getEnergyStored();
+                }
+
+                @Override
+                int getMaxEnergyStored() {
+                    return FE.getMaxEnergyStored();
+                }
+
+                @Override
+                boolean canExtract() {
+                    return FE.canExtract()
+                }
+
+                @Override
+                boolean canReceive() {
+                    return FE.canReceive();
+                }
+            }
+            return CapabilityEnergy.ENERGY.cast(storage);
         }
         return null
     }

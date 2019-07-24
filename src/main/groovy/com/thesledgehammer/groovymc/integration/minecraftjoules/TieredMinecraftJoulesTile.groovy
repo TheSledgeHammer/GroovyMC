@@ -17,12 +17,10 @@ package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
-import net.minecraft.util.EnumFacing
-import net.minecraftforge.common.capabilities.Capability
-
-import javax.annotation.Nullable
 
 class TieredMinecraftJoulesTile extends MinecraftJoulesTile implements IVoltageTier {
+
+    protected EnumVoltage voltage;
 
     TieredMinecraftJoulesTile(String tileName, long capacity, EnumVoltage voltage) {
         this(tileName, capacity, capacity, capacity, 0, voltage);
@@ -43,31 +41,16 @@ class TieredMinecraftJoulesTile extends MinecraftJoulesTile implements IVoltageT
 
     @Override
     void setVoltageTier(EnumVoltage voltage) {
-       mj.setVoltageTier(voltage)
+       this.voltage = voltage;
     }
 
     @Override
     EnumVoltage getVoltageTier() {
-        return mj.getVoltageTier();
+        return voltage;
     }
 
     @Override
     long getVoltage() {
-        return mj.getVoltage();
-    }
-
-    @Override
-    boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return mj.hasCapability(capability, facing) || super.hasCapability(capability, facing);
-    }
-
-    @Override
-    @Nullable
-    <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        T mjCapability = mj.getCapability(capability, facing);
-        if(mjCapability != null) {
-            return mjCapability;
-        }
-        return super.getCapability(capability, facing);
+        return voltage.getVoltage();
     }
 }
