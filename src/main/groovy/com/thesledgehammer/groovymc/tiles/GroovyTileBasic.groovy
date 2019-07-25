@@ -25,10 +25,6 @@ import javax.annotation.Nullable
 
 abstract class GroovyTileBasic extends TileEntity implements TileTraits {
 
-    GroovyTileBasic() {
-
-    }
-
     @Override
     NBTTagCompound getUpdateTag() {
         NBTTagCompound updateTag = super.getUpdateTag();
@@ -44,7 +40,7 @@ abstract class GroovyTileBasic extends TileEntity implements TileTraits {
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
-    boolean isRedstoneActivated() {
+    protected boolean isRedstoneActivated() {
         return world.isBlockIndirectlyGettingPowered(getPos()) > 0;
     }
 

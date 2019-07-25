@@ -36,9 +36,9 @@ import javax.annotation.Nullable
 class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
 
     protected long mjEnergy;
-    private long capacity;
-    private long maxReceive;
-    private long maxExtract;
+    protected long capacity;
+    protected long maxReceive;
+    protected long maxExtract;
     protected EnumVoltage voltage;
 
     MinecraftJoulesStorage(long capacity) {
@@ -57,7 +57,8 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
         setMaxCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
-        setPowerStored(mjEnergy);
+        //setPowerStored(mjEnergy);
+        this.mjEnergy = Math.max(0 , Math.min(capacity, mjEnergy));
     }
 
     void setPowerStored(long mjEnergy) {

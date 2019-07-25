@@ -27,7 +27,7 @@ import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits {
+abstract class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits {
 
     private IItemHandler itemHandler;
     private IItemHandler itemHandlerSided;

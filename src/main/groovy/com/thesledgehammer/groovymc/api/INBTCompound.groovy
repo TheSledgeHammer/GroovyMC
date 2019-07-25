@@ -7,5 +7,4 @@ interface INBTCompound {
     NBTTagCompound writeToNBT(NBTTagCompound tag)
 
     void readFromNBT(NBTTagCompound tag);
-
 }

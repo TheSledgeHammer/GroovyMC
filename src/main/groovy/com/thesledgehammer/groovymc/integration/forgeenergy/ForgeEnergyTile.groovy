@@ -26,26 +26,22 @@ import javax.annotation.Nullable
 
 class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
-    protected ForgeEnergy fe;
-    private int energy;
-    private String tileName; //Needed For Tile NBT Only
+    protected final ForgeEnergy fe;
 
-    ForgeEnergyTile(String tileName, int capacity) {
-        this(tileName, capacity, capacity, capacity, 0);
+    ForgeEnergyTile(int capacity) {
+        this(capacity, capacity, capacity, 0);
     }
 
-    ForgeEnergyTile(String tileName, int capacity, int maxTransfer) {
-        this(tileName, capacity, maxTransfer, maxTransfer, 0);
+    ForgeEnergyTile(int capacity, int maxTransfer) {
+        this(capacity, maxTransfer, maxTransfer, 0);
     }
 
-    ForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract) {
-        this(tileName, capacity, maxReceive, maxExtract, 0);
+    ForgeEnergyTile(int capacity, int maxReceive, int maxExtract) {
+        this(capacity, maxReceive, maxExtract, 0);
     }
 
-    ForgeEnergyTile(String tileName, int capacity, int maxReceive, int maxExtract, int feEnergy) {
+    ForgeEnergyTile(int capacity, int maxReceive, int maxExtract, int feEnergy) {
         fe = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy);
-        this.tileName = tileName;
-        this.energy = feEnergy;
     }
 
     @Override
@@ -81,23 +77,14 @@ class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        NBTTagCompound tag = fe.readFromNBT(tagCompound);
-        if (tagCompound.hasKey(tileName)) {
-            energy = tagCompound.getCompoundTag(tileName).getInteger("feEnergy");
-        } else {
-            energy = tag.getCompoundTag(tileName).getInteger("feEnergy")
-        }
+        fe.readFromNBT(tagCompound);
     }
 
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        if (energy > 0) {
-            NBTTagCompound data = new NBTTagCompound();
-            data.setInteger("feEnergy", getEnergyStored());
-            tagCompound.setTag(tileName, data);
-        }
-        return fe.writeToNBT(tagCompound);
+        fe.writeToNBT(tagCompound);
+        return tagCompound;
     }
 
     @Override

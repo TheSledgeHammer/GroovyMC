@@ -28,9 +28,7 @@ import javax.annotation.Nullable
 
 class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProducer, ITeslaHolder {
 
-    protected Tesla tesla;
-    protected long power;
-    private String tileName;
+    protected final Tesla tesla;
 
     TeslaTile(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -46,8 +44,6 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
 
     TeslaTile(long capacity, long maxReceive, long maxExtract,  long teslaEnergy) {
         tesla = new Tesla(capacity, maxReceive, maxExtract, teslaEnergy);
-        this.tileName = tileName;
-        this.power = teslaEnergy;
     }
 
     @Override
@@ -73,23 +69,14 @@ class TeslaTile extends GroovyTileBasic implements ITeslaConsumer, ITeslaProduce
     @Override
     void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        NBTTagCompound tag = tesla.readFromNBT(tagCompound);
-        if (tagCompound.hasKey(tileName)) {
-            power = tagCompound.getCompoundTag(tileName).getLong("teslaEnergy");
-        } else {
-            power = tag.getCompoundTag(tileName).getLong("teslaEnergy")
-        }
+        tesla.readFromNBT(tagCompound);
     }
 
     @Override
     NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        if (power > 0) {
-            NBTTagCompound data = new NBTTagCompound();
-            data.setLong("teslaEnergy", getStoredPower());
-            tagCompound.setTag(tileName, data);
-        }
-        return tesla.writeToNBT(tagCompound);
+        tesla.writeToNBT(tagCompound);
+        return tagCompound;
     }
 
     @Override

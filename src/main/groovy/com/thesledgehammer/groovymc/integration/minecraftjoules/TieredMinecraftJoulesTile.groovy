@@ -22,20 +22,20 @@ class TieredMinecraftJoulesTile extends MinecraftJoulesTile implements IVoltageT
 
     protected EnumVoltage voltage;
 
-    TieredMinecraftJoulesTile(String tileName, long capacity, EnumVoltage voltage) {
-        this(tileName, capacity, capacity, capacity, 0, voltage);
+    TieredMinecraftJoulesTile(long capacity, EnumVoltage voltage) {
+        this(capacity, capacity, capacity, 0, voltage);
     }
 
-    TieredMinecraftJoulesTile(String tileName, long capacity, long maxTransfer, EnumVoltage voltage) {
-        this(tileName, capacity, maxTransfer, maxTransfer, 0, voltage);
+    TieredMinecraftJoulesTile(long capacity, long maxTransfer, EnumVoltage voltage) {
+        this(capacity, maxTransfer, maxTransfer, 0, voltage);
     }
 
-    TieredMinecraftJoulesTile(String tileName, long capacity, long maxReceive, long maxExtract, EnumVoltage voltage) {
-        this(tileName, capacity, maxReceive, maxExtract, 0, voltage);
+    TieredMinecraftJoulesTile(long capacity, long maxReceive, long maxExtract, EnumVoltage voltage) {
+        this(capacity, maxReceive, maxExtract, 0, voltage);
     }
 
-    TieredMinecraftJoulesTile(String tileName, long capacity, long maxReceive, long maxExtract, long power, EnumVoltage voltage) {
-        super(tileName, capacity, maxReceive, maxExtract, power);
+    TieredMinecraftJoulesTile(long capacity, long maxReceive, long maxExtract, long power, EnumVoltage voltage) {
+        super(capacity, maxReceive, maxExtract, power);
         setVoltageTier(voltage);
     }
 
