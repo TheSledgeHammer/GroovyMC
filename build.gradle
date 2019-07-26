@@ -43,16 +43,8 @@ repositories {
 		url = "https://mod-buildcraft.com/maven"
 	}
 	maven {
-		name = "IC2"
-		url = "http://maven.ic2.player.to/"
-	}
-	maven {
 		name = "tterrag maven (TOP)"
 		url = "https://maven.tterrag.com/"
-	}
-	maven {
-		name = "Darkhax (Tesla)"
-		url = 'http://maven.mcmoddev.com'
 	}
 }
 
@@ -74,10 +66,8 @@ dependencies {
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
-	compile "com.mod-buildcraft:buildcraft-api:${buildcraft_version}"
-	compile "net.industrial-craft:industrialcraft-2:+:api"
+	compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"
 	compile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
-	compile "net.darkhax.tesla:Tesla-1.12:${tesla_version}"
 }
 
 processResources {

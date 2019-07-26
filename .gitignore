@@ -20,9 +20,8 @@
 /run
 /saves
 /out
-/ClientRuntime
-/ServerRuntime
 /classes
+/src/main/groovy/com/thesledgehammer/groovymc/test
 usernamecache.json
 usercache.json
 options.txt
