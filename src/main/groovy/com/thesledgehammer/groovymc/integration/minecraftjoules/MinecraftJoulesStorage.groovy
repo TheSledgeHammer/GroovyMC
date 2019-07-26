@@ -39,7 +39,6 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
     protected long capacity;
     protected long maxReceive;
     protected long maxExtract;
-    protected EnumVoltage voltage;
 
     MinecraftJoulesStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -57,11 +56,6 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
         setMaxCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
-        //setPowerStored(mjEnergy);
-        this.mjEnergy = Math.max(0 , Math.min(capacity, mjEnergy));
-    }
-
-    void setPowerStored(long mjEnergy) {
         this.mjEnergy = Math.max(0 , Math.min(capacity, mjEnergy));
     }
 

@@ -26,22 +26,9 @@ import javax.annotation.Nullable
 
 class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
-    protected final ForgeEnergy fe;
-
-    ForgeEnergyTile(int capacity) {
-        this(capacity, capacity, capacity, 0);
-    }
-
+    protected ForgeEnergy fe;
     ForgeEnergyTile(int capacity, int maxTransfer) {
-        this(capacity, maxTransfer, maxTransfer, 0);
-    }
-
-    ForgeEnergyTile(int capacity, int maxReceive, int maxExtract) {
-        this(capacity, maxReceive, maxExtract, 0);
-    }
-
-    ForgeEnergyTile(int capacity, int maxReceive, int maxExtract, int feEnergy) {
-        fe = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy);
+        this.fe = new ForgeEnergy(capacity, maxTransfer);
     }
 
     @Override

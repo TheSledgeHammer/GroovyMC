@@ -38,22 +38,10 @@ import javax.annotation.Nullable
 )
 class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IMjInfo {
 
-    protected final MinecraftJoules mj;
-
-    MinecraftJoulesTile(long capacity) {
-        this(capacity, capacity, capacity, 0);
-    }
+    protected MinecraftJoules mj;
 
     MinecraftJoulesTile(long capacity, long maxTransfer) {
-        this(capacity, maxTransfer, maxTransfer, 0);
-    }
-
-    MinecraftJoulesTile(long capacity, long maxReceive, long maxExtract) {
-        this(capacity, maxReceive, maxExtract, 0);
-    }
-
-    MinecraftJoulesTile(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
-        mj = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
+        mj = new MinecraftJoules(capacity, maxTransfer);
     }
 
     @Override

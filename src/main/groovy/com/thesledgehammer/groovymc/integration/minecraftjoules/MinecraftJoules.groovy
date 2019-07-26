@@ -127,6 +127,7 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
         if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
             return true;
         }
+
         return false
     }
 
