@@ -7,12 +7,18 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.energy.CapabilityEnergy
+import net.minecraftforge.energy.IEnergyStorage
 
 class EnergyProbeInfoProvider implements IProbeInfoProvider {
 
+    EnergyProbeInfoProvider(ITheOneProbe theOneProbe) {
+        theOneProbe.registerProvider(this);
+    }
+
     @Override
     String getID() {
-        return GroovyMC.MOD_ID + ":energyprobe";
+        return GroovyMC.MOD_ID + ":EnergyProbeInfo";
     }
 
     @Override
@@ -25,15 +31,15 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
             long capacity = EnergyTools.getMjCapacity(te);
             addMJInfo(probeInfo, energy, capacity);
         }
-        if(EnergyTools.isEuEnergyHandler(te)) {
-            long energy = EnergyTools.getEuStored(te);
-            long capacity = EnergyTools.getEuCapacity(te);
-            addEUInfo(probeInfo, energy, capacity);
-        }
         if(EnergyTools.isFeEnergyHandler(te)) {
             int energy = EnergyTools.getFeStored(te);
             int capacity = EnergyTools.getFeCapacity(te);
             addFEInfo(probeInfo, energy, capacity);
+        } else if(te.hasCapability(CapabilityEnergy.ENERGY, null)) {
+            IEnergyStorage rf = te.getCapability(CapabilityEnergy.ENERGY, null);
+            if(rf != null) {
+                addFEInfo(probeInfo, rf.getEnergyStored(), rf.getMaxEnergyStored());
+            }
         }
     }
 
@@ -44,17 +50,6 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
                 .alternateFilledColor(EnumColorType.MJ.getAlternateFilledColor())
                 .borderColor(EnumColorType.MJ.getBorderColor())
                 .backgroundColor(EnumColorType.MJ.getBackgroundColor())
-                .numberFormat(NumberFormat.COMPACT)
-        );
-    }
-
-    private static void addEUInfo(IProbeInfo probeInfo, long energy, long capacity) {
-        probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix("EU")
-                .filledColor(EnumColorType.EU.getFilledColor())
-                .alternateFilledColor(EnumColorType.EU.getAlternateFilledColor())
-                .borderColor(EnumColorType.EU.getBorderColor())
-                .backgroundColor(EnumColorType.EU.getBackgroundColor())
                 .numberFormat(NumberFormat.COMPACT)
         );
     }

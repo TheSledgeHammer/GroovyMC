@@ -23,6 +23,8 @@ import mcjty.theoneprobe.api.*
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.fml.common.event.FMLInterModComms
 import org.apache.logging.log4j.Level
 
 import javax.annotation.Nullable
@@ -30,11 +32,11 @@ import javax.annotation.Nullable
 class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITheOneProbe, Void> {
 
     private static TheOneProbeCompatibilityModule instance;
+    private static boolean registered;
     private ITheOneProbe theOneProbe;
 
-    TheOneProbeCompatibilityModule(ITheOneProbe theOneProbe) {
+    TheOneProbeCompatibilityModule() {
         super("theoneprobe");
-        this.theOneProbe = theOneProbe;
         instance = this;
     }
 
@@ -45,17 +47,27 @@ class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITh
         return null;
     }
 
+    static void register() {
+        if(registered) {
+            return;
+        }
+        registered = true;
+        FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
+    }
+
     @Override
     void init() {
         Log.log(Level.INFO, "Enabled support for The One Probe");
-        TheOneProbe.theOneProbeImp.registerProvider(new EnergyProbeInfoProvider());
+        println "TheOneProbeCompatModule Loaded Successfully"
+        register();
     }
 
     @Nullable
     @Override
     Void apply(ITheOneProbe theOneProbe) {
         this.theOneProbe = theOneProbe;
-        theOneProbe.registerProvider(new IProbeInfoProvider() {
+        theOneProbe.registerProvider(new EnergyProbeInfoProvider());
+       /* theOneProbe.registerProvider(new IProbeInfoProvider() {
 
             @Override
             String getID() {
@@ -64,12 +76,12 @@ class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITh
 
             @Override
             void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-                if(blockState.getBlock() instanceof ITheOneProbeInfoProvider) {
-                    ITheOneProbeInfoProvider blockProvider = (ITheOneProbeInfoProvider) blockState.getBlock();
+                if(blockState.getBlock() instanceof IProbeInfoProvider) {
+                    IProbeInfoProvider blockProvider = (IProbeInfoProvider) blockState.getBlock();
                     blockProvider.addProbeInfo(mode, probeInfo, player, world, blockState, data);
                 }
             }
-        });
+        });*/
         return null;
     }
 }

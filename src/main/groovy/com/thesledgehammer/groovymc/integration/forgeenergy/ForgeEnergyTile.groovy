@@ -24,7 +24,7 @@ import net.minecraftforge.energy.IEnergyStorage
 
 import javax.annotation.Nullable
 
-class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
+abstract class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage {
 
     protected ForgeEnergy fe;
     ForgeEnergyTile(int capacity, int maxTransfer) {

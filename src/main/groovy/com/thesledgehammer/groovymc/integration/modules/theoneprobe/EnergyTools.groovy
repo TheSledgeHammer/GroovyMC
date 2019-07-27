@@ -1,42 +1,42 @@
 package com.thesledgehammer.groovymc.integration.modules.theoneprobe
 
 import buildcraft.api.mj.IMjReadable
-import buildcraft.api.mj.MjAPI
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
+import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.energy.IEnergyStorage
 
 class EnergyTools {
 
     static long getMjStored(TileEntity te) {
-        IMjReadable handler = (IMjReadable) te;
-        return formatMjDisplay(handler.getStored());
+        if(te instanceof IMjReadable) {
+            IMjReadable handler = (IMjReadable) te;
+            return MjTools.formatMj(handler.getStored());
+        } else if(te instanceof IMjStorage) {
+            IMjStorage storage = (IMjStorage) te;
+            return MjTools.formatMj(storage.getStored());
+        }
+        return 0;
     }
 
     static long getMjCapacity(TileEntity te) {
-        IMjReadable handler = (IMjReadable) te;
-        return formatMjDisplay(handler.getCapacity());
+        if(te instanceof IMjReadable) {
+            IMjReadable handler = (IMjReadable) te;
+            return MjTools.formatMj(handler.getCapacity());
+        } else if(te instanceof IMjStorage) {
+            IMjStorage storage = (IMjStorage) te;
+            return MjTools.formatMj(storage.getCapacity());
+        }
+        return 0;
     }
 
     static boolean isMjEnergyHandler(TileEntity te) {
-        return te instanceof IMjReadable;
-    }
-
-    private static long formatMjDisplay(long microMj) {
-        return (microMj / MjAPI.MJ);
-    }
-
-    static long getEuStored(TileEntity te) {
-        IMjReadable handler = (IMjReadable) te;
-        return handler.getStored();
-    }
-
-    static long getEuCapacity(TileEntity te) {
-        IMjReadable handler = (IMjReadable) te;
-        return handler.getCapacity();
-    }
-
-    static boolean isEuEnergyHandler(TileEntity te) {
-        return te instanceof IMjReadable;
+        if(te instanceof IMjReadable) {
+            return te instanceof IMjReadable;
+        } else if(te instanceof IMjStorage) {
+            return te instanceof IMjStorage;
+        }
+        return false;
     }
 
     static int getFeStored(TileEntity te) {

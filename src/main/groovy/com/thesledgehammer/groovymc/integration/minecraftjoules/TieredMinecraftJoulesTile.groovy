@@ -16,41 +16,13 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
-import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
 
-class TieredMinecraftJoulesTile extends MinecraftJoulesTile implements IVoltageTier {
+abstract class TieredMinecraftJoulesTile extends MinecraftJoulesTile {
 
     protected EnumVoltage voltage;
 
-    TieredMinecraftJoulesTile(long capacity, EnumVoltage voltage) {
-        this(capacity, capacity, capacity, 0, voltage);
-    }
-
     TieredMinecraftJoulesTile(long capacity, long maxTransfer, EnumVoltage voltage) {
-        this(capacity, maxTransfer, maxTransfer, 0, voltage);
-    }
-
-    TieredMinecraftJoulesTile(long capacity, long maxReceive, long maxExtract, EnumVoltage voltage) {
-        this(capacity, maxReceive, maxExtract, 0, voltage);
-    }
-
-    TieredMinecraftJoulesTile(long capacity, long maxReceive, long maxExtract, long power, EnumVoltage voltage) {
-        super(capacity, maxReceive, maxExtract, power);
-        setVoltageTier(voltage);
-    }
-
-    @Override
-    void setVoltageTier(EnumVoltage voltage) {
-       this.voltage = voltage;
-    }
-
-    @Override
-    EnumVoltage getVoltageTier() {
-        return voltage;
-    }
-
-    @Override
-    long getVoltage() {
-        return voltage.getVoltage();
+        super(capacity, maxTransfer);
+        this.voltage = voltage;
     }
 }

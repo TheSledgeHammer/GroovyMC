@@ -17,11 +17,8 @@ package com.thesledgehammer.groovymc.integration
 
 import com.thesledgehammer.groovymc.api.integration.BlankModule
 import com.thesledgehammer.groovymc.integration.modules.buildcraft.BuildcraftModule
-import com.thesledgehammer.groovymc.integration.modules.industrialcraft.IndustrialcraftModule
-import com.thesledgehammer.groovymc.integration.modules.tesla.TeslaModule
 import com.thesledgehammer.groovymc.integration.modules.theoneprobe.TheOneProbeCompatibilityModule
 import com.thesledgehammer.groovymc.utils.Log
-import mcjty.theoneprobe.TheOneProbe
 import net.minecraftforge.fml.common.Loader
 
 class ModuleContainer {
@@ -43,8 +40,6 @@ class ModuleContainer {
 
     private static void preRegisteredModules() {
         BuildcraftModule BC = new BuildcraftModule();
-        IndustrialcraftModule IC2 = new IndustrialcraftModule();
-        TeslaModule TESLA = new TeslaModule();
-        TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule(TheOneProbe.theOneProbeImp);
+        TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule();
     }
 }

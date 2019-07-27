@@ -16,13 +16,11 @@
 package com.thesledgehammer.groovymc.integration.minecraftjoules
 
 import buildcraft.api.mj.*
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-import com.thesledgehammer.groovymc.api.minecraftjoules.IVoltageTier
+
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
-import javax.annotation.Nullable
 
 @Optional.InterfaceList(
         value = [
