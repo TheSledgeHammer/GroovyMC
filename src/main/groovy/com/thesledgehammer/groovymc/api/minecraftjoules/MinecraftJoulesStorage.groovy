@@ -28,13 +28,12 @@ import javax.annotation.Nonnull
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )*/
-class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IVoltageTier*/ {
+class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
 
-    private long mjEnergy;
-    private long capacity;
-    private long maxReceive;
-    private long maxExtract;
-   // private EnumVoltage voltage;
+    protected long mjEnergy;
+    protected long capacity;
+    protected long maxReceive;
+    protected long maxExtract;
 
     MinecraftJoulesStorage(long capacity) {
         this(capacity, capacity, capacity, 0);
@@ -52,10 +51,6 @@ class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver,
         setMaxCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
-        setPowerStored(mjEnergy);
-    }
-
-    void setPowerStored(long mjEnergy) {
         this.mjEnergy = Math.max(0 , Math.min(capacity, mjEnergy));
     }
 
@@ -77,15 +72,6 @@ class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver,
 
     long getMaxExtract() {
         return maxExtract;
-    }
-
-    void modifyPowerStored(long mjEnergy) {
-        this.mjEnergy = mjEnergy;
-        if(mjEnergy > this.capacity) {
-            this.mjEnergy = this.capacity;
-        } else if(this.mjEnergy < 0) {
-            this.mjEnergy = 0;
-        }
     }
 
     @Override
@@ -146,20 +132,5 @@ class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver,
     boolean canConnect(@Nonnull IMjConnector other) {
         return true;
     }
-
-    @Override
-    void setVoltageTier(EnumVoltage voltage) {
-        this.voltage = voltage;
-    }
-
-    @Override
-    EnumVoltage getVoltageTier() {
-        return voltage
-    }
-
-    @Override
-    long getVoltage() {
-        return voltage.getVoltage();
-    }
-    */
+*/
 }

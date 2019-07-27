@@ -16,21 +16,176 @@
 
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
-class MinecraftJoules extends MinecraftJoulesStorage {
+import com.thesledgehammer.groovymc.api.INBTCompound
+import net.minecraft.nbt.CompoundNBT
+import net.minecraft.util.Direction
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.LazyOptional
+
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
+
+class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvider, INBTCompound {
 
     MinecraftJoules(long capacity) {
-        super(capacity);
+        super(capacity)
     }
 
     MinecraftJoules(long capacity, long maxTransfer) {
-        super(capacity, maxTransfer);
+        super(capacity, maxTransfer)
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract) {
-        super(capacity, maxReceive, maxExtract);
+        super(capacity, maxReceive, maxExtract)
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
         super(capacity, maxReceive, maxExtract, mjEnergy);
+    }
+
+    void drainPower(long amount) {
+        modifyPowerStored(mjEnergy - amount)
+    }
+
+    void generatePower(long amount) {
+        modifyPowerStored(mjEnergy + amount);
+    }
+
+    void drainPower(long amount, EnumVoltage voltage) {
+        long volts = voltage.getVoltage() * MjTools.getMJ();
+        if(amount >= volts) {
+            amount = volts;
+        }
+        long drain = Math.min(mjEnergy, volts);
+        long maxDrain =- Math.max(drain, amount);
+        modifyPowerStored(maxDrain);
+    }
+
+    void generatePower(long amount, EnumVoltage voltage) {
+        long volts = voltage.getVoltage() * MjTools.getMJ();
+        if(amount >= volts) {
+            amount = volts;
+        }
+        long generate = Math.min(mjEnergy, volts);
+        long maxGenerate =+ Math.max(generate, amount);
+        modifyPowerStored(maxGenerate);
+    }
+
+    private void modifyPowerStored(long mjEnergy) {
+        this.mjEnergy = mjEnergy;
+        if(mjEnergy > getCapacity()) {
+            this.mjEnergy = getCapacity();
+        } else if(this.mjEnergy < 0) {
+            this.mjEnergy = 0;
+        }
+    }
+
+    @Override
+    CompoundNBT write(CompoundNBT tag) {
+        if(mjEnergy < 0) {
+            mjEnergy = 0;
+        }
+        tag.putLong("mjEnergy", mjEnergy);
+        return tag;
+    }
+
+    @Override
+    void read(CompoundNBT tag) {
+        this.mjEnergy = tag.getLong("mjEnergy");
+        if(mjEnergy > capacity) {
+            mjEnergy = capacity;
+        }
+    }
+
+    @Override
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityMj.MJ_STORAGE) {
+            return CapabilityMj.MJ_STORAGE
+        }/*
+        if (BuildcraftModule.hasMjCapability(capability)) {
+            MinecraftJoules MJ = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
+            if (capability == MjAPI.CAP_CONNECTOR) {
+                IMjConnector connector = new IMjConnector() {
+                    @Override
+                    boolean canConnect(@Nonnull IMjConnector other) {
+                        return MJ.canConnect(other);
+                    }
+                };
+                return MjAPI.CAP_CONNECTOR.cast(connector);
+            }
+            if (capability == MjAPI.CAP_RECEIVER) {
+                IMjReceiver receiver = new IMjReceiver() {
+                    @Override
+                    long getPowerRequested() {
+                        return MJ.getPowerRequested();
+                    }
+
+                    @Override
+                    long receivePower(long microJoules, boolean simulate) {
+                        return MJ.receivePower(microJoules, simulate);
+                    }
+
+                    @Override
+                    boolean canConnect(@Nonnull IMjConnector other) {
+                        return MJ.canConnect(other);
+                    }
+                }
+                return MjAPI.CAP_RECEIVER.cast(receiver);
+            }
+            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
+                IMjPassiveProvider passiveProvider = new IMjPassiveProvider() {
+                    @Override
+                    long extractPower(long min, long max, boolean simulate) {
+                        return MJ.extractPower(min, max, simulate);
+                    }
+
+                    @Override
+                    boolean canConnect(@Nonnull IMjConnector other) {
+                        return MJ.canConnect(other);
+                    }
+                }
+                return MjAPI.CAP_PASSIVE_PROVIDER.cast(passiveProvider);
+            }
+            if (capability == MjAPI.CAP_READABLE) {
+                IMjReadable readable = new IMjReadable() {
+                    @Override
+                    long getStored() {
+                        return MJ.getStored();
+                    }
+
+                    @Override
+                    long getCapacity() {
+                        return MJ.getCapacity()
+                    }
+
+                    @Override
+                    boolean canConnect(@Nonnull IMjConnector other) {
+                        return MJ.canConnect(other);
+                    }
+                }
+                return MjAPI.CAP_READABLE.cast(readable);
+            }
+            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
+                IMjRedstoneReceiver redstoneReceiver = new IMjRedstoneReceiver() {
+                    @Override
+                    long getPowerRequested() {
+                        return MJ.getPowerRequested();
+                    }
+
+                    @Override
+                    long receivePower(long microJoules, boolean simulate) {
+                        return MJ.receivePower(microJoules, simulate);
+                    }
+
+                    @Override
+                    boolean canConnect(@Nonnull IMjConnector other) {
+                        return MJ.canConnect(other);
+                    }
+                }
+                return MjAPI.CAP_REDSTONE_RECEIVER.cast(redstoneReceiver);
+            }
+        }*/
+        return null
     }
 }

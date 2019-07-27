@@ -17,9 +17,15 @@
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.Direction
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.util.LazyOptional
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
+
 /*
 @Optional.InterfaceList(
         value = [
@@ -30,30 +36,13 @@ import javax.annotation.Nonnull
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )*/
-class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
+abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjInfo/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
 
     protected MinecraftJoules mj;
-    private long power;
-    private String tileName; //Needed For Tile NBT Only
 
-
-    MinecraftJoulesTile(TileEntityType tileEntityTypeIn, String tileName, long capacity) {
-        this(tileEntityTypeIn, tileName, capacity, capacity, capacity, 0);
-    }
-
-    MinecraftJoulesTile(TileEntityType tileEntityTypeIn, String tileName, long capacity, long maxTransfer) {
-        this(tileEntityTypeIn, tileName, capacity, maxTransfer, maxTransfer, 0);
-    }
-
-    MinecraftJoulesTile(TileEntityType tileEntityTypeIn, String tileName, long capacity, long maxReceive, long maxExtract) {
-        this(tileEntityTypeIn, tileName, capacity, maxReceive, maxExtract, 0);
-    }
-
-    MinecraftJoulesTile(TileEntityType tileEntityTypeIn, String tileName, long capacity, long maxReceive, long maxExtract, long mjEnergy) {
-        super(tileEntityTypeIn)
-        mj = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
-        this.tileName = tileName;
-        this.power = mjEnergy;
+    MinecraftJoulesTile(TileEntityType tileEntityTypeIn, long capacity, long maxTransfer) {
+        super(tileEntityTypeIn);
+        mj = new MinecraftJoules(capacity, maxTransfer);
     }
 
     @Override
@@ -98,73 +87,43 @@ class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage/*, IMjCo
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
         return mj.canConnect(other);
-    }*/
-/*
+    }
+    */
+
     @Override
-    void readFromNBT(CompoundNBT tagCompound) {
-        super.readFromNBT(tagCompound);
-        if (tagCompound.hasKey(tileName)) {
-            power = tagCompound.getCompoundTag(tileName).getLong("mjEnergy");
-        }
+    long getInfoMjPerTick() {
+        return 0
     }
 
     @Override
-    CompoundNBT writeToNBT(CompoundNBT tagCompound) {
-        super.writeToNBT(tagCompound);
-        if (power > 0) {
-            CompoundNBT data = new CompoundNBT();
-            data.setLong("mjEnergy", getStored());
-            tagCompound.setTag(tileName, data);
-        }
-        return tagCompound;
+    long getInfoMaxMjPerTick() {
+        return 0
     }
 
     @Override
-    boolean hasCapability(Capability<?> capability, Direction facing) {
-        if (capability == CapabilityMj.MJ_STORAGE) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_CONNECTOR) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_RECEIVER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_READABLE) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+    long getInfoMjCapacity() {
+        return mj.getCapacity();
     }
 
     @Override
-    <T> T getCapability(Capability<T> capability, Direction facing) {
-        if (capability == CapabilityMj.MJ_STORAGE) {
-            return CapabilityMj.MJ_STORAGE.cast(this);
-        }
+    void read(CompoundNBT compound) {
+        super.read(compound);
+        mj.read(compound);
+    }
 
-        if (BuildcraftModule.hasMjCapability(capability)) {
-            if (capability == MjAPI.CAP_CONNECTOR) {
-                return MjAPI.CAP_CONNECTOR.cast(this);
-            }
-            if (capability == MjAPI.CAP_RECEIVER) {
-                return MjAPI.CAP_RECEIVER.cast(this);
-            }
-            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-                return MjAPI.CAP_PASSIVE_PROVIDER.cast(this);
-            }
-            if (capability == MjAPI.CAP_READABLE) {
-                return MjAPI.CAP_READABLE.cast(this);
-            }
-            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-                return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
-            }
+    CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
+        mj.write(compound);
+        return compound;
+    }
+
+    @Override
+    @Nullable
+    <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        LazyOptional<T> mjCapability = mj.getCapability(cap, side);
+        if(mjCapability != null) {
+            return mjCapability;
         }
-        return null;
-    }*/
+        return super.getCapability(cap, side);
+    }
 }

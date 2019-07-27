@@ -43,7 +43,7 @@ class CapabilityMj {
                 if (!(instance instanceof MinecraftJoulesStorage)) {
                     throw new  IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
                 }
-                ((MinecraftJoulesStorage) instance).powerStored = ((LongNBT) nbt).getLong();
+                ((MinecraftJoulesStorage) instance).mjEnergy = ((LongNBT) nbt).getLong();
             }
         }, { -> new MinecraftJoulesStorage(1000 * MjTools.MJ) });
     }
