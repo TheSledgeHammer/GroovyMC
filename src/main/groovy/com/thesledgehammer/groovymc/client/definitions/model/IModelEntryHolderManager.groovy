@@ -13,16 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.minecraftjoules
 
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+package com.thesledgehammer.groovymc.client.definitions.model
 
-abstract class TieredMinecraftJoulesTile extends MinecraftJoulesTile {
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.item.Item
 
-    protected EnumVoltage voltage;
+interface IModelEntryHolderManager {
 
-    TieredMinecraftJoulesTile(long capacity, long maxTransfer, EnumVoltage voltage) {
-        super(capacity, maxTransfer);
-        this.voltage = voltage;
-    }
+    void registerModel(Item item, int meta, ModelResourceLocation modelResourceLocation);
+
+    void registerModel(Item item, int meta, String domain, String path);
+
+    void registerModel(Item item, int meta, String resourceLocation);
+
+    ModelResourceLocation getModelLocation(String domain, String path);
+
+    ModelResourceLocation getModelLocation(String resourceLocation)
 }

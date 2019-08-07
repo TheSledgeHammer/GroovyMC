@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import buildcraft.api.mj.IMjConnector
-import buildcraft.api.mj.IMjPassiveProvider
-import buildcraft.api.mj.IMjReadable
-import buildcraft.api.mj.IMjReceiver
-import buildcraft.api.mj.IMjRedstoneReceiver
-import buildcraft.api.mj.MjAPI
+import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
-import com.thesledgehammer.groovymc.integration.modules.buildcraft.BuildcraftModule
+import com.thesledgehammer.groovymc.compat.modules.buildcraft.BuildcraftModule
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
-import net.minecraftforge.common.util.INBTSerializable
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable

@@ -1,6 +1,6 @@
-package com.thesledgehammer.groovymc.api.integration
+package com.thesledgehammer.groovymc.api.modules
 
-interface IModule {
+interface ICompatModule {
 
     void init();
 

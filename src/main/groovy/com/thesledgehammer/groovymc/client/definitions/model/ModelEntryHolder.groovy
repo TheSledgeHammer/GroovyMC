@@ -26,13 +26,13 @@ abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntr
         this.modelLocation = modelLocation;
         ModelEntry.Instance();
         TextureEntry.Instance();
-        ModelEntryHolderRegistry.ENTRY_HOLDERS().add(this);
+        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 
     ModelEntryHolder(String resourceDomain, String resourcePath) {
         this(new ResourceLocation(resourceDomain, resourcePath))
         ModelEntry.Instance();
         TextureEntry.Instance();
-        ModelEntryHolderRegistry.ENTRY_HOLDERS().add(this);
+        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 }

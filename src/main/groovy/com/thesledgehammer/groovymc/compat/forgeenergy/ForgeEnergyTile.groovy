@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.integration.forgeenergy
+package com.thesledgehammer.groovymc.compat.forgeenergy
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound

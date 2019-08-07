@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration
 
-import com.thesledgehammer.groovymc.api.integration.BlankModule
-import com.thesledgehammer.groovymc.integration.modules.buildcraft.BuildcraftModule
-import com.thesledgehammer.groovymc.integration.modules.theoneprobe.TheOneProbeCompatibilityModule
+package com.thesledgehammer.groovymc.init
+
+import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
+import com.thesledgehammer.groovymc.compat.modules.buildcraft.BuildcraftModule
+import com.thesledgehammer.groovymc.compat.modules.theoneprobe.TheOneProbeCompatibilityModule
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraftforge.fml.common.Loader
 
-class ModuleContainer {
+class CompatModuleContainer {
 
-    private static List<BlankModule> CONTAINER = new LinkedList<>();
+    private static List<BlankCompatModule> CONTAINER = new LinkedList<>();
 
-    static void init() {
-        for(BlankModule module : CONTAINER) {
+    static void preInit() {
+        for(BlankCompatModule module : CONTAINER) {
             if (Loader.isModLoaded(module.getModID())) {
                 module.init();
                 Log.logInfo("${module.getModID()} has been loaded")
@@ -34,7 +35,7 @@ class ModuleContainer {
         }
     }
 
-    static List<BlankModule> MODULES_CONTAINER() {
+    static List<BlankCompatModule> MODULES_CONTAINER() {
         return CONTAINER;
     }
 

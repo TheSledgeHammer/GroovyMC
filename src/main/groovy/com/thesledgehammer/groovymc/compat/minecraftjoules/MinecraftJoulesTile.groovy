@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjInfo

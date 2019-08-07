@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.integration.modules.theoneprobe
+package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.thesledgehammer.groovymc.GroovyMC
 import mcjty.theoneprobe.api.*
@@ -9,6 +9,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
+
+import java.awt.*
 
 class EnergyProbeInfoProvider implements IProbeInfoProvider {
 
@@ -46,10 +48,10 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
     private static void addMJInfo(IProbeInfo probeInfo, long energy, long capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
                 .suffix("MJ")
-                .filledColor(EnumColorType.MJ.getFilledColor())
-                .alternateFilledColor(EnumColorType.MJ.getAlternateFilledColor())
-                .borderColor(EnumColorType.MJ.getBorderColor())
-                .backgroundColor(EnumColorType.MJ.getBackgroundColor())
+                .filledColor(new Color(0x00CD66).getRGB())
+                .alternateFilledColor(new Color(0x009A33).getRGB())
+                .borderColor(new Color(0xff555555).getRGB())
+                .backgroundColor(new Color(0x000000).getRGB())
                 .numberFormat(NumberFormat.COMPACT)
         );
     }
@@ -57,10 +59,10 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
     private static void addFEInfo(IProbeInfo probeInfo, int energy, int capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
                 .suffix("FE")
-                .filledColor(EnumColorType.FE.getFilledColor())
-                .alternateFilledColor(EnumColorType.FE.getAlternateFilledColor())
-                .borderColor(EnumColorType.FE.getBorderColor())
-                .backgroundColor(EnumColorType.FE.getBackgroundColor())
+                .filledColor(new Color(0xEE2C2C).getRGB())
+                .alternateFilledColor(new Color(0xff4300).getRGB())
+                .borderColor(new Color(0xff555555).getRGB())
+                .backgroundColor(new Color(0x000000).getRGB())
                 .numberFormat(NumberFormat.COMPACT)
         );
     }

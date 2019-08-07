@@ -46,6 +46,10 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
         ModelEntry.Register.add(new ModelResourceLocation(new ResourceLocation(resourceDomain, resourcePath), "inventory")).build();
     }
 
+    GroovyStaticModel getGroovyStaticModel() {
+        return groovyStaticModel;
+    }
+
     @Override
     boolean hasBakedQuads() {
         return quads != null;

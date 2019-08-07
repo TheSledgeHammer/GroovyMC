@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-import com.thesledgehammer.groovymc.integration.modules.buildcraft.BuildcraftModule
+import com.thesledgehammer.groovymc.compat.modules.buildcraft.BuildcraftModule
 import com.thesledgehammer.groovymc.items.GroovyItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
@@ -40,22 +40,8 @@ import javax.annotation.Nonnull
 class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, ICapabilityProvider {
 
     private ItemStack container;
-    protected MinecraftJoules MJ;
 
-    MinecraftJoulesItem(ItemStack container, long capacity) {
-        this(container, capacity, capacity, capacity, 0);
-    }
-
-    MinecraftJoulesItem(ItemStack container, long capacity, long maxTransfer) {
-        this(container, capacity, maxTransfer, maxTransfer, 0);
-    }
-
-    MinecraftJoulesItem(ItemStack container, long capacity, long maxReceive, long maxExtract) {
-        this(container, capacity, maxReceive, maxExtract, 0);
-    }
-
-    MinecraftJoulesItem(ItemStack container, long capacity, long maxReceive, long maxExtract, long mjEnergy) {
-        MJ = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
+    MinecraftJoulesItem(ItemStack container) {
         this.container = container;
     }
 

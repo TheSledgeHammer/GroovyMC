@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.integration.forgeenergy
+package com.thesledgehammer.groovymc.compat.forgeenergy
 
 import net.minecraftforge.energy.IEnergyStorage
 

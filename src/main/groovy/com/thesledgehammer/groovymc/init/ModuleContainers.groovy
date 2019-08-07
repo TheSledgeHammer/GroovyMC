@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api
+package com.thesledgehammer.groovymc.init
 
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 
-//Add ability to initModels with Metadata
-@Deprecated
-@SideOnly(Side.CLIENT)
-interface IInitModel {
+class ModuleContainers {
 
-	void initModel();
-
-	//void initModel(int meta);
+    static void preInit() {
+        CapabilityMj.register();
+        CompatModuleContainer.preInit();
+        EventBusModuleContainer.preInit();
+    }
 }

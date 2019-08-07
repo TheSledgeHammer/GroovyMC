@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
@@ -82,7 +81,7 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
         if (!canExtract()) {
             return 0;
         }
-        long powerExtracted = Math.min(mjEnergy, Math.min(this.maxExtract, (max - min)));
+        long powerExtracted = Math.min(mjEnergy, Math.min(maxExtract, (max - min)));
         if (!simulate) {
             mjEnergy -= powerExtracted;
         }
@@ -110,7 +109,7 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
             return 0;
         }
 
-        long powerReceived = Math.min(capacity - mjEnergy, Math.min(this.maxReceive, microJoules));
+        long powerReceived = Math.min(capacity - mjEnergy, Math.min(maxReceive, microJoules));
         if (!simulate) {
             mjEnergy += powerReceived;
         }

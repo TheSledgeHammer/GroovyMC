@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.modules.theoneprobe
+package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.google.common.base.Function
-import com.thesledgehammer.groovymc.api.integration.BlankModule
+import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
-import mcjty.theoneprobe.TheOneProbe
-import mcjty.theoneprobe.api.*
-import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.world.World
-import net.minecraftforge.fml.common.Loader
+import mcjty.theoneprobe.api.ITheOneProbe
 import net.minecraftforge.fml.common.event.FMLInterModComms
 import org.apache.logging.log4j.Level
 
 import javax.annotation.Nullable
 
-class TheOneProbeCompatibilityModule extends BlankModule implements Function<ITheOneProbe, Void> {
+class TheOneProbeCompatibilityModule extends BlankCompatModule implements Function<ITheOneProbe, Void> {
 
     private static TheOneProbeCompatibilityModule instance;
     private static boolean registered;

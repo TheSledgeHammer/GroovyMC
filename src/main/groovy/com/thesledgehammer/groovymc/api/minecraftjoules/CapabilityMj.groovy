@@ -15,7 +15,7 @@
  */
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
-import com.thesledgehammer.groovymc.integration.minecraftjoules.MinecraftJoulesStorage
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesStorage
 import net.minecraft.nbt.NBTBase
 import net.minecraft.nbt.NBTTagLong
 import net.minecraft.util.EnumFacing

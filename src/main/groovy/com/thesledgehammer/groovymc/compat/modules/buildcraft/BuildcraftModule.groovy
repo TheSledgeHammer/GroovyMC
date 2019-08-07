@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.integration.modules.buildcraft
+package com.thesledgehammer.groovymc.compat.modules.buildcraft
 
 import buildcraft.api.mj.MjAPI
-import com.thesledgehammer.groovymc.api.integration.BlankModule
+import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import net.minecraftforge.common.capabilities.Capability
 
-class BuildcraftModule extends BlankModule {
+class BuildcraftModule extends BlankCompatModule {
 
     private static BuildcraftModule instance;
 
