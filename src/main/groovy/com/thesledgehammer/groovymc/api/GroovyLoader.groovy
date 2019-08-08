@@ -123,8 +123,8 @@ class GroovyLoader {
         setJVMLanguage(jvm);
         setPackageURL(url);
         setModID(modID);
-        this.modDirectory = new File("src/main" + "/" + jvm + "/" + url + "/" + modID + "/").absolutePath;
-        this.modResourceDirectory = new File("src/main/resources/assets/").absolutePath;
+        this.modDirectory = new File("src/main/${jvm}/${url}/${modID}/").toString();
+        this.modResourceDirectory = new File("src/main/resources/assets/").toString();
     }
 
     void setCustomDirectories(String modPath, String modResourcePath, String jvm, String url, String modID) {
@@ -133,8 +133,8 @@ class GroovyLoader {
         setJVMLanguage(jvm);
         setPackageURL(url);
         setModID(modID);
-        this.modDirectory = new File(modPath + "/" + jvm + "/" + url + "/" + modID + "/").absolutePath;
-        this.modResourceDirectory = new File(modPath + "/" + modResourcePath + "/").absolutePath;
+        this.modDirectory = new File("${modPath}/${jvm}/${url}/${modID}/").toString();
+        this.modResourceDirectory = new File("${modPath}/${modResourcePath}/").toString();
     }
 
     final int hashCode() {

@@ -77,33 +77,44 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
 
     void onTextureStitchPre(TextureMap map) {
         Set<ResourceLocation> toStitch = new HashSet<>();
-        for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
-            holder.onTextureStitchPre(toStitch);
+        if(hasEntries()) {
+            for (ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onTextureStitchPre(toStitch);
 
-            for(TextureAtlasSprite sprite : TEXTURE_ENTRY.getTextureAtlasSprites()) {
-                if(TEXTURE_ENTRY.getTextureAtlasSprite(sprite) instanceof ISprite) {
-                    TEXTURE_ENTRY.onTextureStitchPre(map);
+                for (TextureAtlasSprite sprite : TEXTURE_ENTRY.getTextureAtlasSprites()) {
+                    if (TEXTURE_ENTRY.getTextureAtlasSprite(sprite) instanceof ISprite) {
+                        TEXTURE_ENTRY.onTextureStitchPre(map);
+                    }
+                    map.setTextureEntry(TEXTURE_ENTRY.getTextureAtlasSprite(sprite));
                 }
-                map.setTextureEntry(TEXTURE_ENTRY.getTextureAtlasSprite(sprite));
-            }
 
-            for(ResourceLocation location : TEXTURE_ENTRY.getResourceLocations()) {
-                map.registerSprite(TEXTURE_ENTRY.getResourceLocation(location));
+                for (ResourceLocation location : TEXTURE_ENTRY.getResourceLocations()) {
+                    map.registerSprite(TEXTURE_ENTRY.getResourceLocation(location));
+                }
             }
         }
     }
 
     void onModelBake(ModelBakeEvent event) {
         IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
-        for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
-            holder.onModelBake();
+        if(hasEntries()) {
+            for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onModelBake();
 
-            for(ModelResourceLocation modelResource : MODEL_ENTRY.getModelResourceLocations()) {
-                for(IBakedModel bakedModel : MODEL_ENTRY.getIBakedModels()) {
-                    registry.putObject(MODEL_ENTRY.getModelResourceLocation(modelResource), MODEL_ENTRY.getIBakedModel(bakedModel));
+                for(ModelResourceLocation modelResource : MODEL_ENTRY.getModelResourceLocations()) {
+                    for(IBakedModel bakedModel : MODEL_ENTRY.getIBakedModels()) {
+                        registry.putObject(MODEL_ENTRY.getModelResourceLocation(modelResource), MODEL_ENTRY.getIBakedModel(bakedModel));
+                    }
                 }
             }
         }
+    }
+
+    private boolean hasEntries() {
+        if(!ENTRY_HOLDERS().isEmpty()) {
+            return true;
+        }
+        return false;
     }
 /*
     ModelEntryHolderStatic getModelEntryHolderStatic(String domain, String path) {

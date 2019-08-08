@@ -4,8 +4,8 @@
 ### Added
 - Added GroovysonModelDefinition with Static & Variable Keys for model mapping
 - Added Modules: For inter mod compatability
-- Added Buildcraft, IC2 & Tesla Energy Modules
-- Added Independent variation of MinecraftJoules from Buildcraft with full compatibility with capabilities
+- Added Buildcraft MJ
+- Added Independent variation of MinecraftJoules from Buildcraft (aiming for compatability)
 - Added New classes inner workings of Variable Models
 - Added GroovysonObjectState: An Object version of a blockstate json. In similar design to GroovysonObject & GroovysonObjectPart 
 ### Changes

@@ -17,47 +17,58 @@
 package com.thesledgehammer.groovymc.init
 
 import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
-
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
+import com.thesledgehammer.groovymc.test.render.ModelRender
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 class EventBusModuleContainer {
 
-    private static List<BlankEventBusModule> EVENTS = new ArrayList<>();
+    private static List<BlankEventBusModule> EVENTS = new LinkedList<>();
 
-    static List<BlankEventBusModule> EVENT_REGISTER() {
+    static List<BlankEventBusModule> EVENT_CONTAINER() {
         return EVENTS;
     }
 
     static void preInit() {
-        if(ModelEntryHolderManager.Instance().ENTRY_HOLDERS().isEmpty() || ModelEntryHolderManager.Instance().ENTRY_HOLDERS().size() != 0) {
-            MinecraftForge.EVENT_BUS.register(EventBusModuleContainer.class);
-        }
+
+       // registerModules();
+        MinecraftForge.EVENT_BUS.register(EventBusModuleContainer.class);
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     static void onModelBake(ModelBakeEvent event) {
         ModelEntryHolderManager.Instance().onModelBake(event);
-        for(BlankEventBusModule events : EVENTS) {
-            events.onModelBake(event);
-            Log.logInfo("OnModelBake() ${events} has been loaded");
+        for(BlankEventBusModule module : EVENTS) {
+            if(isRegistered(module)) {
+                module.onModelBake(event);
+                Log.logDebug("${module.getModID()} onModelBake ${module.getEventName()}  has been loaded");
+            }
         }
     }
 
-   // @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    static void registerTextureAtlasSprites(TextureMap textureMap) {
+    static void onTextureStitchPre(TextureMap textureMap) {
         ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
-        for(BlankEventBusModule events : EVENTS) {
-            events.registerTextureAtlasSprites(textureMap);
-            Log.logInfo("registerTextureAtlasSprites() ${events} has been loaded");
+    }
+
+    private static boolean isRegistered(BlankEventBusModule module) {
+        if(module != null) {
+            if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    private static void registerModules() {
+        ModelRender modelRender = new ModelRender();
     }
 }

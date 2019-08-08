@@ -27,8 +27,9 @@ class CompatModuleContainer {
     private static List<BlankCompatModule> CONTAINER = new LinkedList<>();
 
     static void preInit() {
+        registerModules();
         for(BlankCompatModule module : CONTAINER) {
-            if (Loader.isModLoaded(module.getModID())) {
+            if (isRegistered(module)) {
                 module.init();
                 Log.logInfo("${module.getModID()} has been loaded")
             }
@@ -39,7 +40,16 @@ class CompatModuleContainer {
         return CONTAINER;
     }
 
-    private static void preRegisteredModules() {
+    private static boolean isRegistered(BlankCompatModule module) {
+        if(module != null) {
+            if(Loader.isModLoaded(module.getModID())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void registerModules() {
         BuildcraftModule BC = new BuildcraftModule();
         TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule();
     }
