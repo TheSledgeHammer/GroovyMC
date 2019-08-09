@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.client.ForgeHooksClient
 import net.minecraftforge.fml.client.registry.ClientRegistry
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.relauncher.Side
@@ -58,6 +59,7 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
             Item item = Item.getItemFromBlock(block);
             if(item != Items.AIR) {
                 //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                //ForgeHooksClient.renderTileItem(item, 0);
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
                 item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
             }
@@ -73,6 +75,7 @@ trait MachinePropertyTraitsTESR<T extends GroovyTileBasic> extends MachineProper
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
                 //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                //ForgeHooksClient.renderTileItem(item, 0);
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
                 item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
             }

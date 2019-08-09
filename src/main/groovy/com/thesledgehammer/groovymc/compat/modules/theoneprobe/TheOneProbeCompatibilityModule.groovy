@@ -53,7 +53,6 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
     @Override
     void init() {
         Log.log(Level.INFO, "Enabled support for The One Probe");
-        println "TheOneProbeCompatModule Loaded Successfully"
         register();
     }
 

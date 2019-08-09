@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
@@ -125,7 +126,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Override
     @SideOnly(Side.CLIENT)
     void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+        ModelEntryHolderManager.Instance().registerModel(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
 
     @Override

@@ -17,15 +17,17 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.model.GroovyVariableModel
 import com.thesledgehammer.groovymc.client.model.ModelEntryHolderVariable
 import com.thesledgehammer.groovymc.config.Constants
+import com.thesledgehammer.groovymc.experimental.models.groovymc.RenderEntry
+import com.thesledgehammer.groovymc.test.objects.TestTile
 
 class JsonTest {
 
     static void main(String[] args) {
-        GroovyLoader GL = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
+        /*GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
+
         ModelEntryHolderVariable entry = new ModelEntryHolderVariable("groovymc", "models/block/engine_base");
 
         GroovyVariableModel blockModel = entry.getGroovyVariableModel();
@@ -46,11 +48,6 @@ class JsonTest {
         blockModel.setModelTextures("#chamber");
         blockModel.setModelTextures("#back");
         blockModel.setModelTextures("#side");
-
-
-        println ModelEntry.Instance().getModelResourceLocations()
-
+        */
     }
 }
-
-//Needs getTextureMapBlocks

@@ -17,7 +17,9 @@ package com.thesledgehammer.groovymc.compat.modules.buildcraft
 
 import buildcraft.api.mj.MjAPI
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
+import com.thesledgehammer.groovymc.utils.Log
 import net.minecraftforge.common.capabilities.Capability
+import org.apache.logging.log4j.Level
 
 class BuildcraftModule extends BlankCompatModule {
 
@@ -37,7 +39,7 @@ class BuildcraftModule extends BlankCompatModule {
 
     @Override
     void init() {
-
+        Log.log(Level.INFO, "Enabled support for Buildcraft");
     }
 
     static boolean isLoaded() {

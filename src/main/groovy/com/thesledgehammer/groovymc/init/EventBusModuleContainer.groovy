@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.init
 import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.test.render.ModelRender
+import com.thesledgehammer.groovymc.test.render.RenderEngine
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraftforge.client.event.ModelBakeEvent
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import org.apache.logging.log4j.Level
 
 class EventBusModuleContainer {
 
@@ -37,8 +39,7 @@ class EventBusModuleContainer {
     }
 
     static void preInit() {
-
-       // registerModules();
+        registerModules();
         MinecraftForge.EVENT_BUS.register(EventBusModuleContainer.class);
     }
 
@@ -49,7 +50,7 @@ class EventBusModuleContainer {
         for(BlankEventBusModule module : EVENTS) {
             if(isRegistered(module)) {
                 module.onModelBake(event);
-                Log.logDebug("${module.getModID()} onModelBake ${module.getEventName()}  has been loaded");
+                Log.log(Level.INFO, "${module.getModID()} onModelBake ${module.getEventName()}  has been loaded");
             }
         }
     }
@@ -69,6 +70,6 @@ class EventBusModuleContainer {
     }
 
     private static void registerModules() {
-        ModelRender modelRender = new ModelRender();
+        RenderEngine.Instance();
     }
 }

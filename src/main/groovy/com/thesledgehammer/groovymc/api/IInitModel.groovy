@@ -19,12 +19,8 @@ package com.thesledgehammer.groovymc.api
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-//Add ability to initModels with Metadata
-@Deprecated
 @SideOnly(Side.CLIENT)
 interface IInitModel {
 
 	void initModel();
-
-	//void initModel(int meta);
 }

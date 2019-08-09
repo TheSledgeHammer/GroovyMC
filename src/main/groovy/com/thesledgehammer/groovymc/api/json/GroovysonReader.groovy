@@ -59,11 +59,7 @@ class GroovysonReader {
 	}
 
 	private static void setPath(String path) {
-		if(path == null) {
-			this.path = GroovyLoader.Instance().getModResourceDirectory();
-		} else {
-			this.path = path;
-		}
+		this.path = path;
 	}
 
 	private static void setResourceLocation(ResourceLocation resourceLocation) {

@@ -1,9 +1,16 @@
 TODO:
 Short-Term: (Before 1.13/1.14 Port Completion)
 - Complete Variable Model
-- To Fix:
+- To Fix for Models:
     - CuboidBase: VariableLight
 - BakedModel's
+- Add a debug / log when GroovyLoader is not setup and in use
+- Can't initModel with Renderer: MachineProperties setRenderer: doesn't work with current Buildcraft approach to setting the Renderer or Vice-Versa
+- Can't Read model .json even if correct path for model location. May need to externalize / split the reading and defining the path from class constructor
+- Voltage for Tiers. More fluent approach
+	- Seperate from MJ and FE
+	- Integrated into Energies approach doesn't allow easy conversion between Energies
+	- @Deprecated: TieredMinecraftJoulesTile, Unused over base tile
 
 Long-Term:
 - GroovyMC Model inter compatible with Forge's IModel API
@@ -11,3 +18,10 @@ Long-Term:
 - MultiBlocks
 - GuiBuilder
 - Improve Modules
+
+Insight to Own Model Issues:
+Buildcraft:
+- FunctionContext
+- ResourceLoaderContext
+- ModelHolderVariable: Does not initialize JsonVariableModel
+- ModelHolderStatic: Does not initialize JsonModel

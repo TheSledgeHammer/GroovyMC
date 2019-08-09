@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.client.model.bakedmodel
 
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
-import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import com.thesledgehammer.groovymc.client.model.bakedmodel.BlankGroovyBakedModel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
@@ -31,6 +30,7 @@ import net.minecraftforge.common.model.IModelState
 
 import javax.annotation.Nullable
 import java.util.function.Function
+
 //Work in Progress:
 class IModelGroovyBakedModel implements IBakedModel {
 
