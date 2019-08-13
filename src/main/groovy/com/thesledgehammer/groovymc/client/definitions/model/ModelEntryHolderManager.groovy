@@ -16,7 +16,9 @@
 
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.api.ISprite
+import com.thesledgehammer.groovymc.api.IInitModel
+import com.thesledgehammer.groovymc.api.client.ISprite
+import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
@@ -37,6 +39,8 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
     private final List<ModelEntryHolder> HOLDERS = new ArrayList<>();
     private final ModelEntry MODEL_ENTRY = ModelEntry.Instance();
     private final TextureEntry TEXTURE_ENTRY = TextureEntry.Instance();
+
+    private final Set<IInitModel> initModels = new HashSet<>();
 
     static ModelEntryHolderManager Instance() {
         return instance;
@@ -73,6 +77,22 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
         ResourceLocation location = new ResourceLocation(resourceLocation);
         ModelResourceLocation modelLocation = new ModelResourceLocation(location, "inventory");
         return modelLocation;
+    }
+
+    @SideOnly(Side.CLIENT)
+    void initModels() {
+        for(IInitModel initModel : initModels) {
+            Item item = null;
+            if(initModel instanceof Block) {
+                item = Item.getItemFromBlock((Block) initModel);
+            } else if(initModel instanceof Item) {
+                item = (Item) initModel;
+            }
+            if(item != null) {
+                //initModel.initModel(item, this);
+                initModel.initModel();
+            }
+        }
     }
 
     void onTextureStitchPre(TextureMap map) {

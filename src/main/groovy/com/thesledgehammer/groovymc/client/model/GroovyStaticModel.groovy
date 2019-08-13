@@ -59,10 +59,6 @@ class GroovyStaticModel {
         return GROOVY_MODEL;
     }
 
-    void setModelElements(String name) {
-        GROOVY_MODEL.setRawModelParts(name);
-    }
-
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
         TextureEntry.Register.add(name).build();

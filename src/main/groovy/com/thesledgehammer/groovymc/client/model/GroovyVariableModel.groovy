@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.*
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -73,14 +72,14 @@ class GroovyVariableModel {
     GroovysonObjectModelVariable getGroovysonModel() {
         return GROOVY_MODEL;
     }
-
-    void setModelElements(String name) {
-        GROOVY_MODEL.setRawModelParts(name);
-    }
+/*
+    void setModelElements(int numberofelements) {
+        GROOVY_MODEL.setRawModelParts(numberofelements);
+    }*/
 
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
-        TextureEntry.Register.add(name).build();
+       // TextureEntry.Register.add(name).build();
         JsonTextureMap();
     }
 

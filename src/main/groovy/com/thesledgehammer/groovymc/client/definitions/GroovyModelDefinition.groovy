@@ -16,13 +16,13 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-
+import com.thesledgehammer.groovymc.api.client.definitions.IGroovyModelDefinition
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraftforge.client.model.IModel
 import net.minecraftforge.common.model.IModelPart
 import net.minecraftforge.common.model.IModelState
 
-class GroovyModelDefinition {
+class GroovyModelDefinition implements IGroovyModelDefinition {
 
     private IBakedModel bakedModel;
     private IModel iModel;
@@ -33,53 +33,65 @@ class GroovyModelDefinition {
     private List<IModelState> iModelStateList = new LinkedList<>();
     private List<IModelPart> iModelPartList = new LinkedList<>();
 
+    @Override
     IBakedModel getIBakedModel() {
         return bakedModel;
     }
 
+    @Override
     IModel getIModel() {
         return iModel
     }
 
+    @Override
     IModelState getIModelState() {
         return iModelState
     }
 
+    @Override
     IModelPart getIModelPart() {
         return iModelPart
     }
 
+    @Override
     List<IBakedModel> getIBakedModels() {
         return bakedModelList;
     }
 
+    @Override
     List<IModel> getIModels() {
         return iModelList;
     }
 
+    @Override
     List<IModelState> getIModelStates() {
         return iModelStateList;
     }
 
+    @Override
     List<IModelPart> getIModelParts() {
         return iModelPartList;
     }
 
+    @Override
     void setIBakedModel(IBakedModel bakedModel) {
         this.bakedModel = bakedModel;
         bakedModelList.add(this.bakedModel);
     }
 
+    @Override
     void setIModel(IModel iModel) {
         this.iModel = iModel;
         iModelList.add(this.iModel);
     }
 
+    @Override
     void setIModelState(IModelState iModelState) {
         this.iModelState = iModelState;
         iModelStateList.add(this.iModelState);
     }
 
+    @Override
     void setIModelPart(IModelPart iModelPart) {
         this.iModelPart = iModelPart;
         iModelPartList.add(this.iModelPart);

@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.experimental.jsons
 
-import com.thesledgehammer.groovymc.api.json.GroovysonReader
+import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
 import com.thesledgehammer.groovymc.utils.Log
 import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation

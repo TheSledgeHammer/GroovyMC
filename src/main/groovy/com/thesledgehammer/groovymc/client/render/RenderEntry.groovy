@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.thesledgehammer.groovymc.client.render
 
-package com.thesledgehammer.groovymc.client.definitions.model
+import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
+import net.minecraft.tileentity.TileEntity
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+abstract class RenderEntry<M extends ModelEntryHolder, T extends TileEntity> extends BlankEventBusModule implements IRenderEntry<M, T> {
 
-abstract class ModelEntryProvider implements IModelProvider {
+    private M modelEntry;
 
-    ModelEntryProvider() {
-
-    }
-
-    @Override
-    GroovyDefinitionContext GroovyDefinitionContext() {
-        return GroovyDefinitionContext.Instance();
+    RenderEntry(String modID, String eventName, M model) {
+        super(modID, eventName);
+        this.modelEntry = model;
     }
 }

@@ -16,7 +16,8 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.api.json.GroovysonReader
+import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
+import com.thesledgehammer.groovymc.client.model.ResourceLoader
 import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation
 
@@ -24,6 +25,7 @@ class GroovysonObject {
 
     private def obj; //raw Json Model file
     private String name;
+    private ResourceLocation resourceLocation;
 
     GroovysonObject() {
 
@@ -31,18 +33,40 @@ class GroovysonObject {
 
     GroovysonObject(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.resourceLocation = resourceLocation;
+
+        ResourceLoader isr = new ResourceLoader();
+        this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
+        isr.finishLoading();
+
+       // this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.resourceLocation = new ResourceLocation(resourceDomain, resourcePath);
+
+       ResourceLoader isr = new ResourceLoader();
+       this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
+       isr.finishLoading();
+
+       // this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
+    }
+
+    protected void deserializeParts(List<GroovysonObjectPart> objectParts) {
+        for(String elem : obj.elements) {
+            objectParts.add(new GroovysonObjectPart(this, elem));
+        }
     }
 
     String getName() {
         return name;
+    }
+
+    ResourceLocation getResourceLocation() {
+        return resourceLocation;
     }
 
     def getJsonObject() {

@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.api.IInitModel
-
 import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import net.minecraft.block.Block

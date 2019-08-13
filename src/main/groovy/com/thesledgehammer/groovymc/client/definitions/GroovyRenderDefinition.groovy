@@ -16,13 +16,14 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
+import com.thesledgehammer.groovymc.api.client.definitions.IRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 
-class GroovyRenderDefinition {
+class GroovyRenderDefinition implements IRenderDefinition {
 
     private CutoutKey cutoutKey;
     private CutoutMippedKey cutoutMippedKey;
@@ -38,39 +39,47 @@ class GroovyRenderDefinition {
         setGroovysonModel(groovysonModel);
     }
 
+    @Override
     CutoutKey getCutoutKey() {
         return cutoutKey;
     }
 
+    @Override
     CutoutMippedKey getCutoutMippedKey() {
         return cutoutMippedKey;
     }
 
+    @Override
     SolidKey getSolidKey() {
         return solidKey;
     }
 
+    @Override
     TranslucentKey getTranslucentKey() {
         return translucentKey;
     }
 
-    private void setGroovysonModel(GroovysonObjectModel groovysonModel) {
-        this.groovysonModel = groovysonModel;
-    }
-
+    @Override
     void setCutoutKey(CutoutKey cutoutKey) {
         this.cutoutKey = cutoutKey;
     }
 
+    @Override
     void setCutoutMippedKey(CutoutMippedKey cutoutMippedKey) {
         this.cutoutMippedKey = cutoutMippedKey;
     }
 
+    @Override
     void setSolidKey(SolidKey solidKey) {
         this.solidKey = solidKey;
     }
 
+    @Override
     void setTranslucentKey(TranslucentKey translucentKey) {
         this.translucentKey = translucentKey;
+    }
+
+    private void setGroovysonModel(GroovysonObjectModel groovysonModel) {
+        this.groovysonModel = groovysonModel;
     }
 }

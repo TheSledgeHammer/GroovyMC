@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
 import groovy.json.JsonException
 import net.minecraft.util.EnumFacing
 
@@ -25,45 +24,9 @@ class GroovysonObjectPart {
     private GroovysonObject groovysonObject;
     private def part; //raw Json Model Elements if applicable
 
-    GroovysonObjectPart() {
-
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject) {
-        setGroovysonObject(groovysonObject);
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject, int index) {
-        setGroovysonObject(groovysonObject);
-        setPart(index);
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject, String name) {
-        setGroovysonObject(groovysonObject);
-        setPartByName(name);
-    }
-
-    void setGroovysonObject(GroovysonObject groovysonObject) {
+    GroovysonObjectPart(GroovysonObject groovysonObject, String index) {
         this.groovysonObject = groovysonObject;
-    }
-
-    //Refers to def part
-    private void setPart(int index) {
-        part = groovysonObject.getElementPart(index);
-    }
-
-    void setPartByName(String name) {
-        int k = 0;
-        int idx = 0;
-        for(int i = 0; i < groovysonObject.getElements().size; i++) {
-            if(name.equals(groovysonObject.getElementPart(i).name)) {
-                setPart(i);
-                idx = i;
-            }
-        }
-        if(!name.equals(groovysonObject.getElementPart(idx).name)) {
-            throw new JsonException("${groovysonObject.getName()} model does not contain an element named: ${name}");
-        }
+        this.part = groovysonObject.elements.getAt(index)
     }
 
     String getPartName() {

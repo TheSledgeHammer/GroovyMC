@@ -27,10 +27,12 @@ class GroovysonObjectModel extends GroovysonObject {
 
     GroovysonObjectModel(ResourceLocation resourceLocation) {
         super(GroovyLoader.Instance().getModResourceDirectory(), resourceLocation);
+        deserializeParts(this.groovysonObjectParts);
     }
 
     GroovysonObjectModel(String resourceDomain, String resourcePath) {
         super(GroovyLoader.Instance().getModResourceDirectory(), resourceDomain, resourcePath);
+        deserializeParts(this.groovysonObjectParts);
     }
 
     //Texture Name & Location
@@ -56,10 +58,6 @@ class GroovysonObjectModel extends GroovysonObject {
 
     String getTexturesLocation(String textureName) {
         return rawModelTexturesMap.get(textureName);
-    }
-
-    void setRawModelParts(String partName) {
-        groovysonObjectParts.add(new GroovysonObjectPart(this, partName));
     }
 
     //Returns all Model Elements in .json if applicable

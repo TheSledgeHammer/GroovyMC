@@ -17,13 +17,14 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.ISprite
+import com.thesledgehammer.groovymc.api.client.ISprite
+import com.thesledgehammer.groovymc.api.client.definitions.IResourceDefinition
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 
-class GroovyResourceDefinition {
+class GroovyResourceDefinition implements IResourceDefinition{
 
     private String resourceDirectory;
     private String modelDirectory;
@@ -34,56 +35,68 @@ class GroovyResourceDefinition {
     private List<TextureAtlasSprite> textureAtlasSpriteList = new LinkedList<>();
     private List<ModelResourceLocation> modelResourceLocationList = new LinkedList<>();
 
+    @Override
     ResourceLocation getResourceLocation() {
         return resourceLocation;
     }
 
+    @Override
     ModelResourceLocation getModelResourceLocation() {
         return modelResourceLocation;
     }
 
+    @Override
     TextureAtlasSprite getTextureAtlasSprite() {
         return textureAtlasSprite;
     }
 
+    @Override
     List<ResourceLocation> getResourceLocations() {
         return resourceLocationList;
     }
 
+    @Override
     List<ModelResourceLocation> getModelResourceLocations() {
         return modelResourceLocationList;
     }
 
+    @Override
     List<TextureAtlasSprite> getTextureAtlasSprites() {
         return textureAtlasSpriteList;
     }
 
+    @Override
     void setResourceLocation(ResourceLocation resourceLocation) {
         this.resourceLocation = resourceLocation;
     }
 
+    @Override
     void setModelResourceLocation(ModelResourceLocation modelResourceLocation) {
         if(modelResourceLocation != null) {
             this.modelResourceLocation = modelResourceLocation;
         }
-        modelResourceLocationList.add(this.modelResourceLocation);
+        modelResourceLocationList.add(modelResourceLocation);
     }
 
+    @Override
     void setTextureAtlasSprite(TextureAtlasSprite textureAtlasSprite) {
         this.textureAtlasSprite = textureAtlasSprite;
-        textureAtlasSpriteList.add(this.textureAtlasSprite);
+        textureAtlasSpriteList.add(textureAtlasSprite);
     }
 
+    @Override
     void setResourceLocation(String resource) {
         this.resourceLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), resource);
         resourceLocationList.add(this.resourceLocation);
     }
 
+    @Override
     void setResourceLocation(String modID, String resource) {
         this.resourceLocation = new ResourceLocation(modID, resource);
         resourceLocationList.add(this.resourceLocation);
     }
 
+    @Override
     void setModelResourceLocation(String modelLocation) {
         if(modelLocation != null) {
             this.modelResourceLocation = new ModelResourceLocation(modelLocation, "inventory")
@@ -91,6 +104,7 @@ class GroovyResourceDefinition {
         modelResourceLocationList.add(this.modelResourceLocation);
     }
 
+    @Override
     void setTextureAtlasSprite(String sprite) {
         if(this.textureAtlasSprite instanceof ISprite) {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(sprite);
@@ -99,6 +113,7 @@ class GroovyResourceDefinition {
         textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
+    @Override
     void setTextureAtlasSprite(ResourceLocation spriteLocation) {
         if(this.textureAtlasSprite instanceof ISprite) {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(spriteLocation);
@@ -107,6 +122,7 @@ class GroovyResourceDefinition {
         textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
+    @Override
     void setTextureAtlasSprite(String modID, String baseName) {
         if(this.textureAtlasSprite instanceof ISprite) {
             this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(modID, baseName);
@@ -115,10 +131,12 @@ class GroovyResourceDefinition {
         textureAtlasSpriteList.add(this.textureAtlasSprite);
     }
 
+    @Override
     void onTextureStitchPre(TextureMap map) {
         GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getResourceLocation());
     }
 
+    @Override
     void setCustomResourceLocation(String type, String fileName) {
         setResourceDirectory(type, fileName);
         String resource = "";
@@ -136,6 +154,7 @@ class GroovyResourceDefinition {
         resourceLocationList.add(this.resourceLocation);
     }
 
+    @Override
     void setCustomResourceLocation(String modID, String type, String fileName) {
         setResourceDirectory(type, fileName);
         String resource = "";
@@ -153,6 +172,7 @@ class GroovyResourceDefinition {
         resourceLocationList.add(this.resourceLocation);
     }
 
+    @Override
     void setCustomModelResourceLocation(String type, String fileName) {
         setModelResourceDirectory(type, fileName);
         String modelLocation = "";

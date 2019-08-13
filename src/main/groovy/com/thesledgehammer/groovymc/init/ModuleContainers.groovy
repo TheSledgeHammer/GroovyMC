@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.init
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import com.thesledgehammer.groovymc.test.ModRegister
 
 class ModuleContainers {
 
@@ -24,5 +25,6 @@ class ModuleContainers {
         CapabilityMj.register();
         CompatModuleContainer.preInit();
         EventBusModuleContainer.preInit();
+        ModRegister.initModels();
     }
 }

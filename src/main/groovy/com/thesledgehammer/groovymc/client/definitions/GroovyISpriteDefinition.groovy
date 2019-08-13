@@ -1,7 +1,7 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.ISprite
+import com.thesledgehammer.groovymc.api.client.ISprite
 import com.thesledgehammer.groovymc.utils.SpriteTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap

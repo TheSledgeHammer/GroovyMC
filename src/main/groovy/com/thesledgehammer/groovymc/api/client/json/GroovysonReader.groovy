@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api.json
+package com.thesledgehammer.groovymc.api.client.json
 
-import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.StringTools
 import groovy.json.JsonSlurper
 import net.minecraft.util.ResourceLocation
@@ -47,14 +46,14 @@ class GroovysonReader {
 	static String ResourcePath(String path, ResourceLocation resourceLocation) {
 		setPath(path);
 		setResourceLocation(resourceLocation);
-		String assetsPath = path + "/" + resourceLocation.getResourceDomain().toString() + "/" + resourceLocation.getResourcePath().toString();
+		String assetsPath = "${path}/${resourceLocation.getResourceDomain().toString()}/${resourceLocation.getResourcePath().toString()}";
 		return assetsPath;
 	}
 
 	static String ResourcePath(String path, String resourceDomain, String resourcePath) {
 		setPath(path);
 		setResourceLocation(new ResourceLocation(resourceDomain, resourcePath));
-		String assetsPath = path + "/" + resourceLocation.getResourceDomain().toString() + "/" + resourceLocation.getResourcePath().toString();
+		String assetsPath = "${path}/${resourceLocation.getResourceDomain().toString()}/${resourceLocation.getResourcePath().toString()}";
 		return assetsPath;
 	}
 
@@ -77,14 +76,27 @@ class GroovysonReader {
 	//Converts an Json File to a readable JsonObject
 	static def JsonSlurpy(String jsonFile) {
 		def slurpinator = new JsonSlurper();
-		def jsonObject = slurpinator.parse(new FileReader(jsonFile + ".json"));
+		def jsonObject = slurpinator.parse(new FileReader("${jsonFile}.json"));
+		return jsonObject
+	}
+
+	//File won't be read. Must add the .json file extension when used.
+	static def JsonSlurpy(Reader jsonFile) {
+		def slurpinator = new JsonSlurper();
+		def jsonObject = slurpinator.parse(jsonFile);
 		return jsonObject
 	}
 
 	//Converts an Xml File to a readable XmlObject
 	static def XmlSlurpy(String xmlFile) {
 		def slurpinator = new XmlSlurper();
-		def xmlObject = slurpinator.parse(new FileReader(xmlFile + ".xml"))
+		def xmlObject = slurpinator.parse(new FileReader("${xmlFile}.xml"))
+		return xmlObject;
+	}
+
+	static def XmlSlurpy(Reader xmlFile) {
+		def slurpinator = new XmlSlurper();
+		def xmlObject = slurpinator.parse(xmlFile);
 		return xmlObject;
 	}
 }

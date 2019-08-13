@@ -7,7 +7,7 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.api.ISprite
+import com.thesledgehammer.groovymc.api.client.ISprite
 import net.minecraft.client.renderer.BufferBuilder
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite

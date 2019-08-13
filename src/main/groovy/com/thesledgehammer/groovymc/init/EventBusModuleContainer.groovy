@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.init
 
 import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
-import com.thesledgehammer.groovymc.test.render.ModelRender
 import com.thesledgehammer.groovymc.test.render.RenderEngine
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
@@ -46,13 +45,14 @@ class EventBusModuleContainer {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     static void onModelBake(ModelBakeEvent event) {
-        ModelEntryHolderManager.Instance().onModelBake(event);
+
         for(BlankEventBusModule module : EVENTS) {
             if(isRegistered(module)) {
                 module.onModelBake(event);
                 Log.log(Level.INFO, "${module.getModID()} onModelBake ${module.getEventName()}  has been loaded");
             }
         }
+//        ModelEntryHolderManager.Instance().onModelBake(event);
     }
 
     @SideOnly(Side.CLIENT)
@@ -70,6 +70,6 @@ class EventBusModuleContainer {
     }
 
     private static void registerModules() {
-        RenderEngine.Instance();
+       RenderEngine.Instance();// engine = new RenderEngine(RenderMK1.MODEL);
     }
 }
