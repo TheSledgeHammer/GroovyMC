@@ -19,6 +19,7 @@ package com.thesledgehammer.groovymc.client.render
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.client.model.animation.FastTESR
 
+@Deprecated
 abstract class GroovyFastTESR<T extends TileEntity> extends FastTESR<T> {
 
     GroovyFastTESR() {

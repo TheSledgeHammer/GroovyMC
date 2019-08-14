@@ -16,16 +16,24 @@
 
 package com.thesledgehammer.groovymc.client.render
 
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
+import net.minecraft.client.renderer.BufferBuilder
 import net.minecraft.tileentity.TileEntity
+import net.minecraftforge.client.model.animation.FastTESR
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Deprecated
 @SideOnly(Side.CLIENT)
-abstract class GroovyTileEntitySpecialRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T> {
+abstract class GroovyRenderEntryFastTESR<M extends ModelEntryHolder , T extends TileEntity> extends FastTESR<T> {
 
-    GroovyTileEntitySpecialRenderer() {
+    protected final RenderEntryFast<M, T> renderEntryFast
 
+    GroovyRenderEntryFastTESR(RenderEntryFast<M, T> renderEntryFast) {
+        this.renderEntryFast = renderEntryFast;
+    }
+
+    @Override
+    void renderTileEntityFast(T te, double x, double y, double z, float partialTicks, int destroyStage, float partial, BufferBuilder buffer) {
+        renderEntryFast.renderFast(te, x, y, z, partialTicks, destroyStage, partial, buffer);
     }
 }

@@ -16,16 +16,23 @@
 
 package com.thesledgehammer.groovymc.client.render
 
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Deprecated
 @SideOnly(Side.CLIENT)
-abstract class GroovyTileEntitySpecialRenderer<T extends TileEntity> extends TileEntitySpecialRenderer<T> {
+abstract class GroovyRenderEntryTESR<M extends ModelEntryHolder , T extends TileEntity> extends TileEntitySpecialRenderer<T> {
 
-    GroovyTileEntitySpecialRenderer() {
+    protected final RenderEntry<M, T> renderEntry;
 
+    GroovyRenderEntryTESR(RenderEntry<M, T> renderEntry) {
+        this.renderEntry = renderEntry;
+    }
+
+    @Override
+    void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        renderEntry.render(te, x, y, z, partialTicks, destroyStage, alpha);
     }
 }
