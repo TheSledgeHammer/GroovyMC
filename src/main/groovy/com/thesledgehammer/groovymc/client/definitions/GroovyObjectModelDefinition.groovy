@@ -15,7 +15,7 @@
  */
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.api.client.definitions.IGroovysonModelDefinition
+import com.thesledgehammer.groovymc.api.client.definitions.IGroovyObjectModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.json.GroovysonStaticKey
 import com.thesledgehammer.groovymc.client.definitions.json.GroovysonVariableKey
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
@@ -25,12 +25,12 @@ import com.thesledgehammer.groovymc.utils.variables.VariableLong
 import com.thesledgehammer.groovymc.utils.variables.VariableObject
 import net.minecraft.util.EnumFacing
 
-class GroovysonModelDefinition implements IGroovysonModelDefinition{
+class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
 
     private GroovysonStaticKey staticKey;
     private GroovysonVariableKey variableKey;
 
-    GroovysonModelDefinition() {
+    GroovyObjectModelDefinition() {
         this.staticKey = new GroovysonStaticKey();
         this.variableKey = new GroovysonVariableKey();
     }

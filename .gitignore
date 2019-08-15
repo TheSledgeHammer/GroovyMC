@@ -22,6 +22,7 @@
 /out
 /classes
 /src/main/groovy/com/thesledgehammer/groovymc/test
+/definitions_old
 usernamecache.json
 usercache.json
 options.txt

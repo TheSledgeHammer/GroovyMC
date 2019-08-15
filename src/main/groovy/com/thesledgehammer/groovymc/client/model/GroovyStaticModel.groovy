@@ -19,7 +19,7 @@ package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovysonModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -40,7 +40,7 @@ class GroovyStaticModel {
     GroovyStaticModel(ResourceLocation resourceLocation) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceLocation);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovyObjectModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
@@ -50,7 +50,7 @@ class GroovyStaticModel {
     GroovyStaticModel(String resourceDomain, String resourcePath) {
         this.GROOVY_MODEL = new GroovysonObjectModelStatic(resourceDomain, resourcePath);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovyObjectModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));

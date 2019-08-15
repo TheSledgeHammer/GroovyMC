@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 
-import com.thesledgehammer.groovymc.api.client.definitions.IGroovysonModelDefinition
+import com.thesledgehammer.groovymc.api.client.definitions.IGroovyObjectModelDefinition
 import com.thesledgehammer.groovymc.api.client.definitions.IRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
@@ -30,15 +30,15 @@ import com.thesledgehammer.groovymc.utils.variables.VariableLong
 import com.thesledgehammer.groovymc.utils.variables.VariableObject
 import net.minecraft.util.EnumFacing
 
-class GroovyDefinitionContext implements IGroovysonModelDefinition, IRenderDefinition {
+class GroovyDefinitionContext implements IGroovyObjectModelDefinition, IRenderDefinition {
 
     private static GroovyDefinitionContext instance;
     //private GroovyResourceDefinition resources;
     //private GroovyModelDefinition models;
     private GroovyRenderDefinition renders;
-    private GroovysonModelDefinition jsonModels;
+    private GroovyObjectModelDefinition jsonModels;
 
-    GroovyDefinitionContext(GroovyRenderDefinition renders, GroovysonModelDefinition jsonModels) {
+    GroovyDefinitionContext(GroovyRenderDefinition renders, GroovyObjectModelDefinition jsonModels) {
         //this.resources = resources
         //this.models = models;
         this.renders = renders;

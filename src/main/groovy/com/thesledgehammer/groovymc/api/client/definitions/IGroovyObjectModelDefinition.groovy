@@ -22,7 +22,7 @@ import com.thesledgehammer.groovymc.utils.variables.VariableLong
 import com.thesledgehammer.groovymc.utils.variables.VariableObject
 import net.minecraft.util.EnumFacing
 
-interface IGroovysonModelDefinition {
+interface IGroovyObjectModelDefinition {
 
     //IStaticKey
     void setStaticFrom(GroovysonObjectPart part);
