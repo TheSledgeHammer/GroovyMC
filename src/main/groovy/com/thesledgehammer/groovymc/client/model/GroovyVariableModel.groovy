@@ -16,7 +16,10 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-import com.thesledgehammer.groovymc.client.definitions.*
+
+import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovysonModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -36,7 +39,7 @@ class GroovyVariableModel {
     GroovyVariableModel(ResourceLocation resourceLocation) {
         this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceLocation);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
@@ -54,7 +57,7 @@ class GroovyVariableModel {
     GroovyVariableModel(String resourceDomain, String resourcePath) {
         this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceDomain, resourcePath);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyResourceDefinition(), new GroovyModelDefinition(), new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovysonModelDefinition());
         GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
@@ -72,14 +75,9 @@ class GroovyVariableModel {
     GroovysonObjectModelVariable getGroovysonModel() {
         return GROOVY_MODEL;
     }
-/*
-    void setModelElements(int numberofelements) {
-        GROOVY_MODEL.setRawModelParts(numberofelements);
-    }*/
 
     void setModelTextures(String name) {
         GROOVY_MODEL.setRawModelTextures(name);
-       // TextureEntry.Register.add(name).build();
         JsonTextureMap();
     }
 

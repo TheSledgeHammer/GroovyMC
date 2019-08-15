@@ -21,7 +21,6 @@ import com.thesledgehammer.groovymc.api.client.ISprite
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
@@ -36,11 +35,14 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
 
     private static final ModelEntryHolderManager instance = new ModelEntryHolderManager();
 
-    private final List<ModelEntryHolder> HOLDERS = new ArrayList<>();
-    private final ModelEntry MODEL_ENTRY = ModelEntry.Instance();
-    private final TextureEntry TEXTURE_ENTRY = TextureEntry.Instance();
-
     private final Set<IInitModel> initModels = new HashSet<>();
+
+    private final List<ModelEntryHolder> HOLDERS = new ArrayList<>();
+    private final List<ModelEntry> MODEL_ENTRIES = new ArrayList<>();
+    private final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
+
+    //private final ModelEntry MODEL_ENTRY = ModelEntry.Instance();
+    //private final TextureEntry TEXTURE_ENTRY = TextureEntry.Instance();
 
     static ModelEntryHolderManager Instance() {
         return instance;
@@ -95,6 +97,14 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
         }
     }
 
+    void registerModelEntry(ModelEntry model) {
+        this.MODEL_ENTRIES.add(model);
+    }
+
+    void registerTextureEntry(TextureEntry texture) {
+        this.TEXTURE_ENTRIES.add(texture);
+    }
+/*
     void onTextureStitchPre(TextureMap map) {
         Set<ResourceLocation> toStitch = new HashSet<>();
         if(hasEntries()) {
@@ -128,6 +138,36 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
                 }
             }
         }
+    }*/
+
+    void onTextureStitchPre(TextureMap map) {
+        Set<ResourceLocation> toStitch = new HashSet<>();
+        if(hasEntries()) {
+            for (ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onTextureStitchPre(toStitch);
+
+                for(TextureEntry entry : TEXTURE_ENTRIES) {
+                    if(entry.getTextureAtlasSprite() instanceof ISprite) {
+                        entry.onTextureStitchPre();
+                    }
+                    map.setTextureEntry(entry.getTextureAtlasSprite());
+                    map.registerSprite(entry.getSpriteResourceLocation());
+                }
+            }
+        }
+    }
+
+    void onModelBake(ModelBakeEvent event) {
+        IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
+        if(hasEntries()) {
+            for (ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onModelBake();
+
+                for(final ModelEntry entry : MODEL_ENTRIES) {
+                    registry.putObject(entry.getModelResourceLocation(), entry.getBakedModel());
+                }
+            }
+        }
     }
 
     private boolean hasEntries() {
@@ -136,6 +176,7 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
         }
         return false;
     }
+
 /*
     ModelEntryHolderStatic getModelEntryHolderStatic(String domain, String path) {
         ModelEntryHolderStatic holderStatic = new ModelEntryHolderStatic(domain, path);

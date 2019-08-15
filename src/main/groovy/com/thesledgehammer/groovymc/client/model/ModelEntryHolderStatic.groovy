@@ -16,14 +16,12 @@
 package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntry
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
@@ -37,13 +35,11 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
     ModelEntryHolderStatic(ResourceLocation modelLocation) {
         super(modelLocation);
         this.groovyStaticModel = new GroovyStaticModel(modelLocation);
-        ModelEntry.Register.add(new ModelResourceLocation(modelLocation, "inventory")).build();
     }
 
     ModelEntryHolderStatic(String resourceDomain, String resourcePath) {
         super(resourceDomain, resourcePath);
         this.groovyStaticModel = new GroovyStaticModel(resourceDomain, resourcePath);
-        ModelEntry.Register.add(new ModelResourceLocation(new ResourceLocation(resourceDomain, resourcePath), "inventory")).build();
     }
 
     GroovyStaticModel getGroovyStaticModel() {

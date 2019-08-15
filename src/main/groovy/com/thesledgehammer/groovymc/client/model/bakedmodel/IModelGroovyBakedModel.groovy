@@ -16,8 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model.bakedmodel
 
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
-import com.thesledgehammer.groovymc.client.model.bakedmodel.BlankGroovyBakedModel
+
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel
@@ -39,9 +38,9 @@ class IModelGroovyBakedModel implements IBakedModel {
 
     IModelGroovyBakedModel(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         this.format = format;
-        for(ResourceLocation location : TextureEntry.Instance().getResourceLocations()) {
+        /*for(ResourceLocation location : TextureEntry.Instance().getResourceLocations()) {
             bakedTextureGetter.apply(location);
-        }
+        }*/
     }
 
     @Override

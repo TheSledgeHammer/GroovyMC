@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.definitions.model
 
+
 import net.minecraft.util.ResourceLocation
 
 abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
@@ -24,15 +25,11 @@ abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntr
 
     ModelEntryHolder(ResourceLocation modelLocation) {
         this.modelLocation = modelLocation;
-        ModelEntry.Instance();
-        TextureEntry.Instance();
         ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 
     ModelEntryHolder(String resourceDomain, String resourcePath) {
         this(new ResourceLocation(resourceDomain, resourcePath))
-        ModelEntry.Instance();
-        TextureEntry.Instance();
         ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 }

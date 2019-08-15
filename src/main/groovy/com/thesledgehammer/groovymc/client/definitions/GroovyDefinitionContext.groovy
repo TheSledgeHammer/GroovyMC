@@ -16,10 +16,9 @@
  
 package com.thesledgehammer.groovymc.client.definitions
 
-import com.thesledgehammer.groovymc.api.client.definitions.IGroovyModelDefinition
+
 import com.thesledgehammer.groovymc.api.client.definitions.IGroovysonModelDefinition
 import com.thesledgehammer.groovymc.api.client.definitions.IRenderDefinition
-import com.thesledgehammer.groovymc.api.client.definitions.IResourceDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -29,27 +28,19 @@ import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
 import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import com.thesledgehammer.groovymc.utils.variables.VariableLong
 import com.thesledgehammer.groovymc.utils.variables.VariableObject
-import net.minecraft.client.renderer.block.model.IBakedModel
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.model.IModel
-import net.minecraftforge.common.model.IModelPart
-import net.minecraftforge.common.model.IModelState
 
-class GroovyDefinitionContext implements IGroovyModelDefinition, IGroovysonModelDefinition, IRenderDefinition, IResourceDefinition {
+class GroovyDefinitionContext implements IGroovysonModelDefinition, IRenderDefinition {
 
     private static GroovyDefinitionContext instance;
-    private GroovyResourceDefinition resources;
-    private GroovyModelDefinition models;
+    //private GroovyResourceDefinition resources;
+    //private GroovyModelDefinition models;
     private GroovyRenderDefinition renders;
     private GroovysonModelDefinition jsonModels;
 
-    GroovyDefinitionContext(GroovyResourceDefinition resources, GroovyModelDefinition models, GroovyRenderDefinition renders, GroovysonModelDefinition jsonModels) {
-        this.resources = resources
-        this.models = models;
+    GroovyDefinitionContext(GroovyRenderDefinition renders, GroovysonModelDefinition jsonModels) {
+        //this.resources = resources
+        //this.models = models;
         this.renders = renders;
         this.jsonModels = jsonModels;
         instance = this;
@@ -62,7 +53,8 @@ class GroovyDefinitionContext implements IGroovyModelDefinition, IGroovysonModel
         return instance;
     }
 
-    /**IGroovyModelDefinition**/
+    //IGroovyModelDefinition
+    /*
     IBakedModel getIBakedModel() {
         return models.getIBakedModel();
     }
@@ -122,7 +114,7 @@ class GroovyDefinitionContext implements IGroovyModelDefinition, IGroovysonModel
         models.setIModelPart(iModelPart);
     }
 
-    /**IResourceDefinition**/
+    //IResourceDefinition
     @Override
     ResourceLocation getResourceLocation() {
         return resources.getResourceLocation();
@@ -217,8 +209,8 @@ class GroovyDefinitionContext implements IGroovyModelDefinition, IGroovysonModel
     void setCustomModelResourceLocation(String type, String fileName) {
         resources.setCustomModelResourceLocation(type, fileName);
     }
-
-    /**IRenderDefinition**/
+    */
+    //IRenderDefinition
     @Override
     CutoutKey getCutoutKey() {
         return renders.getCutoutKey();
@@ -259,7 +251,7 @@ class GroovyDefinitionContext implements IGroovyModelDefinition, IGroovysonModel
         renders.setTranslucentKey(translucentKey);
     }
 
-    /**IGroovysonModelDefinition**/
+    //IGroovysonModelDefinition
     @Override
     void setStaticFrom(GroovysonObjectPart part) {
         jsonModels.setStaticFrom(part)

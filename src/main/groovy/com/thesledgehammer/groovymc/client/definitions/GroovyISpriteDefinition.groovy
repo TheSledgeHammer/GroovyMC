@@ -46,6 +46,7 @@ class GroovyISpriteDefinition implements ISprite {
     }
 
     static void onTextureStitchPre(TextureMap map, TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
+        //TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry()
         TextureAtlasSprite spriteVar = createForConfig(spriteLocation);
         if(map.setTextureEntry(spriteVar)) {
             sprite = spriteVar;
