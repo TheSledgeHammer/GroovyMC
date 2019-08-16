@@ -26,7 +26,9 @@ import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModelStatic
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.utils.JsonTools
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
@@ -71,19 +73,6 @@ class GroovyStaticModel {
         return GROOVY_MODEL.getRawModelParts();
     }
 
-    String getModelTextures(String textureName) {
-        return GROOVY_MODEL.getRawModelTextures().get(textureName);
-    }
-
-    //Returns a Texture from x model element and face
-    String getModelElementTextures(int index, EnumFacing face) {
-        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
-    }
-
-    Map<String, String> getModelTextures() {
-        return GROOVY_MODEL.getRawModelTextures();
-    }
-
     Map<String, String> TextureLookup() {
         return textureLookup
     }
@@ -116,6 +105,13 @@ class GroovyStaticModel {
     }
 
     private void createTextureLookup() {
-        this.textureLookup = GROOVY_MODEL.getRawModelTextures();
+        for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
+            if(StringTools.contains(GROOVY_MODEL.getRawModelTexture(i), '=')) {
+                int idx = GROOVY_MODEL.getRawModelTexture(i).indexOf('=');
+                String name = GROOVY_MODEL.getRawModelTexture(i).substring(0, idx);
+                String location = GROOVY_MODEL.getRawModelTexture(i).substring(idx + 1);
+                this.textureLookup.put(name, location);
+            }
+        }
     }
 }

@@ -34,26 +34,26 @@ class GroovysonObject {
     GroovysonObject(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
         this.resourceLocation = resourceLocation;
-        /*
+
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
         isr.finishLoading();
-         */
 
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+
+        //this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
         this.resourceLocation = new ResourceLocation(resourceDomain, resourcePath);
-        /*
+
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
         isr.finishLoading();
-        */
 
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+
+        //this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 

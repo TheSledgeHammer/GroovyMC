@@ -39,7 +39,7 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
 
     private final List<ModelEntryHolder> HOLDERS = new ArrayList<>();
     private final List<ModelEntry> MODEL_ENTRIES = new ArrayList<>();
-    private final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
+    final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
 
     //private final ModelEntry MODEL_ENTRY = ModelEntry.Instance();
     //private final TextureEntry TEXTURE_ENTRY = TextureEntry.Instance();

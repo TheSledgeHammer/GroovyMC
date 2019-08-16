@@ -62,8 +62,7 @@ class TextureEntry extends ModelEntryConsumer  {
         return textureAtlasSprite;
     }
 
-    void onTextureStitchPre() {
-        TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks()
+    void onTextureStitchPre(TextureMap map) {
         GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
     }
 

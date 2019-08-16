@@ -19,12 +19,16 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
+import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.*
+import com.thesledgehammer.groovymc.experimental.misc.JsonTest
 import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
@@ -43,6 +47,7 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        registerTextures()
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
@@ -62,6 +67,7 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        registerTextures()
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
@@ -83,18 +89,6 @@ class GroovyVariableModel {
 
     ArrayList<GroovysonObjectPart> getModelElements() {
         return GROOVY_MODEL.getRawModelParts();
-    }
-
-    String getModelTextures(String textureName) {
-        return GROOVY_MODEL.getRawModelTextures().get(textureName);
-    }
-    
-    Map<String, String> getModelTextures() {
-        return GROOVY_MODEL.getRawModelTextures();
-    }
-
-    String getModelElementTextures(int index, EnumFacing face) {
-        return GROOVY_MODEL.getRawModelParts().get(index).TextureFace(face);
     }
 
     JsonTexture getJsonTexture(String lookup) {
@@ -138,11 +132,25 @@ class GroovyVariableModel {
     }
 
     private void JsonTextureMap() {
-        String[] name = getModelTextures().keySet().toArray();
+        /*String[] name = getModelTextures().keySet().toArray();
         String[] location = getModelTextures().values().toArray();
 
         for(int i = 0; i < getModelTextures().size(); i++) {
             textureMap.put(name[i], new JsonTexture(location[i]));
+        }*/
+        for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
+            if(StringTools.contains(GROOVY_MODEL.getRawModelTexture(i), '=')) {
+                int idx = GROOVY_MODEL.getRawModelTexture(i).indexOf('=');
+                String name = GROOVY_MODEL.getRawModelTexture(i).substring(0, idx);
+                String location = GROOVY_MODEL.getRawModelTexture(i).substring(idx + 1);
+                this.textureMap.put(name, new JsonTexture(location));
+            }
+        }
+    }
+
+    void registerTextures() {
+        for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
+            ModelEntryHolderManager.Instance().registerTextureEntry(new TextureEntry(GROOVY_MODEL.getRawModelTexture(i)))
         }
     }
 }

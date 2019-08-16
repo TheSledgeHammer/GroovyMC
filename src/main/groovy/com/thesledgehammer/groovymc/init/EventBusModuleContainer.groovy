@@ -23,6 +23,7 @@ import com.thesledgehammer.groovymc.test.render.RenderMK1
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraftforge.client.event.ModelBakeEvent
+import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -39,7 +40,7 @@ class EventBusModuleContainer {
     }
 
     static void preInit() {
-        registerModules();
+       // registerModules();
         MinecraftForge.EVENT_BUS.register(EventBusModuleContainer.class);
     }
 
@@ -55,8 +56,10 @@ class EventBusModuleContainer {
         }
     }
 
+    @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    static void onTextureStitchPre(TextureMap textureMap) {
+    static void onTextureStitchPre(TextureStitchEvent.Pre event) {
+        TextureMap textureMap = event.getMap();
         ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
     }
 
