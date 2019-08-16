@@ -31,28 +31,16 @@ class TextureEntry extends ModelEntryConsumer  {
     private List<ResourceLocation> spriteResourceLocations = new LinkedList<>();
     private List<TextureAtlasSprite> textureAtlasSprites = new LinkedList<>();
 
-    private static TextureEntry instance;
-
     TextureEntry(String modID, String baseName) {
         setTextureAtlasSprite(new ResourceLocation(modID, baseName));
-        instance = this;
     }
 
     TextureEntry(String spriteResourceLocation) {
         setTextureAtlasSprite(new ResourceLocation(spriteResourceLocation));
-        instance = this;
     }
 
     TextureEntry(ResourceLocation spriteResourceLocation) {
         setTextureAtlasSprite(spriteResourceLocation);
-        instance = this;
-    }
-
-    static TextureEntry Instance() {
-        if(instance == null) {
-            return null;
-        }
-        return instance;
     }
 
     private void setTextureAtlasSprite(ResourceLocation spriteResourceLocation) {
@@ -62,16 +50,8 @@ class TextureEntry extends ModelEntryConsumer  {
         }
         this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(spriteResourceLocation);
 
-        this.spriteResourceLocations.add(spriteResourceLocation);
-        this.textureAtlasSprites.add(textureAtlasSprite);
-    }
-
-    List<ResourceLocation> getSpriteResourceLocations() {
-        return spriteResourceLocations;
-    }
-
-    List<TextureAtlasSprite> getTextureAtlasSprites() {
-        return textureAtlasSprites;
+        //this.spriteResourceLocations.add(spriteResourceLocation);
+        //this.textureAtlasSprites.add(textureAtlasSprite);
     }
 
     ResourceLocation getSpriteResourceLocation() {
@@ -80,6 +60,20 @@ class TextureEntry extends ModelEntryConsumer  {
 
     TextureAtlasSprite getTextureAtlasSprite() {
         return textureAtlasSprite;
+    }
+
+    void onTextureStitchPre() {
+        TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks()
+        GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
+    }
+
+    /*
+    List<ResourceLocation> getSpriteResourceLocations() {
+        return spriteResourceLocations;
+    }
+
+    List<TextureAtlasSprite> getTextureAtlasSprites() {
+        return textureAtlasSprites;
     }
 
     ResourceLocation getSpriteResourceLocation(ResourceLocation resourceLocation) {
@@ -101,9 +95,5 @@ class TextureEntry extends ModelEntryConsumer  {
         Log.logDebug("No TextureAtlasSprite was found named ${atlasSprite}")
         return null;
     }
-
-    void onTextureStitchPre() {
-        TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks()
-        GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
-    }
+    */
 }

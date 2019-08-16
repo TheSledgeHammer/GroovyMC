@@ -54,20 +54,12 @@ class ModelEntry extends ModelEntryConsumer {
 
     private void setModelResourceLocation(ModelResourceLocation modelLocation) {
         this.modelLocation = modelLocation;
-        this.mrlList.add(modelLocation);
+       // this.mrlList.add(modelLocation);
     }
 
     private void setBakedModel(IBakedModel bakedModel) {
         this.bakedModel = bakedModel;
-        this.bakedList.add(bakedModel);
-    }
-
-    List<ModelResourceLocation> getModelResourceLocations() {
-        return mrlList;
-    }
-
-    List<IBakedModel> getIBakedModels() {
-        return bakedList;
+        //this.bakedList.add(bakedModel);
     }
 
     ModelResourceLocation getModelResourceLocation() {
@@ -76,6 +68,14 @@ class ModelEntry extends ModelEntryConsumer {
 
     IBakedModel getBakedModel() {
         return bakedModel;
+    }
+    /*
+    List<ModelResourceLocation> getModelResourceLocations() {
+        return mrlList;
+    }
+
+    List<IBakedModel> getIBakedModels() {
+        return bakedList;
     }
 
     ModelResourceLocation getModelResourceLocation(ModelResourceLocation modelResourceLocation) {
@@ -95,4 +95,5 @@ class ModelEntry extends ModelEntryConsumer {
         }
         throw new NullPointerException("No IBakedModel was found named ${bakedModel}");
     }
+    */
 }

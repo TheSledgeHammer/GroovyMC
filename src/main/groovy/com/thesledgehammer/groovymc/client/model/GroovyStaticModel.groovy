@@ -45,6 +45,7 @@ class GroovyStaticModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        createTextureLookup();
     }
 
     GroovyStaticModel(String resourceDomain, String resourcePath) {
@@ -55,15 +56,11 @@ class GroovyStaticModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        createTextureLookup();
     }
 
     GroovysonObjectModelStatic getGroovysonModel() {
         return GROOVY_MODEL;
-    }
-
-    void setModelTextures(String name) {
-        GROOVY_MODEL.setRawModelTextures(name);
-        createTextureLookup();
     }
 
     GroovysonObjectPart getModelElements(int index) {

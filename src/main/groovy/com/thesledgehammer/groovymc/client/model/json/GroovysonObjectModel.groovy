@@ -18,41 +18,41 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.ResourceLocation
 
 class GroovysonObjectModel extends GroovysonObject {
 
     private List<GroovysonObjectPart> groovysonObjectParts = new ArrayList<>();
-    private HashMap<String, String> rawModelTexturesMap = new HashMap<>();
+    private Map<String, String> rawModelTexturesMap = new HashMap<>();
 
     GroovysonObjectModel(ResourceLocation resourceLocation) {
         super(GroovyLoader.Instance().getModResourceDirectory(), resourceLocation);
         deserializeParts(this.groovysonObjectParts);
+        deserializeTexturesToMap();
     }
 
     GroovysonObjectModel(String resourceDomain, String resourcePath) {
         super(GroovyLoader.Instance().getModResourceDirectory(), resourceDomain, resourcePath);
         deserializeParts(this.groovysonObjectParts);
+        deserializeTexturesToMap();
     }
 
     //Texture Name & Location
-    void setRawModelTextures(String textureName) {
-        String texLocation = getTexturesByName(textureName);
-        for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
-            rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
+    private void deserializeTexturesToMap() {
+        List<String> modelTextures = new ArrayList<>();
+        deserializeTextures(modelTextures);
+        for(int i = 0; i < modelTextures.size(); i++) {
+            if(StringTools.contains(modelTextures.get(i), '=')) {
+                int idx = modelTextures.get(i).indexOf('=');
+                String location = modelTextures.get(i).substring(idx + 1);
+                String name = modelTextures.get(i).substring(0, idx);
+                this.rawModelTexturesMap.put(name, location);
+            }
         }
-        ListTools.StringToList(texLocation).clear();
     }
 
-    void setRawModelTextures(String textureName, int textureLayer) {
-        String texLocation = getItemTextureLayer(textureLayer);
-        for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
-            rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
-        }
-        ListTools.StringToList(texLocation).clear();
-    }
-
-    HashMap<String, String> getRawModelTextures() {
+    Map<String, String> getRawModelTextures() {
         return rawModelTexturesMap;
     }
 
@@ -69,4 +69,22 @@ class GroovysonObjectModel extends GroovysonObject {
     GroovysonObjectPart getRawModelPart(int index) {
         return groovysonObjectParts.get(index)
     }
+
+    /*
+void setRawModelTextures(String textureName) {
+    String texLocation = getTexturesByName(textureName);
+    for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
+        rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
+    }
+    ListTools.StringToList(texLocation).clear();
+}
+
+void setRawModelTextures(String textureName, int textureLayer) {
+    String texLocation = getItemTextureLayer(textureLayer);
+    for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
+        rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
+    }
+    ListTools.StringToList(texLocation).clear();
+}
+*/
 }

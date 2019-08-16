@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
@@ -44,6 +43,7 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
         for(int i = 0; i < JsonRules().size(); i++) {
@@ -62,6 +62,7 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
         for(int i = 0; i < JsonRules().size(); i++) {
@@ -74,11 +75,6 @@ class GroovyVariableModel {
 
     GroovysonObjectModelVariable getGroovysonModel() {
         return GROOVY_MODEL;
-    }
-
-    void setModelTextures(String name) {
-        GROOVY_MODEL.setRawModelTextures(name);
-        JsonTextureMap();
     }
 
     GroovysonObjectPart getModelElements(int index) {
