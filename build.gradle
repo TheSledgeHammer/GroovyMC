@@ -44,7 +44,7 @@ repositories {
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: "${mcp_mappings}-${mcversion}"
+	mappings channel: 'snapshot', version: "${mcp_mappings}-${mc_mappings_version}"
 	runs {
 		client {
             workingDirectory project.file('run')
@@ -68,6 +68,24 @@ minecraft {
                 }
             }
         }
+
+		data {
+			workingDirectory project.file('run')
+
+			// Recommended logging data for a userdev environment
+			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+			// Recommended logging level for the console
+			property 'forge.logging.console.level', 'debug'
+
+			args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+
+			mods {
+				groovymc {
+					source sourceSets.main
+				}
+			}
+		}
     }
 }
 
@@ -82,7 +100,7 @@ jar {
 	manifest {
 		attributes(['Specification-Title': 'groovymc',
 					'Specification-Vendor': 'TheSledgeHammer',
-					'Specification-Version': "2.0",
+					'Specification-Version': "2.5",
 					'Implementation-Title': "GroovyMC",
 					'Implementation-Version': "${version}",
 					'Implementation-Vendor' :'GroovyMC',
