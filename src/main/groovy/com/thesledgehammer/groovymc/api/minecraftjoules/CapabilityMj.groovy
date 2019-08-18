@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
 import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesStorage
 import net.minecraft.nbt.INBT
 import net.minecraft.nbt.LongNBT
 import net.minecraft.util.Direction

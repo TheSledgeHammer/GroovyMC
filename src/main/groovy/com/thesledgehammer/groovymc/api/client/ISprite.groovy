@@ -5,7 +5,7 @@
  * Modified by TheSledgeHammer 2018: Converted to .groovy
  */
 
-package com.thesledgehammer.groovymc.api;
+package com.thesledgehammer.groovymc.api.client;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 

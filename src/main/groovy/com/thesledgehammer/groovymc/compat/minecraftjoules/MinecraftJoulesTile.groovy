@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjInfo
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.TileEntityType

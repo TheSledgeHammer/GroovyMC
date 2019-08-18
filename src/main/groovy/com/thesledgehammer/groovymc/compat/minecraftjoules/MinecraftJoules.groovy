@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api.minecraftjoules
+package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.INBTCompound
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
