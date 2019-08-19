@@ -21,11 +21,11 @@ import net.minecraft.item.Item
 
 interface IModelEntryHolderManager {
 
-    void registerModel(Item item, int meta, ModelResourceLocation modelResourceLocation);
+    void initModel(Item item, int meta, ModelResourceLocation modelResourceLocation);
 
-    void registerModel(Item item, int meta, String domain, String path);
+    void initModel(Item item, int meta, String domain, String path);
 
-    void registerModel(Item item, int meta, String resourceLocation);
+    void initModel(Item item, int meta, String resourceLocation);
 
     ModelResourceLocation getModelLocation(String domain, String path);
 

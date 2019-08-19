@@ -16,6 +16,7 @@
 package com.thesledgehammer.groovymc.compat.modules.buildcraft
 
 import buildcraft.api.mj.MjAPI
+import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraftforge.common.capabilities.Capability
@@ -23,23 +24,24 @@ import org.apache.logging.log4j.Level
 
 class BuildcraftModule extends BlankCompatModule {
 
-    private static BuildcraftModule instance;
-
     BuildcraftModule() {
-        super("buildcraft");
-        instance = this;
-    }
-
-    static BuildcraftModule Instance() {
-        if(instance != null) {
-            return instance;
-        }
-        return null;
+        super(GroovyMC.MOD_ID, "buildcraft");
     }
 
     @Override
-    void init() {
+    void preInit() {
+        BuildcraftModule BC = new BuildcraftModule();
         Log.log(Level.INFO, "Enabled support for Buildcraft");
+    }
+
+    @Override
+    void Init() {
+
+    }
+
+    @Override
+    void postInit() {
+
     }
 
     static boolean isLoaded() {

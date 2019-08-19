@@ -125,7 +125,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Override
     @SideOnly(Side.CLIENT)
     void initModel() {
-        ModelEntryHolderManager.Instance().registerModel(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+        ModelEntryHolderManager.Instance().initModel(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
 
     @Override

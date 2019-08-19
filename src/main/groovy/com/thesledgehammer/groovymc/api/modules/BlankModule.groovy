@@ -13,8 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.thesledgehammer.groovymc.api.modules
 
-interface ICompatModule {
+abstract class BlankModule implements IBlankModule {
 
+    private String modID;
+    private String moduleName;
+
+    BlankModule(String modID, String moduleName) {
+        setModID(modID);
+        setModuleName(moduleName)
+    }
+
+    private void setModID(String modID) {
+        this.modID = modID;
+    }
+
+    private void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    String getModID() {
+        return modID;
+    }
+
+    String getModuleName() {
+        return moduleName;
+    }
 }

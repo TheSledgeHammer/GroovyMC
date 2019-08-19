@@ -17,8 +17,8 @@
 package com.thesledgehammer.groovymc.client.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
@@ -26,10 +26,8 @@ import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.*
-import com.thesledgehammer.groovymc.experimental.misc.JsonTest
 import com.thesledgehammer.groovymc.utils.ListTools
 import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
 //Work In Progress: JsonRule

@@ -29,7 +29,7 @@ import javax.annotation.Nonnull
 @SideOnly(Side.CLIENT)
 interface IRenderEntryFast<M extends ModelEntryHolder, T extends TileEntity> {
 
-    void onModelBake(ModelBakeEvent event);
+    //void onModelBake(ModelBakeEvent event);
 
     void renderFast(@Nonnull T tile, double x, double y, double z, float partialTicks, int destroyStage, float partial, BufferBuilder buffer);
 

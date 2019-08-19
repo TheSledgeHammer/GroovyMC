@@ -16,17 +16,15 @@
 
 package com.thesledgehammer.groovymc.client.model
 
-
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
 import com.thesledgehammer.groovymc.client.definitions.render.TranslucentKey
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModelStatic
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import com.thesledgehammer.groovymc.client.model.json.JsonTexture
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.client.renderer.block.model.BakedQuad

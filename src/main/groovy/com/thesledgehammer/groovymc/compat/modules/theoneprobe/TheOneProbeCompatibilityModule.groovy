@@ -16,6 +16,7 @@
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.google.common.base.Function
+import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
 import mcjty.theoneprobe.api.ITheOneProbe
@@ -26,20 +27,28 @@ import javax.annotation.Nullable
 
 class TheOneProbeCompatibilityModule extends BlankCompatModule implements Function<ITheOneProbe, Void> {
 
-    private static TheOneProbeCompatibilityModule instance;
     private static boolean registered;
     private ITheOneProbe theOneProbe;
 
     TheOneProbeCompatibilityModule() {
-        super("theoneprobe");
-        instance = this;
+        super(GroovyMC.MOD_ID, "theoneprobe");
     }
 
-    static TheOneProbeCompatibilityModule Instance() {
-        if(instance != null) {
-            return instance;
-        }
-        return null;
+    @Override
+    void preInit() {
+        TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule();
+        Log.log(Level.INFO, "Enabled support for The One Probe");
+        register();
+    }
+
+    @Override
+    void Init() {
+
+    }
+
+    @Override
+    void postInit() {
+
     }
 
     static void register() {
@@ -48,12 +57,6 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
         }
         registered = true;
         FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
-    }
-
-    @Override
-    void init() {
-        Log.log(Level.INFO, "Enabled support for The One Probe");
-        register();
     }
 
     @Nullable

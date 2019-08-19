@@ -18,8 +18,6 @@ package com.thesledgehammer.groovymc.client.definitions.model
 import com.thesledgehammer.groovymc.api.client.ISprite
 import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyISpriteDefinition
-import com.thesledgehammer.groovymc.utils.Log
-import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation

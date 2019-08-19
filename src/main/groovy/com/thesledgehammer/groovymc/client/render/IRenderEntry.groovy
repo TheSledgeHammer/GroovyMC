@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @SideOnly(Side.CLIENT)
 interface IRenderEntry<M extends ModelEntryHolder, T extends TileEntity> {
 
-    void onModelBake(ModelBakeEvent event);
+    //void onModelBake(ModelBakeEvent event);
 
     void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha);
 

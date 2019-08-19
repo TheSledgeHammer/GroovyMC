@@ -24,7 +24,17 @@ class ModuleContainers {
     static void preInit() {
         CapabilityMj.register();
         CompatModuleContainer.preInit();
-        EventBusModuleContainer.preInit();
+        RenderEventModuleContainer.preInit();
         ModRegister.initModels();
+    }
+
+    static void Init() {
+        CompatModuleContainer.Init();
+        RenderEventModuleContainer.Init();
+    }
+
+    static void postInit() {
+        CompatModuleContainer.postInit();
+        RenderEventModuleContainer.postInit();
     }
 }

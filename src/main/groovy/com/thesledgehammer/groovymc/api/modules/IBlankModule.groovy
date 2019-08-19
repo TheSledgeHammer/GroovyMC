@@ -16,14 +16,11 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
-import net.minecraftforge.client.event.ModelBakeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+interface IBlankModule {
 
-interface IEventBusModule {
+    void preInit();
 
-    @SideOnly(Side.CLIENT)
-    void onModelBake(ModelBakeEvent event);
+    void Init();
 
-    //void onTextureStitchPre(TextureMap textureMap);
+    void postInit();
 }

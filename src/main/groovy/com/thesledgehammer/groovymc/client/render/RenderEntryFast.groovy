@@ -16,16 +16,16 @@
 
 package com.thesledgehammer.groovymc.client.render
 
-import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
+import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import net.minecraft.tileentity.TileEntity
 
-abstract class RenderEntryFast<M extends ModelEntryHolder, T extends TileEntity> extends BlankEventBusModule implements IRenderEntryFast<M, T> {
+abstract class RenderEntryFast<M extends ModelEntryHolder, T extends TileEntity> extends BlankRenderEventModule implements IRenderEntryFast<M, T> {
 
     private M modelEntry;
 
     RenderEntryFast(String modID, String eventName, M model) {
-        super(modID, eventName);
+        super(modID, "renderEntryFast", eventName);
         this.modelEntry = model;
     }
 }

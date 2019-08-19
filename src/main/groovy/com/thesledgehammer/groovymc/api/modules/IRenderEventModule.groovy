@@ -13,8 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.thesledgehammer.groovymc.api.modules
 
-interface ICompatModule {
+import net.minecraft.client.renderer.texture.TextureMap
+import net.minecraftforge.client.event.ModelBakeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
+interface IRenderEventModule {
+
+    @SideOnly(Side.CLIENT)
+    void onModelBake(ModelBakeEvent event);
+
+    @SideOnly(Side.CLIENT)
+    void onTextureStitchPre(TextureMap textureMap);
 }

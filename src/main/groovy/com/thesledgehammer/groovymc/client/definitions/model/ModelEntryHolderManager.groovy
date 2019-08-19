@@ -41,9 +41,6 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
     private final List<ModelEntry> MODEL_ENTRIES = new ArrayList<>();
     final List<TextureEntry> TEXTURE_ENTRIES = new ArrayList<>();
 
-    //private final ModelEntry MODEL_ENTRY = ModelEntry.Instance();
-    //private final TextureEntry TEXTURE_ENTRY = TextureEntry.Instance();
-
     static ModelEntryHolderManager Instance() {
         return instance;
     }
@@ -53,17 +50,17 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
     }
 
     @Override
-    void registerModel(Item item, int meta, ModelResourceLocation modelResourceLocation) {
+    void initModel(Item item, int meta, ModelResourceLocation modelResourceLocation) {
         ModelLoader.setCustomModelResourceLocation(item, meta, modelResourceLocation);
     }
 
     @Override
-    void registerModel(Item item, int meta, String resourceLocation) {
+    void initModel(Item item, int meta, String resourceLocation) {
         ModelLoader.setCustomModelResourceLocation(item, meta, getModelLocation(resourceLocation));
     }
 
     @Override
-    void registerModel(Item item, int meta, String domain, String path) {
+    void initModel(Item item, int meta, String domain, String path) {
         ModelLoader.setCustomModelResourceLocation(item, meta, getModelLocation(domain, path));
     }
 
@@ -104,41 +101,6 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
     void registerTextureEntry(TextureEntry texture) {
         this.TEXTURE_ENTRIES.add(texture);
     }
-/*
-    void onTextureStitchPre(TextureMap map) {
-        Set<ResourceLocation> toStitch = new HashSet<>();
-        if(hasEntries()) {
-            for (ModelEntryHolder holder : ENTRY_HOLDERS()) {
-                holder.onTextureStitchPre(toStitch);
-
-                for (TextureAtlasSprite sprite : TEXTURE_ENTRY.getTextureAtlasSprites()) {
-                    if (TEXTURE_ENTRY.getTextureAtlasSprite(sprite) instanceof ISprite) {
-                        TEXTURE_ENTRY.onTextureStitchPre(map);
-                    }
-                    map.setTextureEntry(TEXTURE_ENTRY.getTextureAtlasSprite(sprite));
-                }
-
-                for (ResourceLocation location : TEXTURE_ENTRY.getResourceLocations()) {
-                    map.registerSprite(TEXTURE_ENTRY.getResourceLocation(location));
-                }
-            }
-        }
-    }
-
-    void onModelBake(ModelBakeEvent event) {
-        IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
-        if(hasEntries()) {
-            for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
-                holder.onModelBake();
-
-                for(ModelResourceLocation modelResource : MODEL_ENTRY.getModelResourceLocations()) {
-                    for(IBakedModel bakedModel : MODEL_ENTRY.getIBakedModels()) {
-                        registry.putObject(MODEL_ENTRY.getModelResourceLocation(modelResource), MODEL_ENTRY.getIBakedModel(bakedModel));
-                    }
-                }
-            }
-        }
-    }*/
 
     void onTextureStitchPre(TextureMap map) {
         Set<ResourceLocation> toStitch = new HashSet<>();
@@ -176,25 +138,39 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
         }
         return false;
     }
-
-/*
-    ModelEntryHolderStatic getModelEntryHolderStatic(String domain, String path) {
-        ModelEntryHolderStatic holderStatic = new ModelEntryHolderStatic(domain, path);
-        return holderStatic;
-    }
-
-    ModelEntryHolderStatic getModelEntryHolderStatic(ResourceLocation location) {
-        ModelEntryHolderStatic holderStatic = new ModelEntryHolderStatic(location.getResourceDomain(), location.getResourcePath());
-        return holderStatic;
-    }
-
-    ModelEntryHolderVariable getModelEntryHolderVariable(String domain, String path) {
-        ModelEntryHolderVariable holderVariable = new ModelEntryHolderVariable(domain, path);
-        return holderVariable;
-    }
-
-    ModelEntryHolderVariable getModelEntryHolderVariable(ResourceLocation location) {
-        ModelEntryHolderVariable holderVariable = new ModelEntryHolderVariable(location.getResourceDomain(), location.getResourcePath());
-        return holderVariable;
-    }*/
 }
+/*
+    void onTextureStitchPre(TextureMap map) {
+        Set<ResourceLocation> toStitch = new HashSet<>();
+        if(hasEntries()) {
+            for (ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onTextureStitchPre(toStitch);
+
+                for (TextureAtlasSprite sprite : TEXTURE_ENTRY.getTextureAtlasSprites()) {
+                    if (TEXTURE_ENTRY.getTextureAtlasSprite(sprite) instanceof ISprite) {
+                        TEXTURE_ENTRY.onTextureStitchPre(map);
+                    }
+                    map.setTextureEntry(TEXTURE_ENTRY.getTextureAtlasSprite(sprite));
+                }
+
+                for (ResourceLocation location : TEXTURE_ENTRY.getResourceLocations()) {
+                    map.registerSprite(TEXTURE_ENTRY.getResourceLocation(location));
+                }
+            }
+        }
+    }
+
+    void onModelBake(ModelBakeEvent event) {
+        IRegistry<ModelResourceLocation, IBakedModel> registry = event.getModelRegistry();
+        if(hasEntries()) {
+            for(ModelEntryHolder holder : ENTRY_HOLDERS()) {
+                holder.onModelBake();
+
+                for(ModelResourceLocation modelResource : MODEL_ENTRY.getModelResourceLocations()) {
+                    for(IBakedModel bakedModel : MODEL_ENTRY.getIBakedModels()) {
+                        registry.putObject(MODEL_ENTRY.getModelResourceLocation(modelResource), MODEL_ENTRY.getIBakedModel(bakedModel));
+                    }
+                }
+            }
+        }
+    }*/

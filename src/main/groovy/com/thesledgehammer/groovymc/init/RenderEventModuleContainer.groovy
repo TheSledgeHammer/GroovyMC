@@ -16,10 +16,8 @@
 
 package com.thesledgehammer.groovymc.init
 
-import com.thesledgehammer.groovymc.api.modules.BlankEventBusModule
+import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
-import com.thesledgehammer.groovymc.test.render.RenderEngine
-import com.thesledgehammer.groovymc.test.render.RenderMK1
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraftforge.client.event.ModelBakeEvent
@@ -31,27 +29,53 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.logging.log4j.Level
 
-class EventBusModuleContainer {
+class RenderEventModuleContainer {
 
-    private static List<BlankEventBusModule> EVENTS = new LinkedList<>();
+    private static List<BlankRenderEventModule> EVENTS = new LinkedList<>();
 
-    static List<BlankEventBusModule> EVENT_CONTAINER() {
+    static List<BlankRenderEventModule> EVENT_CONTAINER() {
         return EVENTS;
     }
 
     static void preInit() {
-       // registerModules();
-        MinecraftForge.EVENT_BUS.register(EventBusModuleContainer.class);
+        MinecraftForge.EVENT_BUS.register(RenderEventModuleContainer.class);
+        for(BlankRenderEventModule module : EVENTS) {
+            if (isRegistered(module)) {
+                Log.logInfo("preInit() ${module.getModID()} ${module.getEventName()}...")
+                module.preInit();
+                Log.logInfo("${module.getModID()}'s ${module.getEventName()} has been loaded")
+            }
+        }
+    }
+
+    static void Init() {
+        for(BlankRenderEventModule module : EVENTS) {
+            if (isRegistered(module)) {
+                Log.logInfo("Init() ${module.getModID()} ${module.getEventName()}...");
+                module.Init();
+                Log.logInfo("${module.getModID()}'s ${module.getEventName()} has been loaded");
+            }
+        }
+    }
+
+    static void postInit() {
+        for(BlankRenderEventModule module : EVENTS) {
+            if (isRegistered(module)) {
+                Log.logInfo("postInit() ${module.getModID()} ${module.getEventName()}...");
+                module.postInit()
+                Log.logInfo("${module.getModID()}'s ${module.getEventName()} has been loaded");
+            }
+        }
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     static void onModelBake(ModelBakeEvent event) {
         ModelEntryHolderManager.Instance().onModelBake(event);
-        for(BlankEventBusModule module : EVENTS) {
+        for(BlankRenderEventModule module : EVENTS) {
             if(isRegistered(module)) {
                 module.onModelBake(event);
-                Log.log(Level.INFO, "${module.getModID()} onModelBake ${module.getEventName()}  has been loaded");
+                Log.log(Level.INFO, "${module.getModID()}'s ${module.getEventName()} started onModelBake()");
             }
         }
     }
@@ -61,18 +85,20 @@ class EventBusModuleContainer {
     static void onTextureStitchPre(TextureStitchEvent.Pre event) {
         TextureMap textureMap = event.getMap();
         ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
+        for(BlankRenderEventModule module : EVENTS) {
+            if(isRegistered(module)) {
+                module.onTextureStitchPre(textureMap);
+                Log.log(Level.INFO, "${module.getModID()}'s ${module.getEventName()} started onTextureStitchPre()");
+            }
+        }
     }
 
-    private static boolean isRegistered(BlankEventBusModule module) {
+    private static boolean isRegistered(BlankRenderEventModule module) {
         if(module != null) {
             if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {
                 return true;
             }
         }
         return false;
-    }
-
-    private static void registerModules() {
-       RenderEngine engine = new RenderEngine(RenderMK1.MODEL);
     }
 }

@@ -36,7 +36,7 @@ class GroovyBlock extends Block implements BlockTraits, IInitModel {
     @Override
     @SideOnly(Side.CLIENT)
     void initModel() {
-        ModelEntryHolderManager.Instance().registerModel(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+        ModelEntryHolderManager.Instance().initModel(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
         //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 }

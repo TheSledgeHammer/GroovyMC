@@ -17,8 +17,6 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.utils.ListTools
-import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.ResourceLocation
 
 abstract class GroovysonObjectModel extends GroovysonObject {
