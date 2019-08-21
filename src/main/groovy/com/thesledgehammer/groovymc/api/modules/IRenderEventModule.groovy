@@ -16,12 +16,16 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraftforge.client.event.ModelBakeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-interface IEventBusModule {
+interface IRenderEventModule {
 
-    @OnlyIn(Dist.CLIENT)
+    @SideOnly(Side.CLIENT)
     void onModelBake(ModelBakeEvent event);
+
+    @SideOnly(Side.CLIENT)
+    void onTextureStitchPre(TextureMap textureMap);
 }

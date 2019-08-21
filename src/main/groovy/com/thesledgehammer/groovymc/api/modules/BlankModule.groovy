@@ -14,29 +14,31 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions.model
+package com.thesledgehammer.groovymc.api.modules
 
+abstract class BlankModule implements IBlankModule {
 
-import net.minecraft.util.ResourceLocation
+    private String modID;
+    private String moduleName;
 
-abstract class ModelEntryBakery<M extends ModelEntry, T extends TextureEntry> extends ModelEntryConsumer {
-
-    private M modelEntry;
-    private T textureEntry;
-
-    ModelEntryBakery() {
-        super();
+    BlankModule(String modID, String moduleName) {
+        setModID(modID);
+        setModuleName(moduleName)
     }
 
-    private ModelEntryBakery(T textureEntry, M modelEntry) {
-        this();
-        this.textureEntry = textureEntry;
-        this.modelEntry = modelEntry;
+    private void setModID(String modID) {
+        this.modID = modID;
     }
 
-    abstract boolean hasBakedQuads();
+    private void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
 
-    abstract void onTextureStitchPre(Set<ResourceLocation> toRegisterSprites);
+    String getModID() {
+        return modID;
+    }
 
-    abstract void onModelBake();
+    String getModuleName() {
+        return moduleName;
+    }
 }

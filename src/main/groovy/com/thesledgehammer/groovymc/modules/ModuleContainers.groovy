@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions.model
+package com.thesledgehammer.groovymc.init
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import com.thesledgehammer.groovymc.test.ModRegister
 
-abstract class ModelEntryProvider implements IModelProvider {
+class ModuleContainers {
 
-    ModelEntryProvider() {
-
+    static void preInit() {
+        CapabilityMj.register();
+        CompatModuleContainer.preInit();
+        RenderEventModuleContainer.preInit();
+        ModRegister.initModels();
     }
 
-    @Override
-    GroovyDefinitionContext GroovyDefinitionContext() {
-        return GroovyDefinitionContext.Instance();
+    static void Init() {
+        CompatModuleContainer.Init();
+        RenderEventModuleContainer.Init();
+    }
+
+    static void postInit() {
+        CompatModuleContainer.postInit();
+        RenderEventModuleContainer.postInit();
     }
 }

@@ -16,32 +16,23 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
-import com.thesledgehammer.groovymc.modules.EventBusModuleContainer
+import com.thesledgehammer.groovymc.init.RenderEventModuleContainer
 import com.thesledgehammer.groovymc.utils.Log
 import org.apache.logging.log4j.Level
 
-abstract class BlankEventBusModule implements IEventBusModule {
+abstract class BlankRenderEventModule extends BlankModule implements IRenderEventModule {
 
-    private String modID;;
     private String eventName;
 
-    BlankEventBusModule(String modID, String eventName) {
-        setModID(modID);
+    BlankRenderEventModule(String modID, String moduleName, String eventName) {
+        super(modID, moduleName);
         setEventName(eventName);
-        EventBusModuleContainer.EVENT_CONTAINER().add(this);
-        Log.log(Level.INFO, "${modID} with ${eventName} was added to EventBusModule");
-    }
-
-    private void setModID(String modID) {
-        this.modID = modID;
+        RenderEventModuleContainer.EVENT_CONTAINER().add(this);
+        Log.log(Level.INFO, "${modID}'s ${moduleName} for ${eventName} was added to the RenderEventModule");
     }
 
     private void setEventName(String eventName) {
         this.eventName = eventName;
-    }
-
-    String getModID() {
-        return modID;
     }
 
     String getEventName() {

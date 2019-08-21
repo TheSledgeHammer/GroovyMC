@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions.model
+package com.thesledgehammer.groovymc.api.modules
 
-import net.minecraft.client.renderer.model.ModelResourceLocation
-import net.minecraft.item.Item
+interface IBlankModule {
 
-interface IModelEntryHolderManager {
+    void preInit();
 
-    void registerModel(Item item, int meta, ModelResourceLocation modelResourceLocation);
+    void Init();
 
-    void registerModel(Item item, int meta, String domain, String path);
-
-    void registerModel(Item item, int meta, String resourceLocation);
-
-    ModelResourceLocation getModelLocation(String domain, String path);
-
-    ModelResourceLocation getModelLocation(String resourceLocation)
-
+    void postInit();
 }
