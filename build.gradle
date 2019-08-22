@@ -24,7 +24,7 @@ apply from: project.file('maven.gradle')
 
 version = version_major + '.' + version_minor + '.' + version_patch
 group= 'com.thesledgehammer.groovymc'
-archivesBaseName = "GroovyMC_" + mcversion
+archivesBaseName = "GroovyMC_${mcversion}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
