@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.init
+package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
-import com.thesledgehammer.groovymc.test.ModRegister
 
 class ModuleContainers {
 
@@ -25,7 +24,6 @@ class ModuleContainers {
         CapabilityMj.register();
         CompatModuleContainer.preInit();
         RenderEventModuleContainer.preInit();
-        ModRegister.initModels();
     }
 
     static void Init() {

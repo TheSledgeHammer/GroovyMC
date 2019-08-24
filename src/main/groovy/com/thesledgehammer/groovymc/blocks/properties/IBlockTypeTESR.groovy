@@ -15,5 +15,5 @@ package com.thesledgehammer.groovymc.blocks.properties
 interface IBlockTypeTESR extends IBlockType {
 
     @Override
-    MachinePropertyTraits getGroovyMachineProperties();
+    IMachineProperties<?> getGroovyMachineProperties();
 }

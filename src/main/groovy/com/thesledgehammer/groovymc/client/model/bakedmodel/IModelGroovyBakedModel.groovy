@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.model.bakedmodel
 
-
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel

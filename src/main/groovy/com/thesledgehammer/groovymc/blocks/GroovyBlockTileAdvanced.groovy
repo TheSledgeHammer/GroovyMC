@@ -19,7 +19,7 @@ package com.thesledgehammer.groovymc.blocks
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
-import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
+import com.thesledgehammer.groovymc.blocks.properties.IMachineProperties
 import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
 import net.minecraft.block.ITileEntityProvider
@@ -68,7 +68,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         this.blockType = blockType;
     }
 
-    private MachinePropertyTraits getDefinition() {
+    private IMachineProperties getDefinition() {
         return blockType.getGroovyMachineProperties();
     }
 
@@ -89,7 +89,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     @Override
     boolean isFullCube(IBlockState state) {
-        MachinePropertyTraits definition = getDefinition();
+        IMachineProperties definition = getDefinition();
         return definition.isFullCube(state);
     }
 
@@ -146,21 +146,21 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     @Nullable
     @Override
     AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-        MachinePropertyTraits definition = getDefinition();
+        IMachineProperties definition = getDefinition();
         return definition.getBoundingBox(worldIn, pos, blockState);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
-        MachinePropertyTraits definition = getDefinition();
+        IMachineProperties definition = getDefinition();
         return definition.getBoundingBox(worldIn, pos, state).offset(pos);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
-        MachinePropertyTraits definition = getDefinition();
+        IMachineProperties definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
     }
 }

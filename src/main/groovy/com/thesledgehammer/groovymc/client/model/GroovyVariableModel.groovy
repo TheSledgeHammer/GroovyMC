@@ -19,8 +19,6 @@ package com.thesledgehammer.groovymc.client.model
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.definitions.GroovyObjectModelDefinition
 import com.thesledgehammer.groovymc.client.definitions.GroovyRenderDefinition
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
-import com.thesledgehammer.groovymc.client.definitions.model.TextureEntry
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutKey
 import com.thesledgehammer.groovymc.client.definitions.render.CutoutMippedKey
 import com.thesledgehammer.groovymc.client.definitions.render.SolidKey
@@ -45,7 +43,6 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
-        registerTextures()
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
@@ -65,7 +62,6 @@ class GroovyVariableModel {
         GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
         GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
         GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
-        registerTextures()
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
@@ -130,12 +126,6 @@ class GroovyVariableModel {
     }
 
     private void JsonTextureMap() {
-        /*String[] name = getModelTextures().keySet().toArray();
-        String[] location = getModelTextures().values().toArray();
-
-        for(int i = 0; i < getModelTextures().size(); i++) {
-            textureMap.put(name[i], new JsonTexture(location[i]));
-        }*/
         for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
             if(StringTools.contains(GROOVY_MODEL.getRawModelTexture(i), '=')) {
                 int idx = GROOVY_MODEL.getRawModelTexture(i).indexOf('=');
@@ -143,12 +133,6 @@ class GroovyVariableModel {
                 String location = GROOVY_MODEL.getRawModelTexture(i).substring(idx + 1);
                 this.textureMap.put(name, new JsonTexture(location));
             }
-        }
-    }
-
-    void registerTextures() {
-        for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
-            ModelEntryHolderManager.Instance().registerTextureEntry(new TextureEntry(GROOVY_MODEL.getRawModelTexture(i)))
         }
     }
 }

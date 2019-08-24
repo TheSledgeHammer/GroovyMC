@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
-import com.thesledgehammer.groovymc.init.RenderEventModuleContainer
+import com.thesledgehammer.groovymc.modules.RenderEventModuleContainer
 import com.thesledgehammer.groovymc.utils.Log
 import org.apache.logging.log4j.Level
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.init
+package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log

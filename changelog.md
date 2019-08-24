@@ -2,22 +2,28 @@
 
 ## [Unreleased]
 ### Added
-- Added GroovysonModelDefinition with Static & Variable Keys for model mapping
+- Added GroovyObjectModelDefinition with Static & Variable Keys for model mapping
 - Added Modules: For inter mod compatability
 - Added Buildcraft MJ
 - Added Independent variation of MinecraftJoules from Buildcraft (aiming for compatability)
 - Added New classes inner workings of Variable Models
-- Added GroovysonObjectState: An Object version of a blockstate json. In similar design to GroovysonObject & GroovysonObjectPart 
+- Added GroovysonObjectState: An Object version of a blockstate json. In similar design to GroovysonObject & GroovysonObjectPart
+- ModelEntryHolderManager: More all rounded Register for Models & Textures
 ### Changes
 - GroovysonAbstractModel refactor to GroovysonObjectModel with minor changes
-- JsonRule
+- A large number of changes to both Variable & Static Models. For greater intergration
+- JsonRule: Reverted this fork to be closer to it's original Buildcraft counterpart. 
 - IModelGroovyBakedModel: More in line with other GroovyMC BakedModel implementations
 - Energy refactored to forgeenergy and moved to intergration
+- ModelEntry & TextureEntry: Now Register through a SubscriberEvent from the ModelEntryHolderManager 
 ### Fixed
 - ModelEntryHolderRegistry unable to be loaded in preInit due to a null pointer exception when no models are initalized.
 ### Removed
 - Input Handling
 - Keybindings
+- Network: PacketHandler & PacketKey: Never unused.
+- GroovyModelDefintion
+- GroovyResourceDefinition
 
 ## [1.1.0] - 2019-05-10
 ### Added

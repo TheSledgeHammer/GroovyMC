@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.init
+package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
