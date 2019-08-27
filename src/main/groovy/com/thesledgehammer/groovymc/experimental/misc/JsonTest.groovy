@@ -17,19 +17,12 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.config.Constants
+import net.minecraftforge.client.model.ItemLayerModel
 
 class JsonTest {
 
     static void main(String[] args) {
-        GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID)
-
-        //ModelEntryHolderVariable entry = new ModelEntryHolderVariable("groovymc", "models/block/engine_base");
-        //GroovyVariableModel blockModel = entry.getGroovyVariableModel();
-        //GroovysonObject obj = new GroovysonObject("src/main/resources/assets/", "groovymc", "models/block/engine_base");
-        //GroovysonObjectPart part = new GroovysonObjectPart(obj, 0);
-
-        println ModelEntryHolderManager.Instance().TEXTURE_ENTRIES
+        GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
     }
 }

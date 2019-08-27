@@ -1,27 +1,24 @@
 TODO:
-Short-Term: (Before 1.13/1.14 Port Completion)
-- Variable Model: (To Big to Complete..! before port): Get basics working
+Short-Term:
 - To Fix for Models:
     - CuboidBase: VariableLight
-- BakedModel's
-- Add a debug / log when GroovyLoader is not setup but is used.
-
-- Can't initModel with Renderer: MachineProperties setRenderer: doesn't work with current Buildcraft approach to setting the Renderer or Vice-Versa
-
-- Can't Read model .json even if correct path for model location. May need to externalize / split the reading and defining the path from class constructor
-	- Can read if using ResourceLoaderContext
-		- New issues with GroovyObjectPart and setting Textures and ModelParts by name
-
-- Voltage for Tiers. More fluent approach
-	- Seperate from MJ and FE
-	- Integrated into Energies approach doesn't allow easy conversion between Energies
+    - JsonRule: NodeOrigin variable
+    - JsonTexture:
+- IBakedModel: Integration with GroovyObjectModels
+    - Finish IModelGroovyBakedModel
+    - Create IBakedModel dedicated to GroovyObjectModel's
+- GroovyModelBase(Not Tested)
+- RenderEntry (Not Tested): For rendering Static GroovyObjectModels
+- Static GroovyObjectModels (Not Tested)
+- RenderEntryFast: For rendering Variable GroovyObjectModels
+    - Textures not Loading
+- Voltage for Energy Tiers. More fluent approach
 
 Long-Term:
 - GroovyMC Model inter compatible with Forge's IModel API
-- GroovyMC Model inter compatible with Vanilla ModelBase
+- GroovyMC Model inter compatible with Vanilla ModelBase (Partially Complete with GroovyModelBase)
 - MultiBlocks
 - GuiBuilder
-- Improve Modules
 
 Insight to Own Model Issues:
 Buildcraft:

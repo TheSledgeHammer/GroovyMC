@@ -21,9 +21,10 @@ import groovy.xml.MarkupBuilder
 class SuperGOM {
 
     static String CURRENT_VERSION = "1.0.1";
+    static String PATH = "src/main/groovy/subproject/resources/gom/"
 
     static void writeSuperGOM(String modelVersion) {
-        def writer = new FileWriter("gom-${modelVersion}.xml");
+        def writer = new FileWriter("${PATH}gom-${modelVersion}.xml");
         def xml = new MarkupBuilder(writer);
 
         xml.gom {
@@ -43,7 +44,8 @@ class SuperGOM {
                 Scale()
             }
             Elements {
-                Element() {
+                Element {
+                    Name()
                     From()
                     To()
                     Light()
@@ -119,7 +121,7 @@ class SuperGOM {
 
     static def readSuperGOM(String modelVersion) {
         def xml = new XmlSlurper();
-        def superGom = xml.parse(new FileReader("gom-${modelVersion}.xml"))
+        def superGom = xml.parse(new FileReader("${PATH}gom-${modelVersion}.xml"))
         return superGom;
     }
 }
