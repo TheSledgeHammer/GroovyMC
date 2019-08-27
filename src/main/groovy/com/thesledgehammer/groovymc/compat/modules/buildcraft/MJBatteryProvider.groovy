@@ -29,11 +29,11 @@ import javax.annotation.Nonnull
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft")
         ]
 )
-class MJBatterProvider implements IMjPassiveProvider, IMjReadable {
+class MJBatteryProvider implements IMjPassiveProvider, IMjReadable {
 
     private final MjBattery battery;
 
-    MJBatterProvider(MjBattery battery) {
+    MJBatteryProvider(MjBattery battery) {
         this.battery = battery;
     }
 
