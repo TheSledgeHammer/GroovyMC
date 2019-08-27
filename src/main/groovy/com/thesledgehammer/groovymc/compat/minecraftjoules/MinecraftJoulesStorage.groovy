@@ -15,22 +15,11 @@
  */
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
 
-@Optional.InterfaceList(
-        value = [
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjConnector", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjPassiveProvider", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
-        ]
-)
-class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver {
+class MinecraftJoulesStorage implements IMjStorage {
 
     protected long mjEnergy;
     protected long capacity;
@@ -126,12 +115,7 @@ class MinecraftJoulesStorage implements IMjStorage, IMjConnector, IMjReceiver, I
     }
 
     @Override
-    boolean canConnectToStorage(@Nonnull IMjStorage other) {
-        return true;
-    }
-
-    @Override
-    boolean canConnect(@Nonnull IMjConnector other) {
+    boolean canConnect(@Nonnull IMjStorage other) {
         return true;
     }
 }

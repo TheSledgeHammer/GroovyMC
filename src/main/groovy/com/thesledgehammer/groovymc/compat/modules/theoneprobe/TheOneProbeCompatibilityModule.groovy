@@ -63,7 +63,7 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
     @Override
     Void apply(ITheOneProbe theOneProbe) {
         this.theOneProbe = theOneProbe;
-        theOneProbe.registerProvider(new EnergyProbeInfoProvider());
+        theOneProbe.registerProvider(new MjEnergyProbeInfoProvider());
        /* theOneProbe.registerProvider(new IProbeInfoProvider() {
 
             @Override

@@ -15,28 +15,16 @@
  */
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import buildcraft.api.mj.*
-import com.thesledgehammer.groovymc.api.minecraftjoules.IMjInfo
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
-@Optional.InterfaceList(
-        value = [
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjConnector", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjPassiveProvider", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
-        ]
-)
-abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, IMjInfo {
+abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage {
 
     protected MinecraftJoules mj;
 
@@ -79,28 +67,8 @@ abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage
     }
 
     @Override
-    boolean canConnectToStorage(@Nonnull IMjStorage other) {
-        return mj.canConnectToStorage(other);
-    }
-
-    @Override
-    boolean canConnect(@Nonnull IMjConnector other) {
+    boolean canConnect(@Nonnull IMjStorage other) {
         return mj.canConnect(other);
-    }
-
-    @Override
-    long getInfoMjPerTick() {
-        return 0
-    }
-
-    @Override
-    long getInfoMaxMjPerTick() {
-        return 0
-    }
-
-    @Override
-    long getInfoMjCapacity() {
-        return mj.getCapacity();
     }
 
     @Override

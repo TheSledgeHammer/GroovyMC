@@ -15,12 +15,10 @@
  */
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import buildcraft.api.mj.*
 import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
-import com.thesledgehammer.groovymc.compat.modules.buildcraft.BuildcraftModule
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
@@ -32,23 +30,23 @@ import javax.annotation.Nullable
 class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvider, INBTCompound {
 
     MinecraftJoules(long capacity) {
-        super(capacity)
+        super(capacity);
     }
 
     MinecraftJoules(long capacity, long maxTransfer) {
-        super(capacity, maxTransfer)
+        super(capacity, maxTransfer);
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract) {
-        super(capacity, maxReceive, maxExtract)
+        super(capacity, maxReceive, maxExtract);
     }
 
     MinecraftJoules(long capacity, long maxReceive, long maxExtract, long mjEnergy) {
-        super(capacity, maxReceive, maxExtract, mjEnergy)
+        super(capacity, maxReceive, maxExtract, mjEnergy);
     }
 
     void drainPower(long amount) {
-        modifyPowerStored(mjEnergy - amount)
+        modifyPowerStored(mjEnergy - amount);
     }
 
     void generatePower(long amount) {
@@ -106,22 +104,6 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
         if (capability == CapabilityMj.MJ_STORAGE) {
             return true;
         }
-        if (capability == MjAPI.CAP_CONNECTOR) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_RECEIVER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_READABLE) {
-            return true;
-        }
-        if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-            return true;
-        }
-
         return false
     }
 
@@ -130,89 +112,6 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
     def <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMj.MJ_STORAGE) {
             return CapabilityMj.MJ_STORAGE.cast(this);
-        }
-        if (BuildcraftModule.hasMjCapability(capability)) {
-            MinecraftJoules MJ = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);
-            if (capability == MjAPI.CAP_CONNECTOR) {
-                IMjConnector connector = new IMjConnector() {
-                    @Override
-                    boolean canConnect(@Nonnull IMjConnector other) {
-                        return MJ.canConnect(other);
-                    }
-                };
-                return MjAPI.CAP_CONNECTOR.cast(connector);
-            }
-            if (capability == MjAPI.CAP_RECEIVER) {
-                IMjReceiver receiver = new IMjReceiver() {
-                    @Override
-                    long getPowerRequested() {
-                        return MJ.getPowerRequested();
-                    }
-
-                    @Override
-                    long receivePower(long microJoules, boolean simulate) {
-                        return MJ.receivePower(microJoules, simulate);
-                    }
-
-                    @Override
-                    boolean canConnect(@Nonnull IMjConnector other) {
-                        return MJ.canConnect(other);
-                    }
-                }
-                return MjAPI.CAP_RECEIVER.cast(receiver);
-            }
-            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-                IMjPassiveProvider passiveProvider = new IMjPassiveProvider() {
-                    @Override
-                    long extractPower(long min, long max, boolean simulate) {
-                        return MJ.extractPower(min, max, simulate);
-                    }
-
-                    @Override
-                    boolean canConnect(@Nonnull IMjConnector other) {
-                        return MJ.canConnect(other);
-                    }
-                }
-                return MjAPI.CAP_PASSIVE_PROVIDER.cast(passiveProvider);
-            }
-            if (capability == MjAPI.CAP_READABLE) {
-                IMjReadable readable = new IMjReadable() {
-                    @Override
-                    long getStored() {
-                        return MJ.getStored();
-                    }
-
-                    @Override
-                    long getCapacity() {
-                        return MJ.getCapacity()
-                    }
-
-                    @Override
-                    boolean canConnect(@Nonnull IMjConnector other) {
-                        return MJ.canConnect(other);
-                    }
-                }
-                return MjAPI.CAP_READABLE.cast(readable);
-            }
-            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-                IMjRedstoneReceiver redstoneReceiver = new IMjRedstoneReceiver() {
-                    @Override
-                    long getPowerRequested() {
-                        return MJ.getPowerRequested();
-                    }
-
-                    @Override
-                    long receivePower(long microJoules, boolean simulate) {
-                        return MJ.receivePower(microJoules, simulate);
-                    }
-
-                    @Override
-                    boolean canConnect(@Nonnull IMjConnector other) {
-                        return MJ.canConnect(other);
-                    }
-                }
-                return MjAPI.CAP_REDSTONE_RECEIVER.cast(redstoneReceiver);
-            }
         }
         return null;
     }

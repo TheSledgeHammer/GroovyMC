@@ -1,3 +1,18 @@
+/*
+ * Copyright [2018] [TheSledgeHammer]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.thesledgehammer.groovymc.GroovyMC
@@ -12,15 +27,15 @@ import net.minecraftforge.energy.IEnergyStorage
 
 import java.awt.*
 
-class EnergyProbeInfoProvider implements IProbeInfoProvider {
+class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
 
-    EnergyProbeInfoProvider(ITheOneProbe theOneProbe) {
+    MjEnergyProbeInfoProvider(ITheOneProbe theOneProbe) {
         theOneProbe.registerProvider(this);
     }
 
     @Override
     String getID() {
-        return GroovyMC.MOD_ID + ":EnergyProbeInfo";
+        return GroovyMC.MOD_ID + ":MjEnergyProbeInfo";
     }
 
     @Override
@@ -32,16 +47,6 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
             long energy = EnergyTools.getMjStored(te);
             long capacity = EnergyTools.getMjCapacity(te);
             addMJInfo(probeInfo, energy, capacity);
-        }
-        if(EnergyTools.isFeEnergyHandler(te)) {
-            int energy = EnergyTools.getFeStored(te);
-            int capacity = EnergyTools.getFeCapacity(te);
-            addFEInfo(probeInfo, energy, capacity);
-        } else if(te.hasCapability(CapabilityEnergy.ENERGY, null)) {
-            IEnergyStorage rf = te.getCapability(CapabilityEnergy.ENERGY, null);
-            if(rf != null) {
-                addFEInfo(probeInfo, rf.getEnergyStored(), rf.getMaxEnergyStored());
-            }
         }
     }
 
@@ -55,7 +60,7 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
                 .numberFormat(NumberFormat.COMPACT)
         );
     }
-
+/*
     private static void addFEInfo(IProbeInfo probeInfo, int energy, int capacity) {
         probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
                 .suffix("FE")
@@ -65,5 +70,5 @@ class EnergyProbeInfoProvider implements IProbeInfoProvider {
                 .backgroundColor(new Color(0x000000).getRGB())
                 .numberFormat(NumberFormat.COMPACT)
         );
-    }
+    }*/
 }

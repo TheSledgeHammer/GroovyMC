@@ -15,29 +15,20 @@
  */
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import buildcraft.api.mj.*
+import buildcraft.api.mj.IMjPassiveProvider
+import buildcraft.api.mj.IMjReadable
+import buildcraft.api.mj.IMjReceiver
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
-import com.thesledgehammer.groovymc.compat.modules.buildcraft.BuildcraftModule
 import com.thesledgehammer.groovymc.items.GroovyItem
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
-import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
 
-@Optional.InterfaceList(
-        value = [
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjConnector", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjPassiveProvider", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft"),
-                @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
-        ]
-)
-class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver, ICapabilityProvider {
+class MinecraftJoulesItem extends GroovyItem implements IMjStorage, ICapabilityProvider {
 
     private ItemStack container;
 
@@ -133,18 +124,9 @@ class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector
     }
 
     @Override
-    boolean canConnectToStorage(@Nonnull IMjStorage other) {
+    boolean canConnect(@Nonnull IMjStorage other) {
         if(container instanceof IMjStorage) {
             IMjStorage mjItem = container as IMjStorage;
-            return mjItem.canConnect(other);
-        }
-        return false
-    }
-
-    @Override
-    boolean canConnect(@Nonnull IMjConnector other) {
-        if(container instanceof IMjConnector) {
-            IMjConnector mjItem = container as IMjConnector;
             return mjItem.canConnect(other);
         }
         return false
@@ -155,9 +137,6 @@ class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector
         if(capability == CapabilityMj.MJ_STORAGE) {
             return true;
         }
-        if(BuildcraftModule.hasMjCapability(capability)) {
-            return true;
-        }
         return false;
     }
 
@@ -165,23 +144,6 @@ class MinecraftJoulesItem extends GroovyItem implements IMjStorage, IMjConnector
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if(capability == CapabilityMj.MJ_STORAGE) {
             return CapabilityMj.MJ_STORAGE.cast(this);
-        }
-        if(BuildcraftModule.hasMjCapability(capability)) {
-            if (capability == MjAPI.CAP_CONNECTOR) {
-                return MjAPI.CAP_CONNECTOR.cast(this);
-            }
-            if (capability == MjAPI.CAP_RECEIVER) {
-                return MjAPI.CAP_RECEIVER.cast(this);
-            }
-            if (capability == MjAPI.CAP_PASSIVE_PROVIDER) {
-                return MjAPI.CAP_PASSIVE_PROVIDER.cast(this);
-            }
-            if (capability == MjAPI.CAP_READABLE) {
-                return MjAPI.CAP_READABLE.cast(this);
-            }
-            if (capability == MjAPI.CAP_REDSTONE_RECEIVER) {
-                return MjAPI.CAP_REDSTONE_RECEIVER.cast(this);
-            }
         }
         return null;
     }
