@@ -42,6 +42,7 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotatio
 
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);
+        this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     GroovyBlockTileBasic() {
