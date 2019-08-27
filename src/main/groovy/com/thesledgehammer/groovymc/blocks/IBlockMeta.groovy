@@ -9,7 +9,7 @@
  * SirSengir (original work), CovertJaguar, Player, Binnie, MysteriousAges
  * Modified by TheSledgeHammer 2018: Renamed from IBlockWithMeta & Converted to .groovy
  ******************************************************************************/
-package com.thesledgehammer.groovymc.items
+package com.thesledgehammer.groovymc.blocks
 
 interface IBlockMeta {
 	

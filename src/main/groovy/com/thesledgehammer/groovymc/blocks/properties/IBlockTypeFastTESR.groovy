@@ -21,5 +21,5 @@ package com.thesledgehammer.groovymc.blocks.properties
 interface IBlockTypeFastTESR extends IBlockType {
 
     @Override
-    IMachineProperties<?> getGroovyMachineProperties();
+    IMachineProperties getGroovyMachineProperties();
 }

@@ -16,5 +16,5 @@ import net.minecraft.util.IStringSerializable
 
 interface IBlockType extends IStringSerializable {
 
-    IMachineProperties<?> getGroovyMachineProperties();
+    IMachineProperties getGroovyMachineProperties();
 }

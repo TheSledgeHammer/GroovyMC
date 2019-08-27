@@ -101,7 +101,7 @@ class ObjectManager {
 
 	@SideOnly(Side.CLIENT)
 	private static class ColoredBlockBlockColor implements IBlockColor {
-		public static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
+		private static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
 
 		private ColoredBlockBlockColor() {
 

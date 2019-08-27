@@ -93,6 +93,12 @@ class RenderEventModuleContainer {
         }
     }
 
+    //TODO
+    @SideOnly(Side.CLIENT)
+    static void onTextureStitchPost(TextureStitchEvent.Post event) {
+        TextureMap textureMap = event.getMap();
+    }
+
     private static boolean isRegistered(BlankRenderEventModule module) {
         if(module != null) {
             if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {

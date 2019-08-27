@@ -16,33 +16,37 @@
 
 package com.thesledgehammer.groovymc.items
 
-import com.thesledgehammer.groovymc.items.traits.ItemBlockTraits
+import com.thesledgehammer.groovymc.blocks.IBlockMeta
 import net.minecraft.block.Block
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 
-class GroovyItemBlock<B extends Block> extends ItemBlock implements ItemBlockTraits {
+class GroovyItemBlock<B extends Block> extends ItemBlock {
 
     GroovyItemBlock(Block block) {
         super(block);
-        setBlock(block);
-        setItemBlock(this);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
     @Override
     B getBlock() {
-        return (B) getBlockFromItemBlockTrait();
+        return (B) super.getBlock();
     }
 
     @Override
     int getMetadata(int i) {
-        return getMetadataFromItemBlockTrait(i);
+        return i;
     }
 
     @Override
     String getUnlocalizedName(ItemStack itemstack) {
-        return getUnlocalizedNameFromItemBlockTrait(itemstack);
+        Block block = getBlock();
+        if (block instanceof IBlockMeta) {
+            IBlockMeta blockMeta = (IBlockMeta) block;
+            int meta = itemstack.getMetadata();
+            return block.getUnlocalizedName() + "." + blockMeta.getNameFromMeta(meta);
+        }
+        return block.getUnlocalizedName();
     }
 }

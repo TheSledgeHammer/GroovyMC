@@ -10,7 +10,7 @@
  * Modified by TheSledgeHammer 2018: Converted to .groovy
  *********************************************************************************/
 
-package com.thesledgehammer.groovymc.blocks.properties
+package com.thesledgehammer.groovymc.blocks
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumFacing
