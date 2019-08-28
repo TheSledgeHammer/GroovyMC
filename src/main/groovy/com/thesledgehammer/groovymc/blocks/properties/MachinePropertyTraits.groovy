@@ -16,22 +16,21 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import com.thesledgehammer.groovymc.api.GroovyLoader
+
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
+import com.thesledgehammer.groovymc.utils.TileEntityTools
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -130,12 +129,12 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
 
     @Override
     void registerTileEntity() {
-        registerTile(teClass, name);
+        TileEntityTools.registerTileEntity(teClass, name);
     }
 
     @Override
     void registerTileEntity(String modID) {
-        registerTile(teClass, modID, name);
+        TileEntityTools.registerTileEntity(teClass, modID, name);
     }
 
     @Override
@@ -145,13 +144,5 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to instantiate tile entity of class " + teClass.getName(), e);
         }
-    }
-
-    private void registerTile(Class<? extends TileEntity> tileClass, String tileName) {
-        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
-    }
-
-    private void registerTile(Class<? extends TileEntity> tileClass, String modID, String tileName) {
-        GameRegistry.registerTileEntity(tileClass, new ResourceLocation(modID, tileName));
     }
 }

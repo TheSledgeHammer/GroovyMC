@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.api
 
 import net.minecraft.tileentity.TileEntity
 
+@Deprecated
 interface IRegisterTileEntity {
 
     void registerTileEntity(Class<? extends TileEntity> tileEntity, String tileName);

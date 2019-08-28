@@ -27,51 +27,29 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotation, ITileEntityProvider, IRegisterTileEntity {
+abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotation, ITileEntityProvider {
 
     protected static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
 
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);
-        this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
     GroovyBlockTileBasic() {
         super(Material.IRON);
-    }
-
-    @Override
-    int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
-    }
-
-    @Override
-    IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
-    }
-
-    @Override
-    BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
-
-    @Override
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String modId, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(modId, tileName));
-    }
-
-    @Override
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
     }
 
     @Override
@@ -91,34 +69,7 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotatio
         world.removeTileEntity(pos);
         super.breakBlock(world, pos, state);
     }
-
-    @Override
-    void rotateAfterPlacement(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
-        IBlockState state = world.getBlockState(pos);
-        EnumFacing facing = getPlacementRotation(player, world, pos, side);
-        world.setBlockState(pos, state.withProperty(FACING, facing));
-    }
-
-    EnumFacing getPlacementRotation(EntityPlayer player, World world, BlockPos pos, EnumFacing side) {
-        int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
-        if (l == 1) {
-            return EnumFacing.EAST;
-        }
-        if (l == 2) {
-            return EnumFacing.SOUTH;
-        }
-        if (l == 3) {
-            return EnumFacing.WEST;
-        }
-        return EnumFacing.NORTH;
-    }
-
-    @Override
-    IBlockState withRotation(IBlockState state, Rotation rot) {
-        EnumFacing facing = state.getValue(FACING);
-        return state.withProperty(FACING, rot.rotate(facing));
-    }
-    /*
+/*
     //TODO: Incomplete
     void getDrops(NonNullList<ItemStack> result, IBlockAccess world, BlockPos pos, IBlockState metadata, int fortune) {
         TileEntity tile = world.getTileEntity(pos);
@@ -128,7 +79,7 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotatio
             NBTTagCompound nbt = new NBTTagCompound();
             groovyTile.writeToNBT(nbt);
             stack.setTagCompound(nbt);
-            groovyTile.addDrops(drops, fortune);
+            //groovyTile.addDrops(drops, fortune);
         }
         super.getDrops(result, world, pos, metadata, fortune);
     }*/
