@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import net.minecraft.tileentity.TileEntity
-import net.minecraftforge.energy.IEnergyStorage
 
 class EnergyTools {
 

@@ -16,31 +16,19 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.IRegisterTileEntity
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
-import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
-import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.NonNullList
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.GameRegistry
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotation, ITileEntityProvider {
+abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityProvider {
 
     protected static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
 

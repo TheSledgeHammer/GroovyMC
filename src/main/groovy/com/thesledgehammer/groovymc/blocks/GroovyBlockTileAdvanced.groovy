@@ -16,7 +16,10 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.blocks.properties.*
+import com.thesledgehammer.groovymc.blocks.properties.IBlockType
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
+import com.thesledgehammer.groovymc.blocks.properties.IMachineProperties
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.GroovyMachineStateMapper
