@@ -22,12 +22,4 @@ class MjTools {
         long generate = Math.min(microMj, volts);
         return (generate / (double) MJ);
     }
-
-    static long toMJ(long amount) {
-        return amount * MJ;
-    }
-    
-    static int toFE(long amount) {
-        return amount / MJ;
-    }
 }

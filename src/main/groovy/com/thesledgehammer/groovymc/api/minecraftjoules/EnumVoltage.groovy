@@ -26,7 +26,7 @@ enum EnumVoltage implements IStringSerializable {
     SUPER(8192L),
     EXTREME(32768L),
     INSANE(131072L),
-    INFINITE(Long.MAX_VALUE);
+    INFINITE(2097152L);
 
     static final EnumVoltage[] VALUES = values();
     private final String name;
