@@ -97,7 +97,7 @@ class EnergyConfig {
     }
 
     private static int toRF(long amount) {
-        return (int)(toMJ(amount)/ MjTools.MJ);
+        return (int) (toMJ(amount)/ MjTools.MJ);
     }
 
     static long maxTransferMJ(long amount, EnumVoltage voltage) {

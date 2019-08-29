@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.api
 
-import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraft.util.IStringSerializable
 
 enum EnumEnergyType implements IStringSerializable {
@@ -34,12 +33,14 @@ enum EnumEnergyType implements IStringSerializable {
     private final EnergyConfig RF;
     private final EnergyConfig MJ;
     private int capacity_multiplier = 0;
+    private final EnumVoltage voltage;
 
     EnumEnergyType(EnumVoltage voltage) {
         this.name = toString().toLowerCase(Locale.ENGLISH);
+        this.voltage = voltage;
         setCapacityMultiplier(capacity_multiplier);
-        this.MJ = EnergyConfig.createMJConfig(MJ_Voltage(voltage) * getCapacityMultiplier(), MJ_Voltage(voltage), MJ_Voltage(voltage));
-        this.RF = EnergyConfig.createRFConfig(RF_Voltage(voltage) * getCapacityMultiplier(), RF_Voltage(voltage), RF_Voltage(voltage));
+        this.MJ = EnergyConfig.createMJConfig(voltage.getVoltage() * getCapacityMultiplier(), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage));
+        this.RF = EnergyConfig.createRFConfig((int) voltage.getVoltage() * getCapacityMultiplier(), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage));
     }
 
     void setCapacityMultiplier(int capacity_multiplier) {
@@ -50,20 +51,16 @@ enum EnumEnergyType implements IStringSerializable {
         }
     }
 
+    EnumVoltage getVoltage() {
+        return voltage;
+    }
+
     EnergyConfig getMJ() {
         return MJ;
     }
 
     EnergyConfig getRF() {
         return RF;
-    }
-
-    private long MJ_Voltage(EnumVoltage voltage) {
-        return voltage.getVoltage() * MjTools.getMJ();
-    }
-
-    private int RF_Voltage(EnumVoltage voltage) {
-        return (int) (MJ_Voltage(voltage) / MjTools.getMJ()) * 32;
     }
 
     int getCapacityMultiplier() {

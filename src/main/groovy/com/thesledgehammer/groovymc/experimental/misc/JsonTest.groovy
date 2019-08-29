@@ -16,8 +16,8 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
+import com.thesledgehammer.groovymc.api.EnumEnergyType
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.EnumVoltage
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.api.EnergyConfig
 
@@ -27,7 +27,8 @@ class JsonTest {
         GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
 
         EnergyConfig RF = EnergyConfig.createRFConfig(10000, 1000);
-        EnergyConfig MJ = EnergyConfig.createMJConfig(10000, 1000);
-        println EnergyConfig.maxTransferRF(RF.getCapacity(), EnumVoltage.MEDIUM);
+        EnergyConfig MJ = EnergyConfig.createMJConfig(10, 1000);
+        println MJ.getCapacity()
+        println EnumEnergyType.LV.getMJ().getCapacity()
     }
 }
