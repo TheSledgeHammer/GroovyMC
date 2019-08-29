@@ -17,7 +17,7 @@
 package com.thesledgehammer.groovymc.compat.forgeenergy
 
 import com.thesledgehammer.groovymc.api.INBTCompound
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.EnumVoltage
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
@@ -53,7 +53,7 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
     void generateEnergy(int amount) {
         modifyEnergyStored(feEnergy + amount);
     }
-
+/*
     void drainEnergy(int amount, EnumVoltage voltage) {
         int volts = (int) voltage.getVoltage() * 32;
         if(amount >= volts) {
@@ -73,7 +73,7 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
         int maxGenerate =+ Math.max(generate, amount);
         modifyEnergyStored(maxGenerate);
     }
-
+    */
     private void modifyEnergyStored(int feEnergy) {
         this.feEnergy = feEnergy;
         if(feEnergy > getMaxEnergyStored()) {

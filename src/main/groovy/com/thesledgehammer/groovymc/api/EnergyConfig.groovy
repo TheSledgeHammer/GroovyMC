@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.utils
+package com.thesledgehammer.groovymc.api
 
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
 import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 
 class EnergyConfig {

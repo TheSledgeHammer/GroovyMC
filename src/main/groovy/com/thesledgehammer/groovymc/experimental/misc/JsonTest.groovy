@@ -17,9 +17,9 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
+import com.thesledgehammer.groovymc.api.EnumVoltage
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.utils.EnergyConfig
+import com.thesledgehammer.groovymc.api.EnergyConfig
 
 class JsonTest {
 
