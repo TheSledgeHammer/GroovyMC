@@ -25,6 +25,34 @@ class EnergyConfig {
     private long maxReceive;
     private long maxExtract;
 
+    static EnergyConfig createRFConfig(int capacity) {
+        return new EnergyConfig(toRF(capacity));
+    }
+
+    static EnergyConfig createMJConfig(long capacity) {
+        return new EnergyConfig(toMJ(capacity));
+    }
+
+    static EnergyConfig createRFConfig(int capacity, int maxTransfer) {
+        return new EnergyConfig(toRF(capacity), toRF(maxTransfer));
+    }
+
+    static EnergyConfig createMJConfig(long capacity, long maxTransfer) {
+        return new EnergyConfig(toMJ(capacity), toMJ(maxTransfer));
+    }
+
+    static EnergyConfig createRFConfig(int capacity, int maxReceive, int maxExtract) {
+        return new EnergyConfig(toRF(capacity), toRF(maxReceive), toRF(maxExtract));
+    }
+
+    static EnergyConfig createMJConfig(long capacity, long maxReceive, long maxExtract) {
+        return new EnergyConfig(toMJ(capacity), toMJ(maxReceive), toMJ(maxExtract));
+    }
+
+    private EnergyConfig(long capacity) {
+        setCapacity(capacity);
+    }
+
     private EnergyConfig(long capacity, long maxTransfer) {
         setCapacity(capacity);
         setMaxTransfer(maxTransfer);
@@ -34,14 +62,6 @@ class EnergyConfig {
         setCapacity(capacity);
         setMaxReceive(maxReceive);
         setMaxExtract(maxExtract);
-    }
-
-    static EnergyConfig createRFConfig(int capacity, int maxTransfer) {
-        return new EnergyConfig(toRF(capacity), toRF(maxTransfer));
-    }
-
-    static EnergyConfig createMJConfig(long capacity, long maxTransfer) {
-        return new EnergyConfig(toMJ(capacity), toMJ(maxTransfer));
     }
 
     long getCapacity() {

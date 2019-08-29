@@ -15,13 +15,15 @@
  */
 package com.thesledgehammer.groovymc.compat.modules.buildcraft
 
-import buildcraft.api.mj.IMjConnector
-import buildcraft.api.mj.IMjPassiveProvider
-import buildcraft.api.mj.IMjReadable
-import buildcraft.api.mj.MjBattery
+import buildcraft.api.mj.*
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.util.EnumFacing
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilitySerializable
 import net.minecraftforge.fml.common.Optional
 
 import javax.annotation.Nonnull
+import javax.annotation.Nullable
 
 @Optional.InterfaceList(
         value = [
@@ -29,12 +31,19 @@ import javax.annotation.Nonnull
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft")
         ]
 )
-class MJBatteryProvider implements IMjPassiveProvider, IMjReadable {
+class MJBatteryProvider implements IMjPassiveProvider, IMjReadable, ICapabilitySerializable<NBTTagCompound> {
 
     private final MjBattery battery;
+    protected final MjCapabilityHelper mjCaps;
+
+    MJBatteryProvider(long capacity) {
+        this.battery = new MjBattery(capacity);
+        this.mjCaps = new MjCapabilityHelper(this);
+    }
 
     MJBatteryProvider(MjBattery battery) {
         this.battery = battery;
+        this.mjCaps = new MjCapabilityHelper(this);
     }
 
     @Override
@@ -54,6 +63,36 @@ class MJBatteryProvider implements IMjPassiveProvider, IMjReadable {
 
     @Override
     boolean canConnect(@Nonnull IMjConnector other) {
-        return true
+        return true;
+    }
+
+    //writeNBT
+    @Override
+    NBTTagCompound serializeNBT() {
+        return battery.serializeNBT();
+    }
+
+    //readNBT
+    @Override
+    void deserializeNBT(NBTTagCompound nbt) {
+        battery.deserializeNBT(nbt);
+    }
+
+    @Override
+    boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+        if(BuildcraftModule.hasMjCapability(capability)) {
+            return mjCaps.hasCapability(capability, facing);
+        }
+        return false
+    }
+
+    @Override
+    def <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+        if(BuildcraftModule.hasMjCapability(capability)) {
+            if(mjCaps.hasCapability(capability, facing)) {
+                return mjCaps.getCapability(capability, facing);
+            }
+        }
+        return null
     }
 }
