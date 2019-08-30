@@ -38,9 +38,8 @@ enum EnumEnergyType implements IStringSerializable {
     EnumEnergyType(EnumVoltage voltage) {
         this.name = toString().toLowerCase(Locale.ENGLISH);
         this.voltage = voltage;
-        setCapacityMultiplier(capacity_multiplier);
-        this.MJ = EnergyConfig.createMJConfig(voltage.getVoltage() * getCapacityMultiplier(), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage));
-        this.RF = EnergyConfig.createRFConfig((int) voltage.getVoltage() * getCapacityMultiplier(), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage));
+        this.MJ = EnergyConfig.createMJConfig(voltage.getVoltage(), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage), EnergyConfig.maxTransferMJ(voltage.getVoltage(), voltage));
+        this.RF = EnergyConfig.createRFConfig((int) voltage.getVoltage(), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage), (int) EnergyConfig.maxTransferRF(voltage.getVoltage(), voltage));
     }
 
     void setCapacityMultiplier(int capacity_multiplier) {

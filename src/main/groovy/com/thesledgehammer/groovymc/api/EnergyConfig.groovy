@@ -23,6 +23,7 @@ class EnergyConfig {
     private long capacity;
     private long maxReceive;
     private long maxExtract;
+    private EnumVoltage voltage;
 
     static EnergyConfig createRFConfig(int capacity) {
         return new EnergyConfig(toRF(capacity));
@@ -90,6 +91,14 @@ class EnergyConfig {
     private void setMaxTransfer(long maxTransfer) {
         setMaxReceive(maxTransfer);
         setMaxExtract(maxTransfer);
+    }
+
+    void setVoltage(EnumVoltage voltage) {
+        this.voltage = voltage;
+    }
+
+    EnumVoltage getVoltage() {
+        return voltage;
     }
 
     private static long toMJ(long amount) {
