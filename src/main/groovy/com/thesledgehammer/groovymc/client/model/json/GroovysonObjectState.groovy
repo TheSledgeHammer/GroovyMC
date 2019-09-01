@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.experimental.jsons
+package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
+import com.thesledgehammer.groovymc.client.model.ResourceLoader
 import com.thesledgehammer.groovymc.utils.Log
 import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation
 
-//Work In Progress
-//turns blockstate .jsons into readable objects
 class GroovysonObjectState {
 
     private def obj; //raw Json Blockstate file
@@ -34,12 +33,22 @@ class GroovysonObjectState {
 
     GroovysonObjectState(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
+
+        ResourceLoader isr = new ResourceLoader();
+        this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
+        isr.finishLoading();
+
         this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
     GroovysonObjectState(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
+
+        ResourceLoader isr = new ResourceLoader();
+        this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
+        isr.finishLoading();
+
         this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }

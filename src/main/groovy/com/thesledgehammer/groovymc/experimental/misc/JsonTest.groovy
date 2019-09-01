@@ -16,19 +16,14 @@
 
 package com.thesledgehammer.groovymc.experimental.misc
 
-import com.thesledgehammer.groovymc.api.EnumEnergyType
 import com.thesledgehammer.groovymc.api.GroovyLoader
 import com.thesledgehammer.groovymc.config.Constants
-import com.thesledgehammer.groovymc.api.EnergyConfig
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms
+import net.minecraft.client.renderer.block.model.ModelBlock
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
-
-        EnergyConfig RF = EnergyConfig.createRFConfig(10000, 1000);
-        EnergyConfig MJ = EnergyConfig.createMJConfig(10, 1000);
-        println MJ.getCapacity()
-        println EnumEnergyType.LV.getMJ().getCapacity()
     }
 }

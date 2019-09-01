@@ -24,6 +24,7 @@ class EnergyConfig {
     private long maxReceive;
     private long maxExtract;
     private EnumVoltage voltage;
+    private static int capacity_multiplier = 0;
 
     static EnergyConfig createRFConfig(int capacity) {
         return new EnergyConfig(toRF(capacity));
@@ -50,12 +51,11 @@ class EnergyConfig {
     }
 
     private EnergyConfig(long capacity) {
-        setCapacity(capacity);
+        this(capacity, capacity, capacity);
     }
 
     private EnergyConfig(long capacity, long maxTransfer) {
-        setCapacity(capacity);
-        setMaxTransfer(maxTransfer);
+        this(capacity, maxTransfer, maxTransfer);
     }
 
     private EnergyConfig(long capacity, long maxReceive, long maxExtract) {
@@ -74,6 +74,14 @@ class EnergyConfig {
 
     long getMaxExtract() {
         return maxExtract;
+    }
+
+    EnumVoltage getVoltage() {
+        return voltage;
+    }
+
+    static int getCapacityMultiplier() {
+        return capacity_multiplier;
     }
 
     private void setCapacity(long capacity) {
@@ -97,8 +105,12 @@ class EnergyConfig {
         this.voltage = voltage;
     }
 
-    EnumVoltage getVoltage() {
-        return voltage;
+    static void setCapacityMultiplier(int capacity_multiplier) {
+        if(capacity_multiplier <= 0) {
+            this.capacity_multiplier = 1;
+        } else {
+            this.capacity_multiplier = capacity_multiplier;
+        }
     }
 
     private static long toMJ(long amount) {

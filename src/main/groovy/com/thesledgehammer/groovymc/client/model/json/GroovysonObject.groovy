@@ -25,7 +25,6 @@ class GroovysonObject {
 
     private def obj; //raw Json Model file
     private String name;
-    private ResourceLocation resourceLocation;
 
     GroovysonObject() {
 
@@ -33,12 +32,10 @@ class GroovysonObject {
 
     GroovysonObject(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
-        this.resourceLocation = resourceLocation;
 
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
         isr.finishLoading();
-
 
         //this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
@@ -46,12 +43,10 @@ class GroovysonObject {
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
-        this.resourceLocation = new ResourceLocation(resourceDomain, resourcePath);
 
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
         isr.finishLoading();
-
 
         //this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
@@ -71,10 +66,6 @@ class GroovysonObject {
 
     String getName() {
         return name;
-    }
-
-    ResourceLocation getResourceLocation() {
-        return resourceLocation;
     }
 
     def getJsonObject() {

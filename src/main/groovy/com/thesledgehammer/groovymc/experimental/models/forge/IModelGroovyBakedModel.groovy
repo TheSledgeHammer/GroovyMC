@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.model.bakedmodel
+package com.thesledgehammer.groovymc.experimental.models.forge
 
+import com.thesledgehammer.groovymc.client.model.bakedmodel.BlankGroovyBakedModel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel

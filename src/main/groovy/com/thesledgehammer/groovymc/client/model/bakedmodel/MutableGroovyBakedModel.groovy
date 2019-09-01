@@ -21,9 +21,13 @@ import com.thesledgehammer.groovymc.client.model.MutableQuad
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.BakedQuad
 import net.minecraft.client.renderer.block.model.IBakedModel
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.block.model.ItemOverrideList
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.EnumFacing
+import org.apache.commons.lang3.tuple.Pair
+
+import javax.vecmath.Matrix4f
 
 class MutableGroovyBakedModel implements IBakedModel {
 	
@@ -68,5 +72,10 @@ class MutableGroovyBakedModel implements IBakedModel {
 	@Override
 	ItemOverrideList getOverrides() {
 		return model.getOverrides();
+	}
+
+	@Override
+	Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+		return model.handlePerspective(cameraTransformType);
 	}
 }
