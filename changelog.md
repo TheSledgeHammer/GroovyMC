@@ -1,11 +1,13 @@
 #GroovyMC Changelog
 
 ## [Unreleased]
+
+## [1.1.1] - 2019-09-01
 ### Added
 - Added GroovyObjectModelDefinition with Static & Variable Keys for model mapping
 - Added Modules: For inter mod compatability
-- Added Buildcraft MJ
-- Added Independent variation of MinecraftJoules from Buildcraft (aiming for compatability)
+- Added Buildcraft Mj with own Capability
+- Added Independent variation of MinecraftJoules from Buildcraft
 - Added New classes inner workings of Variable Models
 - Added GroovysonObjectState: An Object version of a blockstate json. In similar design to GroovysonObject & GroovysonObjectPart
 - ModelEntryHolderManager: More all rounded Register for Models & Textures
