@@ -16,8 +16,10 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-
-import com.thesledgehammer.groovymc.utils.Log
+import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
+import com.thesledgehammer.groovymc.client.model.ResourceLoader
+import groovy.json.JsonException
+import net.minecraft.util.ResourceLocation
 
 class GroovysonObject {
 
@@ -28,34 +30,42 @@ class GroovysonObject {
 
     }
 
-    GroovysonObject(String path, String modid, String resourceType, String fileName) {
-        setJsonObject(path, modid, resourceType, fileName);
+    GroovysonObject(String path, ResourceLocation resourceLocation) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
+
+        ResourceLoader isr = new ResourceLoader();
+        this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
+        isr.finishLoading();
+
+        //this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
-    GroovysonObject(String path, String modid, String resource, String resourceObject, String fileName) {
-        setJsonObject(path, modid, resource, resourceObject, fileName);
+    GroovysonObject(String path, String resourceDomain, String resourcePath) {
+        String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
+
+        ResourceLoader isr = new ResourceLoader();
+        this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
+        isr.finishLoading();
+
+        //this.obj = GroovysonReader.JsonSlurpy(fileName);
+        this.name = GroovysonReader.getFileName();
     }
 
-    void setJsonObject(String path, String modid, String resourceType, String fileName) {
-        setName(fileName)
-        def file = GroovysonReader.JsonFile(path, modid, resourceType, name);
-        def obj = GroovysonReader.JsonSlurpy(file);
-        this.obj = obj;
+    protected void deserializeParts(List<GroovysonObjectPart> objectParts) {
+        for(String elem : obj.elements) {
+            objectParts.add(new GroovysonObjectPart(this, elem));
+        }
     }
 
-    void setJsonObject(String path, String modid, String resource, String resourceObject, String fileName) {
-        setName(fileName);
-        def file = GroovysonReader.JsonFile(path, modid, resource, resourceObject, name);
-        def obj = GroovysonReader.JsonSlurpy(file);
-        this.obj = obj;
+    protected void deserializeTextures(List<String> textures) {
+        for(String texture : obj.textures) {
+            textures.add(texture);
+        }
     }
 
     String getName() {
         return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     def getJsonObject() {
@@ -64,8 +74,7 @@ class GroovysonObject {
 
     def getParent() {
         if(obj.parent == null) {
-            Log.logError("${obj.parent} Isn't defined in ${getName()}");
-            return null;
+            return new JsonException("Parent isn't defined in ${getName()}")
         }
         return obj.parent;
     }
@@ -79,7 +88,7 @@ class GroovysonObject {
     }
 
     def getItemTextureLayer(int index) {
-        return obj.textures.get("layer ${index}");
+        return obj.textures.getAt("layer${index}");
     }
 
     def getElements() {
@@ -99,7 +108,7 @@ class GroovysonObject {
     }
 
     def getVariableByName(String variableName) {
-        return getVariables()[variableName];
+        return getVariables().get(variableName);
     }
 
     def getRules() {
@@ -129,8 +138,7 @@ class GroovysonObject {
 
     def DisplayName(String name) {
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            return new JsonException("${name} is incorrect...!");
         }
         return obj.display.get(name);
     }
@@ -138,12 +146,12 @@ class GroovysonObject {
     ArrayList<Float> Translation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!")
+            //return null;
         }
         if(obj.display.get(name).translation == null) {
-            Log.logError("${name} does not contain Translation...!");
-            return null;
+            throw new JsonException("${name} does not contain Translation...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).translation.size; i++) {
             arrObj.add(i, obj.display.get(name).translation.get(i));
@@ -154,12 +162,12 @@ class GroovysonObject {
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!");
+            //return null;
         }
         if(obj.display.get(name).rotation == null) {
-            Log.logError("${name} does not contain Rotation...!");
-            return null;
+            throw new JsonException("${name} does not contain Rotation...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).rotation.size; i++) {
             arrObj.add(i, obj.display.get(name).rotation.get(i));
@@ -170,12 +178,12 @@ class GroovysonObject {
     ArrayList<Float> Scale(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            Log.logError("${name} is incorrect...!");
-            return null;
+            throw new JsonException("${name} is incorrect...!");
+            //return null;
         }
         if(obj.display.get(name).scale == null) {
-            Log.logError("${name} does not contain Scale...!");
-            return null;
+            throw new JsonException("${name} does not contain Scale...!");
+            //return null;
         }
         for(int i = 0; i < obj.display.get(name).scale.size; i++) {
             arrObj.add(i, obj.display.get(name).scale.get(i));

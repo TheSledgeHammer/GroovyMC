@@ -13,83 +13,87 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.utils.Log
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryConsumer
 import net.minecraft.client.renderer.block.model.IBakedModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.util.ResourceLocation
 
 class ModelEntry extends ModelEntryConsumer {
 
-    private static ModelEntry instance
+    private ModelResourceLocation modelLocation;
+    private IBakedModel bakedModel;
+    private List<ModelResourceLocation> mrlList = new LinkedList<>();
+    private List<IBakedModel> bakedList = new LinkedList<>();
 
-    ModelEntry(Register register) {
-        instance = this;
+    ModelEntry(String resourceDomain, String resourcePath, String variantIn, IBakedModel bakedModel) {
+        setModelResourceLocation(new ModelResourceLocation(new ResourceLocation(resourceDomain, resourcePath), variantIn));
+        setBakedModel(bakedModel);
     }
 
-    static ModelEntry Instance() {
-        if(instance == null) {
-            return null;
-        }
-        return instance;
+    ModelEntry(ResourceLocation resourceLocation, String variantIn, IBakedModel bakedModel) {
+        setModelResourceLocation(new ModelResourceLocation(resourceLocation, variantIn));
+        setBakedModel(bakedModel);
     }
 
+    ModelEntry(String resourceDomain, String resourcePath, IBakedModel bakedModel) {
+        setModelResourceLocation(new ModelResourceLocation(new ResourceLocation(resourceDomain, resourcePath), "inventory"));
+        setBakedModel(bakedModel);
+    }
+
+    ModelEntry(ResourceLocation resourceLocation, IBakedModel bakedModel) {
+        setModelResourceLocation(new ModelResourceLocation(resourceLocation, "inventory"));
+        setBakedModel(bakedModel);
+    }
+
+    ModelEntry(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
+        setModelResourceLocation(modelLocation);
+        setBakedModel(bakedModel);
+    }
+
+    private void setModelResourceLocation(ModelResourceLocation modelLocation) {
+        this.modelLocation = modelLocation;
+       // this.mrlList.add(modelLocation);
+    }
+
+    private void setBakedModel(IBakedModel bakedModel) {
+        this.bakedModel = bakedModel;
+        //this.bakedList.add(bakedModel);
+    }
+
+    ModelResourceLocation getModelResourceLocation() {
+        return modelLocation;
+    }
+
+    IBakedModel getBakedModel() {
+        return bakedModel;
+    }
+    /*
     List<ModelResourceLocation> getModelResourceLocations() {
-        return GroovyDefinitionContext().getModelResourceLocations();
+        return mrlList;
     }
 
     List<IBakedModel> getIBakedModels() {
-        return GroovyDefinitionContext().getIBakedModels();
+        return bakedList;
     }
 
     ModelResourceLocation getModelResourceLocation(ModelResourceLocation modelResourceLocation) {
-        for(ModelResourceLocation modelLoc : getModelResourceLocations()) {
+        for(ModelResourceLocation modelLoc : mrlList) {
             if(modelResourceLocation.equals(modelLoc)) {
                 return modelLoc
             }
         }
-        Log.logDebug("No ModelResourceLocation was found at ${modelResourceLocation}")
-        return null;
+        throw new NullPointerException("No ModelResourceLocation was found at ${modelResourceLocation}");
     }
 
     IBakedModel getIBakedModel(IBakedModel bakedModel) {
-        for(IBakedModel baked : getIBakedModels()) {
+        for(IBakedModel baked : bakedList) {
             if(bakedModel.equals(baked)) {
                 return baked
             }
         }
-        Log.logDebug("No IBakedModel was found named ${bakedModel}")
-        return null;
+        throw new NullPointerException("No IBakedModel was found named ${bakedModel}");
     }
-
-    static class Register {
-
-        Register() {
-
-        }
-
-        static Register add(ModelResourceLocation modelLocation, IBakedModel bakedModel) {
-            GroovyDefinitionContext.Instance().setModelResourceLocation(modelLocation);
-            GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
-            return new Register();
-        }
-
-        static Register add(String modelLocation, IBakedModel bakedModel) {
-            GroovyDefinitionContext.Instance().setModelResourceLocation(modelLocation);
-            GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
-            return new Register();
-        }
-
-        static Register add(String type, String modelLocation, IBakedModel bakedModel) {
-            GroovyDefinitionContext.Instance().setCustomModelResourceLocation(type, modelLocation);
-            GroovyDefinitionContext.Instance().setIBakedModel(bakedModel);
-            return new Register();
-        }
-
-        ModelEntry build() {
-            return new ModelEntry(this);
-        }
-    }
+    */
 }

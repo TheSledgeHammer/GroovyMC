@@ -16,19 +16,21 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.api.IRegisterTileEntity
-import com.thesledgehammer.groovymc.blocks.traits.BlockTileTraits
-import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
+import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
-import net.minecraft.block.state.BlockStateContainer
+import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.IBlockState
+import net.minecraft.inventory.IInventory
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 
-abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTraits, ITileEntityProvider, IRegisterTileEntity {
+abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityProvider {
+
+    protected static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
 
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);
@@ -39,27 +41,34 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements BlockTileTrai
     }
 
     @Override
-    int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
+    void breakBlock(World world, BlockPos pos, IBlockState state) {
+        if (world.isRemote) {
+            return;
+        }
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof IInventory) {
+            IInventory inventory = (IInventory) tile;
+            InventoryTools.dropInventory(inventory, world, pos);
+        }
+        if (tile instanceof GroovyTileBasic) {
+            GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
+            groovyTile.onRemoval();
+        }
+        world.removeTileEntity(pos);
+        super.breakBlock(world, pos, state);
     }
-
-    @Override
-    IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
-    }
-
-    @Override
-    BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
-    }
-
-    @Override
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String modId, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(modId, tileName));
-    }
-
-    @Override
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String tileName) {
-        GameRegistry.registerTileEntity(tileEntity, new ResourceLocation(GroovyLoader.Instance().getModID(), tileName));
-    }
+/*
+    //TODO: Incomplete
+    void getDrops(NonNullList<ItemStack> result, IBlockAccess world, BlockPos pos, IBlockState metadata, int fortune) {
+        TileEntity tile = world.getTileEntity(pos);
+        if(tile instanceof GroovyTileBasic) {
+            GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
+            ItemStack stack = new ItemStack(Item.getItemFromBlock(tile.getBlockType()));
+            NBTTagCompound nbt = new NBTTagCompound();
+            groovyTile.writeToNBT(nbt);
+            stack.setTagCompound(nbt);
+            //groovyTile.addDrops(drops, fortune);
+        }
+        super.getDrops(result, world, pos, metadata, fortune);
+    }*/
 }

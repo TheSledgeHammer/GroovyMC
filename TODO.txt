@@ -1,0 +1,28 @@
+TODO:
+Short-Term:
+- To Fix for Models:
+    - CuboidBase: VariableLight
+    - JsonRule: NodeOrigin variable
+    - JsonTexture:
+- IBakedModel: Integration with GroovyObjectModels
+    - Finish IModelGroovyBakedModel
+    - Create IBakedModel dedicated to GroovyObjectModel's
+- GroovyModelBase(Not Tested)
+- RenderEntry (Not Tested): For rendering Static GroovyObjectModels
+- Static GroovyObjectModels (Not Tested)
+- RenderEntryFast: For rendering Variable GroovyObjectModels
+    - Textures not Loading
+- Voltage for Energy Tiers. More fluent approach
+
+Long-Term:
+- GroovyMC Model inter compatible with Forge's IModel API
+- GroovyMC Model inter compatible with Vanilla ModelBase (Partially Complete with GroovyModelBase)
+- MultiBlocks
+- GuiBuilder
+
+Insight to Own Model Issues:
+Buildcraft:
+- FunctionContext
+- ResourceLoaderContext
+- ModelHolderVariable: Does not initialize JsonVariableModel
+- ModelHolderStatic: Does not initialize JsonModel

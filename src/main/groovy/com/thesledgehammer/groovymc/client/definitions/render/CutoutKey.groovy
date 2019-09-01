@@ -16,13 +16,13 @@
 
 package com.thesledgehammer.groovymc.client.definitions.render
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 class CutoutKey {
 
     private List<GroovysonObjectPart> cutoutParts = new ArrayList<>();
 
-    CutoutKey(GroovysonModel groovysonModel) {
+    CutoutKey(GroovysonObjectModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
             if(parts.BlockRenderType() == "cutout") {
                 cutoutParts.add(parts);

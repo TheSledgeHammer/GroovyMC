@@ -18,7 +18,6 @@ package com.thesledgehammer.groovymc.utils
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
-import groovy.transform.ToString
 import net.minecraft.util.EnumFacing
 
 class JsonTools {
@@ -27,7 +26,6 @@ class JsonTools {
         JsonQuads[] jQuads = new JsonQuads[modelParts.size()];
         for(int i = 0; i < modelParts.size(); i++) {
             jQuads[i] = new JsonQuads(modelParts.get(i), modelParts.get(i).From() as float[], modelParts.get(i).To() as float[], face);
-           // println "ModelPart " + modelParts.get(i).getPartName() + " Face " + face + " JsonQuads " + jQuads[i].face;
         }
         return jQuads;
     }

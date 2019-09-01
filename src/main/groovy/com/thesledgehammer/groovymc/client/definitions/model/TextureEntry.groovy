@@ -13,39 +13,68 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
-import com.thesledgehammer.groovymc.utils.Log
+import com.thesledgehammer.groovymc.api.client.ISprite
+import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
+import com.thesledgehammer.groovymc.client.definitions.GroovyISpriteDefinition
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 
-class TextureEntry extends ModelEntryConsumer {
+class TextureEntry extends ModelEntryConsumer  {
 
-    private static TextureEntry instance;
+    private ResourceLocation spriteResourceLocation;
+    private TextureAtlasSprite textureAtlasSprite;
+    private List<ResourceLocation> spriteResourceLocations = new LinkedList<>();
+    private List<TextureAtlasSprite> textureAtlasSprites = new LinkedList<>();
 
-    TextureEntry(Register register) {
-        instance = this;
+    TextureEntry(String modID, String baseName) {
+        setTextureAtlasSprite(new ResourceLocation(modID, baseName));
     }
 
-    static TextureEntry Instance() {
-        if(instance == null) {
-            return null;
+    TextureEntry(String spriteResourceLocation) {
+        setTextureAtlasSprite(new ResourceLocation(spriteResourceLocation));
+    }
+
+    TextureEntry(ResourceLocation spriteResourceLocation) {
+        setTextureAtlasSprite(spriteResourceLocation);
+    }
+
+    private void setTextureAtlasSprite(ResourceLocation spriteResourceLocation) {
+        this.spriteResourceLocation = spriteResourceLocation;
+        if(this.textureAtlasSprite instanceof ISprite) {
+            this.textureAtlasSprite = GroovyISpriteDefinition.createForConfig(spriteResourceLocation);
         }
-        return instance;
+        this.textureAtlasSprite = GroovyAtlasSpriteDefinition.createForConfig(spriteResourceLocation);
+
+        //this.spriteResourceLocations.add(spriteResourceLocation);
+        //this.textureAtlasSprites.add(textureAtlasSprite);
     }
 
-    List<ResourceLocation> getResourceLocations() {
-        return GroovyDefinitionContext().getResourceLocations()
+    ResourceLocation getSpriteResourceLocation() {
+        return spriteResourceLocation;
+    }
+
+    TextureAtlasSprite getTextureAtlasSprite() {
+        return textureAtlasSprite;
+    }
+
+    void onTextureStitchPre(TextureMap map) {
+        GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
+    }
+
+    /*
+    List<ResourceLocation> getSpriteResourceLocations() {
+        return spriteResourceLocations;
     }
 
     List<TextureAtlasSprite> getTextureAtlasSprites() {
-        return GroovyDefinitionContext().getTextureAtlasSprites();
+        return textureAtlasSprites;
     }
 
-    ResourceLocation getResourceLocation(ResourceLocation resourceLocation) {
-        for(ResourceLocation location : getResourceLocations()) {
+    ResourceLocation getSpriteResourceLocation(ResourceLocation resourceLocation) {
+        for(ResourceLocation location : spriteResourceLocations) {
             if(location.equals(resourceLocation)) {
                 return location
             }
@@ -55,7 +84,7 @@ class TextureEntry extends ModelEntryConsumer {
     }
 
     TextureAtlasSprite getTextureAtlasSprite(TextureAtlasSprite atlasSprite) {
-        for(TextureAtlasSprite sprite : getTextureAtlasSprites()) {
+        for(TextureAtlasSprite sprite : textureAtlasSprites) {
             if(sprite.equals(atlasSprite)) {
                 return sprite
             }
@@ -63,39 +92,5 @@ class TextureEntry extends ModelEntryConsumer {
         Log.logDebug("No TextureAtlasSprite was found named ${atlasSprite}")
         return null;
     }
-
-    static class Register {
-
-        Register() {
-
-        }
-
-        static Register add(String sprite) {
-            GroovyDefinitionContext.Instance().setTextureAtlasSprite(sprite);
-            GroovyDefinitionContext.Instance().setResourceLocation(sprite);
-            return new Register();
-        }
-
-        static Register add(ResourceLocation spriteLocation) {
-            GroovyDefinitionContext.Instance().setTextureAtlasSprite(spriteLocation);
-            GroovyDefinitionContext.Instance().setResourceLocation(spriteLocation);
-            return new Register();
-        }
-
-        static Register add(String modID, String baseName) {
-            GroovyDefinitionContext.Instance().setTextureAtlasSprite(modID, baseName);
-            GroovyDefinitionContext.Instance().setResourceLocation(modID, baseName);
-            return new Register();
-        }
-
-        static Register add(String modID, String type, String baseName) {
-            GroovyDefinitionContext.Instance().setTextureAtlasSprite(modID, baseName);
-            GroovyDefinitionContext.Instance().setCustomResourceLocation(modID, type, baseName);
-            return new Register();
-        }
-
-        TextureEntry build() {
-            return new TextureEntry(this);
-        }
-    }
+    */
 }

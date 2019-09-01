@@ -62,6 +62,7 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
                 //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                //ForgeHooksClient.renderTileItem(item, 0);
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
                 item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
             }
@@ -77,6 +78,7 @@ trait MachinePropertyTraitsFastTESR <T extends GroovyTileBasic> extends MachineP
             Item item = Item.getItemFromBlock(block);
             if (item != Items.AIR) {
                 //ForgeHooksClient.registerTESRItemStack(item, 0, getTeClass());
+                //ForgeHooksClient.renderTileItem(item, 0);
                 TileEntityItemStackRenderer TEISR = TileEntityItemStackRenderer.instance;
                 item.setTileEntityItemStackRenderer(TEISR.renderByItem(new ItemStack(item, 1, 0)));
             }

@@ -16,18 +16,14 @@
 
 package com.thesledgehammer.groovymc.tiles
 
-import com.thesledgehammer.groovymc.tiles.traits.TileTraits
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 
 import javax.annotation.Nullable
 
-abstract class GroovyTileBasic extends TileEntity implements TileTraits {
-
-    GroovyTileBasic() {
-
-    }
+abstract class GroovyTileBasic extends TileEntity {
 
     @Override
     NBTTagCompound getUpdateTag() {
@@ -44,11 +40,25 @@ abstract class GroovyTileBasic extends TileEntity implements TileTraits {
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
-    boolean isRedstoneActivated() {
+    protected boolean isRedstoneActivated() {
         return world.isBlockIndirectlyGettingPowered(getPos()) > 0;
     }
 
     void onRemoval() {
 
+    }
+
+    boolean isTileEntity(TileEntity other, EnumFacing face) {
+        if(other.getPos().offset(face) instanceof TileEntity) {
+            return true;
+        }
+        return false;
+    }
+
+    TileEntity getNeighbouringTileEntity(TileEntity other, EnumFacing face) {
+        if(isTileEntity(other, face)){
+            return other;
+        }
+        return null;
     }
 }

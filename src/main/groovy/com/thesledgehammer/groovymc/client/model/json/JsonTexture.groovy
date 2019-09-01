@@ -7,8 +7,9 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.utils.MathTools
+import groovy.json.JsonException
 import net.minecraft.util.EnumFacing
 
 class JsonTexture {
@@ -31,41 +32,30 @@ class JsonTexture {
     }
 
     JsonTexture(GroovysonObjectPart groovysonObjectPart, String location, EnumFacing face) {
-        this.location = location;
-        ArrayList<Float> uvs = groovysonObjectPart.FacingUv(face);
-        double[] arr = new double[4];
-        for(int i = 0; i < 4; i++) {
-            def elem = uvs.get(i);
-            if(MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
-                arr[i] = elem as double;
-            } else if(MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
-                //TODO: if its a String, refer to MathTools/ StringTools for method implementation
+        try {
+            this.location = location;
+            ArrayList<Float> uvs = groovysonObjectPart.FacingUv(face);
+            double[] arr = new double[4];
+            for (int i = 0; i < 4; i++) {
+                def elem = uvs.get(i);
+                if (MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
+                    arr[i] = elem as double;
+                } else if (MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
+                    //TODO: if its a String, refer to MathTools/ StringTools for method implementation
+                    //Look at BC subproject lib/expression
+                } else {
+                    throw new JsonException("Expected a number or a double")
+                }
             }
-        }
 
-        faceData = new ModelUtil.UvFaceData();
-        faceData.minU = (float) MathTools.clamp(arr[0] / 16.0, 0, 1.0);
-        faceData.minV = (float) MathTools.clamp(arr[1] / 16.0, 0, 1.0);
-        faceData.maxU = (float) MathTools.clamp(arr[2] / 16.0, 0, 1.0);
-        faceData.maxV = (float) MathTools.clamp(arr[3] / 16.0, 0, 1.0);
-    }
-
-    JsonTexture(GroovysonObjectPart groovysonObjectPart, EnumFacing face) {
-        ArrayList<Float> uvs = groovysonObjectPart.FacingUv(face);
-        double[] arr = new double[4];
-        for(int i = 0; i < 4; i++) {
-            def elem = uvs.get(i);
-            if(MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
-                arr[i] = elem as double;
-            } else if(MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
-                //TODO: if its a String, refer to MathTools/ StringTools for method implementation
-            }
+            faceData = new ModelUtil.UvFaceData();
+            faceData.minU = (float) MathTools.clamp(arr[0] / 16.0, 0, 1.0);
+            faceData.minV = (float) MathTools.clamp(arr[1] / 16.0, 0, 1.0);
+            faceData.maxU = (float) MathTools.clamp(arr[2] / 16.0, 0, 1.0);
+            faceData.maxV = (float) MathTools.clamp(arr[3] / 16.0, 0, 1.0);
+        } catch (JsonException je) {
+            throw new JsonException("in ${groovysonObjectPart}", je);
         }
-        faceData = new ModelUtil.UvFaceData();
-        faceData.minU = (float) MathTools.clamp(arr[0] / 16.0, 0, 1.0);
-        faceData.minV = (float) MathTools.clamp(arr[1] / 16.0, 0, 1.0);
-        faceData.maxU = (float) MathTools.clamp(arr[2] / 16.0, 0, 1.0);
-        faceData.maxV = (float) MathTools.clamp(arr[3] / 16.0, 0, 1.0);
     }
 
     JsonTexture andSub(JsonTexture sub) {
@@ -79,6 +69,6 @@ class JsonTexture {
 
     @Override
     String toString() {
-        return "location = " + location + ", uvs = " + faceData;
+        return "location = ${location}, uvs = ${faceData}";
     }
 }

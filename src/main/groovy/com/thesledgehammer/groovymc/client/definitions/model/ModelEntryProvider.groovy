@@ -18,15 +18,14 @@ package com.thesledgehammer.groovymc.client.definitions.model
 
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 
-abstract class ModelEntryProvider {
-
-    private GroovyDefinitionContext GDC;
+abstract class ModelEntryProvider implements IModelProvider {
 
     ModelEntryProvider() {
-        this.GDC = GroovyDefinitionContext.Instance();
+
     }
 
+    @Override
     GroovyDefinitionContext GroovyDefinitionContext() {
-        return GDC;
+        return GroovyDefinitionContext.Instance();
     }
 }

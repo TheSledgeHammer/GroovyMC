@@ -17,16 +17,21 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.api.IInitModel
-import com.thesledgehammer.groovymc.blocks.traits.BlockTraits
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.Item
-import net.minecraftforge.client.model.ModelLoader
+import net.minecraft.item.ItemStack
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
+import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class GroovyBlock extends Block implements BlockTraits, IInitModel {
+class GroovyBlock extends Block implements IInitModel {
 
     GroovyBlock(Material blockMaterialIn) {
         super(blockMaterialIn);
@@ -34,8 +39,20 @@ class GroovyBlock extends Block implements BlockTraits, IInitModel {
     }
 
     @Override
+    void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
+        if (world.isRemote) {
+            return;
+        }
+    }
+
+    @Override
+    void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbour) {
+        super.onNeighborChange(world, pos, neighbour);
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     void initModel() {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+        ModelEntryHolderManager.Instance().initModel(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 }

@@ -21,16 +21,12 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.block.statemap.BlockStateMapper
 import net.minecraft.client.renderer.block.statemap.IStateMapper
-import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -105,7 +101,7 @@ class ObjectManager {
 
 	@SideOnly(Side.CLIENT)
 	private static class ColoredBlockBlockColor implements IBlockColor {
-		public static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
+		private static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
 
 		private ColoredBlockBlockColor() {
 

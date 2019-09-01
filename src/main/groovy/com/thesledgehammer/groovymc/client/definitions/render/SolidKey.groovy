@@ -16,14 +16,14 @@
 
 package com.thesledgehammer.groovymc.client.definitions.render
 
-import com.thesledgehammer.groovymc.client.model.json.GroovysonModel
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 
 class SolidKey {
 
     private List<GroovysonObjectPart> solidParts = new ArrayList<>();
 
-    SolidKey(GroovysonModel groovysonModel) {
+    SolidKey(GroovysonObjectModel groovysonModel) {
         for(GroovysonObjectPart parts : groovysonModel.getRawModelParts()) {
             if(parts.BlockRenderType() == "solid") {
                 solidParts.add(parts);

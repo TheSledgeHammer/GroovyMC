@@ -16,8 +16,8 @@
 
 package com.thesledgehammer.groovymc.fluids
 
-import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.config.Constants
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry

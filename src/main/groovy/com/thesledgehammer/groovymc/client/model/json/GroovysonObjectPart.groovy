@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.client.model.json
 
-import com.thesledgehammer.groovymc.utils.Log
+import groovy.json.JsonException
 import net.minecraft.util.EnumFacing
 
 class GroovysonObjectPart {
@@ -24,64 +24,13 @@ class GroovysonObjectPart {
     private GroovysonObject groovysonObject;
     private def part; //raw Json Model Elements if applicable
 
-    GroovysonObjectPart() {
-
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject) {
-        setGroovysonObject(groovysonObject);
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject, int index) {
-        setGroovysonObject(groovysonObject);
-        setPart(index);
-    }
-
-    GroovysonObjectPart(GroovysonObject groovysonObject, String name) {
-        setGroovysonObject(groovysonObject);
-        setPartByName(name);
-    }
-
-    void setGroovysonObject(GroovysonObject groovysonObject) {
+    GroovysonObjectPart(GroovysonObject groovysonObject, String index) {
         this.groovysonObject = groovysonObject;
-    }
-
-    //Refers to def part
-    private void setPart(int index) {
-        part = groovysonObject.getElementPart(index);
-    }
-
-    void setPartByName(String name) {
-        int k = 0;
-        int idx = 0;
-        for(int i = 0; i < groovysonObject.getElements().size; i++) {
-            if(name.equals(groovysonObject.getElementPart(i).name)) {
-                setPart(i);
-                idx = i;
-            }
-        }
-        if(!name.equals(groovysonObject.getElementPart(idx).name)) {
-            Log.logError("${groovysonObject.getName()} model does not contain an element named: ${name}");
-        }
+        this.part = groovysonObject.elements.getAt(index)
     }
 
     String getPartName() {
         return part.name;
-    }
-
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String BlockRenderType() {
-        return part.render;
-    }
-
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    def BlockRenderType(String renderType) {
-        String render = renderType.toLowerCase();
-        if (part.render.get(render) == null) {
-            Log.logError("The element does not contain a render of: ${renderType}");
-            return null;
-        }
-        return part.render.get(render);
     }
 
     ArrayList<Float> From() {
@@ -143,19 +92,21 @@ class GroovysonObjectPart {
     def Facing(EnumFacing face) {
         String faces = face.getName().toLowerCase();
         if(part.faces.get(faces) == null) {
-            Log.logError("Current Face does not exist...!");
-            return null;
+            throw new JsonException("Current Face does not exist...!");
         }
         return part.faces.get(faces);
     }
 
     ArrayList<Float> FacingUv(EnumFacing face) {
         ArrayList<Float> arrPart = new ArrayList<>();
-        if(Facing(face) == null) {
-            return null;
+        def uvFace = null;
+        if(Facing(face) != null) {
+            uvFace = Facing(face);
         }
-        for(int i = 0; i < Facing(face).uv.size; i++) {
-            arrPart.add(i, Facing(face).uv.get(i));
+        if(uvFace != null) {
+            for(int i = 0; i < uvFace.uv.size; i++) {
+                arrPart.add(i, uvFace.uv.get(i));
+            }
         }
         return arrPart;
     }
@@ -180,5 +131,39 @@ class GroovysonObjectPart {
             return fallback;
         }
         return Facing(face).tintindex;
+    }
+
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    String BlockRenderType() {
+        return part.render;
+    }
+
+    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    def BlockRenderType(String renderType) {
+        String render = renderType.toLowerCase();
+        if (part.render.get(render) == null) {
+            throw new JsonException("The element does not contain a render of: ${renderType}");
+        }
+        return part.render.get(render);
+    }
+
+    def Light() {
+        return part.light;
+    }
+
+    def Colour() {
+        return part.colour;
+    }
+
+    def Visible() {
+        return part.visible;
+    }
+
+    def Invert() {
+        return part.invert;
+    }
+
+    def BothSides() {
+        return part.bothsides;
     }
 }

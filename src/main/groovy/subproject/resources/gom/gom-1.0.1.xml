@@ -1,0 +1,87 @@
+<gom>
+  <ModelVersion>1.0.1</ModelVersion>
+  <Parent />
+  <Textures />
+  <Shade />
+  <Rules>
+    <When />
+    <Type />
+    <From />
+    <To />
+    <Origin />
+    <Angle />
+    <Scale />
+  </Rules>
+  <Elements>
+    <Element>
+      <Name />
+      <From />
+      <To />
+      <Light />
+      <Render />
+      <Faces>
+        <Up>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </Up>
+        <Down>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </Down>
+        <North>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </North>
+        <East>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </East>
+        <West>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </West>
+        <South>
+          <UV />
+          <Texture />
+          <CullFace />
+          <Rotation />
+          <Tint />
+        </South>
+      </Faces>
+      <Rotation>
+        <Origin />
+        <Axis />
+        <Angle />
+        <Rescale />
+      </Rotation>
+      <Shade />
+      <Colour />
+      <Visible />
+      <Invert />
+      <BothSides />
+    </Element>
+  </Elements>
+  <Display>
+    <Name />
+    <Translation />
+    <Rotation />
+    <Scale />
+  </Display>
+  <Values />
+  <AmbientOcculusion />
+</gom>

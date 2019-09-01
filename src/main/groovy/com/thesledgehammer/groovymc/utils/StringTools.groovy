@@ -61,6 +61,54 @@ class StringTools {
         return stringToRainbow(name, false);
     }
 
+    static String[] split(String name, String regex) {
+        String[] arr = name.split(regex);
+        return arr;
+    }
+
+    static String regex(String name, String toSearch, String replacement) {
+        if(name.contains(toSearch)) {
+            String replace = name.replace(toSearch, replacement);
+            return replace
+        }
+        return null;
+    }
+
+    static String regexFirst(String name, String toSearch, String replacement) {
+        if(name.contains(toSearch)) {
+            String replace = name.replaceFirst(toSearch, replacement);
+            return replace
+        }
+        return null;
+    }
+
+    static String SubString(String name, String to) {
+        String newName = "";
+        if(name.contains(to)) {
+            int idx = name.indexOf(to);
+            newName = name.substring(idx);
+        }
+        return newName;
+    }
+
+    static String stringToEnum(String name, Class clazz) {
+        String lowerCase = name.toLowerCase();
+        for(int i = 0; i < clazz.enumConstants.size(); i++) {
+            if(lowerCase.contains(clazz.enumConstants[i].toString())) {
+                lowerCase = clazz.enumConstants[i].toString();
+                return lowerCase;
+            }
+        }
+        return null
+    }
+
+    static boolean contains(String contents, String name) {
+        if(contents.contains(name)) {
+            return true;
+        }
+        return false;
+    }
+
     static boolean containsDigit(String name) {
         for(int i = 0; i < name.length(); i++) {
             if(Character.isDigit(name.charAt(i))) {
@@ -105,5 +153,9 @@ class StringTools {
 
     static byte getByteFromString(String name) {
         return Byte.valueOf(getDigitFromString(name));
+    }
+
+    static boolean getBooleanFromString(String name) {
+        return Boolean.valueOf(name);
     }
 }

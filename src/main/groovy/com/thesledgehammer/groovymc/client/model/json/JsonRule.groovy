@@ -9,102 +9,206 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.utils.ListTools
+import com.thesledgehammer.groovymc.utils.StringTools
+import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
+import com.thesledgehammer.groovymc.utils.variables.VariableDouble
+import com.thesledgehammer.groovymc.utils.variables.VariableObject
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.MathHelper
 
-//TODO:
-//Methods Need Refinement for before it can be implemented for how these rules apply
-//Work on caching variables & processing variables when said rules apply
+//Mostly Complete: Origin & To from rules
+abstract class JsonRule {
 
-class JsonRule {
+    private static GroovysonObject groovysonObject;
+    private static VariableBoolean when;
 
-    private GroovysonObject groovysonObject;
-
-    JsonRule(GroovysonObject groovysonObject) {
-        this.groovysonObject = groovysonObject;
+    JsonRule(VariableBoolean when) {
+        setWhen(when);
     }
 
-    def getRules() {
-        return groovysonObject.getRules();
+    private static void setWhen(VariableBoolean when) {
+        this.when = when;
     }
 
-    def getWhen() {
+    static VariableBoolean getWhen() {
+        return when;
+    }
+
+    private static def getRuleWhen() {
         return groovysonObject.getRulesByName("when");
     }
 
-    def getType() {
+    private static def getRuleType() {
         return groovysonObject.getRulesByName("type");
     }
 
-    def getFrom() {
+    private static def getRuleFrom() {
         return groovysonObject.getRulesByName("from");
     }
 
-    def getTo() {
+    private static def getRuleTo() {
         return groovysonObject.getRulesByName("to");
     }
 
-    def getOrigin() {
+    private static def getRuleOrigin() {
         return groovysonObject.getRulesByName("origin");
     }
 
-    def getAngle() {
+    private static def getRuleAngle() {
         return groovysonObject.getRulesByName("angle");
     }
 
-    def getScale() {
+    private static def getRuleScale() {
         return groovysonObject.getRulesByName("scale");
     }
 
-    static class RotateFacing {
+    static JsonRule SetRules(GroovysonObject groovysonObject) {
+        this.groovysonObject = groovysonObject;
 
-        final String from;
-        final String to;
-        final double[] origin;
+        String when = getRuleWhen();
+        VariableBoolean nodeWhen = new VariableBoolean(Boolean.valueOf(when));
 
-        RotateFacing(String from, String to, double[] origin) {
+        String builtin = getRuleType();
+        if(StringTools.contains(builtin, "rotate_facing")) {
+
+            String from = getRuleFrom();
+            String fromValue = StringTools.stringToEnum(from, EnumFacing.class).toUpperCase();
+            VariableObject<EnumFacing> nodeFrom = new VariableObject<>();
+            if(StringTools.contains(from, fromValue)) {
+                nodeFrom.setValue(EnumFacing.valueOf(fromValue));
+            }
+
+            String to = getRuleTo();
+            String toValue = StringTools.stringToEnum(to, EnumFacing.class).toUpperCase();
+            VariableObject<EnumFacing> nodeTo = new VariableObject<>();
+            if(StringTools.contains(to, toValue)) {
+                nodeTo.setValue(EnumFacing.valueOf(toValue));
+            }
+
+            String origin = getRuleOrigin();
+            ArrayList<String> rotateFacingOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
+
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = RotateFacing.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
+            return new RotateFacing(nodeWhen, nodeFrom, nodeTo, nodeOrigin);
+        } else if(StringTools.contains(builtin, "rotate")) {
+
+            String origin = getRuleOrigin();
+            ArrayList<String> rotateOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
+
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = Rotate.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
+
+            String angle = getRuleAngle();
+            VariableDouble[] nodeAngle = new VariableDouble[3];
+            ArrayList<String> alist = ListTools.StringToList(angle);
+            for (int i = 0; i < 3; i++) {
+                nodeAngle[i].setValue(Double.valueOf(alist.get(i)));
+            }
+            return new Rotate(nodeWhen, nodeOrigin, nodeAngle);
+        } else if(StringTools.contains(builtin, "scale")) {
+
+            String origin = getRuleOrigin();
+            ArrayList<String> scaleOrigin = ListTools.StringToList(origin);
+            VariableDouble[] nodeOrigin = new VariableDouble[3];
+
+            for(int i = 0; i < 3; i++) {
+                if (nodeOrigin[i] == null) {
+                    nodeOrigin = Scale.DEFAULT_ORIGIN;
+                } else {
+                    //nodeOrigin[i].setValue(Double.valueOf(list.get(i)));
+                }
+            }
+
+            String scale = getRuleScale();
+            ArrayList<String> sList = ListTools.StringToList(scale);
+            VariableDouble[] nodeScale = new VariableDouble[3];
+            for (int i = 0; i < 3; i++) {
+                nodeScale[i].setValue(Double.valueOf(sList.get(i)));
+            }
+            return new Scale(nodeWhen, nodeOrigin, nodeScale);
+        } else {
+            throw new Exception("Unknown built in rule type ${builtin}");
+        }
+    }
+
+    abstract void apply(List<MutableQuad> quads);
+
+    static class RotateFacing extends JsonRule {
+
+        private static final VariableDouble CONST_ORIGIN = new VariableDouble(8);
+        static final VariableDouble[] DEFAULT_ORIGIN = [CONST_ORIGIN, CONST_ORIGIN, CONST_ORIGIN];
+
+        protected final VariableObject<EnumFacing> from;
+        protected final VariableObject<EnumFacing> to;
+        protected final VariableDouble[] origin;
+
+        RotateFacing(VariableBoolean when, VariableObject<EnumFacing> from, VariableObject<EnumFacing> to, VariableDouble[] origin) {
+            super(when);
             this.from = from;
             this.to = to;
             this.origin = origin;
         }
 
+        @Override
         void apply(List<MutableQuad> quads) {
-            EnumFacing faceFrom = EnumFacing.valueOf(ListTools.removeBrackets(from));
-            EnumFacing faceTo = EnumFacing.valueOf(ListTools.removeBrackets(to));
+            EnumFacing faceFrom = from.getValue();
+            EnumFacing faceTo = to.getValue();
 
             if(faceFrom == faceTo) {
                 return;
             }
 
-            float ox = origin[0] / 16f;
-            float oy = origin[1] / 16f;
-            float oz = origin[2] / 16f;
+            float ox = origin[0].getValue() / 16f as float;
+            float oy = origin[1].getValue() / 16f as float;
+            float oz = origin[2].getValue() / 16f as float;
 
             for(MutableQuad q : quads) {
-                print q.rotate(faceFrom, faceTo, ox, oy, oz);
-
+                q.rotate(faceFrom, faceTo, ox, oy, oz);
             }
+        }
+
+        @Override
+        String toString() {
+            return "when: ${when}, from: ${from}, to: ${to}, origin: ${origin}"
         }
     }
 
-    static class Rotate {
+    static class Rotate extends JsonRule {
 
-        final double[] origin;
-        final double[] angle;
+        private static final VariableDouble CONST_ORIGIN = new VariableDouble(0.5);
+        static final VariableDouble[] DEFAULT_ORIGIN = [CONST_ORIGIN, CONST_ORIGIN, CONST_ORIGIN];
 
-        Rotate(double[] origin, double[] angle) {
+        protected final VariableDouble[] origin;
+        protected final VariableDouble[] angle;
+
+        Rotate(VariableBoolean when, VariableDouble[] origin, VariableDouble[] angle) {
+            super(when);
             this.origin = origin;
             this.angle = angle;
         }
 
+        @Override
         void apply(List<MutableQuad> quads) {
-            float ox = origin[0] / 16f;
-            float oy = origin[1] / 16f;
-            float oz = origin[2] / 16f;
+            float ox = origin[0].getValue() / 16f as float;
+            float oy = origin[1].getValue() / 16f as float;
+            float oz = origin[2].getValue() / 16f as float;
 
-            float ax = Math.toRadians(angle[0]) as float;
-            float ay = Math.toRadians(angle[1]) as float;
-            float az = Math.toRadians(angle[2]) as float;
+            float ax = Math.toRadians(angle[0].getValue()) as float;
+            float ay = Math.toRadians(angle[1].getValue()) as float;
+            float az = Math.toRadians(angle[2].getValue()) as float;
 
             if (ax == 0 && ay == 0 && az == 0) {
                 return;
@@ -132,25 +236,36 @@ class JsonRule {
                 q.translatef(ox, oy, oz);
             }
         }
+
+        @Override
+        String toString() {
+            return "when: ${when}, origin: ${origin}, angle: ${angle}"
+        }
     }
 
-    static class Scale {
-        final double[] origin;
-        final double[] scale;
+    static class Scale extends JsonRule {
 
-        Scale(double[] origin, double[] scale) {
+        private static final VariableDouble CONST_ORIGIN = new VariableDouble(0.5);
+        static final VariableDouble[] DEFAULT_ORIGIN = [CONST_ORIGIN, CONST_ORIGIN, CONST_ORIGIN];
+
+        protected final VariableDouble[] origin;
+        protected final VariableDouble[] scale;
+
+        Scale(VariableBoolean when, VariableDouble[] origin, VariableDouble[] scale) {
+            super(when);
             this.origin = origin;
             this.scale = scale;
         }
 
+        @Override
         void apply(List<MutableQuad> quads) {
-            float ox = origin[0] / 16f;
-            float oy = origin[1] / 16f;
-            float oz = origin[2] / 16f;
+            float ox = origin[0].getValue() / 16f as float;
+            float oy = origin[1].getValue() / 16f as float;
+            float oz = origin[2].getValue() / 16f as float;
 
-            float sx = scale[0] as float;
-            float sy = scale[1] as float;
-            float sz = scale[2] as float;
+            float sx = scale[0].getValue() as float;
+            float sy = scale[1].getValue() as float;
+            float sz = scale[2].getValue() as float;
 
             if(sx == 1 && sy == 1 && sz == 1) {
                 return;
@@ -161,6 +276,11 @@ class JsonRule {
                 q.scalef(sx, sy, sz);
                 q.translatef(ox, oy, oz);
             }
+        }
+
+        @Override
+        String toString() {
+            return "when: ${when}, origin: ${origin}, scale: ${scale}"
         }
     }
 }
