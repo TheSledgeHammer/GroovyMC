@@ -17,6 +17,8 @@ package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
@@ -50,27 +52,7 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
     void generatePower(long amount) {
         modifyPowerStored(mjEnergy + amount);
     }
-    /*
-    void drainPower(long amount, EnumVoltage voltage) {
-        long volts = voltage.getVoltage() * MjTools.getMJ();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        long drain = Math.min(mjEnergy, volts);
-        long maxDrain =- Math.max(drain, amount);
-        modifyPowerStored(maxDrain);
-    }
 
-    void generatePower(long amount, EnumVoltage voltage) {
-        long volts = voltage.getVoltage() * MjTools.getMJ();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        long generate = Math.min(mjEnergy, volts);
-        long maxGenerate =+ Math.max(generate, amount);
-        modifyPowerStored(maxGenerate);
-    }
-    */
     private void modifyPowerStored(long mjEnergy) {
         this.mjEnergy = mjEnergy;
         if(mjEnergy > getCapacity()) {
