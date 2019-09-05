@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
-import com.thesledgehammer.groovymc.client.model.ResourceLoader
 import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation
 
@@ -32,23 +31,23 @@ class GroovysonObject {
 
     GroovysonObject(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
-
+/*
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
         isr.finishLoading();
-
-        //this.obj = GroovysonReader.JsonSlurpy(fileName);
+*/
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
-
+/*
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
         isr.finishLoading();
-
-        //this.obj = GroovysonReader.JsonSlurpy(fileName);
+*/
+        this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
@@ -147,11 +146,9 @@ class GroovysonObject {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
             throw new JsonException("${name} is incorrect...!")
-            //return null;
         }
         if(obj.display.get(name).translation == null) {
             throw new JsonException("${name} does not contain Translation...!");
-            //return null;
         }
         for(int i = 0; i < obj.display.get(name).translation.size; i++) {
             arrObj.add(i, obj.display.get(name).translation.get(i));
@@ -163,11 +160,9 @@ class GroovysonObject {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
             throw new JsonException("${name} is incorrect...!");
-            //return null;
         }
         if(obj.display.get(name).rotation == null) {
             throw new JsonException("${name} does not contain Rotation...!");
-            //return null;
         }
         for(int i = 0; i < obj.display.get(name).rotation.size; i++) {
             arrObj.add(i, obj.display.get(name).rotation.get(i));
@@ -179,11 +174,9 @@ class GroovysonObject {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
             throw new JsonException("${name} is incorrect...!");
-            //return null;
         }
         if(obj.display.get(name).scale == null) {
             throw new JsonException("${name} does not contain Scale...!");
-            //return null;
         }
         for(int i = 0; i < obj.display.get(name).scale.size; i++) {
             arrObj.add(i, obj.display.get(name).scale.get(i));

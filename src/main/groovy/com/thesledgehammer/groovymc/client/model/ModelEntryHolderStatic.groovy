@@ -128,7 +128,7 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
         if(quads == null) {
             if(unseen) {
                 unseen = false;
-                Log.logWarn("Tried to use the model ${groovyStaticModel.getGroovysonModel().getName()} before it was baked");
+                Log.logWarn("Tried to use the model ${groovyStaticModel.getName()} before it was baked");
             }
             return [MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY, MutableQuad.EMPTY_ARRAY];
         }

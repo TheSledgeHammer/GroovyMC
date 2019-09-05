@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.client.model.json
 
 import net.minecraft.util.ResourceLocation
 
+@Deprecated
 class GroovysonObjectModelStatic extends GroovysonObjectModel  {
 
     GroovysonObjectModelStatic(ResourceLocation resourceLocation) {

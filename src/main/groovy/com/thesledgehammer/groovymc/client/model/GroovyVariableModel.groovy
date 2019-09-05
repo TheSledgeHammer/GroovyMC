@@ -29,25 +29,24 @@ import com.thesledgehammer.groovymc.utils.StringTools
 import net.minecraft.util.ResourceLocation
 
 //Work In Progress: JsonRule
-class GroovyVariableModel {
+class GroovyVariableModel extends GroovysonObjectModel {
 
-    private GroovysonObjectModelVariable GROOVY_MODEL;
-    private Map<String, JsonTexture> textureMap = new HashMap<>();
+    private Map<String, JsonTexture> textureMap;
     private JsonRule[] rules;
 
     GroovyVariableModel(ResourceLocation resourceLocation) {
-        this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceLocation);
+        super(resourceLocation);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovyObjectModelDefinition());
-        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(this), new GroovyObjectModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(this));
+        GDC.setTranslucentKey(new TranslucentKey(this));
+        GDC.setSolidKey(new SolidKey(this));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(this));
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
         for(int i = 0; i < JsonRules().size(); i++) {
-            if(GROOVY_MODEL.getRules() != null) {
+            if(getRules() != null) {
                 //rulesP.add(JsonRule.SetRules(GROOVY_MODEL));
             }
         }
@@ -55,34 +54,30 @@ class GroovyVariableModel {
     }
 
     GroovyVariableModel(String resourceDomain, String resourcePath) {
-        this.GROOVY_MODEL = new GroovysonObjectModelVariable(resourceDomain, resourcePath);
+        super(resourceDomain, resourcePath);
 
-        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(GROOVY_MODEL), new GroovyObjectModelDefinition());
-        GDC.setCutoutKey(new CutoutKey(GROOVY_MODEL));
-        GDC.setTranslucentKey(new TranslucentKey(GROOVY_MODEL));
-        GDC.setSolidKey(new SolidKey(GROOVY_MODEL));
-        GDC.setCutoutMippedKey(new CutoutMippedKey(GROOVY_MODEL));
+        GroovyDefinitionContext GDC = new GroovyDefinitionContext(new GroovyRenderDefinition(this), new GroovyObjectModelDefinition());
+        GDC.setCutoutKey(new CutoutKey(this));
+        GDC.setTranslucentKey(new TranslucentKey(this));
+        GDC.setSolidKey(new SolidKey(this));
+        GDC.setCutoutMippedKey(new CutoutMippedKey(this));
         JsonTextureMap();
 
         List<JsonRule> rulesP = new ArrayList<>()
         for(int i = 0; i < JsonRules().size(); i++) {
-            if(GROOVY_MODEL.getRules() != null) {
+            if(getRules() != null) {
                 //rulesP.add(JsonRule.SetRules(GROOVY_MODEL));
             }
         }
        // this.rules = rulesP.toArray(new JsonRule[rulesP.size()]);
     }
 
-    GroovysonObjectModelVariable getGroovysonModel() {
-        return GROOVY_MODEL;
-    }
-
     GroovysonObjectPart getModelElements(int index) {
-        return GROOVY_MODEL.getRawModelPart(index);
+        return getRawModelPart(index);
     }
 
     ArrayList<GroovysonObjectPart> getModelElements() {
-        return GROOVY_MODEL.getRawModelParts();
+        return getRawModelParts();
     }
 
     JsonTexture getJsonTexture(String lookup) {
@@ -117,7 +112,7 @@ class GroovyVariableModel {
 
     //Gets rules as a list of Strings, to determine number of rules
     private List<String> JsonRules() {
-        List<String> temp = ListTools.StringToList(GROOVY_MODEL.getRules().toString().substring(1));
+        List<String> temp = ListTools.StringToList(getRules().toString().substring(1));
         List<String> rulesP = new ArrayList<>();
         for (int i = 0; i < temp.size(); i++) {
             rulesP.add(ListTools.removeBrackets(temp.get(i)));
@@ -126,11 +121,12 @@ class GroovyVariableModel {
     }
 
     private void JsonTextureMap() {
-        for(int i = 0; i < GROOVY_MODEL.getRawModelTextures().size(); i++) {
-            if(StringTools.contains(GROOVY_MODEL.getRawModelTexture(i), '=')) {
-                int idx = GROOVY_MODEL.getRawModelTexture(i).indexOf('=');
-                String name = GROOVY_MODEL.getRawModelTexture(i).substring(0, idx);
-                String location = GROOVY_MODEL.getRawModelTexture(i).substring(idx + 1);
+        this.textureMap = new HashMap<>();
+        for(int i = 0; i < getRawModelTextures().size(); i++) {
+            if(StringTools.contains(getRawModelTexture(i), '=')) {
+                int idx = getRawModelTexture(i).indexOf('=');
+                String name = getRawModelTexture(i).substring(0, idx);
+                String location = getRawModelTexture(i).substring(idx + 1);
                 this.textureMap.put(name, new JsonTexture(location));
             }
         }

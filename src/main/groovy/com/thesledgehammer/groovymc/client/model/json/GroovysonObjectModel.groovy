@@ -53,30 +53,4 @@ abstract class GroovysonObjectModel extends GroovysonObject {
     String getRawModelTexture(int index) {
         return modelTextures.get(index)
     }
-
-    /*
-    Map<String, String> getRawModelTextures() {
-        return rawModelTexturesMap;
-    }
-
-    String getTexturesLocation(String textureName) {
-        return rawModelTexturesMap.get(textureName);
-    }
-
-void setRawModelTextures(String textureName) {
-    String texLocation = getTexturesByName(textureName);
-    for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
-        rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
-    }
-    ListTools.StringToList(texLocation).clear();
-}
-
-void setRawModelTextures(String textureName, int textureLayer) {
-    String texLocation = getItemTextureLayer(textureLayer);
-    for(int i = 0; i < ListTools.StringToList(texLocation).size(); i++) {
-        rawModelTexturesMap.put(textureName, ListTools.StringToList(texLocation).get(i));
-    }
-    ListTools.StringToList(texLocation).clear();
-}
-*/
 }
