@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+
 import com.thesledgehammer.groovymc.config.Constants
 
 class JsonTest {
