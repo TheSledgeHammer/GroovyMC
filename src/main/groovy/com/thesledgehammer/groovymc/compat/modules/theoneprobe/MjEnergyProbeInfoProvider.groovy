@@ -16,6 +16,8 @@
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.thesledgehammer.groovymc.GroovyMC
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import mcjty.theoneprobe.api.*
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
@@ -45,6 +47,11 @@ class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
             long energy = EnergyTools.getMjStored(te);
             long capacity = EnergyTools.getMjCapacity(te);
             addMJInfo(probeInfo, energy, capacity);
+        } else if(te != null && te.hasCapability(CapabilityMj.MJ_STORAGE, null)) {
+            IMjStorage mjStorage = te.getCapability(CapabilityMj.MJ_STORAGE, null);
+            if(mjStorage != null) {
+                addMJInfo(probeInfo, mjStorage.getStored(), mjStorage.getCapacity());
+            }
         }
     }
 
@@ -58,15 +65,4 @@ class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
                 .numberFormat(NumberFormat.COMPACT)
         );
     }
-/*
-    private static void addFEInfo(IProbeInfo probeInfo, int energy, int capacity) {
-        probeInfo.progress(energy, capacity, probeInfo.defaultProgressStyle()
-                .suffix("FE")
-                .filledColor(new Color(0xEE2C2C).getRGB())
-                .alternateFilledColor(new Color(0xff4300).getRGB())
-                .borderColor(new Color(0xff555555).getRGB())
-                .backgroundColor(new Color(0x000000).getRGB())
-                .numberFormat(NumberFormat.COMPACT)
-        );
-    }*/
 }

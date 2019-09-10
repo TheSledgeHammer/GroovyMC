@@ -17,8 +17,6 @@ package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability

@@ -1,4 +1,8 @@
-//Need to Reference COFH
+/*
+ * (C) 2014-2018 Team CoFH / CoFH / Cult of the Full Hub
+ * http://www.teamcofh.com
+ * Modified by TheSledgeHammer 2018
+ */
 
 package com.thesledgehammer.groovymc.utils
 

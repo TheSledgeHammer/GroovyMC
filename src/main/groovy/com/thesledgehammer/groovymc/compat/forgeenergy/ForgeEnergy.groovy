@@ -127,4 +127,8 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
         }
         return null
     }
+
+    ForgeEnergyItemContainerCapability initForgeEnergyItemCapabilities() {
+        return new ForgeEnergyItemContainerCapability();
+    }
 }
