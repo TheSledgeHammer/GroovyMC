@@ -15,6 +15,7 @@
  */
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorageItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound

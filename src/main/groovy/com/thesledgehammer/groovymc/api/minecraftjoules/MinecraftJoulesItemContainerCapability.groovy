@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.compat.minecraftjoules
+package com.thesledgehammer.groovymc.api.minecraftjoules
 
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJouleItemContainer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.capabilities.ICapabilityProvider

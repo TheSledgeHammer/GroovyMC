@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.compat.minecraftjoules
+package com.thesledgehammer.groovymc.api.minecraftjoules
 
-import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
-import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
