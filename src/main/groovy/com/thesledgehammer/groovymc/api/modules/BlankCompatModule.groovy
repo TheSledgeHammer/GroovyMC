@@ -13,31 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.thesledgehammer.groovymc.api.modules
 
 import com.thesledgehammer.groovymc.modules.CompatModuleContainer
 import com.thesledgehammer.groovymc.utils.Log
 import org.apache.logging.log4j.Level
 
-abstract class BlankCompatModule implements ICompatModule {
+abstract class BlankCompatModule extends BlankModule implements ICompatModule {
 
-    private String modID;
-
-    BlankCompatModule(String modID) {
-        setModID(modID);
+    BlankCompatModule(String modID, String moduleName) {
+        super(modID, moduleName);
         CompatModuleContainer.MODULES_CONTAINER().add(this);
-        Log.log(Level.INFO, "${modID} was added to CompatModule");
+        Log.log(Level.INFO, "${modID}'s ${moduleName} was added to CompatModule");
     }
-
-    private void setModID(String modID) {
-        this.modID = modID;
-    }
-
-    String getModID() {
-        return modID;
-    }
-
-    @Override
-    abstract void init();
 }

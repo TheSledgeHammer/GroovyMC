@@ -16,51 +16,21 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.api.IInitModel
-import net.minecraft.block.Block
-import net.minecraft.block.BlockState
-import net.minecraft.entity.LivingEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
 
-import javax.annotation.Nullable
+import net.minecraft.block.Block
+import net.minecraft.block.material.Material
 
 /**
  * To Note: Must use full reference: "Block.Properties". Causes Game Crash (Throws null or constructor invalid).
  */
 
-class GroovyBlock extends Block implements IBlockProperties, IInitModel {
-
-    private Block.Properties blockProperties;
+class GroovyBlock extends Block {
 
     GroovyBlock(Block.Properties properties) {
-        super(properties);
-        setBlockProperties(properties)
+        super(properties.hardnessAndResistance(1.5F));
     }
 
-    @Override
-    Block.Properties getBlockProperties() {
-        return blockProperties
-    }
-
-    @Override
-    void setBlockProperties(Block.Properties blockProperties) {
-        this.blockProperties = blockProperties
-    }
-
-    @Override
-    void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (world.isRemote) {
-            return;
-        }
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    void initModel() {
-        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    GroovyBlock(Material material) {
+        super(Block.Properties.create(material).hardnessAndResistance(1.5F));
     }
 }

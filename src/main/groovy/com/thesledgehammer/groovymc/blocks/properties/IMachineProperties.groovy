@@ -32,7 +32,7 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     void setTeClass(Class<T> teClass);
 
-    void setBlock(Block block, Block.Properties blockProperties);
+    void setBlock(Block block);
 
     void setName(String name);
 
@@ -65,6 +65,8 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
     void registerTileEntity();
 
     void registerTileEntity(String modID);
+
+    void registerTileEntity(TileEntity tile);
 
     boolean hasTileEntity(BlockState state)
 

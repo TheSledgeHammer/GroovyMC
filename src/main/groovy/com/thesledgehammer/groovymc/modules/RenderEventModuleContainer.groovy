@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.init
+package com.thesledgehammer.groovymc.modules
 
+import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.utils.Log
-import net.minecraft.client.renderer.texture.TextureMap
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.Loader
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.Level
 
+@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 class RenderEventModuleContainer {
 
     private static List<BlankRenderEventModule> EVENTS = new LinkedList<>();
@@ -69,9 +69,9 @@ class RenderEventModuleContainer {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void onModelBake(ModelBakeEvent event) {
-        ModelEntryHolderManager.Instance().onModelBake(event);
+       // ModelEntryHolderManager.Instance().onModelBake(event);
         for(BlankRenderEventModule module : EVENTS) {
             if(isRegistered(module)) {
                 module.onModelBake(event);
@@ -81,13 +81,13 @@ class RenderEventModuleContainer {
     }
 
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static void onTextureStitchPre(TextureStitchEvent.Pre event) {
-        TextureMap textureMap = event.getMap();
-        ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
+       // TextureMap textureMap = event.getMap();
+        //ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
         for(BlankRenderEventModule module : EVENTS) {
             if(isRegistered(module)) {
-                module.onTextureStitchPre(textureMap);
+           //     module.onTextureStitchPre(textureMap);
                 Log.log(Level.INFO, "${module.getModID()}'s ${module.getEventName()} started onTextureStitchPre()");
             }
         }
@@ -95,9 +95,9 @@ class RenderEventModuleContainer {
 
     private static boolean isRegistered(BlankRenderEventModule module) {
         if(module != null) {
-            if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {
+           // if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {
                 return true;
-            }
+           // }
         }
         return false;
     }

@@ -15,7 +15,6 @@ buildscript {
 plugins {
 	id 'groovy'
 	id 'maven'
-	id 'eclipse'
 	id 'idea'
 	id "com.jfrog.bintray" version "1.8.4"
 }
@@ -93,6 +92,7 @@ dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.14.3:${groovyforge_version}:universal"
+	//compile files("/run/mods/GroovyForge_1.14.4-2.5.2-universal.jar")
 	//compile "javax.xml.bind:jaxb-api:+"
 }
 

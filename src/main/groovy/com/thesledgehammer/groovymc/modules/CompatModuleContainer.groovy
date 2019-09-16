@@ -18,24 +18,43 @@ package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
-import net.minecraftforge.fml.ModLoader
 
 class CompatModuleContainer {
 
     private static List<BlankCompatModule> CONTAINER = new LinkedList<>();
 
+    static List<BlankCompatModule> MODULES_CONTAINER() {
+        return CONTAINER;
+    }
+
     static void preInit() {
-        registerModules();
         for(BlankCompatModule module : CONTAINER) {
             if (isRegistered(module)) {
-                module.init();
-                Log.logInfo("${module.getModID()} has been loaded")
+                Log.logInfo("preInit() ${module.getModID()} ${module.getModuleName()}...")
+                module.preInit();
+                Log.logInfo("${module.getModID()}'s ${module.getModuleName()} has been loaded")
             }
         }
     }
 
-    static List<BlankCompatModule> MODULES_CONTAINER() {
-        return CONTAINER;
+    static void Init() {
+        for(BlankCompatModule module : CONTAINER) {
+            if (isRegistered(module)) {
+                Log.logInfo("Init() ${module.getModID()} ${module.getModuleName()}...")
+                module.Init()
+                Log.logInfo("${module.getModID()}'s ${module.getModuleName()} has been loaded")
+            }
+        }
+    }
+
+    static void postInit() {
+        for(BlankCompatModule module : CONTAINER) {
+            if (isRegistered(module)) {
+                Log.logInfo("postInit() ${module.getModID()} ${module.getModuleName()}...")
+                module.postInit()
+                Log.logInfo("${module.getModID()}'s ${module.getModuleName()} has been loaded")
+            }
+        }
     }
 
     private static boolean isRegistered(BlankCompatModule module) {
@@ -45,10 +64,5 @@ class CompatModuleContainer {
             //}
         }
         return false;
-    }
-
-    private static void registerModules() {
-        //BuildcraftModule BC = new BuildcraftModule();
-        //TheOneProbeCompatibilityModule TOP = new TheOneProbeCompatibilityModule();
     }
 }

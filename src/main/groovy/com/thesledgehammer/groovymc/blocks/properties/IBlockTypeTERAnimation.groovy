@@ -19,5 +19,5 @@ package com.thesledgehammer.groovymc.blocks.properties
 interface IBlockTypeTERAnimation extends IBlockType {
 
     @Override
-    MachinePropertyTraits getGroovyMachineProperties();
+    IMachineProperties getGroovyMachineProperties();
 }

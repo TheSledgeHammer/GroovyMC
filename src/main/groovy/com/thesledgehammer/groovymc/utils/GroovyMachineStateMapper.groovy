@@ -11,9 +11,28 @@
  *********************************************************************************/
 
 package com.thesledgehammer.groovymc.utils
-/*
+
+import com.google.common.collect.Maps
+import com.thesledgehammer.groovymc.blocks.GroovyBlockTileAdvanced
+import com.thesledgehammer.groovymc.blocks.GroovyBlockTileBasic
+import com.thesledgehammer.groovymc.blocks.properties.IBlockType
+import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTER
+import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTERAnimation
+import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTERFast
+import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
+import net.minecraft.block.Block
+import net.minecraft.block.BlockState
+import net.minecraft.client.renderer.model.ModelResourceLocation
+import net.minecraft.state.IProperty
+import net.minecraft.util.Direction
+import net.minecraft.util.IStringSerializable
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.registries.ForgeRegistries
+
 @OnlyIn(Dist.CLIENT)
-class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateContainer {
+class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializable> implements IStateMapper {
 
     private final T type;
     protected final Map<BlockState, ModelResourceLocation> mapStateModelLocations = Maps.newLinkedHashMap();
@@ -24,7 +43,7 @@ class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializa
 
     @Override
     Map<BlockState, ModelResourceLocation> putStateModelLocations(Block block) {
-        if (!(type.getGroovyMachineProperties() instanceof MachinePropertyTraits)) {
+        if (!(type.getGroovyMachineProperties() instanceof IMachinePropertiesTER || type.getGroovyMachineProperties() instanceof IMachinePropertiesTERFast || type.getGroovyMachineProperties() instanceof IMachinePropertiesTERAnimation)) {
             for (Direction facing : Direction.values()) {
                 if (facing == Direction.DOWN || facing == Direction.UP) {
                     continue;
@@ -36,13 +55,12 @@ class GroovyMachineStateMapper<T extends Enum<T> & IBlockType & IStringSerializa
                 if(block instanceof GroovyBlockTileAdvanced) {
                   state = block.getDefaultState().with(GroovyBlockTileAdvanced.FACING, facing);
                 }
-                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap();
-                ResourceLocation blockLocation = Block.getStateId()  REGISTRY.getNameForObject(block);
-                String s = String.format("%s:%s", blockLocation .getResourceDomain(), blockLocation.getResourcePath());
+                LinkedHashMap<IProperty, Comparable> linkedhashmap = Maps.newLinkedHashMap(state.getValues());
+                ResourceLocation blockLocation = ForgeRegistries.BLOCKS.getKey(block);
+                String s = String.format("%s:%s", blockLocation.getNamespace(), blockLocation.getPath());
                 mapStateModelLocations.put(state, new ModelResourceLocation(s, getPropertyString(linkedhashmap)));
             }
         }
         return this.mapStateModelLocations;
     }
 }
-*/

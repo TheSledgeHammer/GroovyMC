@@ -1,5 +1,6 @@
 package com.thesledgehammer.groovymc
 
+
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
@@ -16,8 +17,9 @@ class GroovyMC {
 
 	GroovyMC() {
 		instance = this;
+		//FMLGroovyModLoadingContext.get().getModEventBus().register(EventRegistry.class);
+		//Registry.init();
 		MinecraftForge.EVENT_BUS.register(this);
-		Registry.init();
 	}
 
 	//GroovyLoader Example:

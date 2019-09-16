@@ -1,14 +1,11 @@
 package com.thesledgehammer.groovymc.utils
 
-import net.minecraft.block.BlockState
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.Vec3d
-import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.shapes.VoxelShapes
-import net.minecraft.world.IBlockReader
 
 import javax.annotation.Nullable
 
@@ -29,11 +26,9 @@ class VoxelShapeTools {
         BlockRayTraceResult rayTrace = VoxelShapes.create(x1, y1, z1, x2, y2, z2).rayTrace(vec3d, vec3d1, pos);
         return rayTrace == null ? null : new BlockRayTraceResult(rayTrace.getHitVec().add((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), rayTrace.getFace(), rayTrace.getPos(), rayTrace.isInside());
     }
-
+/*
     void setVoxelShape(double x1, double y1, double z1, double x2, double y2, double z2) {
         this.shape = VoxelShapes.create(x1, y1, z1, x2, y2, z2);
-        BlockState state;
-        state.hasTileEntity()
     }
 
     VoxelShape getShape() {
@@ -54,16 +49,6 @@ class VoxelShapeTools {
 
     VoxelShape getRaytraceShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return state.getRaytraceShape(worldIn, pos);
-    }
-
-
-    /*
-    @Nullable
-    static BlockRayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
-        Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        BlockRayTraceResult rayTrace = VoxelShapes.create(boundingBox).rayTrace(vec3d, vec3d1, pos);
-        return rayTrace == null ? null : new BlockRayTraceResult(rayTrace.hitVec.add((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), rayTrace.face, rayTrace.pos, rayTrace.inside);
     }
     */
 }

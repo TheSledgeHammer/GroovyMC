@@ -1,72 +1,74 @@
 package com.thesledgehammer.groovymc
 
-import com.thesledgehammer.groovymc.GroovyMC
+
 import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
+import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
 import javax.annotation.Nullable
 
-@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 class EventRegistry {
 
-    private static List<TileEntityType<?>> tileEntities = new ArrayList<>();
-    private static List<Block> blocks = new ArrayList<>();
-    private static List<Item> items = new ArrayList<>();
+    private static List<TileEntityType<?>> tileEntities = new ArrayList<>()
+    private static List<Block> blocks = new ArrayList<>()
+    private static List<Item> items = new ArrayList<>()
 
     static addToItemList(Item item, String name) {
-        items.add(item.setRegistryName(GroovyMC.MOD_ID, name));
+        items.add(item.setRegistryName(GroovyMC.MOD_ID, name))
     }
 
-    static void addToBlockList(Block block,  @Nullable BlockItem blockItem, String name) {
-        blocks.add(block.setRegistryName(GroovyMC.MOD_ID, name));
+    static void addToBlockList(Block block, @Nullable BlockItem blockItem, String name) {
+        blocks.add(block.setRegistryName(GroovyMC.MOD_ID, name))
+        addToItemList(blockItem, name)
         if(blockItem != null) {
-            addToItemList(blockItem, name);
+
         }
     }
 
     static void addToTileEntityTypeList(TileEntity tile, @Nullable Block block, String name) {
-        tileEntities.add(TileEntityType.Builder.create(tile.&new, block).build(null).setRegistryName(GroovyMC.MOD_ID, name));
+        tileEntities.add(TileEntityType.Builder.create(tile.&new, block).build(null).setRegistryName(GroovyMC.MOD_ID, name))
     }
 
     static void addToItemList(Item item, String modID, String name) {
-        items.add(item.setRegistryName(modID, name));
+        items.add(item.setRegistryName(modID, name))
     }
 
     static void addToBlockList(Block block,  @Nullable BlockItem blockItem, String modID, String name) {
-        blocks.add(block.setRegistryName(modID, name));
+        blocks.add(block.setRegistryName(modID, name))
         if(blockItem != null) {
-            addToItemList(blockItem, name);
+            addToItemList(blockItem, name)
         }
     }
 
     static void addToTileEntityTypeList(TileEntity tile, @Nullable Block block, String modID, String name) {
-        tileEntities.add(TileEntityType.Builder.create(tile.&new, block).build(null).setRegistryName(modID, name));
+        tileEntities.add(TileEntityType.Builder.create(tile.&new, block).build(null).setRegistryName(modID, name))
     }
 
     @SubscribeEvent
-    static void registerItemEvent(RegistryEvent.Register<Item> event) {
+    static void registerItemEvent(final RegistryEvent.Register<Item> event) {
         for(int i = 0; i < items.size(); i++) {
-            event.getRegistry().register(items.get(i));
+           event.getRegistry().register(items.get(i))
         }
     }
 
     @SubscribeEvent
-    static void registerBlockEvent(RegistryEvent.Register<Block> event) {
+    static void registerBlockEvent(final RegistryEvent.Register<Block> event) {
         for(int i = 0; i < blocks.size(); i++) {
-            event.getRegistry().register(blocks.get(i));
+            event.getRegistry().register(blocks.get(i))
         }
     }
 
     @SubscribeEvent
-    static void registerTileEntityEvent(RegistryEvent.Register<TileEntityType<?>> event) {
+    static void registerTileEntityEvent(final RegistryEvent.Register<TileEntityType<?>> event) {
         for(int i = 0; i < tileEntities.size(); i++) {
-            event.getRegistry().register(tileEntities.get(i));
+           event.getRegistry().register(tileEntities.get(i))
         }
     }
 

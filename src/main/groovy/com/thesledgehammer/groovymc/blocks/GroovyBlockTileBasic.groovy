@@ -16,77 +16,25 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
-import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.inventory.IInventory
+import net.minecraft.block.material.Material
 import net.minecraft.state.EnumProperty
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
-import net.minecraft.util.Rotation
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.MathHelper
-import net.minecraft.world.IBlockReader
-import net.minecraft.world.World
-
-import javax.annotation.Nonnull
 
 //Todo: Efficient Way to create Tile Entities: Setting hasTileEntity to true, would make this like ITileEntityProvider
-abstract class GroovyBlockTileBasic extends GroovyBlock implements IBlockRotation {
+abstract class GroovyBlockTileBasic extends GroovyBlock {
 
-    protected static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
     GroovyBlockTileBasic(Block.Properties properties) {
         super(properties);
     }
 
-    @Override
-    void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {
-        BlockState state = world.getBlockState(pos);
-        Direction facing = getPlacementRotation(player, world, pos, side);
-        world.setBlockState(pos, state.with(FACING, facing));
+    GroovyBlockTileBasic(Material material) {
+        super(Block.Properties.create(material));
     }
-
-    Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
-        int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
-        if (l == 1) {
-            return Direction.EAST;
-        }
-        if (l == 2) {
-            return Direction.SOUTH;
-        }
-        if (l == 3) {
-            return Direction.WEST;
-        }
-        return Direction.NORTH;
-    }
-
-    BlockState withRotation(BlockState state, Rotation rot) {
-        Direction facing = state.get(FACING);
-        return state.with(FACING, rot.rotate(facing));
-    }
-
-    void breakBlock(World world, BlockPos pos, BlockState state) {
-        if (world.isRemote) {
-            return;
-        }
-        TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof IInventory) {
-            IInventory inventory = (IInventory) tile;
-            InventoryTools.dropInventory(inventory, world, pos);
-        }
-        if (tile instanceof GroovyTileBasic) {
-            GroovyTileBasic groovyTile = (GroovyTileBasic) tile;
-            groovyTile.onRemoval();
-        }
-        world.removeTileEntity(pos);
-    }
-
-    @Nonnull
-    @Override
-    abstract TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world);
 
     @Override
     boolean hasTileEntity(BlockState state) {

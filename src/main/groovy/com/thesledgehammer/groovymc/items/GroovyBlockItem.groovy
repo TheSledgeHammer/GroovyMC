@@ -24,14 +24,12 @@ import net.minecraft.item.ItemStack
 
 class GroovyBlockItem<B extends Block> extends BlockItem {
 
-    GroovyBlockItem(B block, Item.Properties builder) {
-        super(block, builder);
+    GroovyBlockItem(B block, Item.Properties properties) {
+        super(block, properties);
     }
 
-    GroovyBlockItem(B block, ItemGroup itemGroup) {
-        super(block, new Item.Properties()
-                .group(itemGroup)
-        );
+    GroovyBlockItem(B block, Item.Properties properties, ItemGroup itemGroup) {
+        super(block, properties.group(itemGroup));
     }
 
     @Override

@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-
+import com.thesledgehammer.groovymc.EventRegistry
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
@@ -47,9 +47,8 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     private Block.Properties blockProperties;
 
     @Override
-    void setBlock(Block block, Block.Properties blockProperties) {
+    void setBlock(Block block) {
         this.block = block;
-        this.blockProperties = blockProperties;
     }
 
     @Override
@@ -117,7 +116,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Override
     @OnlyIn(Dist.CLIENT)
     void initModel() {
-        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
+
     }
 
     @Override
@@ -128,6 +127,10 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Override
     void registerTileEntity(String modID) {
 
+    }
+
+    @Override
+    void registerTileEntity(TileEntity tile) {
     }
 
     @Override
