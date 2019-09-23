@@ -28,93 +28,93 @@ class SuperGOM {
         def xml = new MarkupBuilder(writer);
 
         xml.gom {
-            ModelVersion(modelVersion)
-            Parent()
-            Textures {
+            modelversion(modelVersion)
+            parent()
+            textures {
 
             }
-            Shade()
-            Rules {
-                When()
-                Type()
-                From()
-                To()
-                Origin()
-                Angle()
-                Scale()
+            shade()
+            rules {
+                when()
+                type()
+                from()
+                to()
+                origin()
+                angle()
+                scale()
             }
-            Elements {
-                Element {
-                    Name()
-                    From()
-                    To()
-                    Light()
-                    Render()
-                    Faces {
-                        Up {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+            elements {
+                element {
+                    name()
+                    from()
+                    to()
+                    light()
+                    render()
+                    faces {
+                        up {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
-                        Down {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+                        down {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
-                        North {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+                        north {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
-                        East {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+                        east {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
-                        West {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+                        west {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
-                        South {
-                            UV()
-                            Texture()
-                            CullFace()
-                            Rotation()
-                            Tint()
+                        south {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
                         }
                     }
-                    Rotation {
-                        Origin()
-                        Axis()
-                        Angle()
-                        Rescale()
+                    rotation {
+                        origin()
+                        axis()
+                        angle()
+                        rescale()
                     }
-                    Shade()
-                    Colour()
-                    Visible()
-                    Invert()
-                    BothSides()
+                    shade()
+                    colour()
+                    visible()
+                    invert()
+                    bothsides()
                 }
             }
-            Display {
-                Name()
-                Translation()
-                Rotation()
-                Scale()
+            display {
+                name()
+                translation()
+                rotation()
+                scale()
             }
-            Values()
-            AmbientOcculusion()
+            values()
+            ambientocculusion()
         }
         writer.close();
     }

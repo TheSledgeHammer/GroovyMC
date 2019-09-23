@@ -1,0 +1,87 @@
+<gom>
+  <modelversion>1.0.2</modelversion>
+  <parent />
+  <textures />
+  <shade />
+  <rules>
+    <when />
+    <type />
+    <from />
+    <to />
+    <origin />
+    <angle />
+    <scale />
+  </rules>
+  <elements>
+    <element>
+      <name />
+      <from />
+      <to />
+      <light />
+      <render />
+      <faces>
+        <up>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </up>
+        <down>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </down>
+        <north>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </north>
+        <east>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </east>
+        <west>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </west>
+        <south>
+          <uv />
+          <texture />
+          <cullface />
+          <rotation />
+          <tint />
+        </south>
+      </faces>
+      <rotation>
+        <origin />
+        <axis />
+        <angle />
+        <rescale />
+      </rotation>
+      <shade />
+      <colour />
+      <visible />
+      <invert />
+      <bothsides />
+    </element>
+  </elements>
+  <display>
+    <name />
+    <translation />
+    <rotation />
+    <scale />
+  </display>
+  <values />
+  <ambientocculusion />
+</gom>

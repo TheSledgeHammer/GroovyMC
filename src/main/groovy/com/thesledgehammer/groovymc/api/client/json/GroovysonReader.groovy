@@ -94,6 +94,7 @@ class GroovysonReader {
 		return xmlObject;
 	}
 
+	//File won't be read. Must add the .xml file extension when used.
 	static def XmlSlurpy(Reader xmlFile) {
 		def slurpinator = new XmlSlurper();
 		def xmlObject = slurpinator.parse(xmlFile);
