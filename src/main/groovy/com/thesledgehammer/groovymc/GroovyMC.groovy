@@ -1,6 +1,6 @@
 package com.thesledgehammer.groovymc
 
-
+import com.thesledgehammer.groovyforge.FMLGroovyModLoadingContext
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
@@ -17,9 +17,20 @@ class GroovyMC {
 
 	GroovyMC() {
 		instance = this;
-		//FMLGroovyModLoadingContext.get().getModEventBus().register(EventRegistry.class);
-		//Registry.init();
+		//ModEventBusRegister(EventRegistry.class);
+		//ModEventBusRegister(CapabilityMj.class);
+		//FMLGroovyModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, CapabilityMj.);
+		//ModEventBusRegister(RenderEventModuleContainer.class);
+		Registry.init();
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	/**
+	 * ModEventBusRegister: For each class you wish to register. Add this function into GroovyMC().
+	 * @param aClass: The class being registered.
+	 */
+	private static void ModEventBusRegister(Class aClass) {
+		FMLGroovyModLoadingContext.get().getModEventBus().register(aClass);
 	}
 
 	//GroovyLoader Example:
