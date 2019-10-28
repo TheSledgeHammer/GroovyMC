@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.modules
 
-import com.thesledgehammer.groovymc.GroovyMC
+
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraftforge.api.distmarker.Dist
@@ -25,10 +25,9 @@ import net.minecraftforge.client.event.ModelBakeEvent
 import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.Level
 
-@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+//@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 class RenderEventModuleContainer {
 
     private static List<BlankRenderEventModule> EVENTS = new LinkedList<>();

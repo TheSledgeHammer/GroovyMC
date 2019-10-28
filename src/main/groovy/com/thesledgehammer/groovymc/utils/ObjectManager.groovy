@@ -17,37 +17,35 @@
 package com.thesledgehammer.groovymc.utils
 
 import net.minecraft.block.Block
-import net.minecraft.block.BlockState
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.block.statemap.BlockStateMapper
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IEnviromentBlockReader
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-
-import javax.annotation.Nullable
+import net.minecraft.world.IBlockAccess
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 class ObjectManager {
 
 	private final static Set<IItemColor> itemColorList = new HashSet<>();
 	private final static Set<IBlockColor> blockColorList = new HashSet<>();
-	//private final static Set<IStateMapper> stateMapperList = new HashSet<>();
+	private final static Set<IStateMapper> stateMapperList = new HashSet<>();
 
 	static void RegisterColors() {
 		registerItemColor();
 		registerBlockColor();
 	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	static void registerBlockClient(Block block) {
 		if(block instanceof IBlockColor) {
 			blockColorList.add((IBlockColor) block);
 		}
-        /*
-		if(block instanceof StateMapper) {
+		if(block instanceof IStateMapper) {
 			stateMapperList.add((IStateMapper) block);
 		}
 		for (IStateMapper stateMapper : stateMapperList) {
@@ -55,35 +53,34 @@ class ObjectManager {
 				stateMapper.registerBlockStateMapper(block, stateMapper);
 			}
 		}
-		*/
 	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	static void registerItemClient(Item item) {
 		if(item instanceof IItemColor) {
 			itemColorList.add((IItemColor) item);
 		}
 	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	private static void registerItemColor() {
 		for (IItemColor itemColor : itemColorList) {
 			if (itemColor instanceof Item) {
-				Minecraft.instance.getItemColors().register(ColoredItemItemColor.INSTANCE, (Item) itemColor);
+				Minecraft.getMinecraft().getItemColors().registerItemColorHandler(ColoredItemItemColor.INSTANCE, (Item) itemColor);
 			}
 		}
 	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	private static void registerBlockColor() {
 		for (IBlockColor blockColor : blockColorList) {
 			if (blockColor instanceof Block) {
-				Minecraft.instance.getBlockColors().register(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
+				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
 			}
 		}
 	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	private static class ColoredItemItemColor implements IItemColor {
 		private static final ColoredItemItemColor INSTANCE = new ColoredItemItemColor();
 
@@ -91,31 +88,31 @@ class ObjectManager {
 
 		}
 
-        @Override
-        int getColor(ItemStack stack, int tintIndex) {
-            Item item = stack.getItem();
-            if (item instanceof IItemColor) {
-                return ((IItemColor) item).getColor(stack, tintIndex);
-            }
-            return 0xffffff
-        }
-    }
+		@Override
+		int colorMultiplier(ItemStack stack, int tintIndex) {
+			Item item = stack.getItem();
+			if (item instanceof IItemColor) {
+				return ((IItemColor) item).colorMultiplier(stack, tintIndex);
+			}
+			return 0xffffff;
+		}
+	}
 
-    @OnlyIn(Dist.CLIENT)
+	@SideOnly(Side.CLIENT)
 	private static class ColoredBlockBlockColor implements IBlockColor {
-		public static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
+		private static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
 
 		private ColoredBlockBlockColor() {
 
 		}
 
-        @Override
-        int getColor(BlockState state, @Nullable IEnviromentBlockReader world, @Nullable BlockPos pos, int tintIndex) {
-            Block block = state.getBlock();
-            if (block instanceof IBlockColor) {
-                return ((IBlockColor) block).getColor(state, world, pos, tintIndex);
-            }
-            return 0xffffff;
-        }
-    }
+		@Override
+		int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+			Block block = state.getBlock();
+			if (block instanceof IBlockColor) {
+				return ((IBlockColor) block).colorMultiplier(state, worldIn, pos, tintIndex);
+			}
+			return 0xffffff;
+		}
+	}
 }

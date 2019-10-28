@@ -19,7 +19,6 @@ import com.thesledgehammer.groovymc.blocks.properties.IBlockType
 import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTER
 import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTERAnimation
 import com.thesledgehammer.groovymc.blocks.properties.IMachinePropertiesTERFast
-import com.thesledgehammer.groovymc.blocks.properties.MachinePropertyTraits
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.client.renderer.model.ModelResourceLocation

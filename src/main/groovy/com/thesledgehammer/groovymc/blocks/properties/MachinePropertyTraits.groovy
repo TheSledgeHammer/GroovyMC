@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-import com.thesledgehammer.groovymc.EventRegistry
+
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block

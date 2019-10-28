@@ -16,6 +16,8 @@
 
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
+
 import javax.annotation.Nonnull
 
 /*
@@ -30,7 +32,7 @@ import javax.annotation.Nonnull
 )*/
 class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
 
-    protected long mjEnergy;
+    public long mjEnergy;
     protected long capacity;
     protected long maxReceive;
     protected long maxExtract;

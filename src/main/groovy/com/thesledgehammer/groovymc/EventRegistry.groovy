@@ -1,21 +1,18 @@
 package com.thesledgehammer.groovymc
 
-
+import com.thesledgehammer.groovymc.items.GroovyBlockItem
 import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.item.ItemGroup
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.tileentity.TileEntityType
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.event.RegistryEvent
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.registries.ForgeRegistries
 
 import javax.annotation.Nullable
 
-@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+//@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 class EventRegistry {
-
+/*
     private static List<TileEntityType<?>> tileEntities = new ArrayList<>()
     private static List<Block> blocks = new ArrayList<>()
     private static List<Item> items = new ArrayList<>()
@@ -71,8 +68,8 @@ class EventRegistry {
            event.getRegistry().register(tileEntities.get(i))
         }
     }
+*/
 
-    /*
     private static <T extends Item> T registerItem(T item, String name) {
         item.setRegistryName(GroovyMC.MOD_ID, name);
         ForgeRegistries.ITEMS.register(item);
@@ -100,5 +97,5 @@ class EventRegistry {
             registerBlock(block, name);
         }
         return tile;
-    }*/
+    }
 }

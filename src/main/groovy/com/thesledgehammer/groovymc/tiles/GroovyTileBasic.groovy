@@ -16,11 +16,12 @@
 
 package com.thesledgehammer.groovymc.tiles
 
-import com.thesledgehammer.groovymc.tiles.traits.TileTraits
+
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.Direction
 
-abstract class GroovyTileBasic extends TileEntity implements TileTraits {
+abstract class GroovyTileBasic extends TileEntity {
 
     GroovyTileBasic(TileEntityType tileEntityTypeIn) {
         super(tileEntityTypeIn)
@@ -46,7 +47,25 @@ abstract class GroovyTileBasic extends TileEntity implements TileTraits {
         return world.getRedstonePowerFromNeighbors(getPos()) > 0;
     }
 
+    protected boolean isSidePowered(Direction face) {
+        return world.isSidePowered(getPos(), face);
+    }
+
     void onRemoval() {
 
+    }
+
+    boolean isTileEntity(TileEntity other, Direction face) {
+        if(other.getPos().offset(face) instanceof TileEntity) {
+            return true;
+        }
+        return false;
+    }
+
+    TileEntity getNeighbouringTileEntity(TileEntity other, Direction face) {
+        if(isTileEntity(other, face)){
+            return other;
+        }
+        return null;
     }
 }

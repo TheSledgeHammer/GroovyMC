@@ -1,7 +1,6 @@
 package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.blocks.GroovyBlock
-import com.thesledgehammer.groovymc.blocks.GroovyBlockTileBasic
 import com.thesledgehammer.groovymc.items.GroovyBlockItem
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material

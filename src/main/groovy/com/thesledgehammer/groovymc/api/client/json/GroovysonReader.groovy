@@ -46,14 +46,14 @@ class GroovysonReader {
     static String ResourcePath(String path, ResourceLocation resourceLocation) {
         setPath(path);
         setResourceLocation(resourceLocation);
-        String assetsPath = "${path}/${resourceLocation.getResourceDomain().toString()}/${resourceLocation.getResourcePath().toString()}";
+        String assetsPath = "${path}/${resourceLocation.getNamespace()}/${resourceLocation.getPath()}";
         return assetsPath;
     }
 
-    static String ResourcePath(String path, String resourceDomain, String resourcePath) {
+    static String ResourcePath(String path, String namespace, String resourcePath) {
         setPath(path);
-        setResourceLocation(new ResourceLocation(resourceDomain, resourcePath));
-        String assetsPath = "${path}/${resourceLocation.getResourceDomain().toString()}/${resourceLocation.getResourcePath().toString()}";
+        setResourceLocation(new ResourceLocation(namespace, resourcePath));
+        String assetsPath = "${path}/${resourceLocation.getNamespace()}/${resourceLocation.getPath()}";
         return assetsPath;
     }
 
@@ -65,11 +65,11 @@ class GroovysonReader {
         this.resourceLocation = resourceLocation;
 
         if(resourceLocation != null) {
-            resourceDomain = resourceLocation.getResourceDomain().toString();
-            resourcePath = resourceLocation.getResourcePath().toString();
+            resourceDomain = resourceLocation.getNamespace();
+            resourcePath = resourceLocation.getPath();
         }
 
-        String[] name = StringTools.split(resourceLocation.getResourcePath().toString(), "/");
+        String[] name = StringTools.split(resourceLocation.getPath().toString(), "/");
         fileName = name[name.length - 1];
     }
 
