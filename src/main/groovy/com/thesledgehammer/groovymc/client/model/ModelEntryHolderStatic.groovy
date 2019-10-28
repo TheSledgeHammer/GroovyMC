@@ -89,7 +89,7 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
     }
 
     private MutableQuad[] bakePart(ArrayList<GroovysonObjectPart > modelParts) {
-        for(Direction face : Direction.VALUES) {
+        for(Direction face : Direction.values()) {
             if (face != null) {
                 return bakePartFace(modelParts, face);
             }

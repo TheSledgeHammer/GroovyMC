@@ -63,34 +63,4 @@ class TextureEntry extends ModelEntryConsumer  {
     void onTextureStitchPre(TextureMap map) {
         GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
     }
-
-    /*
-    List<ResourceLocation> getSpriteResourceLocations() {
-        return spriteResourceLocations;
-    }
-
-    List<TextureAtlasSprite> getTextureAtlasSprites() {
-        return textureAtlasSprites;
-    }
-
-    ResourceLocation getSpriteResourceLocation(ResourceLocation resourceLocation) {
-        for(ResourceLocation location : spriteResourceLocations) {
-            if(location.equals(resourceLocation)) {
-                return location
-            }
-        }
-        Log.logDebug("No ResourceLocation was found at ${resourceLocation}")
-        return null;
-    }
-
-    TextureAtlasSprite getTextureAtlasSprite(TextureAtlasSprite atlasSprite) {
-        for(TextureAtlasSprite sprite : textureAtlasSprites) {
-            if(sprite.equals(atlasSprite)) {
-                return sprite
-            }
-        }
-        Log.logDebug("No TextureAtlasSprite was found named ${atlasSprite}")
-        return null;
-    }
-    */
 }

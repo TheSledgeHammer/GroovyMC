@@ -22,8 +22,8 @@ class ResourceLoader {
         return new InputStreamReader(res.getInputStream(), StandardCharsets.UTF_8);
     }
 
-    InputStreamReader startLoading(String domain, String path) throws IOException {
-        ResourceLocation location = new ResourceLocation(domain, path);
+    InputStreamReader startLoading(String namespace, String path) throws IOException {
+        ResourceLocation location = new ResourceLocation(namespace, path);
         if (!loaded.add(location)) {
             throw new JsonException("Already loaded " + location + " from " + loadingStack.peek())
         }

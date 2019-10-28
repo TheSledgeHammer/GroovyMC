@@ -1,5 +1,6 @@
 package com.thesledgehammer.groovymc.experimental
 
+import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import net.minecraft.client.renderer.model.IUnbakedModel
 import net.minecraft.resources.IResource
 import net.minecraft.resources.IResourceManager
@@ -10,6 +11,9 @@ import org.apache.commons.io.IOUtils
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
+//ICustomModelLoader requires IUnbakedModel
+//ResourceLoader
+//GroovyUnbakedModel
 enum GroovysonLoader implements ICustomModelLoader {
     INSTANCE;
 
