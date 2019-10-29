@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api.minecraftjoules
+package com.thesledgehammer.groovymc.api
 
 import net.minecraft.util.IStringSerializable
 

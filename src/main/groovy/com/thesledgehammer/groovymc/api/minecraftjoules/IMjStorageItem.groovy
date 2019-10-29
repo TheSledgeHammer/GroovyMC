@@ -13,14 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.thesledgehammer.groovymc.api.minecraftjoules
 
-package com.thesledgehammer.groovymc.api
+import net.minecraft.item.ItemStack
 
-import net.minecraft.tileentity.TileEntity
+interface IMjStorageItem {
 
-interface IRegisterTileEntity {
+    long extractPower(ItemStack container, long min, long max, boolean simulate);
 
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String tileName);
+    long receivePower(ItemStack container, long microJoules, boolean simulate);
 
-    void registerTileEntity(Class<? extends TileEntity> tileEntity, String modId, String tileName);
+    long getStored(ItemStack container);
+
+    long getCapacity(ItemStack container);
 }

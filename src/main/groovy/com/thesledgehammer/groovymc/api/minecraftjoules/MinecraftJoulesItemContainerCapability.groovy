@@ -15,23 +15,20 @@
  */
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
-import javax.annotation.Nonnull
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJouleItemContainer
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.CompoundNBT
+import net.minecraftforge.common.capabilities.ICapabilityProvider
 
-interface IMjStorage {
+class MinecraftJoulesItemContainerCapability extends MinecraftJouleItemContainer {
 
-    long getPowerRequested();
+    MinecraftJoulesItemContainerCapability(Item.Properties properties) {
+        super(properties)
+    }
 
-    long extractPower(long min, long max, boolean simulate);
-
-    long receivePower(long microJoules, boolean simulate);
-
-    long getStored();
-
-    long getCapacity();
-
-    boolean canExtract();
-
-    boolean canReceive();
-
-    boolean canConnect(@Nonnull IMjStorage other);
+    @Override
+    ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+        return new MinecraftJoulesItemWrapper(stack, this);
+    }
 }

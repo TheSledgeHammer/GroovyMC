@@ -18,8 +18,6 @@ package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.INBTCompound
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
-import com.thesledgehammer.groovymc.api.minecraftjoules.EnumVoltage
-import com.thesledgehammer.groovymc.api.minecraftjoules.MjTools
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
@@ -55,26 +53,6 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
         modifyPowerStored(mjEnergy + amount);
     }
 
-    void drainPower(long amount, EnumVoltage voltage) {
-        long volts = voltage.getVoltage() * MjTools.getMJ();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        long drain = Math.min(mjEnergy, volts);
-        long maxDrain =- Math.max(drain, amount);
-        modifyPowerStored(maxDrain);
-    }
-
-    void generatePower(long amount, EnumVoltage voltage) {
-        long volts = voltage.getVoltage() * MjTools.getMJ();
-        if(amount >= volts) {
-            amount = volts;
-        }
-        long generate = Math.min(mjEnergy, volts);
-        long maxGenerate =+ Math.max(generate, amount);
-        modifyPowerStored(maxGenerate);
-    }
-
     private void modifyPowerStored(long mjEnergy) {
         this.mjEnergy = mjEnergy;
         if(mjEnergy > getCapacity()) {
@@ -104,7 +82,7 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
     @Override
     def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityMj.MJ_STORAGE) {
-            return CapabilityMj.MJ_STORAGE
+            return CapabilityMj.MJ_STORAGE as LazyOptional<T>
         }/*
         if (BuildcraftModule.hasMjCapability(capability)) {
             MinecraftJoules MJ = new MinecraftJoules(capacity, maxReceive, maxExtract, mjEnergy);

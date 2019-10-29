@@ -32,7 +32,7 @@ import javax.annotation.Nonnull
 )*/
 class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
 
-    public long mjEnergy;
+    long mjEnergy;
     protected long capacity;
     protected long maxReceive;
     protected long maxExtract;
@@ -126,7 +126,7 @@ class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver,
     }
 
     @Override
-    boolean canConnectToMjStorage(@Nonnull IMjStorage other) {
+    boolean canConnect(@Nonnull IMjStorage other) {
         return true;
     }
 /*

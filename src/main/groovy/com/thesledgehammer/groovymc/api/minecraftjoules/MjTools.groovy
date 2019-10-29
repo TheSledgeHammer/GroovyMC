@@ -7,6 +7,8 @@
 
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
+import com.thesledgehammer.groovymc.api.EnumVoltage
+
 class MjTools {
 
     /** A single minecraft joule, in micro joules (the power system base unit) */

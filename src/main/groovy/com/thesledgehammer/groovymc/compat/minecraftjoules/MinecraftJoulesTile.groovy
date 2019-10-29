@@ -16,7 +16,7 @@
 
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
-import com.thesledgehammer.groovymc.api.minecraftjoules.IMjInfo
+
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.nbt.CompoundNBT
@@ -38,7 +38,7 @@ import javax.annotation.Nullable
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
         ]
 )*/
-abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage, IMjInfo/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
+abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
 
     protected MinecraftJoules mj;
 
@@ -82,8 +82,8 @@ abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage
     }
 
     @Override
-    boolean canConnectToMjStorage(@Nonnull IMjStorage other) {
-        return mj.canConnectToMjStorage(other);
+    boolean canConnect(@Nonnull IMjStorage other) {
+        return mj.canConnect(other);
     }
 /*
     @Override
@@ -91,21 +91,6 @@ abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage
         return mj.canConnect(other);
     }
     */
-
-    @Override
-    long getInfoMjPerTick() {
-        return 0
-    }
-
-    @Override
-    long getInfoMaxMjPerTick() {
-        return 0
-    }
-
-    @Override
-    long getInfoMjCapacity() {
-        return mj.getCapacity();
-    }
 
     @Override
     void read(CompoundNBT compound) {
