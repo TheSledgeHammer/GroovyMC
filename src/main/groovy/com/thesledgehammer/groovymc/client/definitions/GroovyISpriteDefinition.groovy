@@ -22,10 +22,10 @@ import com.thesledgehammer.groovymc.utils.SpriteTools
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 class GroovyISpriteDefinition implements ISprite {
 
     private final ResourceLocation spriteLocation;

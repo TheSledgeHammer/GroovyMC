@@ -27,9 +27,9 @@ import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.StringTools
-import net.minecraft.client.renderer.block.model.BakedQuad
+import net.minecraft.client.renderer.model.BakedQuad
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 import net.minecraft.util.ResourceLocation
 
 class GroovyStaticModel extends GroovysonObjectModel {
@@ -70,7 +70,7 @@ class GroovyStaticModel extends GroovysonObjectModel {
         return textureLookup;
     }
 
-    MutableQuad[] getMutableQuads(EnumFacing face, TextureAtlasSprite sprite) {
+    MutableQuad[] getMutableQuads(Direction face, TextureAtlasSprite sprite) {
         int size = getModelElements().size();
         MutableQuad[] mutableQuads = new MutableQuad[size];
         for (int i = 0; i < size; i++) {
@@ -79,7 +79,7 @@ class GroovyStaticModel extends GroovysonObjectModel {
         return mutableQuads;
     }
 
-    List<BakedQuad> addBakedQuadsToItem(EnumFacing face, TextureAtlasSprite sprite) {
+    List<BakedQuad> addBakedQuadsToItem(Direction face, TextureAtlasSprite sprite) {
         int size = getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -88,7 +88,7 @@ class GroovyStaticModel extends GroovysonObjectModel {
         return bakedQuads;
     }
 
-    List<BakedQuad> addBakedQuadsToBlock(EnumFacing face, TextureAtlasSprite sprite) {
+    List<BakedQuad> addBakedQuadsToBlock(Direction face, TextureAtlasSprite sprite) {
         int size = getRawModelTextures().size();
         List<BakedQuad> bakedQuads = new ArrayList<>();
         for (int i = 0; i < size; i++) {

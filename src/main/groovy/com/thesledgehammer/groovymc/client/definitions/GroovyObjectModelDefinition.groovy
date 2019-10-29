@@ -23,9 +23,9 @@ import com.thesledgehammer.groovymc.utils.variables.VariableBoolean
 import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import com.thesledgehammer.groovymc.utils.variables.VariableLong
 import com.thesledgehammer.groovymc.utils.variables.VariableObject
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 
-class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
+class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition {
 
     private GroovysonStaticKey staticKey;
     private GroovysonVariableKey variableKey;
@@ -102,7 +102,7 @@ class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
     }
 
     @Override
-    List<Double> getStaticFaceUV(GroovysonObjectPart part, EnumFacing face) {
+    List<Double> getStaticFaceUV(GroovysonObjectPart part, Direction face) {
         return staticKey.getFaceUV(part, face)
     }
 
@@ -137,7 +137,7 @@ class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
     }
 
     @Override
-    String getStaticTexture(GroovysonObjectPart part, EnumFacing face) {
+    String getStaticTexture(GroovysonObjectPart part, Direction face) {
         return staticKey.getTexture(part, face)
     }
 
@@ -223,7 +223,7 @@ class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
     }
 
     @Override
-    List<VariableDouble> getVariableFaceUV(GroovysonObjectPart part, EnumFacing face) {
+    List<VariableDouble> getVariableFaceUV(GroovysonObjectPart part, Direction face) {
         return variableKey.getFaceUV(part, face)
     }
 
@@ -258,12 +258,12 @@ class GroovyObjectModelDefinition implements IGroovyObjectModelDefinition{
     }
 
     @Override
-    VariableObject<String> getVariableTexture(GroovysonObjectPart part, EnumFacing face) {
+    VariableObject<String> getVariableTexture(GroovysonObjectPart part, Direction face) {
         return variableKey.getTexture(part, face)
     }
 
     @Override
-    VariableLong getVariableTextureRotation(GroovysonObjectPart part, EnumFacing face) {
+    VariableLong getVariableTextureRotation(GroovysonObjectPart part, Direction face) {
         return variableKey.getTextureRotation(part, face)
     }
 }
