@@ -1,6 +1,7 @@
 package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovyforge.FMLGroovyModLoadingContext
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
@@ -21,6 +22,7 @@ class GroovyMC {
 		//ModEventBusRegister(CapabilityMj.class);
 		//FMLGroovyModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, CapabilityMj.);
 		//ModEventBusRegister(RenderEventModuleContainer.class);
+		CapabilityMj.register();
 		Registry.init();
 		MinecraftForge.EVENT_BUS.register(this);
 	}

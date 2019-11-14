@@ -16,14 +16,12 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.state.EnumProperty
 import net.minecraft.util.Direction
 
-//Todo: Efficient Way to create Tile Entities: Setting hasTileEntity to true, would make this like ITileEntityProvider
 abstract class GroovyBlockTileBasic extends GroovyBlock {
 
     public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);

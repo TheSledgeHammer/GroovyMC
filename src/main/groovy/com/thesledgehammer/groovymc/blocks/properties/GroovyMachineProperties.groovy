@@ -76,7 +76,7 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
             setIsFullCube(isFullCube);
         }
     }
-
+/*
     static class WithTERAnimation<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTERAnimation<T> {
 
         WithTERAnimation(Class<T> teClass, String name, String particleTextureLocation) {
@@ -99,4 +99,6 @@ class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePrope
             setIsFullCube(isFullCube);
         }
     }
+
+ */
 }

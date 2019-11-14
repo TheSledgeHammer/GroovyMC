@@ -17,70 +17,62 @@
 package com.thesledgehammer.groovymc.utils
 
 import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
+import net.minecraft.block.BlockState
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.block.statemap.BlockStateMapper
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraft.world.IEnviromentBlockReader
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+
+import javax.annotation.Nullable
 
 class ObjectManager {
 
 	private final static Set<IItemColor> itemColorList = new HashSet<>();
 	private final static Set<IBlockColor> blockColorList = new HashSet<>();
-	private final static Set<IStateMapper> stateMapperList = new HashSet<>();
 
 	static void RegisterColors() {
 		registerItemColor();
 		registerBlockColor();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	static void registerBlockClient(Block block) {
 		if(block instanceof IBlockColor) {
 			blockColorList.add((IBlockColor) block);
 		}
-		if(block instanceof IStateMapper) {
-			stateMapperList.add((IStateMapper) block);
-		}
-		for (IStateMapper stateMapper : stateMapperList) {
-			if(stateMapper instanceof BlockStateMapper) {
-				stateMapper.registerBlockStateMapper(block, stateMapper);
-			}
-		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	static void registerItemClient(Item item) {
 		if(item instanceof IItemColor) {
 			itemColorList.add((IItemColor) item);
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static void registerItemColor() {
 		for (IItemColor itemColor : itemColorList) {
 			if (itemColor instanceof Item) {
-				Minecraft.getMinecraft().getItemColors().registerItemColorHandler(ColoredItemItemColor.INSTANCE, (Item) itemColor);
+				Minecraft.instance.getItemColors().register(ColoredItemItemColor.INSTANCE, (Item) itemColor);
 			}
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static void registerBlockColor() {
 		for (IBlockColor blockColor : blockColorList) {
 			if (blockColor instanceof Block) {
-				Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
+				Minecraft.instance.getBlockColors().register(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
 			}
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static class ColoredItemItemColor implements IItemColor {
 		private static final ColoredItemItemColor INSTANCE = new ColoredItemItemColor();
 
@@ -89,16 +81,16 @@ class ObjectManager {
 		}
 
 		@Override
-		int colorMultiplier(ItemStack stack, int tintIndex) {
+		int getColor(ItemStack stack, int tintIndex) {
 			Item item = stack.getItem();
-			if (item instanceof IItemColor) {
-				return ((IItemColor) item).colorMultiplier(stack, tintIndex);
+			if(item instanceof IItemColor) {
+				return ((IItemColor) item).getColor(stack, tintIndex);
 			}
 			return 0xffffff;
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static class ColoredBlockBlockColor implements IBlockColor {
 		private static final ColoredBlockBlockColor INSTANCE = new ColoredBlockBlockColor();
 
@@ -107,10 +99,10 @@ class ObjectManager {
 		}
 
 		@Override
-		int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+		int getColor(BlockState state, @Nullable IEnviromentBlockReader worldIn, @Nullable BlockPos pos, int tintIndex) {
 			Block block = state.getBlock();
 			if (block instanceof IBlockColor) {
-				return ((IBlockColor) block).colorMultiplier(state, worldIn, pos, tintIndex);
+				return ((IBlockColor) block).getColor(state, worldIn, pos, tintIndex);
 			}
 			return 0xffffff;
 		}

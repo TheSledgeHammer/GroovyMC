@@ -22,7 +22,6 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.state.EnumProperty
-import net.minecraft.state.StateContainer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
@@ -80,12 +79,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return blockType.getGroovyMachineProperties();
     }
 
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
-        builder.add(FACING);
-    }
-
     @Nonnull
     @Override
     TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
@@ -97,11 +90,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return getDefinition().hasTileEntity(state);
     }
 
-    void registerAdvancedTileEntity() {
-        IMachineProperties definition = getDefinition();
-        definition.registerTileEntity();
-    }
-
     @Override
     void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {
         BlockState state = world.getBlockState(pos);
@@ -109,7 +97,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         world.setBlockState(pos, state.with(FACING, facing));
     }
 
-    Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
+    static Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
         int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
         if (l == 1) {
             return Direction.EAST;
@@ -123,7 +111,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return Direction.NORTH;
     }
 
-    BlockState withRotation(BlockState state, Rotation rot) {
+    static BlockState withRotation(BlockState state, Rotation rot) {
         Direction facing = state.get(FACING);
         return state.with(FACING, rot.rotate(facing));
     }

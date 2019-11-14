@@ -40,16 +40,12 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
 
     void setAxisAlignedBB(AxisAlignedBB boundingBox);
 
-    void setRayTraceResult(RayTraceResult rayTraceResult);
-
     Class<T> getTeClass();
 
     @Nullable
     Block getBlock();
 
     String getName();
-
-    boolean getIsFullCube();
 
     boolean isFullCube(BlockState state);
 
@@ -61,12 +57,6 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
     @Override
     @OnlyIn(Dist.CLIENT)
     void initModel();
-
-    void registerTileEntity();
-
-    void registerTileEntity(String modID);
-
-    void registerTileEntity(TileEntity tile);
 
     boolean hasTileEntity(BlockState state)
 

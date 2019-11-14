@@ -40,11 +40,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     private String name;
     private Class<T> teClass;
     private AxisAlignedBB boundingBox;
-    private RayTraceResult rayTraceResult;
     private boolean isFullCube;
-
-    @Nullable
-    private Block.Properties blockProperties;
 
     @Override
     void setBlock(Block block) {
@@ -72,11 +68,6 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    void setRayTraceResult(RayTraceResult rayTraceResult) {
-        this.rayTraceResult = rayTraceResult;
-    }
-
-    @Override
     Class<T> getTeClass() {
         return teClass;
     }
@@ -93,13 +84,8 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    boolean getIsFullCube() {
-        return isFullCube;
-    }
-
-    @Override
     boolean isFullCube(BlockState state) {
-        return true;
+        return isFullCube;
     }
 
     @Override
@@ -117,20 +103,6 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @OnlyIn(Dist.CLIENT)
     void initModel() {
 
-    }
-
-    @Override
-    void registerTileEntity() {
-
-    }
-
-    @Override
-    void registerTileEntity(String modID) {
-
-    }
-
-    @Override
-    void registerTileEntity(TileEntity tile) {
     }
 
     @Override

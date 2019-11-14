@@ -11,8 +11,13 @@ import javax.annotation.Nullable
 
 //BlockState: contains methods related to renderShape, collisionShape, RaytraceShape
 class VoxelShapeTools {
-
+/*
     private VoxelShape shape;
+
+    VoxelShapeTools(VoxelShape shape) {
+        this.shape = shape;
+    }
+    */
 
     @Nullable
     static BlockRayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {

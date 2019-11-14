@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
-
 import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesStorage
 import net.minecraft.nbt.INBT
 import net.minecraft.nbt.LongNBT
@@ -24,14 +23,12 @@ import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.CapabilityManager
-import net.minecraftforge.eventbus.api.SubscribeEvent
 
-//@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 class CapabilityMj {
     @CapabilityInject(IMjStorage.class)
     static Capability<IMjStorage> MJ_STORAGE = null;
 
-    @SubscribeEvent
+    //@SubscribeEvent
     static void register() {
         CapabilityManager.INSTANCE.register(IMjStorage.class, new Capability.IStorage<IMjStorage>() {
             @Override
