@@ -7,14 +7,10 @@
 
 package com.thesledgehammer.groovymc.utils
 
-import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.texture.TextureMap
-import net.minecraft.util.ResourceLocation
-
 class SpriteTools {
-
+/*
     static void BindTexture(String identifier) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(identifier));
+        Minecraft.instance.renderEngine.bindTexture(new ResourceLocation(identifier));
     }
 
     static void BindTexture(ResourceLocation identifier) {
@@ -25,4 +21,5 @@ class SpriteTools {
     static void BindBlockTextureMap() {
         BindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     }
+    */
 }

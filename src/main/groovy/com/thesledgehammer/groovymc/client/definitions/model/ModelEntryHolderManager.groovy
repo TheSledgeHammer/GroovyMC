@@ -17,21 +17,16 @@
 package com.thesledgehammer.groovymc.client.definitions.model
 
 import com.thesledgehammer.groovymc.api.IInitModel
-import com.thesledgehammer.groovymc.api.client.ISprite
-import net.minecraft.block.Block
-import net.minecraft.client.renderer.model.IBakedModel
-import net.minecraft.client.renderer.model.ModelResourceLocation
-import net.minecraft.client.renderer.texture.TextureMap
-import net.minecraft.item.Item
-import net.minecraft.util.ResourceLocation
-import net.minecraft.util.registry.IRegistry
 import net.minecraftforge.api.distmarker.Dist
+
+//import net.minecraft.client.renderer.texture.TextureMap
+
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.event.ModelBakeEvent
-import net.minecraftforge.client.model.ModelLoader
+
+//import net.minecraft.util.registry.IRegistry
 
 @OnlyIn(Dist.CLIENT)
-class ModelEntryHolderManager implements IModelEntryHolderManager {
+class ModelEntryHolderManager /*implements IModelEntryHolderManager*/ {
 
     private static final ModelEntryHolderManager instance = new ModelEntryHolderManager();
 
@@ -48,7 +43,7 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
     List<ModelEntryHolder> ENTRY_HOLDERS() {
         return HOLDERS;
     }
-
+/*
     @Override
     void initModel(Item item, int meta, ModelResourceLocation modelResourceLocation) {
         ModelLoader.setCustomModelResourceLocation(item, meta, modelResourceLocation);
@@ -131,7 +126,7 @@ class ModelEntryHolderManager implements IModelEntryHolderManager {
             }
         }
     }
-
+*/
     private boolean hasEntries() {
         if(!ENTRY_HOLDERS().isEmpty()) {
             return true;

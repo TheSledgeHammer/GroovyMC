@@ -15,11 +15,8 @@
  */
 package com.thesledgehammer.groovymc.client.definitions.model
 
-import com.thesledgehammer.groovymc.api.client.ISprite
-import com.thesledgehammer.groovymc.client.definitions.GroovyAtlasSpriteDefinition
-import com.thesledgehammer.groovymc.client.definitions.GroovyISpriteDefinition
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.util.ResourceLocation
 
 class TextureEntry extends ModelEntryConsumer  {
@@ -30,17 +27,17 @@ class TextureEntry extends ModelEntryConsumer  {
     private List<TextureAtlasSprite> textureAtlasSprites = new LinkedList<>();
 
     TextureEntry(String modID, String baseName) {
-        setTextureAtlasSprite(new ResourceLocation(modID, baseName));
+      //  setTextureAtlasSprite(new ResourceLocation(modID, baseName));
     }
 
     TextureEntry(String spriteResourceLocation) {
-        setTextureAtlasSprite(new ResourceLocation(spriteResourceLocation));
+       // setTextureAtlasSprite(new ResourceLocation(spriteResourceLocation));
     }
 
     TextureEntry(ResourceLocation spriteResourceLocation) {
-        setTextureAtlasSprite(spriteResourceLocation);
+       // setTextureAtlasSprite(spriteResourceLocation);
     }
-
+/*
     private void setTextureAtlasSprite(ResourceLocation spriteResourceLocation) {
         this.spriteResourceLocation = spriteResourceLocation;
         if(this.textureAtlasSprite instanceof ISprite) {
@@ -51,7 +48,7 @@ class TextureEntry extends ModelEntryConsumer  {
         //this.spriteResourceLocations.add(spriteResourceLocation);
         //this.textureAtlasSprites.add(textureAtlasSprite);
     }
-
+*/
     ResourceLocation getSpriteResourceLocation() {
         return spriteResourceLocation;
     }
@@ -59,8 +56,9 @@ class TextureEntry extends ModelEntryConsumer  {
     TextureAtlasSprite getTextureAtlasSprite() {
         return textureAtlasSprite;
     }
-
+/*
     void onTextureStitchPre(TextureMap map) {
         GroovyISpriteDefinition.onTextureStitchPre(map, getTextureAtlasSprite(), getSpriteResourceLocation());
     }
+    */
 }

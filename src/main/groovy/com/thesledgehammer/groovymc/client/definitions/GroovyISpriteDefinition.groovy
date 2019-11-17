@@ -15,16 +15,9 @@
  */
 
 package com.thesledgehammer.groovymc.client.definitions
+//import net.minecraft.client.renderer.texture.TextureMap
 
-import com.thesledgehammer.groovymc.api.GroovyLoader
-import com.thesledgehammer.groovymc.api.client.ISprite
-import com.thesledgehammer.groovymc.utils.SpriteTools
-import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.client.renderer.texture.TextureMap
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-
+/*
 @OnlyIn(Dist.CLIENT)
 class GroovyISpriteDefinition implements ISprite {
 
@@ -61,7 +54,7 @@ class GroovyISpriteDefinition implements ISprite {
         return iSprite.getTextureAtlasSprite();
     }
 
-    static void onTextureStitchPre(TextureMap map, TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
+    static void onTextureStitchPre(TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
         //TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry()
         TextureAtlasSprite spriteVar = createForConfig(spriteLocation);
         if(map.setTextureEntry(spriteVar)) {
@@ -89,4 +82,6 @@ class GroovyISpriteDefinition implements ISprite {
     private TextureAtlasSprite getTextureAtlasSprite() {
         return sprite;
     }
+
 }
+*/
