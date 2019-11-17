@@ -59,7 +59,7 @@ class MinecraftJouleItemContainer extends Item implements IMjStorageItem {
 
     @Override
     long extractPower(ItemStack container, long min, long max, boolean simulate) {
-        if (container.getTag() == null || !container.getTag().hasKey("mjEnergy")) {
+        if (container.getTag() == null || !container.getTag().hasUniqueId("mjEnergy")) {
             return 0;
         }
         long power = Math.min(container.getTag().getLong("mjEnergy"), getCapacity(container));
@@ -73,8 +73,8 @@ class MinecraftJouleItemContainer extends Item implements IMjStorageItem {
 
     @Override
     long receivePower(ItemStack container, long microJoules, boolean simulate) {
-        if (!container.hasTagCompound()) {
-            container.setTagCompound(new CompoundNBT());
+        if (!container.hasTag()) {
+            container.setTag(new CompoundNBT());
         }
         long power = Math.min(container.getTag().getLong("mjEnergy"), getCapacity(container));
         long receiver = Math.min(maxCapacity - power, Math.min(this.maxReceive, microJoules));
@@ -87,7 +87,7 @@ class MinecraftJouleItemContainer extends Item implements IMjStorageItem {
 
     @Override
     long getStored(ItemStack container) {
-        if (container.getTag() == null || !container.getTag().hasKey("mjEnergy")) {
+        if (container.getTag() == null || !container.getTag().hasUniqueId("mjEnergy")) {
             return 0;
         }
         return Math.min(container.getTag().getLong("mjEnergy"), getCapacity(container));

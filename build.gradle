@@ -40,6 +40,10 @@ repositories {
 		name = "TheSledgeHammer"
 		url = "https://dl.bintray.com/thesledgehammer/development/"
 	}
+	maven {
+		name = "tterrag maven (TOP)"
+		url = "https://maven.tterrag.com/"
+	}
 }
 
 minecraft {
@@ -92,7 +96,7 @@ dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
-	//compile files("/run/mods/GroovyForge_1.14.4-2.5.2-universal.jar")
+	compile "mcjty.theoneprobe:TheOneProbe-${top_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
 
