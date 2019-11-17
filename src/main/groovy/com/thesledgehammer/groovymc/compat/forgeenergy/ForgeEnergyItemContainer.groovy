@@ -5,6 +5,7 @@
  */
 package com.thesledgehammer.groovymc.compat.forgeenergy
 
+import com.thesledgehammer.groovymc.api.forgeenergy.IForgeEnergyItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT

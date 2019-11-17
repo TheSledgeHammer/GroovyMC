@@ -3,8 +3,9 @@
  * http://www.teamcofh.com
  * Modified by TheSledgeHammer 2018: From ItemEnergyContainerCap
  */
-package com.thesledgehammer.groovymc.compat.forgeenergy
+package com.thesledgehammer.groovymc.api.forgeenergy
 
+import com.thesledgehammer.groovymc.compat.forgeenergy.ForgeEnergyItemContainer
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT

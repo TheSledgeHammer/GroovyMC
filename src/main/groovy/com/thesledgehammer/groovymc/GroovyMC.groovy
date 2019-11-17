@@ -14,7 +14,7 @@ class GroovyMC {
 
 	static GroovyMC instance;
 
-	private static final Logger LOGGER = LogManager.getLogger();
+	static final Logger LOGGER = LogManager.getLogger();
 
 	GroovyMC() {
 		instance = this;

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 /*
+package com.thesledgehammer.groovymc.compat.modules.theoneprobe
+
 import com.google.common.base.Function
 import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
 import mcjty.theoneprobe.api.ITheOneProbe
-import net.minecraftforge.fml.common.event.FMLInterModComms
 import org.apache.logging.log4j.Level
 
 import javax.annotation.Nullable
@@ -56,7 +56,7 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
             return;
         }
         registered = true;
-        FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
+        //FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
     }
 
     @Nullable
@@ -68,19 +68,3 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
     }
 }
 */
-
-/* theOneProbe.registerProvider(new IProbeInfoProvider() {
-
-     @Override
-     String getID() {
-         return "groovymc:TheOneProbeCompatibilityModule"
-     }
-
-     @Override
-     void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-         if(blockState.getBlock() instanceof IProbeInfoProvider) {
-             IProbeInfoProvider blockProvider = (IProbeInfoProvider) blockState.getBlock();
-             blockProvider.addProbeInfo(mode, probeInfo, player, world, blockState, data);
-         }
-     }
- });*/

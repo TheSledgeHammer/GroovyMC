@@ -3,7 +3,7 @@
  * http://www.teamcofh.com
  * Modified by TheSledgeHammer 2018: IEnergyContainerItem
  */
-package com.thesledgehammer.groovymc.compat.forgeenergy
+package com.thesledgehammer.groovymc.api.forgeenergy
 
 import net.minecraft.item.ItemStack
 

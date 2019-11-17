@@ -81,7 +81,7 @@ minecraft {
 			// Recommended logging level for the console
 			property 'forge.logging.console.level', 'debug'
 
-			args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
+			args '--mod', 'groovymc', '--all', '--output', file('src/generated/resources/')
 
 			mods {
 				groovymc {
@@ -96,7 +96,7 @@ dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
-	compile "mcjty.theoneprobe:TheOneProbe-${top_version}"
+	//compile "mcjty.theoneprobe:TheOneProbe-1.14:${top_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
 
