@@ -6,7 +6,6 @@ class Constants {
 
     static final String MOD_NAME = "GroovyMC";
     static final String MOD_ID = GroovyMC.MOD_ID;
-    static final String VERSION = GroovyMC.VERSION;
     static final String AUTHOR = "TheSledgeHammer";
 
     static final String MOD_PATH = "src/main";

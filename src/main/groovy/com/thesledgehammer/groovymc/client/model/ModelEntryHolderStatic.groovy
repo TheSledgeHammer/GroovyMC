@@ -98,7 +98,7 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
     }
 
     private MutableQuad[] bakePartFace(ArrayList<GroovysonObjectPart > modelParts, Direction face) {
-        TextureAtlasSprite missingSprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+        TextureAtlasSprite missingSprite = Minecraft.getInstance().getTextureMap().missingImage;//.getMissingSprite();
         List<MutableQuad> list = new ArrayList<>();
         for (GroovysonObjectPart part : modelParts) {
             for (JsonQuads quad : JsonTools.Quads(modelParts, face)) {
@@ -115,7 +115,7 @@ class ModelEntryHolderStatic extends ModelEntryHolder {
                 if (lookup.startsWith("#") || lookup.startsWith("~")) {
                     sprite = missingSprite;
                 } else {
-                    sprite = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(lookup);
+                    sprite = Minecraft.getInstance().getTextureMap().getAtlasSprite(lookup);
                 }
                 list.add(quad.toQuad(sprite));
             }

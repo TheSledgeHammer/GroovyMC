@@ -28,7 +28,6 @@ class CapabilityMj {
     @CapabilityInject(IMjStorage.class)
     static Capability<IMjStorage> MJ_STORAGE = null;
 
-    //@SubscribeEvent
     static void register() {
         CapabilityManager.INSTANCE.register(IMjStorage.class, new Capability.IStorage<IMjStorage>() {
             @Override

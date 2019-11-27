@@ -1,28 +1,32 @@
 package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovyforge.FMLGroovyModLoadingContext
-import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
+import com.thesledgehammer.groovymc.modules.ModuleContainerManager
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.ModContainer
+import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
 @Mod(GroovyMC.MOD_ID)
+@Mod.EventBusSubscriber(modid = GroovyMC.MOD_ID)
 class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
 
 	static GroovyMC instance;
+	static ModContainer MOD_CONTAINER;
 
 	static final Logger LOGGER = LogManager.getLogger();
 
 	GroovyMC() {
 		instance = this;
-		//ModEventBusRegister(EventRegistry.class);
-		//ModEventBusRegister(CapabilityMj.class);
-		//FMLGroovyModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, CapabilityMj.);
-		//ModEventBusRegister(RenderEventModuleContainer.class);
-		CapabilityMj.register();
+		MOD_CONTAINER = ModLoadingContext.get().getActiveContainer();
+
+		ModuleContainerManager.preInit();
+		ModuleContainerManager.Init();
+		ModuleContainerManager.postInit();
 		Registry.init();
 		MinecraftForge.EVENT_BUS.register(this);
 	}

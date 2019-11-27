@@ -15,66 +15,65 @@
  */
 
 package com.thesledgehammer.groovymc.client.definitions
-//import net.minecraft.client.renderer.texture.TextureMap
 
-/*
+
+import net.minecraft.client.renderer.texture.AtlasTexture
+import net.minecraft.client.renderer.texture.ISprite
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.resources.IResourceManager
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+
 @OnlyIn(Dist.CLIENT)
 class GroovyISpriteDefinition implements ISprite {
 
-    private final ResourceLocation spriteLocation;
     private TextureAtlasSprite sprite;
 
-    protected GroovyISpriteDefinition(ResourceLocation spriteLocation) {
-        this.spriteLocation = spriteLocation;
-        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation);
+    protected GroovyISpriteDefinition(String spriteName, int widthIn, int heightIn) {
+        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteName, widthIn, heightIn);
     }
 
-    protected GroovyISpriteDefinition(String modID, String baseName) {
-        this.spriteLocation = new ResourceLocation(modID, baseName);
-        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName);
+    protected GroovyISpriteDefinition(ResourceLocation spriteLocation, int widthIn, int heightIn) {
+        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteLocation, widthIn, heightIn);
     }
 
-    protected GroovyISpriteDefinition(String baseName) {
-        this.spriteLocation = new ResourceLocation(GroovyLoader.Instance().getModID(), baseName);
-        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(baseName);
+    protected GroovyISpriteDefinition(String modID, String baseName, int widthIn, int heightIn) {
+        this.sprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName, widthIn, heightIn);
     }
 
-    static TextureAtlasSprite createForConfig(ResourceLocation baseName) {
-        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName);
+    static TextureAtlasSprite createForConfig(ResourceLocation baseName, int widthIn, int heightIn) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName, widthIn, heightIn);
         return iSprite.getTextureAtlasSprite();
     }
 
-    static TextureAtlasSprite createForConfig(String modID, String baseName) {
-        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(modID, baseName);
+    static TextureAtlasSprite createForConfig(String baseName, int widthIn, int heightIn) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName, widthIn, heightIn);
         return iSprite.getTextureAtlasSprite();
     }
 
-    static TextureAtlasSprite createForConfig(String baseName) {
-        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName);
+    static TextureAtlasSprite createForConfig(String modID, String baseName, int widthIn, int heightIn) {
+        GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(modID, baseName, widthIn, heightIn);
         return iSprite.getTextureAtlasSprite();
     }
 
-    static void onTextureStitchPre(TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
-        //TextureMap map = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry()
-        TextureAtlasSprite spriteVar = createForConfig(spriteLocation);
-        if(map.setTextureEntry(spriteVar)) {
+    static void onTextureStitchPre(AtlasTexture map, TextureAtlasSprite sprite, ResourceLocation spriteLocation) {
+        int widthIn = map.getSprite(spriteLocation).getWidth();
+        int heightIn = map.getSprite(spriteLocation).getHeight();
+
+        TextureAtlasSprite spriteVar = createForConfig(spriteLocation, widthIn, heightIn);
+
+        if(map.getSprite(spriteVar.getName()) && spriteVar.getWidth() == widthIn && spriteVar.getHeight() == heightIn) {
             sprite = spriteVar;
         } else {
-            sprite = map.getTextureExtry(spriteVar.getIconName());
+            sprite = map.getAtlasSprite(spriteVar.toString());
         }
     }
 
-    @Override
-    void bindTexture() {
-        SpriteTools.BindBlockTextureMap();
-    }
-
-    @Override
     double getInterpU(double u) {
         return sprite.getInterpolatedU(u * 16);
     }
 
-    @Override
     double getInterpV(double v) {
         return sprite.getInterpolatedV(v * 16);
     }
@@ -82,6 +81,4 @@ class GroovyISpriteDefinition implements ISprite {
     private TextureAtlasSprite getTextureAtlasSprite() {
         return sprite;
     }
-
 }
-*/

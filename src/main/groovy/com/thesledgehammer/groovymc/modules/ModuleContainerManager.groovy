@@ -18,12 +18,12 @@ package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 
-class ModuleContainers {
+class ModuleContainerManager {
 
     static void preInit() {
         CapabilityMj.register();
-        CompatModuleContainer.preInit();
-        RenderEventModuleContainer.preInit();
+       CompatModuleContainer.preInit();
+       RenderEventModuleContainer.preInit();
     }
 
     static void Init() {

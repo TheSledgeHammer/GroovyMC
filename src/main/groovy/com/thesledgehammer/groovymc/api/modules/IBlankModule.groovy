@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
+/* Redesign to better suit 1.14 & beyond */
 interface IBlankModule {
 
     void preInit();

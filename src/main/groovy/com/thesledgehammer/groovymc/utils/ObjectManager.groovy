@@ -58,7 +58,7 @@ class ObjectManager {
 	private static void registerItemColor() {
 		for (IItemColor itemColor : itemColorList) {
 			if (itemColor instanceof Item) {
-				Minecraft.instance.getItemColors().register(ColoredItemItemColor.INSTANCE, (Item) itemColor);
+				Minecraft.getInstance().getItemColors().register(ColoredItemItemColor.INSTANCE, (Item) itemColor);
 			}
 		}
 	}
@@ -67,7 +67,7 @@ class ObjectManager {
 	private static void registerBlockColor() {
 		for (IBlockColor blockColor : blockColorList) {
 			if (blockColor instanceof Block) {
-				Minecraft.instance.getBlockColors().register(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
+				Minecraft.getInstance().getBlockColors().register(ColoredBlockBlockColor.INSTANCE, (Block) blockColor);
 			}
 		}
 	}

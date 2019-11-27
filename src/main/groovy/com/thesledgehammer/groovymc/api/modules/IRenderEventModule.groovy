@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.api.modules
 
+import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.event.ModelBakeEvent
@@ -26,5 +27,5 @@ interface IRenderEventModule {
     void onModelBake(ModelBakeEvent event);
 
     @OnlyIn(Dist.CLIENT)
-    void onTextureStitchPre(/*TextureMap textureMap*/);
+    void onTextureStitchPre(AtlasTexture map);
 }

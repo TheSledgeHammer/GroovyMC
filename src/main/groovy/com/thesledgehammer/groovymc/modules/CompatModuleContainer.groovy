@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
+import net.minecraftforge.fml.ModList
 
 class CompatModuleContainer {
 
@@ -58,10 +59,11 @@ class CompatModuleContainer {
     }
 
     private static boolean isRegistered(BlankCompatModule module) {
+        ModList modList = ModList.get();
         if(module != null) {
-            //if(Loader.isModLoaded(module.getModID())) {
+            if(modList.isLoaded(module.getModID())) {
                 return true;
-            //}
+            }
         }
         return false;
     }

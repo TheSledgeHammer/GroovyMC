@@ -8,7 +8,7 @@
 package com.thesledgehammer.groovymc.api.client;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-
+/* May replace with Forge ISprite */
 /** Holds information on some sort of sprite. These might not be part of the main texture atlas (they might be from a
  * GUI texture), in which case {@link #bindTexture()} should be called before using the results from
  * {@link #getInterpU(double)} or {@link #getInterpV(double)}
