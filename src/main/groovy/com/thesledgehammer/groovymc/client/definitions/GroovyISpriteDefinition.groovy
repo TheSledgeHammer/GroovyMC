@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.client.definitions
 
-
 import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraft.client.renderer.texture.ISprite
 import net.minecraft.client.renderer.texture.TextureAtlasSprite

@@ -10,6 +10,7 @@ package com.thesledgehammer.groovymc.client.model.json
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
+import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.MathTools
 import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import net.minecraft.util.Direction
@@ -35,8 +36,8 @@ abstract class GroovysonVariableCuboidBase {
 
     void addQuads(GroovysonObjectPart parts, List<MutableQuad> addTo, ITextureGetter spriteLookup) {
         if (GDC.getVariableVisible(parts).getValue()) {
-            float[] from = bakePosition(GDC.getVariableFrom(parts));
-            float[] to = bakePosition(GDC.getVariableTo(parts));
+            float[] from = JsonTools.bakePosition(GDC.getVariableFrom(parts));
+            float[] to = JsonTools.bakePosition(GDC.getVariableTo(parts));
             boolean shade = GDC.getVariableShade(parts).getValue();
             int l = (int) (GDC.getVariableLight(parts).getValue() & 15);
             int rgba = MathTools.swapARGBforABGR((int) GDC.getVariableColour(parts).getValue());
@@ -63,13 +64,6 @@ abstract class GroovysonVariableCuboidBase {
                 }
             }
         }
-    }
-
-    private static float[] bakePosition(List<VariableDouble> vIn) {
-        float x = (float) (vIn.get(0).getValue() / 16f);
-        float y = (float) (vIn.get(1).getValue() / 16f);
-        float z = (float) (vIn.get(2).getValue() / 16f);
-        return [x, y, z];
     }
 
     protected abstract VariableFaceData getFaceData(GroovysonObjectPart objectPart, Direction side, ITextureGetter spriteLookup);

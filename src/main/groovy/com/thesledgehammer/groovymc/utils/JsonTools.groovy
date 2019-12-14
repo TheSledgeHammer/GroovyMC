@@ -18,6 +18,7 @@ package com.thesledgehammer.groovymc.utils
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
 import com.thesledgehammer.groovymc.client.model.json.JsonQuads
+import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import net.minecraft.util.Direction
 
 class JsonTools {
@@ -37,5 +38,12 @@ class JsonTools {
             return null;
         }
         return Quads(modelParts, face)[rawModelTexture];
+    }
+
+    static float[] bakePosition(List<VariableDouble> vIn) {
+        float x = (float) (vIn.get(0).getValue() / 16f);
+        float y = (float) (vIn.get(1).getValue() / 16f);
+        float z = (float) (vIn.get(2).getValue() / 16f);
+        return [x, y, z];
     }
 }
