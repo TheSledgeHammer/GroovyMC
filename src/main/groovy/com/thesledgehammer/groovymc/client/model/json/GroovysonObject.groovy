@@ -44,7 +44,7 @@ class GroovysonObject {
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
-        GroovyResourceLoaderContext.deserializeJson(resourceDomain, resourcePath);
+        this.obj = GroovyResourceLoaderContext.deserializeJson(resourceDomain, resourcePath);
 /*
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));

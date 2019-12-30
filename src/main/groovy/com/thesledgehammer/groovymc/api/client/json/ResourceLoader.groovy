@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2017 SpaceToad and the BuildCraft team
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
+ * distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/
+ * Modified by TheSledgeHammer 2018: Converted to .groovy
+ */
+
 package com.thesledgehammer.groovymc.api.client.json
 
 import groovy.json.JsonException
@@ -6,8 +13,7 @@ import net.minecraft.resources.IResource
 import net.minecraft.util.ResourceLocation
 
 import java.nio.charset.StandardCharsets
-//Temporary: Referenced from Buildcraft's ResourceLoaderContext
-//Likely to Change or be Refactored
+
 class ResourceLoader {
 
     private final Set<ResourceLocation> loaded = new HashSet<>();
