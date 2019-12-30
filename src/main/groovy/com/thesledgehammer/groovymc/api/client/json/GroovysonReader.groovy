@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation
 
 /**
  * Allows for reading of resource in either .json or .xml format.
+ * For use with GroovysonObjects refer to GroovysonLoaderContext
  */
 class GroovysonReader {
 

@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.compat.forgeenergy
 
 import com.thesledgehammer.groovymc.api.INBTCompound
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
