@@ -17,12 +17,13 @@
 package com.thesledgehammer.groovymc.experimental.misc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
-
 import com.thesledgehammer.groovymc.config.Constants
 
 class JsonTest {
 
     static void main(String[] args) {
         GroovyLoader GL = new GroovyLoader(Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);
+
+        print(GL.getModResourcePath())
     }
 }
