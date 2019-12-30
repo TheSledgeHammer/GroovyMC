@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.api.client.json.GroovysonReader
+import com.thesledgehammer.groovymc.api.client.json.GroovyResourceLoaderContext
 import groovy.json.JsonException
 import net.minecraft.util.ResourceLocation
 
@@ -31,23 +32,25 @@ class GroovysonObject {
 
     GroovysonObject(String path, ResourceLocation resourceLocation) {
         String fileName = GroovysonReader.ResourcePath(path, resourceLocation);
+        this.obj = GroovyResourceLoaderContext.deserializeJson(resourceLocation);
 /*
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceLocation));
         isr.finishLoading();
 */
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+        //this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 
     GroovysonObject(String path, String resourceDomain, String resourcePath) {
         String fileName = GroovysonReader.ResourcePath(path, resourceDomain, resourcePath);
+        GroovyResourceLoaderContext.deserializeJson(resourceDomain, resourcePath);
 /*
         ResourceLoader isr = new ResourceLoader();
         this.obj = GroovysonReader.JsonSlurpy(isr.startLoading(resourceDomain, resourcePath));
         isr.finishLoading();
 */
-        this.obj = GroovysonReader.JsonSlurpy(fileName);
+       // this.obj = GroovysonReader.JsonSlurpy(fileName);
         this.name = GroovysonReader.getFileName();
     }
 

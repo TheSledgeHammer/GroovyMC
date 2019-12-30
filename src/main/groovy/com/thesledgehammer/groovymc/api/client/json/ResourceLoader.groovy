@@ -1,4 +1,4 @@
-package com.thesledgehammer.groovymc.client.model
+package com.thesledgehammer.groovymc.api.client.json
 
 import groovy.json.JsonException
 import net.minecraft.client.Minecraft
