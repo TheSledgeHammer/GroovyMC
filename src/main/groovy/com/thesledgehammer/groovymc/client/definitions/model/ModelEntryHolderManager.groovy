@@ -22,14 +22,12 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.model.IBakedModel
 import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraft.client.renderer.texture.TextureManager
-import net.minecraft.resources.IResourceManager
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.client.event.ModelBakeEvent
 
 //import net.minecraft.client.renderer.texture.TextureMap
-
-import net.minecraftforge.client.event.ModelBakeEvent
 
 @OnlyIn(Dist.CLIENT)
 class ModelEntryHolderManager /*implements IModelEntryHolderManager*/ {

@@ -1,9 +1,8 @@
 package com.thesledgehammer.groovymc
 
-import com.thesledgehammer.groovymc.blocks.GroovyBlock
+
 import com.thesledgehammer.groovymc.items.GroovyBlockItem
 import net.minecraft.block.Block
-import net.minecraft.block.material.Material
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
@@ -15,11 +14,11 @@ import javax.annotation.Nullable
 
 class Registry {
 
-    static GroovyBlock block;
+    static Item comb;
 
     static void init() {
-        block = new GroovyBlock(Material.IRON);
-        registerBlock(block, ItemGroup.MISC, "test");
+       // comb = new ItemComb();
+        //registerItem(comb, "beecomb");
     }
 
     private static <T extends Item> T registerItem(T item, String name) {

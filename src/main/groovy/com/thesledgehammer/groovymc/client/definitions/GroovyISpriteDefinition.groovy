@@ -19,7 +19,6 @@ package com.thesledgehammer.groovymc.client.definitions
 import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraft.client.renderer.texture.ISprite
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
-import net.minecraft.resources.IResourceManager
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn

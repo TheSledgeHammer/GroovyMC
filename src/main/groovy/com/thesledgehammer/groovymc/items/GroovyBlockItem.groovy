@@ -32,6 +32,10 @@ class GroovyBlockItem<B extends Block> extends BlockItem {
         super(block, properties.group(itemGroup));
     }
 
+    GroovyBlockItem(B block, ItemGroup itemGroup) {
+        super(block, new Item.Properties().group(itemGroup));
+    }
+
     @Override
     String getTranslationKey(ItemStack itemstack) {
         Block block = this.block;

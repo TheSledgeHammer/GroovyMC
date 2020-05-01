@@ -8,6 +8,7 @@
 package com.thesledgehammer.groovymc.client.model.json
 
 import com.thesledgehammer.groovymc.client.model.ModelUtil
+import com.thesledgehammer.groovymc.utils.GPrimitives
 import com.thesledgehammer.groovymc.utils.MathTools
 import groovy.json.JsonException
 import net.minecraft.util.Direction
@@ -38,9 +39,9 @@ class JsonTexture {
             double[] arr = new double[4];
             for (int i = 0; i < 4; i++) {
                 def elem = uvs.get(i);
-                if (MathTools.isPrimitive(elem) && MathTools.isNumber(elem)) {
+                if (GPrimitives.isPrimitive(elem) && GPrimitives.isNumber(elem)) {
                     arr[i] = elem as double;
-                } else if (MathTools.isPrimitive(elem) && MathTools.isString(elem)) {
+                } else if (GPrimitives.isPrimitive(elem) && GPrimitives.isString(elem)) {
                     //TODO: if its a String, refer to MathTools/ StringTools for method implementation
                     //Look at BC subproject lib/expression
                 } else {

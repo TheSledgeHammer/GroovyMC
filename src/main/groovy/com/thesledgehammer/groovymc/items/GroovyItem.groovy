@@ -28,4 +28,8 @@ class GroovyItem extends Item {
     GroovyItem(Item.Properties properties, ItemGroup itemGroup) {
         super(properties.group(itemGroup));
     }
+
+    GroovyItem(ItemGroup itemGroup) {
+        this(new Item.Properties().group(itemGroup));
+    }
 }

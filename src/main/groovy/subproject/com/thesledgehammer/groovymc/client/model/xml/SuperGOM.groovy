@@ -120,7 +120,7 @@ class SuperGOM {
     }
 
     static def readSuperGOM(String modelVersion) {
-        def xml = new XmlSlurper();
+        def xml = new groovy.xml.XmlSlurper();
         def superGom = xml.parse(new FileReader("${PATH}gom-${modelVersion}.xml"))
         return superGom;
     }

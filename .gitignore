@@ -10,6 +10,7 @@
 *.ipr
 *.iws
 *.idea
+.classpath
 /bin
 /build
 /config
@@ -24,4 +25,4 @@
 usernamecache.json
 usercache.json
 options.txt
-.classpath
+

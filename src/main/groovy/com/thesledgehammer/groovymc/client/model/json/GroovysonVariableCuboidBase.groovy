@@ -12,7 +12,6 @@ import com.thesledgehammer.groovymc.client.model.ModelUtil
 import com.thesledgehammer.groovymc.client.model.MutableQuad
 import com.thesledgehammer.groovymc.utils.JsonTools
 import com.thesledgehammer.groovymc.utils.MathTools
-import com.thesledgehammer.groovymc.utils.variables.VariableDouble
 import net.minecraft.util.Direction
 
 import javax.vecmath.Vector3f

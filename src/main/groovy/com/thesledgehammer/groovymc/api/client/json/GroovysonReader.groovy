@@ -89,13 +89,13 @@ class GroovysonReader {
 
     //Converts an Xml File to a readable XmlObject
     static def XmlSlurpy(String xmlFile) {
-        def slurpinator = new XmlSlurper();
+        def slurpinator = new groovy.xml.XmlSlurper();
         def xmlObject = slurpinator.parse(new FileReader("${xmlFile}.xml"))
         return xmlObject;
     }
 
     static def XmlSlurpy(Reader xmlFile) {
-        def slurpinator = new XmlSlurper();
+        def slurpinator = new groovy.xml.XmlSlurper()();
         def xmlObject = slurpinator.parse(xmlFile);
         return xmlObject;
     }
