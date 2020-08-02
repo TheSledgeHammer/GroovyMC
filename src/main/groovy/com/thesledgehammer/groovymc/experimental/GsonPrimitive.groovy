@@ -1,7 +1,6 @@
 package com.thesledgehammer.groovymc.experimental
 
 import com.thesledgehammer.groovymc.utils.GPrimitives
-import net.minecraft.util.ResourceLocation
 
 class GsonPrimitive {
 

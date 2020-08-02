@@ -1,7 +1,6 @@
 package com.thesledgehammer.groovymc
 
-import com.thesledgehammer.groovymc.modules.ModuleContainerManager
-import net.minecraft.util.ResourceLocation
+
 import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
