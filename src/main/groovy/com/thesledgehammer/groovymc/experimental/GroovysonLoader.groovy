@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.model.IUnbakedModel
 import net.minecraft.resources.IResource
 import net.minecraft.resources.IResourceManager
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.model.ICustomModelLoader
+import net.minecraftforge.client.model.IModelLoader
 import net.minecraftforge.client.model.ModelLoaderRegistry
 import org.apache.commons.io.IOUtils
 import org.apache.logging.log4j.LogManager
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger
 //ICustomModelLoader requires IUnbakedModel
 //ResourceLoader
 //GroovyUnbakedModel
-enum GroovysonLoader implements ICustomModelLoader {
+enum GroovysonLoader implements IModelLoader {
     INSTANCE;
 
     private static final Logger LOGGER = LogManager.getLogger();

@@ -24,8 +24,11 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IEnviromentBlockReader
+import net.minecraft.world.IBlockDisplayReader
 import net.minecraftforge.api.distmarker.Dist
+
+//import net.minecraft.world.IEnviromentBlockReader
+
 import net.minecraftforge.api.distmarker.OnlyIn
 
 import javax.annotation.Nullable
@@ -99,7 +102,7 @@ class ObjectManager {
 		}
 
 		@Override
-		int getColor(BlockState state, @Nullable IEnviromentBlockReader worldIn, @Nullable BlockPos pos, int tintIndex) {
+		int getColor(BlockState state, @Nullable IBlockDisplayReader worldIn, @Nullable BlockPos pos, int tintIndex) {
 			Block block = state.getBlock();
 			if (block instanceof IBlockColor) {
 				return ((IBlockColor) block).getColor(state, worldIn, pos, tintIndex);

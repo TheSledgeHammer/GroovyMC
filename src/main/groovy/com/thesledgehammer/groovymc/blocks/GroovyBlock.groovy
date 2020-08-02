@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 
@@ -26,11 +25,11 @@ import net.minecraft.block.material.Material
 
 class GroovyBlock extends Block {
 
-    GroovyBlock(Block.Properties properties) {
+    GroovyBlock(Properties properties) {
         super(properties.hardnessAndResistance(1.5F));
     }
 
     GroovyBlock(Material material) {
-        super(Block.Properties.create(material).hardnessAndResistance(1.5F));
+        super(Properties.create(material).hardnessAndResistance(1.5F));
     }
 }
