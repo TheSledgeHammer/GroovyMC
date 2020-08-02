@@ -10,13 +10,6 @@ import javax.annotation.Nullable
 
 //BlockState: contains methods related to renderShape, collisionShape, RaytraceShape
 class VoxelShapeTools {
-/*
-    private VoxelShape shape;
-
-    VoxelShapeTools(VoxelShape shape) {
-        this.shape = shape;
-    }
-    */
 
     @Nullable
     static BlockRayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
@@ -31,6 +24,12 @@ class VoxelShapeTools {
         return rayTrace == null ? null : new BlockRayTraceResult(rayTrace.getHitVec().add((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), rayTrace.getFace(), rayTrace.getPos(), rayTrace.isInside());
     }
 /*
+    private VoxelShape shape;
+
+    VoxelShapeTools(VoxelShape shape) {
+        this.shape = shape;
+    }
+
     void setVoxelShape(double x1, double y1, double z1, double x2, double y2, double z2) {
         this.shape = VoxelShapes.create(x1, y1, z1, x2, y2, z2);
     }

@@ -1,11 +1,8 @@
 buildscript {
 	repositories {
+		maven { url = 'https://files.minecraftforge.net/maven' }
 		jcenter()
 		mavenCentral()
-		maven {
-			name = "forge"
-			url = "http://files.minecraftforge.net/maven"
-		}
 	}
 	dependencies {
 		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
@@ -40,14 +37,10 @@ repositories {
 		name = "TheSledgeHammer"
 		url = "https://dl.bintray.com/thesledgehammer/development/"
 	}
-	maven {
-		name = "tterrag maven (TOP)"
-		url = "https://maven.tterrag.com/"
-	}
 }
 
 minecraft {
-	mappings channel: 'snapshot', version: "${mcp_mappings}-${mc_mappings_version}"
+	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
 	runs {
 		client {
             workingDirectory project.file('run')
@@ -55,7 +48,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                groovymc {
+                groovyforge {
                     source sourceSets.main
 				}
             }
@@ -66,29 +59,29 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                groovymc {
+                groovyforge {
                     source sourceSets.main
                 }
             }
         }
 
 		data {
-			workingDirectory project.file('run')
+            workingDirectory project.file('run')
 
-			// Recommended logging data for a userdev environment
-			property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-			// Recommended logging level for the console
-			property 'forge.logging.console.level', 'debug'
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
 
-			args '--mod', 'groovymc', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'groovymc', '--all', '--output', file('src/generated/resources/')
 
-			mods {
-				groovymc {
-					source sourceSets.main
-				}
-			}
-		}
+            mods {
+                groovyforge {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
@@ -104,7 +97,7 @@ jar {
 	manifest {
 		attributes(['Specification-Title': 'groovymc',
 					'Specification-Vendor': 'TheSledgeHammer',
-					'Specification-Version': "2.5",
+					'Specification-Version': "3",
 					'Implementation-Title': "GroovyMC",
 					'Implementation-Version': "${version}",
 					'Implementation-Vendor' :'GroovyMC',

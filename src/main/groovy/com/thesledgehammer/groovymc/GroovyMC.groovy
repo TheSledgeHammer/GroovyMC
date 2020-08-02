@@ -21,10 +21,10 @@ class GroovyMC {
 		INSTANCE = this;
 		MOD_CONTAINER = ModLoadingContext.get().getActiveContainer();
 
-		ModuleContainerManager.preInit();
-		ModuleContainerManager.Init();
-		ModuleContainerManager.postInit();
-		Registry.init();
+		//ModuleContainerManager.preInit();
+		//ModuleContainerManager.Init();
+		//ModuleContainerManager.postInit();
+		//Registry.init();
 	}
 
 //	ResourceLocation
