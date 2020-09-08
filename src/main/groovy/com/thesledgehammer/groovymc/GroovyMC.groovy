@@ -26,7 +26,6 @@ class GroovyMC {
 		//Registry.init();
 	}
 
-//	ResourceLocation
 
 	//GroovyLoader Example:
 	//private static final GroovyLoader groovyLoader = new GroovyLoader(Constants.MOD_PATH, Constants.RESOURCE_PATH, Constants.GROOVY_JVM, Constants.URL, Constants.MOD_ID);

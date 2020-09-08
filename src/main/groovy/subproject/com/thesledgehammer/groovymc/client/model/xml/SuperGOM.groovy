@@ -16,14 +16,38 @@
 
 package subproject.com.thesledgehammer.groovymc.client.model.xml
 
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 import groovy.xml.MarkupBuilder
 
 class SuperGOM {
 
-    static String CURRENT_VERSION = "1.0.1";
+    static String CURRENT_VERSION = "1.0.2";
     static String PATH = "src/main/groovy/subproject/resources/gom/"
 
-    static void writeSuperGOM(String modelVersion) {
+    static void writeSuperGOM(String modelVersion, String type) {
+        if(type == "xml") {
+            writeToXML(modelVersion);
+        }
+        if(type == "json") {
+            writeToJson(modelVersion);
+        }
+    }
+
+    static def readSuperGOM(String modelVersion, String type) {
+        def superGom = null
+        if(type == "xml") {
+            def xml = new groovy.xml.XmlSlurper();
+            superGom = xml.parse(new FileReader("${PATH}gom-${modelVersion}.xml"));
+        }
+        if(type == "json") {
+            def json = new JsonSlurper();
+            superGom = json.parse(new FileReader("${PATH}gom-${modelVersion}.json"));
+        }
+        return superGom;
+    }
+
+    static void writeToXML(String modelVersion) {
         def writer = new FileWriter("${PATH}gom-${modelVersion}.xml");
         def xml = new MarkupBuilder(writer);
 
@@ -119,9 +143,102 @@ class SuperGOM {
         writer.close();
     }
 
-    static def readSuperGOM(String modelVersion) {
-        def xml = new groovy.xml.XmlSlurper();
-        def superGom = xml.parse(new FileReader("${PATH}gom-${modelVersion}.xml"))
-        return superGom;
+    static void writeToJson(String modelVersion) {
+        def writer = new FileWriter("${PATH}gom-${modelVersion}.json");
+        def json = new JsonBuilder(writer);
+
+        json.gom {
+            modelversion(modelVersion)
+            parent()
+            textures {
+
+            }
+            shade()
+            rules {
+                when()
+                type()
+                from()
+                to()
+                origin()
+                angle()
+                scale()
+            }
+            elements {
+                element {
+                    name()
+                    from()
+                    to()
+                    light()
+                    render()
+                    faces {
+                        up {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                        down {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                        north {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                        east {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                        west {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                        south {
+                            uv()
+                            texture()
+                            cullface()
+                            rotation()
+                            tint()
+                        }
+                    }
+                    rotation {
+                        origin()
+                        axis()
+                        angle()
+                        rescale()
+                    }
+                    shade()
+                    colour()
+                    visible()
+                    invert()
+                    bothsides()
+                }
+            }
+            display {
+                name()
+                translation()
+                rotation()
+                scale()
+            }
+            values()
+            ambientocculusion()
+        }
+
+        String gomString = json.toPrettyString();
+        writer.write(gomString);
+        writer.close();
     }
 }

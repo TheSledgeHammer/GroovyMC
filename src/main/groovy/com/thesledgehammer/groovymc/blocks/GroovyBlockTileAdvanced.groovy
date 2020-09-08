@@ -30,6 +30,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
@@ -132,7 +133,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     @OnlyIn(Dist.CLIENT)
-    RayTraceResult collisionRayTrace(BlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+    RayTraceResult collisionRayTrace(BlockState blockState, World worldIn, BlockPos pos, Vector3d start, Vector3d end) {
         IMachineProperties definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
     }

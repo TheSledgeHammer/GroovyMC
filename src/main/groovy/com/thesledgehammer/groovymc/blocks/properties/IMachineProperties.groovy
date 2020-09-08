@@ -20,7 +20,7 @@ import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
@@ -52,7 +52,7 @@ interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializa
     AxisAlignedBB getBoundingBox(IBlockReader world, BlockPos pos, BlockState state);
 
     @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vec3d startVec, Vec3d endVec);
+    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vector3d startVec, Vector3d endVec);
 
     @Override
     @OnlyIn(Dist.CLIENT)

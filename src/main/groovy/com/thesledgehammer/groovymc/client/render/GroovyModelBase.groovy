@@ -16,19 +16,27 @@
 
 package com.thesledgehammer.groovymc.client.render
 
+import com.mojang.blaze3d.matrix.MatrixStack
+import com.mojang.blaze3d.vertex.IVertexBuilder
 import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 import com.thesledgehammer.groovymc.client.model.GroovyStaticModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-import net.minecraft.client.renderer.entity.model.RendererModel
+import net.minecraft.client.renderer.RenderType
+import net.minecraft.client.renderer.model.BakedQuad
+import net.minecraft.client.renderer.model.ModelRenderer
 import net.minecraft.client.renderer.model.Model
+import net.minecraft.util.ResourceLocation
+
+import java.util.function.Function
 
 class GroovyModelBase extends Model {
 
     private GroovyStaticModel model;
     private GroovyDefinitionContext GDC = GroovyDefinitionContext.Instance();
-    private Map<GroovysonObjectPart, RendererModel> rendererMap = new HashMap<>();
+    private Map<GroovysonObjectPart, ModelRenderer> rendererMap = new HashMap<>();
 
-    GroovyModelBase(GroovyStaticModel model) {
+    GroovyModelBase(Function<ResourceLocation, RenderType> renderTypeIn, GroovyStaticModel model) {
+        super(renderTypeIn);
         this.model = model;
         addRenderModelParts();
         for(GroovysonObjectPart parts : model.getModelElements()) {
@@ -40,22 +48,22 @@ class GroovyModelBase extends Model {
             GDC.setStaticRotationAxis(parts);
         }
     }
-
+    
     GroovyStaticModel getGroovyModel() {
         return model;
     }
 
     private void addRenderModelParts() {
         for(GroovysonObjectPart parts : model.getModelElements()) {
-            rendererMap.put(parts, new RendererModel(this));
+            rendererMap.put(parts, new ModelRenderer(this));
         }
     }
 
-    RendererModel getRenderModelByModelElement(int index) {
+    ModelRenderer getRenderModelByModelElement(int index) {
        return rendererMap.get(model.getModelElements(index));
     }
 
-    RendererModel getRenderModelByModelElement(GroovysonObjectPart part) {
+    ModelRenderer getRenderModelByModelElement(GroovysonObjectPart part) {
         return rendererMap.get(part);
     }
 
@@ -98,5 +106,11 @@ class GroovyModelBase extends Model {
             rendererMap.get(part).rotateAngleY = GDC.getStaticRotationAngle(part).get(1) as float;
             rendererMap.get(part).rotateAngleZ = GDC.getStaticRotationAngle(part).get(2) as float;
         }
+    }
+
+    @Override
+    void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        BakedQuad bakedQuad = new BakedQuad(vertexData, tintIndex, face, sprite, field_239286_e_);
+        bufferIn.addQuad(matrixStackIn.getLast(), bakedQuad, red, green, blue, packedLightIn, packedOverlayIn);
     }
 }

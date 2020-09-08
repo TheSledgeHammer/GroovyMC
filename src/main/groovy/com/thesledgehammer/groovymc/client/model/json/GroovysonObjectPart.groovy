@@ -133,12 +133,12 @@ class GroovysonObjectPart {
         return Facing(face).tintindex;
     }
 
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
-    String BlockRenderType() {
+    /* Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc... */
+    String BlockRenderType() { //Convert to RenderType
         return part.render;
     }
 
-    //Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc...
+    /* Refers to BlockRenderLayer: I.e. Cutout, Translucent, Cutout_Mipped, etc... */
     def BlockRenderType(String renderType) {
         String render = renderType.toLowerCase();
         if (part.render.get(render) == null) {

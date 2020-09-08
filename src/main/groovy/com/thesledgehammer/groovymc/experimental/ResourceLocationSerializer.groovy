@@ -22,7 +22,7 @@ class ResourceLocationSerializer extends ResourceLocation.Serializer {
 
     @Override
     JsonElement serialize(ResourceLocation src, Type typeOfSrc, JsonSerializationContext context) {
-        return new GsonPrimitive(src.toString());
+        return new GsonPrimitive(src.toString()) as JsonElement;
     }
 
     static class Serialize implements GroovysonSerializer<GroovysonObject>, GroovysonDeserializer<GroovysonObject> {
@@ -54,5 +54,4 @@ Todo:
   - Abstraction of gson to jsonsluper/jsonparser & vice-versa
 Key Minecraft Resource Components:
   - ResourceLocation, ResourceLocationException, TranslationTextComponent, ICustomModelLoader, ISelectiveResourceReloadListener, IResourceManagerReloadListener, IResourceManager, IResource, IResourceType
-
  */

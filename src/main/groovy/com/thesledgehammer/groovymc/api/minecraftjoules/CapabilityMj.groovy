@@ -32,7 +32,7 @@ class CapabilityMj {
         CapabilityManager.INSTANCE.register(IMjStorage.class, new Capability.IStorage<IMjStorage>() {
             @Override
             INBT writeNBT(Capability<IMjStorage> capability, IMjStorage instance, Direction side) {
-                return new LongNBT(instance.getStored());
+                return LongNBT.valueOf(instance.getStored());
             }
 
             @Override

@@ -24,10 +24,14 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
 @OnlyIn(Dist.CLIENT)
-class GroovyISpriteDefinition implements ISprite {
+class GroovyISpriteDefinition extends AtlasTexture {
 
     private TextureAtlasSprite sprite;
 
+    GroovyISpriteDefinition(ResourceLocation textureLocationIn) {
+        super(textureLocationIn);
+    }
+/*
     protected GroovyISpriteDefinition(String spriteName, int widthIn, int heightIn) {
         this.sprite = GroovyAtlasSpriteDefinition.createForConfig(spriteName, widthIn, heightIn);
     }
@@ -39,7 +43,7 @@ class GroovyISpriteDefinition implements ISprite {
     protected GroovyISpriteDefinition(String modID, String baseName, int widthIn, int heightIn) {
         this.sprite = GroovyAtlasSpriteDefinition.createForConfig(modID, baseName, widthIn, heightIn);
     }
-
+*/
     static TextureAtlasSprite createForConfig(ResourceLocation baseName, int widthIn, int heightIn) {
         GroovyISpriteDefinition iSprite = new GroovyISpriteDefinition(baseName, widthIn, heightIn);
         return iSprite.getTextureAtlasSprite();

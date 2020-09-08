@@ -8,12 +8,14 @@
 package com.thesledgehammer.groovymc.client.definitions
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import net.minecraft.client.renderer.texture.AtlasTexture
+import net.minecraft.client.renderer.texture.NativeImage
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.util.ResourceLocation
 
 /* May eventually extend to include animations from TextureAtlasSprite */
 class GroovyAtlasSpriteDefinition extends TextureAtlasSprite {
-
+/*
     protected GroovyAtlasSpriteDefinition(String spriteName, int widthIn, int heightIn) {
         this(new ResourceLocation(GroovyLoader.Instance().getModID(), spriteName), widthIn, heightIn);
     }
@@ -33,5 +35,10 @@ class GroovyAtlasSpriteDefinition extends TextureAtlasSprite {
     static TextureAtlasSprite createForConfig(String modID, String baseName, int widthIn, int heightIn) {
         ResourceLocation resourceLocation = new ResourceLocation(modID, baseName);
         return createForConfig(resourceLocation, widthIn, heightIn);
+    }
+    */
+
+    protected GroovyAtlasSpriteDefinition(AtlasTexture atlasTextureIn, Info spriteInfoIn, int mipmapLevelsIn, int atlasWidthIn, int atlasHeightIn, int xIn, int yIn, NativeImage imageIn) {
+        super(atlasTextureIn, spriteInfoIn, mipmapLevelsIn, atlasWidthIn, atlasHeightIn, xIn, yIn, imageIn);
     }
 }

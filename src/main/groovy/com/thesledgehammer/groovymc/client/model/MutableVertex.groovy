@@ -13,13 +13,16 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.client.renderer.vertex.VertexFormat
 import net.minecraft.client.renderer.vertex.VertexFormatElement
+import net.minecraft.util.Tuple
 import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
-import net.minecraft.util.math.Vec3i
+import net.minecraft.util.math.vector.Matrix4f
+import net.minecraft.util.math.vector.Vector3d
+import net.minecraft.util.math.vector.Vector3f
+import net.minecraft.util.math.vector.Vector3i
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
-import javax.vecmath.*
+import javax.vecmath
 
 /**
  * Holds all of the information necessary to make one of the verticies in a {@link BakedQuad}. This provides a variety
@@ -203,7 +206,7 @@ class MutableVertex {
 
     // Mutating
 
-    MutableVertex positionv(Tuple3f vec) {
+    MutableVertex positionv(Tuple vec) {
         return positionf(vec.x, vec.y, vec.z);
     }
 
@@ -215,6 +218,7 @@ class MutableVertex {
         position_x = x;
         position_y = y;
         position_z = z;
+        Point
         return this;
     }
 
@@ -226,7 +230,7 @@ class MutableVertex {
      * Note: This calls {@link #normalf(float, float, float)} internally, so refer to that for more warnings.
      * 
      * @see #normalf(float, float, float) */
-    MutableVertex normalv(Tuple3f vec) {
+    MutableVertex normalv(Tuple vec) {
         return normalf(vec.x, vec.y, vec.z);
     }
 
@@ -417,11 +421,11 @@ class MutableVertex {
         return this;
     }
 
-    MutableVertex translatevi(Vec3i vec) {
+    MutableVertex translatevi(Vector3i vec) {
         return translatei(vec.getX(), vec.getY(), vec.getZ());
     }
 
-    MutableVertex translatevd(Vec3d vec) {
+    MutableVertex translatevd(Vector3d vec) {
         return translated(vec.x, vec.y, vec.z);
     }
 

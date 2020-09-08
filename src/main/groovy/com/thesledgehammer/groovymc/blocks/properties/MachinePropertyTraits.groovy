@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.blocks.properties
 
-
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
@@ -25,7 +24,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
@@ -95,7 +94,7 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
 
     @Override
     @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vec3d startVec, Vec3d endVec) {
+    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vector3d startVec, Vector3d endVec) {
         return VoxelShapeTools.rayTrace(pos, startVec, endVec, boundingBox);
     }
 

@@ -18,6 +18,9 @@ package com.thesledgehammer.groovymc.client.definitions.render
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
+import net.minecraft.client.renderer.RenderType
+
+/* Convert to RenderType */
 class CutoutKey {
 
     private List<GroovysonObjectPart> cutoutParts = new ArrayList<>();

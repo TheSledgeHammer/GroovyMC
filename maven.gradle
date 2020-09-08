@@ -62,9 +62,6 @@ publishing {
       maven {
           url "https://dl.bintray.com/thesledgehammer/development"
       }
-      maven {
-          url "file://${local_maven}"
-      }
   }
 }
 

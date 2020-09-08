@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.model.BakedQuad
 import net.minecraft.client.renderer.model.IBakedModel
 import net.minecraft.client.renderer.model.ModelBakery
 import net.minecraft.client.renderer.model.ModelRotation
-import net.minecraft.client.renderer.texture.ISprite
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.Direction
@@ -57,7 +56,7 @@ class GroovysonVariableTextureExpand {
                 VariableFaceData data = GDC.getVariableFaceUV(parts, face) as VariableFaceData;
                 if (data != null) {
                     ItemLayerModel model = new ItemLayerModel(ImmutableList.of(new ResourceLocation(".")));
-                    IBakedModel baked = model.bake(ModelRotation.X0_Y0 as ModelBakery, DefaultVertexFormats.ITEM as Function<ResourceLocation, TextureAtlasSprite>, { loc -> data.sprite } as ISprite);
+                    IBakedModel baked = model.bake(ModelRotation.X0_Y0 as ModelBakery, DefaultVertexFormats.ITEM as Function<ResourceLocation, TextureAtlasSprite>, { loc -> data.sprite });
                     List<BakedQuad> quads = baked.getQuads(null, null, 0 as Random);
                     for (BakedQuad q : quads) {
                         MutableQuad mut = new MutableQuad();

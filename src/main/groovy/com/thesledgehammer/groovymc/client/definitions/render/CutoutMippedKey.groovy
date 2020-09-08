@@ -18,7 +18,7 @@ package com.thesledgehammer.groovymc.client.definitions.render
 
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectModel
 import com.thesledgehammer.groovymc.client.model.json.GroovysonObjectPart
-
+/* Convert to RenderType */
 class CutoutMippedKey {
 
     private List<GroovysonObjectPart> cutoutMippedParts = new ArrayList<>();

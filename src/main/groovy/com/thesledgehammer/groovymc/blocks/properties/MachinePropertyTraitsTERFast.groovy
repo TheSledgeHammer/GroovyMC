@@ -18,7 +18,7 @@ package com.thesledgehammer.groovymc.blocks.properties
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.animation.TileEntityRendererFast
+import net.minecraftforge.client.model.animation.TileEntityRendererAnimation
 
 import javax.annotation.Nullable
 
@@ -28,7 +28,7 @@ trait MachinePropertyTraitsTERFast<T extends GroovyTileBasic> extends MachinePro
 
     @Nullable
     @OnlyIn(Dist.CLIENT)
-    private TileEntityRendererFast<? super T> rendererFast;
+    private TileEntityRendererAnimation<? super T> rendererFast;
 
     @Override
     void setParticleTextureLocation(String particleTextureLocation) {
@@ -37,7 +37,7 @@ trait MachinePropertyTraitsTERFast<T extends GroovyTileBasic> extends MachinePro
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    void setRenderer(TileEntityRendererFast<? super T> rendererFast) {
+    void setRenderer(TileEntityRendererAnimation<? super T> rendererFast) {
         this.rendererFast = rendererFast;
     }
 

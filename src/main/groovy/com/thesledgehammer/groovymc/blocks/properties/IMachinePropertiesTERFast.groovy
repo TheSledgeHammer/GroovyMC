@@ -20,7 +20,7 @@ package com.thesledgehammer.groovymc.blocks.properties
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.model.animation.TileEntityRendererFast
+import net.minecraftforge.client.model.animation.TileEntityRendererAnimation
 
 interface IMachinePropertiesTERFast<T extends GroovyTileBasic> extends IMachineProperties<T> {
 
@@ -29,5 +29,5 @@ interface IMachinePropertiesTERFast<T extends GroovyTileBasic> extends IMachineP
     String getParticleTextureLocation();
 
     @OnlyIn(Dist.CLIENT)
-    void setRenderer(TileEntityRendererFast<? super T> rendererFast)
+    void setRenderer(TileEntityRendererAnimation<? super T> rendererFast)
 }

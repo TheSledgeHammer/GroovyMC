@@ -89,6 +89,7 @@ dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
 	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
+	//implementation "com.thesledgehammer.GroovyForge.GroovyForge_${mcversion}:+:universal"
 	//compile "mcjty.theoneprobe:TheOneProbe-1.14:${top_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
 }
