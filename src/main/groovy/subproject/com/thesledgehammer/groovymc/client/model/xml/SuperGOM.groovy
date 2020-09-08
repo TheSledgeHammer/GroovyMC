@@ -25,30 +25,36 @@ class SuperGOM {
     static String CURRENT_VERSION = "1.0.2";
     static String PATH = "src/main/groovy/subproject/resources/gom/"
 
-    static void writeSuperGOM(String modelVersion, String type) {
+    static void writeSuperGOM(String path, String modelVersion, String type) {
         if(type == "xml") {
-            writeToXML(modelVersion);
+            writeToXML(path, modelVersion);
         }
         if(type == "json") {
-            writeToJson(modelVersion);
+            writeToJson(path, modelVersion);
         }
     }
 
-    static def readSuperGOM(String modelVersion, String type) {
+    /**
+     * @param path: location of file
+     * @param modelVersion: GOM version being used
+     * @param type: .xml or .json File Format
+     * @return: object from the contents of the file (.xml or .json)
+     */
+    static def readSuperGOM(String path, String modelVersion, String type) {
         def superGom = null
         if(type == "xml") {
             def xml = new groovy.xml.XmlSlurper();
-            superGom = xml.parse(new FileReader("${PATH}gom-${modelVersion}.xml"));
+            superGom = xml.parse(new FileReader("${path}gom-${modelVersion}.xml"));
         }
         if(type == "json") {
             def json = new JsonSlurper();
-            superGom = json.parse(new FileReader("${PATH}gom-${modelVersion}.json"));
+            superGom = json.parse(new FileReader("${path}gom-${modelVersion}.json"));
         }
         return superGom;
     }
 
-    static void writeToXML(String modelVersion) {
-        def writer = new FileWriter("${PATH}gom-${modelVersion}.xml");
+    private static void writeToXML(String path, String modelVersion) {
+        def writer = new FileWriter("${path}gom-${modelVersion}.xml");
         def xml = new MarkupBuilder(writer);
 
         xml.gom {
@@ -143,8 +149,8 @@ class SuperGOM {
         writer.close();
     }
 
-    static void writeToJson(String modelVersion) {
-        def writer = new FileWriter("${PATH}gom-${modelVersion}.json");
+    private static void writeToJson(String path, String modelVersion) {
+        def writer = new FileWriter("${path}gom-${modelVersion}.json");
         def json = new JsonBuilder(writer);
 
         json.gom {
@@ -240,5 +246,23 @@ class SuperGOM {
         String gomString = json.toPrettyString();
         writer.write(gomString);
         writer.close();
+    }
+
+    static class Serializer implements GOMDeserializer<SuperGOM>, GOMSerializer<SuperGOM> {
+
+        @Override
+        def Deserialize(String path, String version, String type) {
+            return readSuperGOM(path, version, type);
+        }
+
+        @Override
+        void Serialize(String path, String version, String type) {
+            /* Write SuperGOM xml & json */
+            writeSuperGOM(PATH, CURRENT_VERSION, "xml");
+            writeSuperGOM(PATH, CURRENT_VERSION, "json");
+
+            /* Write GOM */
+            writeSuperGOM(path, version, type);
+        }
     }
 }

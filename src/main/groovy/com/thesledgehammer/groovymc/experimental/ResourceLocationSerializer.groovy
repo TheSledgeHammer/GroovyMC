@@ -10,6 +10,7 @@ import groovy.json.JsonSlurper
 import groovy.xml.XmlSlurper
 import net.minecraft.util.JSONUtils
 import net.minecraft.util.ResourceLocation
+import subproject.com.thesledgehammer.groovymc.client.model.xml.SuperGOM
 
 import java.lang.reflect.Type
 
@@ -30,6 +31,11 @@ class ResourceLocationSerializer extends ResourceLocation.Serializer {
         @Override
         GroovysonObject deserializeJson(JsonSlurper slurpy) {
             return new GroovysonObject();
+        }
+
+        @Override
+        GroovysonObject deserializeJson(SuperGOM slurpy) {
+            return SuperGOM.readSuperGOM(SuperGOM.getCURRENT_VERSION(), "json");
         }
 
         @Override

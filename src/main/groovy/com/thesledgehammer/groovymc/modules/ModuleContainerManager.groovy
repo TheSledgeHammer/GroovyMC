@@ -22,8 +22,8 @@ class ModuleContainerManager {
 
     static void preInit() {
         CapabilityMj.register();
-       CompatModuleContainer.preInit();
-       RenderEventModuleContainer.preInit();
+        CompatModuleContainer.preInit();
+        RenderEventModuleContainer.preInit();
     }
 
     static void Init() {

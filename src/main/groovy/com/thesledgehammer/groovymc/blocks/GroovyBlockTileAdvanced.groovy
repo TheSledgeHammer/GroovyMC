@@ -49,7 +49,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
     final P blockType;
 
-    GroovyBlockTileAdvanced(P blockType, Block.Properties blockProperties) {
+    GroovyBlockTileAdvanced(P blockType, Properties blockProperties) {
         super(blockProperties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
 

@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.utils
 
 import org.apache.commons.lang3.mutable.Mutable
+import org.codehaus.groovy.runtime.wrappers.GroovyObjectWrapper
 
 class GPrimitives {
 
@@ -105,9 +106,25 @@ class GPrimitives {
     }
 
     static boolean isObject(def obj) {
-        if(obj.class instanceof Object || obj.class instanceof GroovyObject) {
+        if(obj.class instanceof Object || isGroovyObject(obj)) {
             return true;
         }
         return false;
+    }
+
+    static boolean isGroovyObject(def obj) {
+        if(obj.class instanceof GroovyObject) {
+            return true;
+        }
+        return false;
+    }
+
+    static Object ObjectWrapper(def obj) {
+        GroovyObjectWrapper gow = null;
+        if(isGroovyObject(obj)) {
+            GroovyObject gobj = obj as GroovyObject;
+            gow = new GroovyObjectWrapper(gobj, gobj.class);
+        }
+        return gow.unwrap();
     }
 }
