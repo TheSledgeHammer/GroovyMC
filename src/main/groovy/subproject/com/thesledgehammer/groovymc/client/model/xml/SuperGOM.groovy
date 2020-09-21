@@ -45,6 +45,7 @@ class SuperGOM {
         if(type == "xml") {
             def xml = new groovy.xml.XmlSlurper();
             superGom = xml.parse(new FileReader("${path}gom-${modelVersion}.xml"));
+
         }
         if(type == "json") {
             def json = new JsonSlurper();

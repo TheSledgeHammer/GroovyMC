@@ -1,5 +1,5 @@
 ###Sub-Project Contents:
-The GroovyMC subproject is in very early development, it is seperate alternative approach to generating Models that can hopefully drop in to the current GroovyMC method. It will use a GroovyObjectModel (.gom). Essentially a .xml over .json.
+The GroovyMC subproject is in very early development, it is seperate alternative approach to generating Models that can hopefully drop in to the current GroovyMC method. It will use a GroovyObjectModel (.gom). Essentially a .xml or .json.
 
 ### Apache License v2.0:
 
