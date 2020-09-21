@@ -1,0 +1,212 @@
+{
+    "gom": {
+        "modelversion": "1.0.2",
+        "parent": [
+            
+        ],
+        "textures": {
+            
+        },
+        "shade": [
+            
+        ],
+        "variables": {
+
+        },
+        "rules": {
+            "when": [
+                
+            ],
+            "type": [
+                
+            ],
+            "from": [
+                
+            ],
+            "to": [
+                
+            ],
+            "origin": [
+                
+            ],
+            "angle": [
+                
+            ],
+            "scale": [
+                
+            ]
+        },
+        "elements": {
+            "element": {
+                "name": [
+                    
+                ],
+                "from": [
+                    
+                ],
+                "to": [
+                    
+                ],
+                "light": [
+                    
+                ],
+                "render": [
+                    
+                ],
+                "faces": {
+                    "up": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    },
+                    "down": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    },
+                    "north": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    },
+                    "east": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    },
+                    "west": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    },
+                    "south": {
+                        "uv": [
+                            
+                        ],
+                        "texture": [
+                            
+                        ],
+                        "cullface": [
+                            
+                        ],
+                        "rotation": [
+                            
+                        ],
+                        "tint": [
+                            
+                        ]
+                    }
+                },
+                "rotation": {
+                    "origin": [
+                        
+                    ],
+                    "axis": [
+                        
+                    ],
+                    "angle": [
+                        
+                    ],
+                    "rescale": [
+                        
+                    ]
+                },
+                "shade": [
+                    
+                ],
+                "colour": [
+                    
+                ],
+                "visible": [
+                    
+                ],
+                "invert": [
+                    
+                ],
+                "bothsides": [
+                    
+                ]
+            }
+        },
+        "display": {
+            "name": [
+                
+            ],
+            "translation": [
+                
+            ],
+            "rotation": [
+                
+            ],
+            "scale": [
+                
+            ]
+        },
+        "values": [
+            
+        ],
+        "ambientocculusion": [
+            
+        ]
+    }
+}

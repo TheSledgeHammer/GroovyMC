@@ -3,6 +3,7 @@
   <parent />
   <textures />
   <shade />
+  <variables />
   <rules>
     <when />
     <type />

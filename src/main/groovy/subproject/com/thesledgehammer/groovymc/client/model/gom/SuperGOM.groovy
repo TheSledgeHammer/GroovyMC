@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package subproject.com.thesledgehammer.groovymc.client.model.xml
+package subproject.com.thesledgehammer.groovymc.client.model.gom
 
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
@@ -65,6 +65,9 @@ class SuperGOM {
 
             }
             shade()
+            variables {
+
+            }
             rules {
                 when()
                 type()
@@ -161,6 +164,9 @@ class SuperGOM {
 
             }
             shade()
+            variables {
+
+            }
             rules {
                 when()
                 type()

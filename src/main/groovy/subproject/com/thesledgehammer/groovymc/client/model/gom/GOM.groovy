@@ -1,6 +1,4 @@
-package subproject.com.thesledgehammer.groovymc.client.model.xml
-
-import groovy.json.JsonException
+package subproject.com.thesledgehammer.groovymc.client.model.gom
 
 abstract class GOM implements IGOM {
 
@@ -67,12 +65,12 @@ abstract class GOM implements IGOM {
 
     @Override
     def getVariables() {
-        return null
+        return obj.variables;
     }
 
     @Override
     def getVariableByName(String variableName) {
-        return null
+        return obj.variables.get(variableName);
     }
 
     @Override
@@ -118,7 +116,7 @@ abstract class GOM implements IGOM {
     ArrayList<Float> Translation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            throw new JsonException("${name} is incorrect...!")
+            throw new Exception("${name} is incorrect...!")
         }
         if(obj.display.get(name).translation == null) {
             throw new Exception("${name} does not contain Translation...!");
@@ -133,7 +131,7 @@ abstract class GOM implements IGOM {
     ArrayList<Float> Rotation(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            throw new JsonException("${name} is incorrect...!");
+            throw new Exception("${name} is incorrect...!");
         }
         if(obj.display.get(name).rotation == null) {
             throw new Exception("${name} does not contain Rotation...!");
@@ -148,10 +146,10 @@ abstract class GOM implements IGOM {
     ArrayList<Float> Scale(String name) {
         ArrayList<Float> arrObj = new ArrayList<>();
         if(obj.display.get(name) == null) {
-            throw new JsonException("${name} is incorrect...!");
+            throw new Exception("${name} is incorrect...!");
         }
         if(obj.display.get(name).scale == null) {
-            throw new JsonException("${name} does not contain Scale...!");
+            throw new Exception("${name} does not contain Scale...!");
         }
         for(int i = 0; i < obj.display.get(name).scale.size; i++) {
             arrObj.add(i, obj.display.get(name).scale.get(i));

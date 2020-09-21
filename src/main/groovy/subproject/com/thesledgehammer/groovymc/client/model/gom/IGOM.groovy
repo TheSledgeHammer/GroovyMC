@@ -1,4 +1,4 @@
-package subproject.com.thesledgehammer.groovymc.client.model.xml
+package subproject.com.thesledgehammer.groovymc.client.model.gom
 
 /* GOM (Groovy Object Model Interface) */
 interface IGOM {

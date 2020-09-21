@@ -1,4 +1,4 @@
-package subproject.com.thesledgehammer.groovymc.client.model.xml
+package subproject.com.thesledgehammer.groovymc.client.model.gom
 
 interface GOMSerializer<T> {
 
