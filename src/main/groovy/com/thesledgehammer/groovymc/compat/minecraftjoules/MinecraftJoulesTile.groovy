@@ -92,12 +92,12 @@ abstract class MinecraftJoulesTile extends GroovyTileBasic implements IMjStorage
     }
     */
 
-    @Override
     void read(CompoundNBT compound) {
         super.read(compound);
         mj.read(compound);
     }
 
+    @Override
     CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         mj.write(compound);

@@ -64,9 +64,8 @@ abstract class ForgeEnergyTile extends GroovyTileBasic implements IEnergyStorage
         return fe.canReceive();
     }
 
-    @Override
     void read(CompoundNBT tag) {
-        super.read(tag);
+        super.write()
         fe.read(tag);
     }
 

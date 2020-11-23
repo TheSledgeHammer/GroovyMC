@@ -1,6 +1,5 @@
 package com.thesledgehammer.groovymc
 
-
 import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -11,14 +10,11 @@ import org.apache.logging.log4j.Logger
 class GroovyMC {
 
 	static final String MOD_ID = "groovymc";
-	static GroovyMC INSTANCE;
-	static ModContainer MOD_CONTAINER;
+	//static GroovyMC INSTANCE;
 
 	static final Logger LOGGER = LogManager.getLogger();
 
 	GroovyMC() {
-		INSTANCE = this;
-		MOD_CONTAINER = ModLoadingContext.get().getActiveContainer();
 
 		//ModuleContainerManager.preInit();
 		//ModuleContainerManager.Init();

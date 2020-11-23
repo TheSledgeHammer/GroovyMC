@@ -80,8 +80,8 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
     }
 
     @Override
-    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityMj.MJ_STORAGE) {
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
+        if (capability == CapabilityMj.MJ_STORAGE) {
             return CapabilityMj.MJ_STORAGE as LazyOptional<T>
         }/*
         if (BuildcraftModule.hasMjCapability(capability)) {
@@ -168,5 +168,13 @@ class MinecraftJoules extends MinecraftJoulesStorage implements ICapabilityProvi
             }
         }*/
         return null
+    }
+
+    @Override
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
+        if (capability == CapabilityMj.MJ_STORAGE) {
+            return CapabilityMj.MJ_STORAGE as LazyOptional<T>
+        }
+        return null;
     }
 }

@@ -83,6 +83,11 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
+    String func_176610_l() {
+        return name
+    }
+
+    @Override
     boolean isFullCube(BlockState state) {
         return isFullCube;
     }

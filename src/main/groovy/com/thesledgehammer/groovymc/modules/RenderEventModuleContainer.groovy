@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
-import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.AtlasTexture
 import net.minecraftforge.api.distmarker.Dist
@@ -67,7 +66,7 @@ class RenderEventModuleContainer {
             }
         }
     }
-
+/*
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     static void onModelBake(ModelBakeEvent event) {
@@ -92,7 +91,7 @@ class RenderEventModuleContainer {
             }
         }
     }
-
+    */
     private static boolean isRegistered(BlankRenderEventModule module) {
         ModList modList = ModList.get();
         if(module != null) {

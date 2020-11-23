@@ -1,9 +1,16 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/groovymc-library",
-  "1.13.2": {
-    "2.0.0": "Changelog: https://github.com/TheSledgeHammer/GroovyMC/blob/1.13.2/changelog1.13.md"
+  "1.12.2": {
+    "1.0.0": "Changelog: https://github.com/TheSledgeHammer/GroovyMC/blob/master/changelog.md",
+    "1.0.1": "See Changelog for version 1.0.0",
+    "1.0.2": "See Changelog for version 1.0.0",
+    "1.0.4": "See Changelog for version 1.0.0",
+    "1.0.5": "See Changelog for version 1.0.0",
+    "1.1.0": "See Changelog for version 1.0.0",
+    "1.1.1": "See Changelog for version 1.0.0"
   },
   "promos": {
-    "1.13.2-latest": "2.0.0"
+    "1.12.2-latest": "1.1.1",
+    "1.12.2-recommended": "1.1.1"
   }
 }

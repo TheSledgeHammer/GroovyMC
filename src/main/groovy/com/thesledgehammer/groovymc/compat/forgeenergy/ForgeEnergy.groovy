@@ -119,4 +119,44 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
         }
         return null
     }
+
+    @Override
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
+        if(capability == CapabilityEnergy.ENERGY) {
+            ForgeEnergy FE = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy)
+            IEnergyStorage storage = new IEnergyStorage() {
+                @Override
+                int receiveEnergy(int maxReceive, boolean simulate) {
+                    return FE.receiveEnergy(maxReceive, simulate);
+                }
+
+                @Override
+                int extractEnergy(int maxExtract, boolean simulate) {
+                    return FE.extractEnergy(maxExtract, simulate);
+                }
+
+                @Override
+                int getEnergyStored() {
+                    return FE.getEnergyStored();
+                }
+
+                @Override
+                int getMaxEnergyStored() {
+                    return FE.getMaxEnergyStored();
+                }
+
+                @Override
+                boolean canExtract() {
+                    return FE.canExtract()
+                }
+
+                @Override
+                boolean canReceive() {
+                    return FE.canReceive();
+                }
+            }
+            return CapabilityEnergy.ENERGY as LazyOptional<T>;
+        }
+        return null
+    }
 }

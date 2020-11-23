@@ -18,9 +18,9 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 apply from: project.file('maven.gradle')
 
-version = version_major + '.' + version_minor + '.' + version_patch
+version = "${version_major}.${version_minor}.${version_patch}"
 group= 'com.thesledgehammer.groovymc'
-archivesBaseName = "GroovyMC_" + mcversion
+archivesBaseName = "GroovyMC_${mcversion}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -48,7 +48,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                groovyforge {
+                groovymc {
                     source sourceSets.main
 				}
             }
@@ -59,7 +59,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
             mods {
-                groovyforge {
+				groovymc {
                     source sourceSets.main
                 }
             }
@@ -74,10 +74,11 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'groovymc', '--all', '--output', file('src/generated/resources/')
+			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+			args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                groovyforge {
+				groovymc {
                     source sourceSets.main
                 }
             }
@@ -85,13 +86,16 @@ minecraft {
     }
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
+	//compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
 	//implementation "com.thesledgehammer.GroovyForge.GroovyForge_${mcversion}:+:universal"
 	//compile "mcjty.theoneprobe:TheOneProbe-1.14:${top_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
+	compile files("/lib/GroovyForge_1.16.3-3.1.0-universal.jar")
 }
 
 jar {

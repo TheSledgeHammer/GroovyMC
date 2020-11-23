@@ -1,11 +1,13 @@
 modLoader="groovyfml"
 loaderVersion="[3,)"
 issueTrackerURL="https://github.com/TheSledgeHammer/GroovyMC/issues"
+license=" Apache Licence Version 2.0"
+
 [[mods]]
     modId="groovymc"
     version="${version}"
     displayName="GroovyMC"
-    #updateJSONURL="http://myurl.me/" #optional
+    updateJSONURL="https://github.com/TheSledgeHammer/GroovyMC/blob/1.16.x/update.json" #optional
     displayURL="https://github.com/TheSledgeHammer/GroovyMC"
     #logoFile="groovymclogo.png"
     credits="Apache Groovy"
@@ -13,22 +15,3 @@ issueTrackerURL="https://github.com/TheSledgeHammer/GroovyMC/issues"
     description='''
     An Apache Groovy Compatibility Library
     '''
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.groovymc]]
-    modId="groovyforge"
-    mandatory=true
-    versionRange="[3,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.groovymc]]
-    modId="forge"
-    mandatory=true
-    versionRange="[32,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.groovymc]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.1)"
-    ordering="NONE"
-    side="BOTH"

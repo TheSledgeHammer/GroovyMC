@@ -26,12 +26,12 @@ abstract class GroovyBlockTileBasic extends GroovyBlock {
 
     public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
-    GroovyBlockTileBasic(Block.Properties properties) {
+    GroovyBlockTileBasic(Properties properties) {
         super(properties);
     }
 
     GroovyBlockTileBasic(Material material) {
-        super(Block.Properties.create(material));
+        super(Properties.create(material));
     }
 
     @Override

@@ -16,7 +16,6 @@
 
 package com.thesledgehammer.groovymc.tiles
 
-
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.Direction

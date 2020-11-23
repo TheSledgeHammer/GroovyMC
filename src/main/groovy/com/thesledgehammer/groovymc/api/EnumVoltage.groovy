@@ -43,7 +43,11 @@ enum EnumVoltage implements IStringSerializable {
     }
 
     @Override
+    String func_176610_l() {
+        return name
+    }
+
     String getName() {
-        return name;
+        return func_176610_l();
     }
 }
