@@ -6,12 +6,17 @@
     <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/packs/full_312384_in_packs.svg" /></a>
 </p>
 
-A mod library used in my other mods both existing and upcoming.
+A mod library that is can used as generic infrastructure to other mods.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
 
-NOTICE: 1.14.x IS CURRENTLY IN PRE-ALPHA. FILES IN THERE CURRENT STATE ARE SUBJECT TO CHANGE WITHOUT NOTICE.
-ALONG WITH LIMITED CONTENT. USE AT YOUR OWN RISK!!
+As of 1.16 onwards all Model API's previously apart of this mod have been seperated
+into a new Mod called GroovyModels.
+
+Please refer to GroovyModels link below.
+
+GroovyModels Repository:
+https://github.com/TheSledgeHammer/GroovyModels
 
 ### Getting Started:
 Please initialize the "GroovyLoader" in your main class or common proxy class.
@@ -37,9 +42,10 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.14.x:+:universal"
+	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.16.x:+:universal"
 }
 ```
+/* Note: x equals the Minecraft Versions (e.g. x = 3 for Minecraft 1.16.3) */
 
 ### Apache License v2.0:
 
@@ -56,7 +62,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 #### Notice:
-
-GroovyMC is no longer licenced under the LGPL 3.0 and is now licenced under the Apache 2.0 licence. If you are using this project or parts of this project; Please update the licencing to reflect this change.
-
 This project also contains source code that is maintained under the LGPL 3.0 and MPL 2.0.
