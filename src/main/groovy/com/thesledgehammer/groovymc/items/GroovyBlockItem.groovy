@@ -18,32 +18,19 @@ package com.thesledgehammer.groovymc.items
 
 import net.minecraft.block.Block
 import net.minecraft.item.BlockItem
-import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
-import net.minecraft.item.ItemStack
 
 class GroovyBlockItem<B extends Block> extends BlockItem {
 
-    GroovyBlockItem(B block, Item.Properties properties) {
+    GroovyBlockItem(B block, Properties properties) {
         super(block, properties);
     }
 
-    GroovyBlockItem(B block, Item.Properties properties, ItemGroup itemGroup) {
+    GroovyBlockItem(B block, Properties properties, ItemGroup itemGroup) {
         super(block, properties.group(itemGroup));
     }
 
     GroovyBlockItem(B block, ItemGroup itemGroup) {
-        super(block, new Item.Properties().group(itemGroup));
-    }
-
-    @Override
-    String getTranslationKey(ItemStack itemstack) {
-        Block block = this.block;
-        if (block instanceof IBlockMeta) {
-            IBlockMeta blockMeta = (IBlockMeta) block;
-            //int meta = itemstack.getItem()
-            return block.getTranslationKey();// + "." + blockMeta.getNameFromMeta(meta);
-        }
-        return block.getTranslationKey();
+        super(block, new Properties().group(itemGroup));
     }
 }

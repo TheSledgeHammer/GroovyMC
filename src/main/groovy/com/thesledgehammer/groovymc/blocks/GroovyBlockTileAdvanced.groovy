@@ -17,7 +17,6 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.blocks.properties.*
-import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity

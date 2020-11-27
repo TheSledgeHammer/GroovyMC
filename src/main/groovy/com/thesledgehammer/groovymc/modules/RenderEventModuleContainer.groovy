@@ -18,15 +18,8 @@ package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
 import com.thesledgehammer.groovymc.utils.Log
-import net.minecraft.client.renderer.texture.AtlasTexture
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.event.ModelBakeEvent
-import net.minecraftforge.client.event.TextureStitchEvent
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.ModList
-import org.apache.logging.log4j.Level
 
 class RenderEventModuleContainer {
 

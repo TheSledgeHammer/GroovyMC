@@ -11,6 +11,7 @@
 *.iws
 *.idea
 .classpath
+*.dist
 /bin
 /build
 /config
@@ -21,7 +22,8 @@
 /run
 /saves
 /out
-/GroovyMC
+/lib
+/generated
 usernamecache.json
 usercache.json
 options.txt

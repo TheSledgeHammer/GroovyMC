@@ -16,20 +16,17 @@
 
 package com.thesledgehammer.groovymc.items
 
+
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 
 class GroovyItem extends Item {
 
-    GroovyItem(Item.Properties properties) {
+    GroovyItem(Properties properties) {
         super(properties);
     }
 
-    GroovyItem(Item.Properties properties, ItemGroup itemGroup) {
-        super(properties.group(itemGroup));
-    }
-
     GroovyItem(ItemGroup itemGroup) {
-        this(new Item.Properties().group(itemGroup));
+        super(new Properties().group(itemGroup));
     }
 }

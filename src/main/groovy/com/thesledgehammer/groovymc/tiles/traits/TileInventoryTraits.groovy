@@ -119,13 +119,4 @@ trait TileInventoryTraits implements IInventory, ISidedInventory {
     boolean isEmpty() {
         return inventoryAdapter.isEmpty();
     }
-
-
-    //Todo: Fix getName()
-    /*
-    @Override
-    String getName() {
-        String blockUnlocalizedName = tileEntity.getBlockState().getBlock().getTranslationKey();
-        return blockUnlocalizedName + '.' + tileEntity.getBlockMetadata() + ".name";
-    }*/
 }

@@ -1,11 +1,9 @@
 package com.thesledgehammer.groovymc.config
 
-import com.thesledgehammer.groovymc.GroovyMC
-
 class Constants {
 
     static final String MOD_NAME = "GroovyMC";
-    static final String MOD_ID = GroovyMC.MOD_ID;
+    static final String MOD_ID = "groovymc";
     static final String AUTHOR = "TheSledgeHammer";
 
     static final String MOD_PATH = "src/main";

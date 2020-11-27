@@ -91,11 +91,11 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
 	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	//compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
-	//implementation "com.thesledgehammer.GroovyForge.GroovyForge_${mcversion}:+:universal"
-	//compile "mcjty.theoneprobe:TheOneProbe-1.14:${top_version}"
+	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
+	
+	//compile "mcjty.theoneprobe:TheOneProbe-1.16:${top_version}"
 	//compile "javax.xml.bind:jaxb-api:+"
-	compile files("/lib/GroovyForge_1.16.3-3.1.0-universal.jar")
+	//compile files("/lib/GroovyForge_1.16.3-3.1.0-universal.jar")
 }
 
 jar {
