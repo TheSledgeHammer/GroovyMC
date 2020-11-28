@@ -16,10 +16,12 @@ import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
@@ -30,29 +32,24 @@ import javax.annotation.Nullable
 
 interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializable, IInitModel {
 
-    void setTeClass(Class<T> teClass);
+    void setTeType(TileEntityType<? extends T> teType);
 
     void setBlock(Block block);
 
     void setName(String name);
 
+    void setVoxelShape(VoxelShape shape);
+
     void setIsFullCube(boolean isFullCube);
 
-    void setAxisAlignedBB(AxisAlignedBB boundingBox);
-
-    Class<T> getTeClass();
+    TileEntityType<? extends T> getTeType();
 
     @Nullable
     Block getBlock();
 
-    String getName();
+    VoxelShape getShape();
 
     boolean isFullCube(BlockState state);
-
-    AxisAlignedBB getBoundingBox(IBlockReader world, BlockPos pos, BlockState state);
-
-    @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vector3d startVec, Vector3d endVec);
 
     @Override
     @OnlyIn(Dist.CLIENT)

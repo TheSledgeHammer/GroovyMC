@@ -18,10 +18,7 @@ package com.thesledgehammer.groovymc.blocks
 
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-
-/**
- * To Note: Must use full reference: "Block.Properties". Causes Game Crash (Throws null or constructor invalid).
- */
+import net.minecraft.block.material.MaterialColor
 
 class GroovyBlock extends Block {
 

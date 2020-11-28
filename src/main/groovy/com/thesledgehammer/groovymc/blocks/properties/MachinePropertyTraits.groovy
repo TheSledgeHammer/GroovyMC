@@ -21,9 +21,12 @@ import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.shapes.ISelectionContext
+import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
@@ -37,9 +40,9 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Nullable
     private Block block;
     private String name;
-    private Class<T> teClass;
-    private AxisAlignedBB boundingBox;
+    private TileEntityType<? extends T> teType;
     private boolean isFullCube;
+    private VoxelShape shape;
 
     @Override
     void setBlock(Block block) {
@@ -52,23 +55,18 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    void setTeClass(Class<T> teClass) {
-        this.teClass = teClass;
+    void setTeType(TileEntityType<? extends T> teType) {
+        this.teType = teType;
+    }
+
+    @Override
+    void setVoxelShape(VoxelShape shape) {
+        this.shape = shape;
     }
 
     @Override
     void setIsFullCube(boolean isFullCube) {
         this.isFullCube = isFullCube;
-    }
-
-    @Override
-    void setAxisAlignedBB(AxisAlignedBB boundingBox) {
-        this.boundingBox = boundingBox;
-    }
-
-    @Override
-    Class<T> getTeClass() {
-        return teClass;
     }
 
     @Nullable
@@ -78,29 +76,23 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    String getName() {
+    String getString() {
         return name;
     }
 
     @Override
-    String func_176610_l() {
-        return name
+    TileEntityType<? extends T> getTeType() {
+        return teType;
+    }
+
+    @Override
+    VoxelShape getShape() {
+        return shape;
     }
 
     @Override
     boolean isFullCube(BlockState state) {
         return isFullCube;
-    }
-
-    @Override
-    AxisAlignedBB getBoundingBox(IBlockReader world, BlockPos pos, BlockState state) {
-        return boundingBox;
-    }
-
-    @Override
-    @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, BlockState state, Vector3d startVec, Vector3d endVec) {
-        return VoxelShapeTools.rayTrace(pos, startVec, endVec, boundingBox);
     }
 
     @Override
@@ -116,10 +108,6 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
 
     @Override
     TileEntity createNewTileEntity() {
-        try {
-            return teClass.getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("Failed to instantiate tile entity of class " + teClass.getName(), e);
-        }
+        return teType.create();
     }
 }

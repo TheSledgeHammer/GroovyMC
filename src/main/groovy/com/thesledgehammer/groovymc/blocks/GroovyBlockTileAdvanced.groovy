@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.blocks
 
 import com.thesledgehammer.groovymc.blocks.properties.*
+import com.thesledgehammer.groovymc.utils.VoxelShapeTools
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
@@ -29,6 +30,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.RayTraceResult
+import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
@@ -43,9 +45,7 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
     private boolean hasTER;
-    private boolean hasTERFast;
     private boolean hasTERAnimation;
-
     final P blockType;
 
     GroovyBlockTileAdvanced(P blockType, Properties blockProperties) {
@@ -54,7 +54,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
         this.blockType = blockType;
         this.hasTER = blockType instanceof IBlockTypeTER;
-        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
         this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
     }
 
@@ -64,7 +63,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
         this.blockType = blockType;
         this.hasTER = blockType instanceof IBlockTypeTER;
-        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
         this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
     }
 
@@ -74,7 +72,6 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
 
         this.blockType = blockType;
         this.hasTER = blockType instanceof IBlockTypeTER;
-        this.hasTERFast = blockType instanceof IBlockTypeTERFast;
         this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
     }
 
@@ -82,9 +79,8 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
         return blockType.getGroovyMachineProperties();
     }
 
-    @Nonnull
     @Override
-    TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
+    TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return getDefinition().createNewTileEntity();
     }
 
@@ -117,23 +113,5 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     static BlockState withRotation(BlockState state, Rotation rot) {
         Direction facing = state.get(FACING);
         return state.with(FACING, rot.rotate(facing));
-    }
-
-    @Nullable
-    AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
-        IMachineProperties definition = getDefinition();
-        return definition.getBoundingBox(worldIn, pos, blockState);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    AxisAlignedBB getSelectedBoundingBox(BlockState state, World worldIn, BlockPos pos) {
-        IMachineProperties definition = getDefinition();
-        return definition.getBoundingBox(worldIn, pos, state).offset(pos);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    RayTraceResult collisionRayTrace(BlockState blockState, World worldIn, BlockPos pos, Vector3d start, Vector3d end) {
-        IMachineProperties definition = getDefinition();
-        return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
     }
 }

@@ -1,6 +1,10 @@
 #GroovyMC Changelog
 
 ## [Unreleased]
+### Added
+### Changes
+### Fixed
+### Removed
 
 ## [1.1.0] - 2019-05-10
 ### Added

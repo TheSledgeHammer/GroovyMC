@@ -23,8 +23,7 @@ class GroovyMC {
 		Init();
 		PostInit();
 		MinecraftForge.EVENT_BUS.register(this);
-		//EventRegistry.initItems();
-		Register.RegisterInit(eventBus);
+		Register.Init(eventBus);
 	}
 
 	static void PreInit() {

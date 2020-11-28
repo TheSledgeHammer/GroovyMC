@@ -29,11 +29,11 @@ class Register {
     private static final Table<String, TileEntity, RegistryObject<TileEntityType<? extends TileEntity>>> TILE_TABLE = HashBasedTable.create();
     private static final Table<String, Container, RegistryObject<ContainerType<? extends Container>>> CONTAINER_TABLE = HashBasedTable.create();
 
-    static void RegisterInit(IEventBus eventBus) {
-        BLOCKS.register(FMLGroovyModLoadingContext.get().getModEventBus());
-        ITEMS.register(FMLGroovyModLoadingContext.get().getModEventBus());
-        TILES.register(FMLGroovyModLoadingContext.get().getModEventBus());
-        CONTAINERS.register(FMLGroovyModLoadingContext.get().getModEventBus());
+    static void Init(IEventBus eventBus) {
+        BLOCKS.register(eventBus);
+        ITEMS.register(eventBus);
+        TILES.register(eventBus);
+        CONTAINERS.register(eventBus);
         Init();
     }
 
