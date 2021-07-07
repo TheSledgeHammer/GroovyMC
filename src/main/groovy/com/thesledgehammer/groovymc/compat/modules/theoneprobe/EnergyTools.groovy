@@ -16,9 +16,29 @@
 
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import net.minecraft.tileentity.TileEntity
 
+=======
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/client/render/IRenderEntry.groovy
+import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
+import com.thesledgehammer.groovymc.client.model.MutableQuad
+=======
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/compat/modules/theoneprobe/EnergyTools.groovy
+import net.minecraft.tileentity.TileEntity
+
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/client/render/IRenderEntry.groovy
+@SideOnly(Side.CLIENT)
+interface IRenderEntry<M extends ModelEntryHolder, T extends TileEntity> {
+
+    void render(T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha);
+
+    MutableQuad[] getQuads(M modelEntryHolder, T tile, float partialTicks);
+}
+=======
+>>>>>>> 1.16.x
 class EnergyTools {
 
     static long getMjStored(TileEntity te) {
@@ -35,3 +55,7 @@ class EnergyTools {
         return te instanceof IMjStorage;
     }
 }
+<<<<<<< HEAD
+=======
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/compat/modules/theoneprobe/EnergyTools.groovy
+>>>>>>> 1.16.x

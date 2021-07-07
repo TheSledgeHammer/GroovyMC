@@ -13,14 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+<<<<<<< HEAD
+=======
+/*
+>>>>>>> 1.16.x
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 import mcjty.theoneprobe.api.*
+<<<<<<< HEAD
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+=======
+import net.minecraft.block.BlockState
+import net.minecraft.entity.player.PlayerEntity
+>>>>>>> 1.16.x
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -39,7 +48,11 @@ class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
     }
 
     @Override
+<<<<<<< HEAD
     void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+=======
+    void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, PlayerEntity player, World world, BlockState blockState, IProbeHitData data) {
+>>>>>>> 1.16.x
         probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
         BlockPos pos = data.getPos();
         TileEntity te = world.getTileEntity(pos);
@@ -47,8 +60,13 @@ class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
             long energy = EnergyTools.getMjStored(te);
             long capacity = EnergyTools.getMjCapacity(te);
             addMJInfo(probeInfo, energy, capacity);
+<<<<<<< HEAD
         } else if(te != null && te.hasCapability(CapabilityMj.MJ_STORAGE, null)) {
             IMjStorage mjStorage = te.getCapability(CapabilityMj.MJ_STORAGE, null);
+=======
+        } else if(te != null && te.getCapability(CapabilityMj.MJ_STORAGE, null) != null) {
+            IMjStorage mjStorage = te.getCapability(CapabilityMj.MJ_STORAGE, null) as IMjStorage;
+>>>>>>> 1.16.x
             if(mjStorage != null) {
                 addMJInfo(probeInfo, mjStorage.getStored(), mjStorage.getCapacity());
             }
@@ -66,3 +84,7 @@ class MjEnergyProbeInfoProvider implements IProbeInfoProvider {
         );
     }
 }
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 1.16.x

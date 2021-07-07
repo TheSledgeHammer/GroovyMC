@@ -15,6 +15,7 @@
  */
 package com.thesledgehammer.groovymc.compat.modules.buildcraft
 
+<<<<<<< HEAD
 import buildcraft.api.mj.*
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -25,6 +26,11 @@ import net.minecraftforge.fml.common.Optional
 import javax.annotation.Nonnull
 import javax.annotation.Nullable
 
+=======
+//import buildcraft.api.mj.*
+
+/*
+>>>>>>> 1.16.x
 @Optional.InterfaceList(
         value = [
                 @Optional.Interface(iface = "buildcraft.api.mj.IMjPassiveProvider", modid = "buildcraft"),
@@ -96,3 +102,7 @@ class MJBatteryProvider implements IMjPassiveProvider, IMjReadable, ICapabilityS
         return null
     }
 }
+<<<<<<< HEAD
+=======
+*/
+>>>>>>> 1.16.x

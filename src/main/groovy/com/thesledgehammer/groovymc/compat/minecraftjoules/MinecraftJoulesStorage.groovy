@@ -13,15 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1.16.x
 package com.thesledgehammer.groovymc.compat.minecraftjoules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
 
 import javax.annotation.Nonnull
 
+<<<<<<< HEAD
 class MinecraftJoulesStorage implements IMjStorage {
 
     protected long mjEnergy;
+=======
+/*
+@Optional.InterfaceList(
+        value = [
+                @Optional.Interface(iface = "buildcraft.api.mj.IMjConnector", modid = "buildcraft"),
+                @Optional.Interface(iface = "buildcraft.api.mj.IMjReceiver", modid = "buildcraft"),
+                @Optional.Interface(iface = "buildcraft.api.mj.IMjPassiveProvider", modid = "buildcraft"),
+                @Optional.Interface(iface = "buildcraft.api.mj.IMjReadable", modid = "buildcraft"),
+                @Optional.Interface(iface = "buildcraft.api.mj.IMjRedstoneReceiver", modid = "buildcraft")
+        ]
+)*/
+class MinecraftJoulesStorage implements IMjStorage/*, IMjConnector, IMjReceiver, IMjPassiveProvider, IMjReadable, IMjRedstoneReceiver*/ {
+
+    long mjEnergy;
+>>>>>>> 1.16.x
     protected long capacity;
     protected long maxReceive;
     protected long maxExtract;
@@ -70,7 +90,11 @@ class MinecraftJoulesStorage implements IMjStorage {
         if (!canExtract()) {
             return 0;
         }
+<<<<<<< HEAD
         long powerExtracted = Math.min(mjEnergy, Math.min(maxExtract, (max - min)));
+=======
+        long powerExtracted = Math.min(mjEnergy, Math.min(this.maxExtract, (max - min)));
+>>>>>>> 1.16.x
         if (!simulate) {
             mjEnergy -= powerExtracted;
         }
@@ -89,7 +113,11 @@ class MinecraftJoulesStorage implements IMjStorage {
 
     @Override
     long getPowerRequested() {
+<<<<<<< HEAD
         return Math.min(mjEnergy, Math.min(maxExtract, maxReceive));
+=======
+        return Math.min(mjEnergy, Math.min(maxExtract, maxReceive));;
+>>>>>>> 1.16.x
     }
 
     @Override
@@ -98,7 +126,11 @@ class MinecraftJoulesStorage implements IMjStorage {
             return 0;
         }
 
+<<<<<<< HEAD
         long powerReceived = Math.min(capacity - mjEnergy, Math.min(maxReceive, microJoules));
+=======
+        long powerReceived = Math.min(capacity - mjEnergy, Math.min(this.maxReceive, microJoules));
+>>>>>>> 1.16.x
         if (!simulate) {
             mjEnergy += powerReceived;
         }
@@ -118,4 +150,13 @@ class MinecraftJoulesStorage implements IMjStorage {
     boolean canConnect(@Nonnull IMjStorage other) {
         return true;
     }
+<<<<<<< HEAD
+=======
+/*
+    @Override
+    boolean canConnect(@Nonnull IMjConnector other) {
+        return true;
+    }
+*/
+>>>>>>> 1.16.x
 }

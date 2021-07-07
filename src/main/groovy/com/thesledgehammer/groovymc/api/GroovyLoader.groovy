@@ -123,8 +123,13 @@ class GroovyLoader {
         setJVMLanguage(jvm);
         setPackageURL(url);
         setModID(modID);
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/GroovyLoader.groovy
         this.modDirectory = new File("src/main/${jvm}/${url}/${modID}/").toString();
         this.modResourceDirectory = new File("src/main/resources/assets/").toString();
+=======
+        this.modDirectory = new File("src/main/${jvm}/${url}/${modID}/").absolutePath;
+        this.modResourceDirectory = new File("src/main/resources/assets/").absolutePath;
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/utils/GroovyLoader.groovy
     }
 
     void setCustomDirectories(String modPath, String modResourcePath, String jvm, String url, String modID) {
@@ -133,8 +138,13 @@ class GroovyLoader {
         setJVMLanguage(jvm);
         setPackageURL(url);
         setModID(modID);
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/GroovyLoader.groovy
         this.modDirectory = new File("${modPath}/${jvm}/${url}/${modID}/").toString();
         this.modResourceDirectory = new File("${modPath}/${modResourcePath}/").toString();
+=======
+        this.modDirectory = new File("${modPath}/${jvm}/${url}/${modID}/").absolutePath;
+        this.modResourceDirectory = new File("${modPath}/${modResourcePath}/").absolutePath;
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/utils/GroovyLoader.groovy
     }
 
     final int hashCode() {
@@ -149,8 +159,8 @@ class GroovyLoader {
                 .toHashCode();
     }
 
-    final boolean equals(Object obj) {
-        GroovyLoader other = (GroovyLoader) obj;
+    final boolean equals(GroovyLoader obj) {
+        GroovyLoader other = obj;
         return new EqualsBuilder()
                 .append(this.modPath, other.modPath)
                 .append(this.modResourcePath, other.modResourcePath)

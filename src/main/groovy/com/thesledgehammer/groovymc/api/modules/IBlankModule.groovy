@@ -14,8 +14,24 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 package com.thesledgehammer.groovymc.api.modules
 
+=======
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/modules/model/ModelEntryConsumer.groovy
+package com.thesledgehammer.groovymc.client.definitions.model
+
+abstract class ModelEntryConsumer extends ModelEntryProvider {
+
+    ModelEntryConsumer() {
+        super();
+    }
+}
+=======
+package com.thesledgehammer.groovymc.api.modules
+
+/* Redesign to better suit 1.14 & beyond */
+>>>>>>> 1.16.x
 interface IBlankModule {
 
     void preInit();
@@ -23,4 +39,9 @@ interface IBlankModule {
     void Init();
 
     void postInit();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/IBlankModule.groovy
+>>>>>>> 1.16.x

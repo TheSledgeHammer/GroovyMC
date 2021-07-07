@@ -13,6 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+<<<<<<< HEAD
+=======
+/*
+>>>>>>> 1.16.x
 package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
 import com.google.common.base.Function
@@ -20,7 +24,10 @@ import com.thesledgehammer.groovymc.GroovyMC
 import com.thesledgehammer.groovymc.api.modules.BlankCompatModule
 import com.thesledgehammer.groovymc.utils.Log
 import mcjty.theoneprobe.api.ITheOneProbe
+<<<<<<< HEAD
 import net.minecraftforge.fml.common.event.FMLInterModComms
+=======
+>>>>>>> 1.16.x
 import org.apache.logging.log4j.Level
 
 import javax.annotation.Nullable
@@ -56,7 +63,11 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
             return;
         }
         registered = true;
+<<<<<<< HEAD
         FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
+=======
+        //FMLInterModComms.sendFunctionMessage("theoneprobe", "TheOneProbeCompatibilityModule", "com.thesledgehammer.groovymc.integration.modules.theoneprobe.$TheOneProbeCompatibilityModule");
+>>>>>>> 1.16.x
     }
 
     @Nullable
@@ -64,6 +75,7 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
     Void apply(ITheOneProbe theOneProbe) {
         this.theOneProbe = theOneProbe;
         theOneProbe.registerProvider(new MjEnergyProbeInfoProvider());
+<<<<<<< HEAD
        /* theOneProbe.registerProvider(new IProbeInfoProvider() {
 
             @Override
@@ -82,3 +94,9 @@ class TheOneProbeCompatibilityModule extends BlankCompatModule implements Functi
         return null;
     }
 }
+=======
+        return null;
+    }
+}
+*/
+>>>>>>> 1.16.x

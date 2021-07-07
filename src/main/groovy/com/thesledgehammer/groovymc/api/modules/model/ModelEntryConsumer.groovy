@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/modules/model/ModelEntryConsumer.groovy
+package com.thesledgehammer.groovymc.client.definitions.model
 
-<<<<<<< HEAD
+abstract class ModelEntryConsumer extends ModelEntryProvider {
 
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-
-@SideOnly(Side.CLIENT)
-=======
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-
-//Add ability to initModels with Metadata
-@OnlyIn(Dist.CLIENT)
->>>>>>> 1.16.x
-interface IInitModel {
-
-	void initModel();
-
-	//void initModel(Item item, IModelEntryHolderManager manager);
+    ModelEntryConsumer() {
+        super();
+    }
 }
+=======
+package com.thesledgehammer.groovymc.api.modules
+
+/* Redesign to better suit 1.14 & beyond */
+interface IBlankModule {
+
+    void preInit();
+
+    void Init();
+
+    void postInit();
+}
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/IBlankModule.groovy

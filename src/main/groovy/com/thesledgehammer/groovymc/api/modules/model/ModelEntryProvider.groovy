@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api
+package com.thesledgehammer.groovymc.client.definitions.model
 
-<<<<<<< HEAD
+import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
 
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+abstract class ModelEntryProvider implements IModelProvider {
 
-@SideOnly(Side.CLIENT)
-=======
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
+    ModelEntryProvider() {
 
-//Add ability to initModels with Metadata
-@OnlyIn(Dist.CLIENT)
->>>>>>> 1.16.x
-interface IInitModel {
+    }
 
-	void initModel();
-
-	//void initModel(Item item, IModelEntryHolderManager manager);
+    @Override
+    GroovyDefinitionContext GroovyDefinitionContext() {
+        return GroovyDefinitionContext.Instance();
+    }
 }

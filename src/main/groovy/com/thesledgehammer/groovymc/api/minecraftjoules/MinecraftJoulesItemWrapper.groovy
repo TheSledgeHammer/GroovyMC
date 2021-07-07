@@ -16,11 +16,21 @@
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
 import net.minecraft.item.ItemStack
+<<<<<<< HEAD
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 import javax.annotation.Nonnull
+=======
+import net.minecraft.util.Direction
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.LazyOptional
+
+import javax.annotation.Nonnull
+import javax.annotation.Nullable
+>>>>>>> 1.16.x
 
 class MinecraftJoulesItemWrapper implements ICapabilityProvider {
 
@@ -84,6 +94,7 @@ class MinecraftJoulesItemWrapper implements ICapabilityProvider {
     }
 
     @Override
+<<<<<<< HEAD
     boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         if(capability == CapabilityMj.MJ_STORAGE) {
             return true;
@@ -95,6 +106,11 @@ class MinecraftJoulesItemWrapper implements ICapabilityProvider {
     <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if(capability == CapabilityMj.MJ_STORAGE) {
             return CapabilityMj.MJ_STORAGE.cast(mjStorage);
+=======
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityMj.MJ_STORAGE) {
+            return CapabilityMj.MJ_STORAGE as LazyOptional<T>;
+>>>>>>> 1.16.x
         }
         return null;
     }

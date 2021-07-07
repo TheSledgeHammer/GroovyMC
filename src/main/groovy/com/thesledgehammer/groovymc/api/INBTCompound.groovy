@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Copyright [2018] [TheSledgeHammer]
  *
@@ -15,6 +16,7 @@
  */
 package com.thesledgehammer.groovymc.api
 
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/INBTCompound.groovy
 import net.minecraft.nbt.NBTTagCompound
 
 interface INBTCompound {
@@ -22,4 +24,47 @@ interface INBTCompound {
     NBTTagCompound writeToNBT(NBTTagCompound tag)
 
     void readFromNBT(NBTTagCompound tag);
+=======
+import net.minecraft.util.IStringSerializable
+
+enum EnumVoltage implements IStringSerializable {
+
+    LOW(32L),
+    MEDIUM(128L),
+    HIGH(512L),
+    ULTRA(2048L),
+    SUPER(8192L),
+    EXTREME(32768L),
+    INSANE(131072L),
+    INFINITE(Long.MAX_VALUE);
+
+    static final EnumVoltage[] VALUES = values();
+    private final String name;
+    private final long voltage;
+
+    EnumVoltage(long voltage) {
+        this.name = toString().toLowerCase(Locale.ENGLISH);
+        this.voltage = voltage;
+    }
+
+    long getVoltage() {
+        return voltage;
+    }
+
+    @Override
+    String getString() {
+        return name
+    }
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/EnumVoltage.groovy
+=======
+package com.thesledgehammer.groovymc.api
+
+import net.minecraft.nbt.CompoundNBT
+
+interface INBTCompound {
+
+    void read(CompoundNBT tag);
+
+    CompoundNBT write(CompoundNBT tag);
+>>>>>>> 1.16.x
 }

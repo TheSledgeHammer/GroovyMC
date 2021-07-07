@@ -17,10 +17,18 @@
 package com.thesledgehammer.groovymc.compat.forgeenergy
 
 import com.thesledgehammer.groovymc.api.INBTCompound
+<<<<<<< HEAD
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
+=======
+import net.minecraft.nbt.CompoundNBT
+import net.minecraft.util.Direction
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+import net.minecraftforge.common.util.LazyOptional
+>>>>>>> 1.16.x
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
@@ -63,23 +71,37 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
     }
 
     @Override
+<<<<<<< HEAD
     NBTTagCompound writeToNBT(NBTTagCompound tag) {
         if(feEnergy < 0) {
             feEnergy = 0;
         }
         tag.setInteger("feEnergy", feEnergy);
+=======
+    CompoundNBT write(CompoundNBT tag) {
+        if(feEnergy < 0) {
+            feEnergy = 0;
+        }
+        tag.putInt("feEnergy", feEnergy);
+>>>>>>> 1.16.x
         return tag;
     }
 
     @Override
+<<<<<<< HEAD
     void readFromNBT(NBTTagCompound tag) {
         this.feEnergy = tag.getInteger("feEnergy");
+=======
+    void read(CompoundNBT tag) {
+        this.feEnergy = tag.getInt("feEnergy");
+>>>>>>> 1.16.x
         if(feEnergy > capacity) {
             feEnergy = capacity;
         }
     }
 
     @Override
+<<<<<<< HEAD
     boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         if(capability == CapabilityEnergy.ENERGY) {
             return true;
@@ -89,6 +111,8 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
 
     @Override
     def <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+=======
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
         if(capability == CapabilityEnergy.ENERGY) {
             ForgeEnergy FE = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy)
             IEnergyStorage storage = new IEnergyStorage() {
@@ -122,6 +146,48 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
                     return FE.canReceive();
                 }
             }
+            return CapabilityEnergy.ENERGY as LazyOptional<T>;
+        }
+        return null
+    }
+
+    @Override
+    def <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
+>>>>>>> 1.16.x
+        if(capability == CapabilityEnergy.ENERGY) {
+            ForgeEnergy FE = new ForgeEnergy(capacity, maxReceive, maxExtract, feEnergy)
+            IEnergyStorage storage = new IEnergyStorage() {
+                @Override
+                int receiveEnergy(int maxReceive, boolean simulate) {
+                    return FE.receiveEnergy(maxReceive, simulate);
+                }
+
+                @Override
+                int extractEnergy(int maxExtract, boolean simulate) {
+                    return FE.extractEnergy(maxExtract, simulate);
+                }
+
+                @Override
+                int getEnergyStored() {
+                    return FE.getEnergyStored();
+                }
+
+                @Override
+                int getMaxEnergyStored() {
+                    return FE.getMaxEnergyStored();
+                }
+
+                @Override
+                boolean canExtract() {
+                    return FE.canExtract()
+                }
+
+                @Override
+                boolean canReceive() {
+                    return FE.canReceive();
+                }
+            }
+<<<<<<< HEAD
             return CapabilityEnergy.ENERGY.cast(storage);
         }
         return null
@@ -130,4 +196,10 @@ class ForgeEnergy extends ForgeEnergyStorage implements ICapabilityProvider, INB
     ForgeEnergyItemContainerCapability initForgeEnergyItemCapabilities() {
         return new ForgeEnergyItemContainerCapability();
     }
+=======
+            return CapabilityEnergy.ENERGY as LazyOptional<T>;
+        }
+        return null
+    }
+>>>>>>> 1.16.x
 }

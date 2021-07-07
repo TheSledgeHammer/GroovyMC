@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.blocks
 
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import net.minecraft.block.Block
@@ -32,12 +33,18 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 class GroovyBlock extends Block implements IInitModel {
+=======
+import net.minecraft.block.Block
+import net.minecraft.block.material.Material
 
-    GroovyBlock(Material blockMaterialIn) {
-        super(blockMaterialIn);
-        setHardness(1.5F);
+class GroovyBlock extends Block {
+>>>>>>> 1.16.x
+
+    GroovyBlock(Properties properties) {
+        super(properties.hardnessAndResistance(1.5F));
     }
 
+<<<<<<< HEAD
     @Override
     void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
         if (world.isRemote) {
@@ -54,5 +61,9 @@ class GroovyBlock extends Block implements IInitModel {
     @SideOnly(Side.CLIENT)
     void initModel() {
         ModelEntryHolderManager.Instance().initModel(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+=======
+    GroovyBlock(Material material) {
+        super(Properties.create(material).hardnessAndResistance(1.5F));
+>>>>>>> 1.16.x
     }
 }

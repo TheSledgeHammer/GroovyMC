@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.render
+package com.thesledgehammer.groovymc.compat.modules.theoneprobe
 
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/client/render/IRenderEntry.groovy
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolder
 import com.thesledgehammer.groovymc.client.model.MutableQuad
+=======
+import com.thesledgehammer.groovymc.api.minecraftjoules.IMjStorage
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/compat/modules/theoneprobe/EnergyTools.groovy
 import net.minecraft.tileentity.TileEntity
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/client/render/IRenderEntry.groovy
 @SideOnly(Side.CLIENT)
 interface IRenderEntry<M extends ModelEntryHolder, T extends TileEntity> {
 
@@ -29,3 +32,21 @@ interface IRenderEntry<M extends ModelEntryHolder, T extends TileEntity> {
 
     MutableQuad[] getQuads(M modelEntryHolder, T tile, float partialTicks);
 }
+=======
+class EnergyTools {
+
+    static long getMjStored(TileEntity te) {
+        IMjStorage handler = (IMjStorage) te;
+        return handler.getStored();
+    }
+
+    static long getMjCapacity(TileEntity te) {
+        IMjStorage handler = (IMjStorage) te;
+        return handler.getCapacity();
+    }
+
+    static boolean isMjEnergyHandler(TileEntity te) {
+        return te instanceof IMjStorage;
+    }
+}
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/compat/modules/theoneprobe/EnergyTools.groovy

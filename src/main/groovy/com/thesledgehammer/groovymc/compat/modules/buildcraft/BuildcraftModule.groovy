@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.thesledgehammer.groovymc.compat.modules.buildcraft
+<<<<<<< HEAD
 
 import buildcraft.api.mj.MjAPI
 import com.thesledgehammer.groovymc.GroovyMC
@@ -22,6 +23,9 @@ import com.thesledgehammer.groovymc.utils.Log
 import net.minecraftforge.common.capabilities.Capability
 import org.apache.logging.log4j.Level
 
+=======
+/*
+>>>>>>> 1.16.x
 class BuildcraftModule extends BlankCompatModule {
 
     BuildcraftModule() {
@@ -69,4 +73,9 @@ class BuildcraftModule extends BlankCompatModule {
         }
         return false;
     }
+<<<<<<< HEAD
 }
+=======
+}
+*/
+>>>>>>> 1.16.x

@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.modules.BlankRenderEventModule
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.utils.Log
 import net.minecraft.client.renderer.texture.TextureMap
@@ -28,6 +29,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.logging.log4j.Level
+=======
+import com.thesledgehammer.groovymc.utils.Log
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.ModList
+>>>>>>> 1.16.x
 
 class RenderEventModuleContainer {
 
@@ -67,9 +73,15 @@ class RenderEventModuleContainer {
             }
         }
     }
+<<<<<<< HEAD
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
+=======
+/*
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+>>>>>>> 1.16.x
     static void onModelBake(ModelBakeEvent event) {
         ModelEntryHolderManager.Instance().onModelBake(event);
         for(BlankRenderEventModule module : EVENTS) {
@@ -81,9 +93,15 @@ class RenderEventModuleContainer {
     }
 
     @SubscribeEvent
+<<<<<<< HEAD
     @SideOnly(Side.CLIENT)
     static void onTextureStitchPre(TextureStitchEvent.Pre event) {
         TextureMap textureMap = event.getMap();
+=======
+    @OnlyIn(Dist.CLIENT)
+    static void onTextureStitchPre(TextureStitchEvent.Pre event) {
+        AtlasTexture textureMap = event.getMap();
+>>>>>>> 1.16.x
         ModelEntryHolderManager.Instance().onTextureStitchPre(textureMap);
         for(BlankRenderEventModule module : EVENTS) {
             if(isRegistered(module)) {
@@ -92,6 +110,7 @@ class RenderEventModuleContainer {
             }
         }
     }
+<<<<<<< HEAD
 
     //TODO
     @SideOnly(Side.CLIENT)
@@ -102,6 +121,13 @@ class RenderEventModuleContainer {
     private static boolean isRegistered(BlankRenderEventModule module) {
         if(module != null) {
             if(Loader.isModLoaded(module.getModID()) && module.getEventName() != null) {
+=======
+    */
+    private static boolean isRegistered(BlankRenderEventModule module) {
+        ModList modList = ModList.get();
+        if(module != null) {
+            if(modList.isLoaded(module.getModID())) {
+>>>>>>> 1.16.x
                 return true;
             }
         }

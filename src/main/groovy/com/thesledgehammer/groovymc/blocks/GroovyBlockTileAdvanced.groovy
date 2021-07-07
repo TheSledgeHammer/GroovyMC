@@ -12,7 +12,9 @@
 
 package com.thesledgehammer.groovymc.blocks
 
+
 import com.thesledgehammer.groovymc.blocks.properties.IBlockType
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeFastTESR
 import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTESR
 import com.thesledgehammer.groovymc.blocks.properties.IMachineProperties
@@ -26,43 +28,86 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
+=======
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERAnimation
+import com.thesledgehammer.groovymc.blocks.properties.IMachineProperties
+import net.minecraft.block.BlockState
+import net.minecraft.block.material.Material
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.state.EnumProperty
+>>>>>>> 1.16.x
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumBlockRenderType
-import net.minecraft.util.EnumFacing
+import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.Rotation
+<<<<<<< HEAD
 import net.minecraft.util.math.*
 import net.minecraft.world.IBlockAccess
+=======
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.MathHelper
+import net.minecraft.world.IBlockReader
+>>>>>>> 1.16.x
 import net.minecraft.world.World
-import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
+<<<<<<< HEAD
 import javax.annotation.Nullable
 
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements IBlockRotation, ITileEntityProvider {
 
     protected static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.DOWN, EnumFacing.UP);
+=======
+class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements IBlockRotation {
+>>>>>>> 1.16.x
 
-    private final boolean hasTESR;
-    private final boolean hasFastTESR;
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
 
+<<<<<<< HEAD
     protected final P blockType
 
     GroovyBlockTileAdvanced(P blockType, Material blockMaterialIn) {
         super(blockMaterialIn);
         this.blockType = blockType;
+=======
+    private boolean hasTER;
+    private boolean hasTERAnimation;
+    final P blockType;
 
-        this.hasTESR = blockType instanceof IBlockTypeTESR;
-        this.hasFastTESR = blockType instanceof IBlockTypeFastTESR;
-        this.lightOpacity = (!hasFastTESR && !hasTESR) ? 255 : 0;
+    GroovyBlockTileAdvanced(P blockType, Properties blockProperties) {
+        super(blockProperties);
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
 
-        this.setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.blockType = blockType;
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
+    }
+>>>>>>> 1.16.x
+
+    GroovyBlockTileAdvanced(P blockType, Material material) {
+        super(material);
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+
+        this.blockType = blockType;
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
     }
 
     GroovyBlockTileAdvanced(P blockType) {
         super(Material.IRON);
+<<<<<<< HEAD
         this.blockType = blockType;
+    }
+
+    private IMachineProperties getDefinition() {
+        return blockType.getGroovyMachineProperties();
+=======
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+
+        this.blockType = blockType;
+        this.hasTER = blockType instanceof IBlockTypeTER;
+        this.hasTERAnimation = blockType instanceof IBlockTypeTERAnimation;
+>>>>>>> 1.16.x
     }
 
     private IMachineProperties getDefinition() {
@@ -70,35 +115,43 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     }
 
     @Override
-    boolean isOpaqueCube(IBlockState state) {
-        return !hasFastTESR && !hasTESR;
+    TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return getDefinition().createNewTileEntity();
     }
 
     @Override
-    boolean isNormalCube(IBlockState state) {
-        return !hasFastTESR && !hasTESR;
+    boolean hasTileEntity(BlockState state) {
+        return getDefinition().hasTileEntity(state);
     }
 
     @Override
-    boolean isBlockNormalCube(IBlockState blockState) {
-        return isNormalCube(blockState);
-    }
-
-    @Override
+<<<<<<< HEAD
     boolean isFullCube(IBlockState state) {
         IMachineProperties definition = getDefinition();
         return definition.isFullCube(state);
+=======
+    void rotateAfterPlacement(PlayerEntity player, World world, BlockPos pos, Direction side) {
+        BlockState state = world.getBlockState(pos);
+        Direction facing = getPlacementRotation(player, world, pos, side);
+        world.setBlockState(pos, state.with(FACING, facing));
+>>>>>>> 1.16.x
     }
 
-    @Override
-    EnumBlockRenderType getRenderType(IBlockState state) {
-        if(hasFastTESR || hasTESR) {
-            return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-        } else {
-            return EnumBlockRenderType.MODEL;
+    static Direction getPlacementRotation(PlayerEntity player, World world, BlockPos pos, Direction side) {
+        int l = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
+        if (l == 1) {
+            return Direction.EAST;
         }
+        if (l == 2) {
+            return Direction.SOUTH;
+        }
+        if (l == 3) {
+            return Direction.WEST;
+        }
+        return Direction.NORTH;
     }
 
+<<<<<<< HEAD
     @Override
     boolean getUseNeighborBrightness(IBlockState state) {
         return hasFastTESR || hasTESR;
@@ -218,5 +271,10 @@ class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializab
     RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
         IMachineProperties definition = getDefinition();
         return definition.collisionRayTrace(worldIn, pos, blockState, start, end);
+=======
+    static BlockState withRotation(BlockState state, Rotation rot) {
+        Direction facing = state.get(FACING);
+        return state.with(FACING, rot.rotate(facing));
+>>>>>>> 1.16.x
     }
 }

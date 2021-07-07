@@ -18,12 +18,14 @@ package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.client.definitions.model.ModelEntryHolderManager
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.utils.TileEntityTools
+=======
+>>>>>>> 1.16.x
 import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.item.Item
+import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+<<<<<<< HEAD
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
@@ -32,6 +34,12 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+=======
+import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+>>>>>>> 1.16.x
 
 import javax.annotation.Nullable
 
@@ -40,10 +48,9 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     @Nullable
     private Block block;
     private String name;
-    private Class<T> teClass;
-    private AxisAlignedBB boundingBox;
-    private RayTraceResult rayTraceResult;
+    private TileEntityType<? extends T> teType;
     private boolean isFullCube;
+    private VoxelShape shape;
 
     @Override
     void setBlock(Block block) {
@@ -56,28 +63,18 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    void setTeClass(Class<T> teClass) {
-        this.teClass = teClass;
+    void setTeType(TileEntityType<? extends T> teType) {
+        this.teType = teType;
+    }
+
+    @Override
+    void setVoxelShape(VoxelShape shape) {
+        this.shape = shape;
     }
 
     @Override
     void setIsFullCube(boolean isFullCube) {
         this.isFullCube = isFullCube;
-    }
-
-    @Override
-    void setAxisAlignedBB(AxisAlignedBB boundingBox) {
-        this.boundingBox = boundingBox;
-    }
-
-    @Override
-    void setRayTraceResult(RayTraceResult rayTraceResult) {
-        this.rayTraceResult = rayTraceResult;
-    }
-
-    @Override
-    Class<T> getTeClass() {
-        return teClass;
     }
 
     @Nullable
@@ -87,42 +84,29 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
     }
 
     @Override
-    String getName() {
+    String getString() {
         return name;
     }
 
     @Override
-    boolean getIsFullCube() {
+    TileEntityType<? extends T> getTeType() {
+        return teType;
+    }
+
+    @Override
+    VoxelShape getShape() {
+        return shape;
+    }
+
+    @Override
+    boolean isFullCube(BlockState state) {
         return isFullCube;
     }
 
     @Override
-    boolean isFullCube(IBlockState state) {
-        return true;
-    }
-
-    @Override
-    AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state) {
-        return boundingBox;
-    }
-
-    @Override
-    @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec) {
-        return rayTrace(pos, startVec, endVec, state.getBoundingBox(world, pos));
-    }
-
-    @Nullable
-    private RayTraceResult rayTrace(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
-        Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-        RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     void initModel() {
+<<<<<<< HEAD
         ModelEntryHolderManager.Instance().initModel(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
 
@@ -143,5 +127,18 @@ trait MachinePropertyTraits<T extends GroovyTileBasic> implements IMachineProper
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("Failed to instantiate tile entity of class " + teClass.getName(), e);
         }
+=======
+
+    }
+
+    @Override
+    boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Override
+    TileEntity createNewTileEntity() {
+        return teType.create();
+>>>>>>> 1.16.x
     }
 }

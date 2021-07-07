@@ -20,21 +20,31 @@ import com.thesledgehammer.groovymc.gui.inventory.InventoryAdaptor
 import com.thesledgehammer.groovymc.tiles.traits.TileInventoryTraits
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ISidedInventory
-import net.minecraft.util.EnumFacing
+import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.Direction
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.InvWrapper
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
+<<<<<<< HEAD
 abstract class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits {
+=======
+import javax.annotation.Nonnull
+
+class GroovyTileAdvanced extends GroovyTileBasic implements TileInventoryTraits {
+>>>>>>> 1.16.x
 
     private IItemHandler itemHandler;
     private IItemHandler itemHandlerSided;
 
-    GroovyTileAdvanced() {
+    GroovyTileAdvanced(TileEntityType tileEntityTypeIn) {
+        super(tileEntityTypeIn)
         setTileEntity(this);
         setIInventory(new InventoryAdaptor());
+<<<<<<< HEAD
     }
 
     @Override
@@ -43,23 +53,27 @@ abstract class GroovyTileAdvanced extends GroovyTileBasic implements TileInvento
             return true;
         }
         return super.hasCapability(capability, facing);
+=======
+>>>>>>> 1.16.x
     }
 
     @Override
-    <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (facing == null) {
-                if(itemHandler == null) {
-                    itemHandler = new InvWrapper((IInventory) this);
+            for(Direction facing : Direction.values()) {
+                if (facing == null) {
+                    if (itemHandler == null) {
+                        itemHandler = new InvWrapper((IInventory) this);
+                    }
+                    return (T) itemHandler as LazyOptional<T>;
+                } else {
+                    if (itemHandlerSided == null) {
+                        itemHandlerSided = new SidedInvWrapper((ISidedInventory) this, facing);
+                    }
+                    return (T) itemHandlerSided as LazyOptional<T>;
                 }
-                return (T) itemHandler;
-            } else {
-                if(itemHandlerSided == null) {
-                    itemHandlerSided = new SidedInvWrapper((ISidedInventory) this, facing);
-                }
-                return (T) itemHandlerSided;
             }
         }
-        return super.getCapability(capability, facing);
+        return super.getCapability(capability)
     }
 }

@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.thesledgehammer.groovymc.api.minecraftjoules
 
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/blocks/GroovyBlockTileMeta.groovy
 package com.thesledgehammer.groovymc.blocks
 
 import net.minecraft.block.material.Material
@@ -38,5 +40,22 @@ abstract class GroovyBlockTileMeta extends GroovyBlockTileBasic implements IBloc
             int meta = getMetaFromState(blockState);
             list.add(new ItemStack(this, 1, meta));
         }
+=======
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJouleItemContainer
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.CompoundNBT
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+
+class MinecraftJoulesItemContainerCapability extends MinecraftJouleItemContainer {
+
+    MinecraftJoulesItemContainerCapability(Item.Properties properties) {
+        super(properties)
+    }
+
+    @Override
+    ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+        return new MinecraftJoulesItemWrapper(stack, this);
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/minecraftjoules/MinecraftJoulesItemContainerCapability.groovy
     }
 }

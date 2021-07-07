@@ -13,16 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.thesledgehammer.groovymc.api.minecraftjoules
 
-<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/modules/ModuleContainers.groovy
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/minecraftjoules/MinecraftJoulesItemContainerCapability.groovy
+import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJouleItemContainer
+import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.common.capabilities.ICapabilityProvider
+
+class MinecraftJoulesItemContainerCapability extends MinecraftJouleItemContainer {
+
+    @Override
+    ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
+        return new MinecraftJoulesItemWrapper(stack, this);
+=======
 package com.thesledgehammer.groovymc.modules
 
 import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 
-class ModuleContainers {
+class ModuleContainerManager {
 
     static void preInit() {
-        CapabilityMj.register();
+        //CapabilityMj.register();
         CompatModuleContainer.preInit();
         RenderEventModuleContainer.preInit();
     }
@@ -35,22 +47,6 @@ class ModuleContainers {
     static void postInit() {
         CompatModuleContainer.postInit();
         RenderEventModuleContainer.postInit();
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/modules/ModuleContainerManager.groovy
     }
 }
-=======
-package com.thesledgehammer.groovymc.api.modules
-
-import net.minecraft.client.renderer.texture.AtlasTexture
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.client.event.ModelBakeEvent
-
-interface IRenderEventModule {
-
-    @OnlyIn(Dist.CLIENT)
-    void onModelBake(ModelBakeEvent event);
-
-    @OnlyIn(Dist.CLIENT)
-    void onTextureStitchPre(AtlasTexture map);
-}
->>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/IRenderEventModule.groovy

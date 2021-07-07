@@ -10,13 +10,22 @@ package com.thesledgehammer.groovymc.api.minecraftjoules
 import com.thesledgehammer.groovymc.api.EnumVoltage
 
 class MjTools {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1.16.x
     /** A single minecraft joule, in micro joules (the power system base unit) */
     static final long ONE_MINECRAFT_JOULE = 1_000_000L;
 
     static final long MJ = ONE_MINECRAFT_JOULE;
 
+<<<<<<< HEAD
     static final long formatMj(long microMj) {
         return (microMj / (double) MJ);
+=======
+    static long formatMj(long microMj) {
+        return (microMj / MJ as double);
+>>>>>>> 1.16.x
     }
 
     static final long formatMj(long microMj, EnumVoltage voltage) {

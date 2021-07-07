@@ -15,6 +15,23 @@
  */
 package com.thesledgehammer.groovymc.api.modules
 
+<<<<<<< HEAD
 interface ICompatModule {
 
+=======
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/modules/IBlankModule.groovy
+package com.thesledgehammer.groovymc.api.modules
+
+interface IBlankModule {
+
+    void preInit();
+
+    void Init();
+
+    void postInit();
+=======
+interface ICompatModule {
+
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/ICompatModule.groovy
+>>>>>>> 1.16.x
 }

@@ -15,9 +15,6 @@
  */
 package com.thesledgehammer.groovymc.api.modules
 
-<<<<<<< HEAD
-
-=======
 <<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/modules/model/IModelProvider.groovy
 package com.thesledgehammer.groovymc.client.definitions.model
 
@@ -28,7 +25,6 @@ interface IModelProvider {
     GroovyDefinitionContext GroovyDefinitionContext();
 }
 =======
->>>>>>> 1.16.x
 import com.thesledgehammer.groovymc.modules.CompatModuleContainer
 import com.thesledgehammer.groovymc.utils.Log
 import org.apache.logging.log4j.Level
@@ -41,7 +37,4 @@ abstract class BlankCompatModule extends BlankModule implements ICompatModule {
         Log.log(Level.INFO, "${modID}'s ${moduleName} was added to CompatModule");
     }
 }
-<<<<<<< HEAD
-=======
 >>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/BlankCompatModule.groovy
->>>>>>> 1.16.x

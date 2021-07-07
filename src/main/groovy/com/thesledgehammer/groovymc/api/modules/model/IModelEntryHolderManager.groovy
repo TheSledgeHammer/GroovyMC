@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.api
+package com.thesledgehammer.groovymc.client.definitions.model
 
-<<<<<<< HEAD
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.item.Item
 
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+interface IModelEntryHolderManager {
 
-@SideOnly(Side.CLIENT)
-=======
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
+    void initModel(Item item, int meta, ModelResourceLocation modelResourceLocation);
 
-//Add ability to initModels with Metadata
-@OnlyIn(Dist.CLIENT)
->>>>>>> 1.16.x
-interface IInitModel {
+    void initModel(Item item, int meta, String domain, String path);
 
-	void initModel();
+    void initModel(Item item, int meta, String resourceLocation);
 
-	//void initModel(Item item, IModelEntryHolderManager manager);
+    ModelResourceLocation getModelLocation(String domain, String path);
+
+    ModelResourceLocation getModelLocation(String resourceLocation)
 }

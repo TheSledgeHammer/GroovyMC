@@ -14,34 +14,22 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.items
+package com.thesledgehammer.groovymc.client.definitions.model
 
-<<<<<<< HEAD
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraftforge.oredict.OreDictionary
 
-class GroovyItem extends Item {
+import net.minecraft.util.ResourceLocation
 
-    GroovyItem() {
+abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
 
+    private final ResourceLocation modelLocation;
+
+    ModelEntryHolder(ResourceLocation modelLocation) {
+        this.modelLocation = modelLocation;
+        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 
-    ItemStack getWildcard() {
-        return new ItemStack(this, 1, OreDictionary.WILDCARD_VALUE);
-=======
-
-import net.minecraft.item.Item
-import net.minecraft.item.ItemGroup
-
-class GroovyItem extends Item {
-
-    GroovyItem(Properties properties) {
-        super(properties);
-    }
-
-    GroovyItem(ItemGroup itemGroup) {
-        super(new Properties().group(itemGroup));
->>>>>>> 1.16.x
+    ModelEntryHolder(String resourceDomain, String resourcePath) {
+        this(new ResourceLocation(resourceDomain, resourcePath))
+        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
     }
 }

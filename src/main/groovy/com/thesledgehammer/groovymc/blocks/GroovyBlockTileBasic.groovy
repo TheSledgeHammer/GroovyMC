@@ -16,6 +16,7 @@
 
 package com.thesledgehammer.groovymc.blocks
 
+<<<<<<< HEAD
 import com.thesledgehammer.groovymc.gui.inventory.InventoryTools
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.ITileEntityProvider
@@ -35,11 +36,15 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityPr
     GroovyBlockTileBasic(Material blockMaterialIn) {
         super(blockMaterialIn);
     }
+=======
+>>>>>>> 1.16.x
 
-    GroovyBlockTileBasic() {
-        super(Material.IRON);
-    }
+import net.minecraft.block.BlockState
+import net.minecraft.block.material.Material
+import net.minecraft.state.EnumProperty
+import net.minecraft.util.Direction
 
+<<<<<<< HEAD
     @Override
     void breakBlock(World world, BlockPos pos, IBlockState state) {
         if (world.isRemote) {
@@ -56,6 +61,23 @@ abstract class GroovyBlockTileBasic extends GroovyBlock implements ITileEntityPr
         }
         world.removeTileEntity(pos);
         super.breakBlock(world, pos, state);
+=======
+abstract class GroovyBlockTileBasic extends GroovyBlock {
+
+    public static final EnumProperty<Direction> FACING = EnumProperty.create("facing", Direction.class, Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN, Direction.UP);
+
+    GroovyBlockTileBasic(Properties properties) {
+        super(properties);
+    }
+
+    GroovyBlockTileBasic(Material material) {
+        super(Properties.create(material));
+    }
+
+    @Override
+    boolean hasTileEntity(BlockState state) {
+        return true;
+>>>>>>> 1.16.x
     }
 /*
     //TODO: Incomplete
