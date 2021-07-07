@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 class ForgeEnergyItemContainerCapability extends ForgeEnergyItemContainer {
 
-    ForgeEnergyItemContainerCapability(Item.Properties properties) {
+    ForgeEnergyItemContainerCapability(Properties properties) {
         super(properties);
     }
 

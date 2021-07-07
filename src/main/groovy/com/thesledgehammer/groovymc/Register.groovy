@@ -2,8 +2,6 @@ package com.thesledgehammer.groovymc
 
 import com.google.common.collect.HashBasedTable
 import com.google.common.collect.Table
-import com.thesledgehammer.groovyforge.FMLGroovyModLoadingContext
-import com.thesledgehammer.groovymc.blocks.GroovyBlock
 import com.thesledgehammer.groovymc.config.Constants
 import net.minecraft.block.Block
 import net.minecraft.inventory.container.Container

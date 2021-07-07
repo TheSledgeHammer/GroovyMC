@@ -21,7 +21,7 @@ import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 class ModuleContainerManager {
 
     static void preInit() {
-        CapabilityMj.register();
+        //CapabilityMj.register();
         CompatModuleContainer.preInit();
         RenderEventModuleContainer.preInit();
     }

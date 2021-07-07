@@ -3,15 +3,10 @@ package com.thesledgehammer.groovymc.utils
 import net.minecraft.block.BlockState
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.BlockRayTraceResult
-import net.minecraft.util.math.Tuple3d
 import net.minecraft.util.math.shapes.ISelectionContext
 import net.minecraft.util.math.shapes.VoxelShape
 import net.minecraft.util.math.shapes.VoxelShapes
-import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
-
-import javax.annotation.Nullable
 
 //BlockState: contains methods related to renderShape, collisionShape, RaytraceShape
 class VoxelShapeTools {

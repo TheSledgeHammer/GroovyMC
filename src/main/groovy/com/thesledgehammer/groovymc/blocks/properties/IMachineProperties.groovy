@@ -18,13 +18,7 @@ import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.IStringSerializable
-import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.RayTraceResult
 import net.minecraft.util.math.shapes.VoxelShape
-import net.minecraft.util.math.vector.Vector3d
-import net.minecraft.world.IBlockReader
-import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 

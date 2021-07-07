@@ -16,8 +16,11 @@
 
 package com.thesledgehammer.groovymc.blocks
 
-import com.thesledgehammer.groovymc.blocks.properties.*
-import com.thesledgehammer.groovymc.utils.VoxelShapeTools
+
+import com.thesledgehammer.groovymc.blocks.properties.IBlockType
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTER
+import com.thesledgehammer.groovymc.blocks.properties.IBlockTypeTERAnimation
+import com.thesledgehammer.groovymc.blocks.properties.IMachineProperties
 import net.minecraft.block.BlockState
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
@@ -26,19 +29,10 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Direction
 import net.minecraft.util.IStringSerializable
 import net.minecraft.util.Rotation
-import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.shapes.VoxelShape
-import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
-import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.api.distmarker.OnlyIn
-
-import javax.annotation.Nonnull
-import javax.annotation.Nullable
 
 class GroovyBlockTileAdvanced<P extends Enum<P> & IBlockType & IStringSerializable> extends GroovyBlock implements IBlockRotation {
 

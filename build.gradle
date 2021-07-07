@@ -1,7 +1,6 @@
 buildscript {
 	repositories {
 		maven { url = 'https://files.minecraftforge.net/maven' }
-		jcenter()
 		mavenCentral()
 	}
 	dependencies {
@@ -13,25 +12,28 @@ plugins {
 	id 'groovy'
 	id 'maven'
 	id 'idea'
-	id "com.jfrog.bintray" version "1.8.4"
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply from: project.file('maven.gradle')
 
 version = "${version_major}.${version_minor}.${version_patch}"
-group= 'com.thesledgehammer.groovymc'
-archivesBaseName = "GroovyMC_${mcversion}"
+group= 'ooo.thesledgehammer'
+archivesBaseName = "groovymc"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 repositories {
 	maven {
 		name = "Apache Groovy"
-		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
+		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy"
 	}
 	maven {
-		name = "TheSledgeHammer"
-		url = "https://dl.bintray.com/thesledgehammer/development/"
+		name = "TheSledgeHammer GroovyForge"
+		url = "https://maven.pkg.github.com/TheSledgeHammer/GroovyForge"
+		credentials {
+			username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
+            password = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_key")
+        }
 	}
 }
 
@@ -46,7 +48,7 @@ minecraft {
             mods {
                 groovymc {
                     source sourceSets.main
-				}
+								}
             }
         }
 
@@ -74,7 +76,7 @@ minecraft {
 			args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-				groovymc {
+				Wgroovymc {
                     source sourceSets.main
                 }
             }
@@ -86,8 +88,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
 	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
-	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_${mcversion}:${groovyforge_version}:universal"
+	compile "org.codehaus.groovy:groovy:${groovy_version}"
+	compile "ooo.thesledgehammer:groovyforge:${groovyforge_version}"
 	//compile "mcjty.theoneprobe:TheOneProbe-1.16:${top_version}"
 }
 
@@ -95,7 +97,7 @@ jar {
 	manifest {
 		attributes(['Specification-Title': 'groovymc',
 					'Specification-Vendor': 'TheSledgeHammer',
-					'Specification-Version': "3",
+					'Specification-Version': "4",
 					'Implementation-Title': "GroovyMC",
 					'Implementation-Version': "${version}",
 					'Implementation-Vendor' :'GroovyMC',
