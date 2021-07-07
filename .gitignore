@@ -10,6 +10,8 @@
 *.ipr
 *.iws
 *.idea
+.classpath
+*.dist
 /bin
 /build
 /config
@@ -20,11 +22,9 @@
 /run
 /saves
 /out
-/classes
-/production
-/src/main/groovy/com/thesledgehammer/groovymc/test
-/definitions_old
+/lib
+/generated
 usernamecache.json
 usercache.json
 options.txt
-.classpath
+

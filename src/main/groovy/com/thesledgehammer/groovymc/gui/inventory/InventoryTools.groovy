@@ -12,7 +12,7 @@
 
 package com.thesledgehammer.groovymc.gui.inventory
 
-import net.minecraft.entity.item.EntityItem
+import net.minecraft.entity.item.ItemEntity
 import net.minecraft.inventory.IInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
@@ -48,13 +48,13 @@ class InventoryTools {
             if (stackPartial > itemStack.getCount()) {
                 stackPartial = itemStack.getCount();
             }
-            ItemStack drop = itemStack.splitStack(stackPartial);
-            EntityItem entityitem = new EntityItem(world, x + f, y + f1, z + f2, drop);
+            ItemStack drop = itemStack.split(stackPartial);
+            ItemEntity entityitem = new ItemEntity(world, x + f, y + f1, z + f2, drop);
             float accel = 0.05F;
-            entityitem.motionX = (float) world.rand.nextGaussian() * accel;
-            entityitem.motionY = (float) world.rand.nextGaussian() * accel + 0.2F;
-            entityitem.motionZ = (float) world.rand.nextGaussian() * accel;
-            world.spawnEntity(entityitem);
+            entityitem.motion.x = (float) world.rand.nextGaussian() * accel;
+            entityitem.motion.y = (float) world.rand.nextGaussian() * accel + 0.2F;
+            entityitem.motion.z= (float) world.rand.nextGaussian() * accel;
+          //  world.s(entityitem);
         }
     }
 

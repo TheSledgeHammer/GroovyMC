@@ -1,86 +1,107 @@
 buildscript {
 	repositories {
-		jcenter()
+		maven { url = 'https://files.minecraftforge.net/maven' }
 		mavenCentral()
-		maven {
-			name = "forge"
-			url = "http://files.minecraftforge.net/maven"
-		}
 	}
 	dependencies {
-		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
 	}
 }
 
 plugins {
 	id 'groovy'
-	id 'idea'
 	id 'maven'
-	id "net.minecraftforge.gradle.forge" version "2.0.2"
-	id "com.jfrog.bintray" version "1.8.4"
+	id 'idea'
 }
+apply plugin: 'net.minecraftforge.gradle'
 apply from: project.file('maven.gradle')
 
-sourceCompatibility = 1.8
-targetCompatibility= 1.8
+version = "${version_major}.${version_minor}.${version_patch}"
+group= 'ooo.thesledgehammer'
+archivesBaseName = "groovymc"
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 repositories {
 	maven {
 		name = "Apache Groovy"
-		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all"
-		//url = "https://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all"
+		url = "https://mvnrepository.com/artifact/org.codehaus.groovy/groovy"
 	}
 	maven {
-		name = "JAXB"
-		url = "https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api"
-	}
-	maven {
-		name = "TheSledgeHammer"
-		url = "https://dl.bintray.com/thesledgehammer/development/"
-	}
-	maven {
-		name = "BuildCraft"
-		url = "https://mod-buildcraft.com/maven"
-	}
-	maven {
-		name = "tterrag maven (TOP)"
-		url = "https://maven.tterrag.com/"
+		name = "TheSledgeHammer GroovyForge"
+		url = "https://maven.pkg.github.com/TheSledgeHammer/GroovyForge"
+		credentials {
+			username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
+            password = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_key")
+        }
 	}
 }
-
-version = version_major + '.' + version_minor + '.' + version_patch
 
 minecraft {
-	version =  mcversion + "-" + forgeversion
-	runDir = "run"
-	mappings = mcp_mappings
-	replaceIn "GroovyMC.groovy"
-	replace '@VERSION@', project.version
-	replace '@UPDATE@', update_json
+	mappings channel: 'snapshot', version:"${mcp_mappings}-${mc_version_mappings}"
+	runs {
+		client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                groovymc {
+                    source sourceSets.main
+								}
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+				groovymc {
+                    source sourceSets.main
+                }
+            }
+        }
+
+		data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+			// Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+			args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+				Wgroovymc {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
-group= 'com.thesledgehammer.groovymc'
-archivesBaseName = "GroovyMC_" + mcversion
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-	compile "org.codehaus.groovy:groovy-all:${groovy_version}"
-	//compile "javax.xml.bind:jaxb-api:+"
-	compile "com.thesledgehammer.GroovyForge:GroovyForge_1.12.2:+:universal"
-	compile "com.mod-buildcraft:buildcraft:${buildcraft_version}"
-	compile "mcjty.theoneprobe:TheOneProbe-1.12:${top_version}"
+	minecraft "net.minecraftforge:forge:${mcversion}-${forgeversion}"
+	compile "org.codehaus.groovy:groovy:${groovy_version}"
+	compile "ooo.thesledgehammer:groovyforge:${groovyforge_version}"
+	//compile "mcjty.theoneprobe:TheOneProbe-1.16:${top_version}"
 }
 
-processResources {
-	inputs.property "version", project.version
-	inputs.property "mcversion", project.minecraft.version
-	inputs.property "updatejson", update_json
-
-	from(sourceSets.main.resources.srcDirs) {
-		include 'mcmod.info'
-		// replace version and mcversion
-		expand 'version':project.version, 'mcversion':project.minecraft.version, 'updatejson': update_json
-	}
-	from(sourceSets.main.resources.srcDirs) {
-		exclude 'mcmod.info'
+jar {
+	manifest {
+		attributes(['Specification-Title': 'groovymc',
+					'Specification-Vendor': 'TheSledgeHammer',
+					'Specification-Version': "4",
+					'Implementation-Title': "GroovyMC",
+					'Implementation-Version': "${version}",
+					'Implementation-Vendor' :'GroovyMC',
+					'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
 	}
 }

@@ -17,61 +17,64 @@
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraft.util.math.shapes.VoxelShapes
 
 class GroovyMachineProperties<T extends GroovyTileBasic> implements MachinePropertyTraits<T> {
 
-    GroovyMachineProperties(Class<T> teClass, String name) {
-        this(teClass, name, new AxisAlignedBB(0, 0, 0, 1, 1, 1))
+    GroovyMachineProperties(TileEntityType<? extends T> teType, String name) {
+        this(teType, name, VoxelShapes.create(new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
     }
 
-    GroovyMachineProperties(Class<T> teClass, String name, AxisAlignedBB boundingBox) {
-        setTeClass(teClass);
+    GroovyMachineProperties(TileEntityType<? extends T> teType, String name, VoxelShape shape) {
+        setTeType(teType);
         setName(name);
-        setAxisAlignedBB(boundingBox);
+        setVoxelShape(shape);
     }
 
-    static class WithTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTESR<T> {
+    static class WithTER<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTER<T> {
 
-        WithTESR(Class<T> teClass, String name, String particleTextureLocation) {
-            this(teClass, name, particleTextureLocation, true);
+        WithTER(TileEntityType<? extends T> teType, String name, String particleTextureLocation) {
+            this(teType, name, particleTextureLocation, true);
         }
 
-        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
-            this(teClass, name, boundingBox, particleTextureLocation, true);
+        WithTER(TileEntityType<? extends T> teType, String name, VoxelShape shape, String particleTextureLocation) {
+            this(teType, name, shape, particleTextureLocation, true);
         }
 
-        WithTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
-            super(teClass, name);
+        WithTER(TileEntityType<? extends T> teType, String name, String particleTextureLocation, boolean isFullCube) {
+            super(teType, name);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
 
-        WithTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
-            super(teClass, name, boundingBox);
+        WithTER(TileEntityType<? extends T> teType, String name, VoxelShape shape, String particleTextureLocation, boolean isFullCube) {
+            super(teType, name, shape);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
     }
 
-    static class WithFastTESR<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsFastTESR<T> {
+    static class WithTERAnimation<T extends GroovyTileBasic> extends GroovyMachineProperties<T> implements MachinePropertyTraitsTERAnimation<T> {
 
-        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation) {
-            this(teClass, name, particleTextureLocation, true);
+        WithTERAnimation(TileEntityType<? extends T> teType, String name, String particleTextureLocation) {
+            this(teType, name, particleTextureLocation, true);
         }
 
-        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation) {
-            this(teClass, name, boundingBox, particleTextureLocation, true);
+        WithTERAnimation(TileEntityType<? extends T> teType, String name, VoxelShape shape, String particleTextureLocation) {
+            this(teType, name, shape, particleTextureLocation, true);
         }
 
-        WithFastTESR(Class<T> teClass, String name, String particleTextureLocation, boolean isFullCube) {
-            super(teClass, name);
+        WithTERAnimation(TileEntityType<? extends T> teType, String name, String particleTextureLocation, boolean isFullCube) {
+            super(teType, name);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }
 
-        WithFastTESR(Class<T> teClass, String name, AxisAlignedBB boundingBox, String particleTextureLocation, boolean isFullCube) {
-            super(teClass, name, boundingBox);
+        WithTERAnimation(TileEntityType<? extends T> teType, String name, VoxelShape shape, String particleTextureLocation, boolean isFullCube) {
+            super(teType, name, shape);
             setParticleTextureLocation(particleTextureLocation);
             setIsFullCube(isFullCube);
         }

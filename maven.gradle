@@ -6,25 +6,25 @@ apply plugin: 'signing'
 //COMPANY: Company name or User
 //REPOSITORY_NAME: Git Repository name
 
-def group = "com.thesledgehammer" + "." + project.archivesBaseName
-def semVersion = version_major + '.' + version_minor + '.' + version_patch
-def artifactID = project.archivesBaseName + '_' + project.mcversion
-
+def group = "ooo.thesledgehammer"
+def semVersion = "${version_major}.${version_minor}.${version_patch}"
+def artifactID = "groovymc"
+/*
 jar {
-  classifier = 'universal'
-  manifest {
-		attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
+    archiveClassifier = "universal"
+    manifest {
+        attributes 'FMLAT': project.archivesBaseName + '_at.cfg'
   }
 }
-
+*/
 signing {
   if (project.hasProperty('keystore')) {
     keyStore = System.getenv('keyStore')
     alias = System.getenv('keyStoreAlias')
     storePass = System.getenv('keyStorePass')
     keyPass = System.getenv('keyStoreKeyPass')
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
+    inputFile = jar.getArchiveFile()
+    outputFile = jar.getArchiveFile()
   }
 }
 
@@ -39,8 +39,8 @@ publishing {
 
       pom {
        scm {
-          connection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
-          developerConnection = 'scm:git:git@' + GITHOST + ':' + COMPANY + '/' + REPOSITORY_NAME + '.git'
+         connection = "scm:git:git@${GITHOST}:${COMPANY}/${REPOSITORY_NAME}.git"
+         developerConnection = "scm:git:git@${GITHOST}:${COMPANY}/${REPOSITORY_NAME}.git"
         }
         licenses {
           license {
@@ -59,24 +59,13 @@ publishing {
     }
   }
   repositories {
-    maven {
-      url "https://dl.bintray.com/thesledgehammer/development"
-      url "file://${local_maven}"
-    }
-  }
-}
-
-bintray {
-  //user = System.getenv('bintray_user')
-  //key = System.getenv('bintray_key')
-  user = project.getProperty("bintray_user")
-  key = project.getProperty("bintray_key")
-  publications = ['maven']
-  pkg {
-    repo = 'development'
-    name = project.archivesBaseName
-    version {
-      name = semVersion
-    }
+      maven {
+          name = project.archivesBaseName
+          url = uri('https://maven.pkg.github.com/TheSledgeHammer/'+ REPOSITORY_NAME)
+          credentials {
+              username = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_user")
+              password = project.hasProperty('github_key') ? project.property('github_key') : System.getenv("github_key")
+          }
+      }
   }
 }

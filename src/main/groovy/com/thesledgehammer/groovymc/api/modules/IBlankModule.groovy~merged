@@ -13,19 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+<<<<<<< HEAD
+package com.thesledgehammer.groovymc.api.modules
 
-package com.thesledgehammer.groovymc.client.definitions.model
+<<<<<<< HEAD:src/main/groovy/com/thesledgehammer/groovymc/api/modules/IBlankModule.groovy
+package com.thesledgehammer.groovymc.api.modules
 
-import com.thesledgehammer.groovymc.client.definitions.GroovyDefinitionContext
+=======
 
-abstract class ModelEntryProvider implements IModelProvider {
+package com.thesledgehammer.groovymc.api.modules
 
-    ModelEntryProvider() {
+/* Redesign to better suit 1.14 & beyond */
+>>>>>>> 1.16.x
+interface IBlankModule {
 
-    }
+    void preInit();
 
-    @Override
-    GroovyDefinitionContext GroovyDefinitionContext() {
-        return GroovyDefinitionContext.Instance();
-    }
+    void Init();
+
+    void postInit();
+<<<<<<< HEAD
+=======
+interface ICompatModule {
+
+>>>>>>> 1.16.x:src/main/groovy/com/thesledgehammer/groovymc/api/modules/ICompatModule.groovy
+=======
+>>>>>>> 1.16.x
 }

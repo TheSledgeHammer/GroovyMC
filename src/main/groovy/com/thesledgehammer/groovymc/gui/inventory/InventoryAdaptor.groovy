@@ -12,12 +12,10 @@
 
 package com.thesledgehammer.groovymc.gui.inventory
 
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.TextComponentString
+import net.minecraft.nbt.CompoundNBT
+import net.minecraft.util.Direction
 
 class InventoryAdaptor implements IInventoryAdaptor {
 
@@ -26,17 +24,17 @@ class InventoryAdaptor implements IInventoryAdaptor {
     }
 
     @Override
-    int[] getSlotsForFace(EnumFacing side) {
+    int[] getSlotsForFace(Direction side) {
         return new int[0]
     }
 
     @Override
-    boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         return false
     }
 
     @Override
-    boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         return false
     }
 
@@ -81,17 +79,17 @@ class InventoryAdaptor implements IInventoryAdaptor {
     }
 
     @Override
-    boolean isUsableByPlayer(EntityPlayer player) {
+    boolean isUsableByPlayer(PlayerEntity player) {
         return false
     }
 
     @Override
-    void openInventory(EntityPlayer player) {
+    void openInventory(PlayerEntity player) {
 
     }
 
     @Override
-    void closeInventory(EntityPlayer player) {
+    void closeInventory(PlayerEntity player) {
 
     }
 
@@ -101,48 +99,18 @@ class InventoryAdaptor implements IInventoryAdaptor {
     }
 
     @Override
-    int getField(int id) {
-        return 0
-    }
-
-    @Override
-    void setField(int id, int value) {
-
-    }
-
-    @Override
-    int getFieldCount() {
-        return 0
-    }
-
-    @Override
     void clear() {
 
     }
 
     @Override
-    String getName() {
-        return "";
-    }
-
-    @Override
-    boolean hasCustomName() {
-        return false
-    }
-
-    @Override
-    ITextComponent getDisplayName() {
-        return new TextComponentString(getName());
-    }
-
-    @Override
-    NBTTagCompound serializeNBT() {
-        final NBTTagCompound nbt = new NBTTagCompound();
+    CompoundNBT serializeNBT() {
+        final CompoundNBT nbt = new CompoundNBT();
         return nbt;
     }
 
     @Override
-    void deserializeNBT(NBTTagCompound nbt) {
+    void deserializeNBT(CompoundNBT nbt) {
         this.deserializeNBT(nbt);
     }
 }

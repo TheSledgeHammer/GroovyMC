@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package com.thesledgehammer.groovymc.client.definitions.model
+package com.thesledgehammer.groovymc.items
 
+import net.minecraft.block.Block
+import net.minecraft.item.BlockItem
+import net.minecraft.item.ItemGroup
 
-import net.minecraft.util.ResourceLocation
+class GroovyBlockItem<B extends Block> extends BlockItem {
 
-abstract class ModelEntryHolder extends ModelEntryBakery<ModelEntry, TextureEntry> {
-
-    private final ResourceLocation modelLocation;
-
-    ModelEntryHolder(ResourceLocation modelLocation) {
-        this.modelLocation = modelLocation;
-        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
+    GroovyBlockItem(B block, Properties properties) {
+        super(block, properties);
     }
 
-    ModelEntryHolder(String resourceDomain, String resourcePath) {
-        this(new ResourceLocation(resourceDomain, resourcePath))
-        ModelEntryHolderManager.Instance().ENTRY_HOLDERS().add(this);
+    GroovyBlockItem(B block, Properties properties, ItemGroup itemGroup) {
+        super(block, properties.group(itemGroup));
+    }
+
+    GroovyBlockItem(B block, ItemGroup itemGroup) {
+        super(block, new Properties().group(itemGroup));
     }
 }

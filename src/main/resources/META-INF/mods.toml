@@ -1,0 +1,17 @@
+modLoader="groovyfml"
+loaderVersion="[4,)"
+issueTrackerURL="https://github.com/TheSledgeHammer/GroovyMC/issues"
+license=" Apache Licence Version 2.0"
+
+[[mods]]
+    modId="groovymc"
+    version="${version}"
+    displayName="GroovyMC"
+    updateJSONURL="https://github.com/TheSledgeHammer/GroovyMC/blob/1.16.x/update.json" #optional
+    displayURL="https://github.com/TheSledgeHammer/GroovyMC"
+    #logoFile="groovymclogo.png"
+    credits="Apache Groovy"
+    authors="TheSledgeHammer"
+    description='''
+    An Apache Groovy Compatibility Library
+    '''

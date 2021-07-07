@@ -14,57 +14,42 @@ package com.thesledgehammer.groovymc.blocks.properties
 import com.thesledgehammer.groovymc.api.IInitModel
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
 import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
+import net.minecraft.block.BlockState
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.IStringSerializable
-import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.RayTraceResult
-import net.minecraft.util.math.Vec3d
-import net.minecraft.world.IBlockAccess
-import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraft.util.math.shapes.VoxelShape
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
 
 import javax.annotation.Nullable
 
 interface IMachineProperties<T extends GroovyTileBasic> extends IStringSerializable, IInitModel {
 
-    void setTeClass(Class<T> teClass);
+    void setTeType(TileEntityType<? extends T> teType);
 
     void setBlock(Block block);
 
     void setName(String name);
 
+    void setVoxelShape(VoxelShape shape);
+
     void setIsFullCube(boolean isFullCube);
 
-    void setAxisAlignedBB(AxisAlignedBB boundingBox);
-
-    void setRayTraceResult(RayTraceResult rayTraceResult);
-
-    Class<T> getTeClass();
+    TileEntityType<? extends T> getTeType();
 
     @Nullable
     Block getBlock();
 
-    String getName();
+    VoxelShape getShape();
 
-    boolean getIsFullCube();
-
-    boolean isFullCube(IBlockState state);
-
-    AxisAlignedBB getBoundingBox(IBlockAccess world, BlockPos pos, IBlockState state);
-
-    @Nullable
-    RayTraceResult collisionRayTrace(World world, BlockPos pos, IBlockState state, Vec3d startVec, Vec3d endVec);
+    boolean isFullCube(BlockState state);
 
     @Override
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     void initModel();
 
-    void registerTileEntity();
+    boolean hasTileEntity(BlockState state)
 
-    void registerTileEntity(String modID);
-
-    TileEntity CreateTileEntity();
+    TileEntity createNewTileEntity();
 }

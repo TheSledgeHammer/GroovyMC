@@ -4,13 +4,19 @@
 <p align="center">
     <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/full_312384_downloads.svg" /></a>
     <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/packs/full_312384_in_packs.svg" /></a>
-    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/mods/312384.svg" /></a>
-    <a href="https://minecraft.curseforge.com/projects/groovymc-library"><img src="http://cf.way2muchnoise.eu/versions/312384.svg" /></a>
 </p>
 
-A mod library used in my other mods both existing and upcoming.
+A mod library that is can used as generic infrastructure to other mods.
 
 The library is useful for any mod developer wishing to utilize features within Apache Groovy without having to start their own mod from scratch.
+
+As of 1.16 onwards all Model API's previously apart of this mod have been seperated
+into a new Mod called GroovyModels.
+
+Please refer to GroovyModels link below.
+
+GroovyModels Repository:
+https://github.com/TheSledgeHammer/GroovyModels
 
 ### Getting Started:
 Please initialize the "GroovyLoader" in your main class or common proxy class.
@@ -24,6 +30,7 @@ Provides a lot of built in functions and functions that have been auto-completed
 For a complete example look at the GroovyMC class.
 
 ### Build Gradle Environment:
+
 Maven Repository:
 Add the following to your build.Gradle
 ```
@@ -35,9 +42,10 @@ repositories {
 }
 
 dependencies {
-	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.12.2:+:universal"
+	compile "com.thesledgehammer.GroovyMC:GroovyMC_1.16.x:+:universal"
 }
 ```
+/* Note: x equals the Minecraft Versions (e.g. x = 3 for Minecraft 1.16.3) */
 
 ### Apache License v2.0:
 

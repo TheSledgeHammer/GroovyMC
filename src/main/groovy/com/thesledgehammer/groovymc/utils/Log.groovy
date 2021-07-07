@@ -23,34 +23,34 @@ import org.apache.logging.log4j.Level
 class Log {
 
     static void log(Level logLevel, String message) {
-        GroovyMC.logger.log(logLevel, message);
+        GroovyMC.LOGGER.log(logLevel, message);
     }
 
     static void log(Level logLevel, String message, Object e) {
-        GroovyMC.logger.log(logLevel, message, e);
+        GroovyMC.LOGGER.log(logLevel, message, e);
     }
 
     static void logInfo(String message){
-        GroovyMC.logger.info(message);
+        GroovyMC.LOGGER.info(message);
     }
 
     static void logWarn(String message) {
-        GroovyMC.logger.warn(message);
+        GroovyMC.LOGGER.warn(message);
     }
 
     static void logFatal(String message) {
-        GroovyMC.logger.fatal(message);
+        GroovyMC.LOGGER.fatal(message);
     }
 
     static void logDebug(String message) {
-        GroovyMC.logger.debug(message);
+        GroovyMC.LOGGER.debug(message);
     }
 
     static void logError(String string) {
-        GroovyMC.logger.error(string);
+        GroovyMC.LOGGER.error(string);
     }
 
     static void logError(String string, ItemStack stack) {
-        GroovyMC.logger.error(string, stack);
+        GroovyMC.LOGGER.error(string, stack);
     }
 }

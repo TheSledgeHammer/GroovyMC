@@ -12,22 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Based from Forestry's IMachinePropertiesTesr
  */
+
 package com.thesledgehammer.groovymc.blocks.properties
 
 import com.thesledgehammer.groovymc.tiles.GroovyTileBasic
-import net.minecraftforge.client.model.animation.FastTESR
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.client.model.animation.TileEntityRendererAnimation
 
-interface IMachinePropertiesFastTESR<T extends GroovyTileBasic> extends IMachineProperties<T> {
+interface IMachinePropertiesTERAnimation<T extends GroovyTileBasic> extends IMachineProperties<T> {
 
     void setParticleTextureLocation(String particleTextureLocation);
 
     String getParticleTextureLocation();
 
-    @SideOnly(Side.CLIENT)
-    void setRenderer(FastTESR<? super T> rendererFast)
+    @OnlyIn(Dist.CLIENT)
+    void setRenderer(TileEntityRendererAnimation < ? super T > rendererAnimation);
 }

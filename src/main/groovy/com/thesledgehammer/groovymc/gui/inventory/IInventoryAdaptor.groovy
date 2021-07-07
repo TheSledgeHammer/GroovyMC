@@ -13,9 +13,9 @@
 package com.thesledgehammer.groovymc.gui.inventory
 
 import net.minecraft.inventory.ISidedInventory
-import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.CompoundNBT
 import net.minecraftforge.common.util.INBTSerializable
 
-interface IInventoryAdaptor extends ISidedInventory, INBTSerializable<NBTTagCompound> {
+interface IInventoryAdaptor extends ISidedInventory, INBTSerializable<CompoundNBT> {
 
 }
