@@ -1,6 +1,7 @@
 package com.thesledgehammer.groovymc
 
 import com.thesledgehammer.groovymc.api.GroovyLoader
+import com.thesledgehammer.groovymc.api.minecraftjoules.CapabilityMj
 import com.thesledgehammer.groovymc.config.Constants
 import com.thesledgehammer.groovymc.modules.ModuleContainerManager
 import net.minecraftforge.common.MinecraftForge
@@ -8,6 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.fml.ModContainer
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import ooo.thesledgehammer.groovyforge.FMLGroovyModLoadingContext
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,19 +18,15 @@ import org.apache.logging.log4j.Logger
 class GroovyMC {
 
 	static GroovyMC INSTANCE;
-	static ModContainer MOD_CONTAINER;
 
 	static final Logger LOGGER = LogManager.getLogger();
 
 	GroovyMC() {
 		INSTANCE = this;
-//		MOD_CONTAINER = ModLoadingContext.get().getActiveContainer();
-		//IEventBus eventBus = FMLGroovyModLoadingContext.get().getModEventBus();
+		MinecraftForge.EVENT_BUS.register(INSTANCE);
 		PreInit();
 		Init();
 		PostInit();
-		MinecraftForge.EVENT_BUS.register(this);
-		//Register.Init(FMLGroovyModLoadingContext.get().getModEventBus());
 	}
 
 	static void PreInit() {

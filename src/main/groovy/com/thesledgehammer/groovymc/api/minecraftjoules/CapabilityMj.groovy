@@ -17,6 +17,7 @@
 package com.thesledgehammer.groovymc.api.minecraftjoules
 
 import com.thesledgehammer.groovymc.compat.minecraftjoules.MinecraftJoulesStorage
+import net.minecraft.nbt.CompoundNBT
 import net.minecraft.nbt.INBT
 import net.minecraft.nbt.LongNBT
 import net.minecraft.util.Direction
@@ -24,9 +25,16 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.CapabilityManager
 
+import java.lang.invoke.MethodHandleImpl
+
 class CapabilityMj {
+
     @CapabilityInject(IMjStorage.class)
     static Capability<IMjStorage> MJ_STORAGE = null;
+
+    static void register1() {
+        CapabilityManager.INSTANCE.register(IMjStorage.class, new NullStorage<>(), MinecraftJoulesStorage::new);
+    }
 
     static void register() {
         CapabilityManager.INSTANCE.register(IMjStorage.class, new Capability.IStorage<IMjStorage>() {
@@ -43,5 +51,17 @@ class CapabilityMj {
                 ((MinecraftJoulesStorage) instance).mjEnergy = ((LongNBT) nbt).getLong();
             }
         }, { -> new MinecraftJoulesStorage(1000 * MjTools.MJ) });
+    }
+
+    static class NullStorage<T> implements Capability.IStorage<T> {
+
+        @Override
+        INBT writeNBT(Capability<T> capability, T instance, Direction side) {
+            return new CompoundNBT();
+        }
+
+        @Override
+        void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {
+        }
     }
 }

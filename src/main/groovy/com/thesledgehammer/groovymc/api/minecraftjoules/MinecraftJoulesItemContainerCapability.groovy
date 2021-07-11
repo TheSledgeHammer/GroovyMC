@@ -23,7 +23,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 
 class MinecraftJoulesItemContainerCapability extends MinecraftJouleItemContainer {
 
-    MinecraftJoulesItemContainerCapability(Item.Properties properties) {
+    MinecraftJoulesItemContainerCapability(Properties properties) {
         super(properties)
     }
 

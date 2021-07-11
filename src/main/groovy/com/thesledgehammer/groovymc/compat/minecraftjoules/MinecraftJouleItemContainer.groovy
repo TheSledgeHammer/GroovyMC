@@ -26,19 +26,19 @@ class MinecraftJouleItemContainer extends Item implements IMjStorageItem {
     protected long maxExtract;
     protected long maxReceive;
 
-    MinecraftJouleItemContainer(Item.Properties properties) {
+    MinecraftJouleItemContainer(Properties properties) {
         super(properties);
     }
 
-    MinecraftJouleItemContainer(Item.Properties properties, long maxCapacity) {
+    MinecraftJouleItemContainer(Properties properties, long maxCapacity) {
         this(properties, maxCapacity, maxCapacity, maxCapacity);
     }
 
-    MinecraftJouleItemContainer(Item.Properties properties, long maxCapacity, long maxTransfer) {
+    MinecraftJouleItemContainer(Properties properties, long maxCapacity, long maxTransfer) {
         this(properties, maxCapacity, maxTransfer, maxTransfer);
     }
 
-    MinecraftJouleItemContainer(Item.Properties properties, long maxCapacity, long maxReceive, long maxExtract) {
+    MinecraftJouleItemContainer(Properties properties, long maxCapacity, long maxReceive, long maxExtract) {
         super(properties);
         setCapacity(maxCapacity);
         setMaxReceive(maxReceive);
